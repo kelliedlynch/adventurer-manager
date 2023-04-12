@@ -1,0 +1,347 @@
+[gd_scene load_steps=9 format=3 uid="uid://h1hbwsorhapu"]
+
+[ext_resource type="Theme" uid="uid://b76um80mwme7i" path="res://UITheme/main_ui_theme.tres" id="1_p2o73"]
+[ext_resource type="Script" path="res://Scenes/HeroRoster/HeroRoster.cs" id="2_sogsl"]
+[ext_resource type="StyleBox" uid="uid://cvtl7n0pskkik" path="res://UITheme/flat_panel_inset_light_beige.tres" id="3_186u3"]
+[ext_resource type="Script" path="res://Scenes/HeroRoster/HeroRosterEntry.cs" id="4_5hrr4"]
+[ext_resource type="Texture2D" uid="uid://cxyo67whugdu7" path="res://Assets/Images/HeroPortraits/cleric_portrait.png" id="5_hqeks"]
+[ext_resource type="Texture2D" uid="uid://db5kou3q76rbo" path="res://Assets/Images/HeroPortraits/wizard_portrait.png" id="6_lkep0"]
+[ext_resource type="Texture2D" uid="uid://elnel87erwdj" path="res://Assets/Images/HeroPortraits/rogue_portrait.png" id="7_g2pha"]
+[ext_resource type="Texture2D" uid="uid://bx25joi7ee6gg" path="res://Assets/Images/HeroPortraits/fighter_portrait.png" id="8_512d8"]
+
+[node name="HeroRoster" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_p2o73")
+script = ExtResource("2_sogsl")
+MenuTitle = "Hero Roster"
+
+[node name="MenuOuterContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuTitleLabel" type="Label" parent="MenuOuterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"LightText"
+text = "Hero Roster"
+
+[node name="MenuBodyContainer" type="ScrollContainer" parent="MenuOuterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuItemsContainer" type="VBoxContainer" parent="MenuOuterContainer/MenuBodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="@@59985" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@59980" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59985"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59981" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59985/@@59980"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("5_hqeks")
+expand_mode = 5
+
+[node name="@@59982" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59985/@@59980"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Remi"
+
+[node name="@@59983" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59985/@@59980"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Cleric"
+
+[node name="@@59984" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59985/@@59980"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 8"
+
+[node name="@@59991" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@59986" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59991"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59987" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59991/@@59986"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("5_hqeks")
+expand_mode = 5
+
+[node name="@@59988" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59991/@@59986"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Alexis"
+
+[node name="@@59989" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59991/@@59986"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Cleric"
+
+[node name="@@59990" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59991/@@59986"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 8"
+
+[node name="@@59997" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@59992" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59997"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59993" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59997/@@59992"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("5_hqeks")
+expand_mode = 5
+
+[node name="@@59994" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59997/@@59992"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Quinn"
+
+[node name="@@59995" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59997/@@59992"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Cleric"
+
+[node name="@@59996" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@59997/@@59992"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 1"
+
+[node name="@@60003" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@59998" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60003"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59999" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60003/@@59998"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("6_lkep0")
+expand_mode = 5
+
+[node name="@@60000" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60003/@@59998"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Morgan"
+
+[node name="@@60001" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60003/@@59998"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Wizard"
+
+[node name="@@60002" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60003/@@59998"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 6"
+
+[node name="@@60009" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@60004" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60009"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@60005" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60009/@@60004"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("7_g2pha")
+expand_mode = 5
+
+[node name="@@60006" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60009/@@60004"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Rey"
+
+[node name="@@60007" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60009/@@60004"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Rogue"
+
+[node name="@@60008" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60009/@@60004"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 5"
+
+[node name="@@60015" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@60010" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60015"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@60011" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60015/@@60010"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("8_512d8")
+expand_mode = 5
+
+[node name="@@60012" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60015/@@60010"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Sloan"
+
+[node name="@@60013" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60015/@@60010"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Fighter"
+
+[node name="@@60014" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60015/@@60010"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 3"
+
+[node name="@@60021" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@60016" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60021"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@60017" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60021/@@60016"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("6_lkep0")
+expand_mode = 5
+
+[node name="@@60018" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60021/@@60016"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Noel"
+
+[node name="@@60019" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60021/@@60016"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Wizard"
+
+[node name="@@60020" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60021/@@60016"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 7"
+
+[node name="@@60027" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@60022" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60027"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@60023" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60027/@@60022"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("8_512d8")
+expand_mode = 5
+
+[node name="@@60024" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60027/@@60022"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Jordan"
+
+[node name="@@60025" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60027/@@60022"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Fighter"
+
+[node name="@@60026" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60027/@@60022"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 1"
+
+[node name="@@60033" type="PanelContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_186u3")
+script = ExtResource("4_5hrr4")
+
+[node name="@@60028" type="HBoxContainer" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60033"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@60029" type="TextureRect" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60033/@@60028"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("7_g2pha")
+expand_mode = 5
+
+[node name="@@60030" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60033/@@60028"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "London"
+
+[node name="@@60031" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60033/@@60028"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Rogue"
+
+[node name="@@60032" type="Label" parent="MenuOuterContainer/MenuBodyContainer/MenuItemsContainer/@@60033/@@60028"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Lv. 6"

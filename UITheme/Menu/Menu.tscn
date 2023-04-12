@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsjhqqlmnfqdl"]
+
+[ext_resource type="Theme" path="res://UITheme/main_ui_theme.tres" id="1_csyy7"]
+[ext_resource type="Script" path="res://UITheme/Menu/Menu.cs" id="2_1kwig"]
+
+[node name="Menu" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_csyy7")
+script = ExtResource("2_1kwig")

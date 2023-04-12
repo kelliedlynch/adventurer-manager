@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[MonoCustomResourceRegistry]
+
+ClassPrefix=""
+SearchType=0
+ResourceScriptDirectories=["res://"]
+
+[application]
+
+config/name="Adventurer Manager"
+run/main_scene="res://Scenes/HeroRoster/HeroRoster.tscn"
+config/features=PackedStringArray("4.0", "C#", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+ResourcePath="*res://UITheme/ResourcePath.cs"
+
+[dotnet]
+
+project/assembly_name="Adventurer Manager"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MonoCustomResourceRegistry/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

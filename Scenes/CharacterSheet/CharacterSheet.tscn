@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://brwl783mvp13h"]
+
+[ext_resource type="Theme" uid="uid://b76um80mwme7i" path="res://UITheme/main_ui_theme.tres" id="1_wxh5e"]
+[ext_resource type="Script" path="res://Scenes/CharacterSheet/CharacterSheet.cs" id="2_waxm7"]
+[ext_resource type="Texture2D" uid="uid://elnel87erwdj" path="res://Assets/Images/HeroPortraits/rogue_portrait.png" id="3_7kj5v"]
+
+[node name="CharacterSheet" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wxh5e")
+theme_type_variation = &"LtBeigePanel"
+script = ExtResource("2_waxm7")
+
+[node name="@@59921" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="@@59922" type="HBoxContainer" parent="@@59921"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59923" type="TextureRect" parent="@@59921/@@59922"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("3_7kj5v")
+expand_mode = 5
+
+[node name="@@59924" type="VBoxContainer" parent="@@59921/@@59922"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59925" type="HBoxContainer" parent="@@59921/@@59922/@@59924"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59926" type="Label" parent="@@59921/@@59922/@@59924/@@59925"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Riley"
+
+[node name="@@59927" type="Label" parent="@@59921/@@59922/@@59924/@@59925"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Level 5"
+
+[node name="@@59928" type="Label" parent="@@59921/@@59922/@@59924/@@59925"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rogue"
+
+[node name="@@59929" type="HBoxContainer" parent="@@59921/@@59922/@@59924"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="@@59930" type="Label" parent="@@59921/@@59922/@@59924/@@59929"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Other information can go here, but I don't know what yet"

@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://iw6f3t5qf676"]
+
+[ext_resource type="StyleBox" uid="uid://cvtl7n0pskkik" path="res://UITheme/flat_panel_inset_light_beige.tres" id="1_5ofvv"]
+[ext_resource type="Script" path="res://Scenes/HeroRoster/HeroRosterEntry.cs" id="1_fjkyr"]
+
+[node name="HeroRosterEntry" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("1_5ofvv")
+script = ExtResource("1_fjkyr")
+
+[node name="EntryContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="EntryContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+expand_mode = 5
+
+[node name="NameLabel" type="Label" parent="EntryContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="HatLabel" type="Label" parent="EntryContainer"]
+layout_mode = 2
+text = "Class"
+
+[node name="LevelLabel" type="Label" parent="EntryContainer"]
+layout_mode = 2
+text = "Lv. 1"
