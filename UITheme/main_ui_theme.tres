@@ -1,16 +1,28 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b76um80mwme7i"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b3nnla4gofcr2"]
 
-[ext_resource type="StyleBox" uid="uid://cvtl7n0pskkik" path="res://UITheme/flat_panel_inset_light_beige.tres" id="1_5dy1i"]
-[ext_resource type="StyleBox" path="res://UITheme/flat_panel_brown.tres" id="1_o1yh3"]
+[ext_resource type="StyleBox" path="res://UITheme/panel_inset_beige.tres" id="1_yhr84"]
+[ext_resource type="StyleBox" uid="uid://bmm6fw8shwcok" path="res://UITheme/panel_inset_brown.tres" id="2_orxoi"]
+[ext_resource type="StyleBox" uid="uid://dtkjmmdveca42" path="res://UITheme/panel_inset_grey.tres" id="3_qrn2u"]
+[ext_resource type="StyleBox" uid="uid://cvtl7n0pskkik" path="res://UITheme/panel_inset_ltbeige.tres" id="4_j3fx2"]
+[ext_resource type="StyleBox" uid="uid://b3sxlph01d0cr" path="res://UITheme/panel_raised_grey.tres" id="4_odtj6"]
+[ext_resource type="StyleBox" uid="uid://bhemxf3x6g0og" path="res://UITheme/panel_raised_brown.tres" id="5_ub8in"]
 
 [resource]
 BeigePanel/base_type = &"PanelContainer"
+BeigePanel/styles/panel = ExtResource("1_yhr84")
+BrownButton/base_type = &"Button"
+BrownButton/styles/normal = ExtResource("5_ub8in")
 BrownPanel/base_type = &"PanelContainer"
+BrownPanel/styles/panel = ExtResource("2_orxoi")
+GreyButton/base_type = &"Button"
+GreyButton/styles/normal = ExtResource("4_odtj6")
+GreyPanel/base_type = &"PanelContainer"
+GreyPanel/styles/panel = ExtResource("3_qrn2u")
 HBoxContainer/constants/separation = 12
 Label/colors/font_color = Color(0.298039, 0.168627, 0.0392157, 1)
 LightText/base_type = &"Label"
 LightText/colors/font_color = Color(1, 1, 1, 1)
 LightText/colors/font_outline_color = Color(0.298039, 0.168627, 0.0392157, 1)
 LtBeigePanel/base_type = &"PanelContainer"
-LtBeigePanel/styles/panel = ExtResource("1_5dy1i")
-PanelContainer/styles/panel = ExtResource("1_o1yh3")
+LtBeigePanel/styles/panel = ExtResource("4_j3fx2")
+PanelContainer/styles/panel = ExtResource("5_ub8in")

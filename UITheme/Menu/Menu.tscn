@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsjhqqlmnfqdl"]
 
-[ext_resource type="Theme" path="res://UITheme/main_ui_theme.tres" id="1_csyy7"]
+[ext_resource type="Theme" uid="uid://b3nnla4gofcr2" path="res://UITheme/main_ui_theme.tres" id="1_csyy7"]
 [ext_resource type="Script" path="res://UITheme/Menu/Menu.cs" id="2_1kwig"]
 
 [node name="Menu" type="PanelContainer"]
@@ -10,4 +10,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_csyy7")
+theme_type_variation = &"BeigePanel"
 script = ExtResource("2_1kwig")
+
+[node name="MenuOuterContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuTitleContainer" type="PanelContainer" parent="MenuOuterContainer"]
+layout_mode = 2
+theme_type_variation = &"BrownPanel"
+
+[node name="MenuTitleLabel" type="Label" parent="MenuOuterContainer/MenuTitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"LightText"
+text = "Menu Title"
+
+[node name="MenuBodyContainer" type="ScrollContainer" parent="MenuOuterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuItemsContainer" type="VBoxContainer" parent="MenuOuterContainer/MenuBodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

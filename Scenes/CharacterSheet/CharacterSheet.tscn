@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://brwl783mvp13h"]
 
-[ext_resource type="Theme" uid="uid://b76um80mwme7i" path="res://UITheme/main_ui_theme.tres" id="1_wxh5e"]
+[ext_resource type="Theme" uid="uid://b3nnla4gofcr2" path="res://UITheme/main_ui_theme.tres" id="1_wxh5e"]
 [ext_resource type="Script" path="res://Scenes/CharacterSheet/CharacterSheet.cs" id="2_waxm7"]
-[ext_resource type="Texture2D" uid="uid://elnel87erwdj" path="res://Assets/Images/HeroPortraits/rogue_portrait.png" id="3_7kj5v"]
+[ext_resource type="Texture2D" uid="uid://cxyo67whugdu7" path="res://Assets/Images/HeroPortraits/cleric_portrait.png" id="3_tf7tq"]
 
 [node name="CharacterSheet" type="PanelContainer"]
 anchors_preset = 15
@@ -11,54 +11,69 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_wxh5e")
-theme_type_variation = &"LtBeigePanel"
+theme_type_variation = &"BeigePanel"
 script = ExtResource("2_waxm7")
 
-[node name="@@59921" type="VBoxContainer" parent="."]
+[node name="SheetContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="@@59922" type="HBoxContainer" parent="@@59921"]
+[node name="HeaderContainer" type="HBoxContainer" parent="SheetContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="@@59923" type="TextureRect" parent="@@59921/@@59922"]
+[node name="Portrait" type="TextureRect" parent="SheetContainer/HeaderContainer"]
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture = ExtResource("3_7kj5v")
+texture = ExtResource("3_tf7tq")
 expand_mode = 5
 
-[node name="@@59924" type="VBoxContainer" parent="@@59921/@@59922"]
+[node name="HeaderTextContainer" type="VBoxContainer" parent="SheetContainer/HeaderContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="@@59925" type="HBoxContainer" parent="@@59921/@@59922/@@59924"]
+[node name="HeaderTextLine1" type="HBoxContainer" parent="SheetContainer/HeaderContainer/HeaderTextContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="@@59926" type="Label" parent="@@59921/@@59922/@@59924/@@59925"]
+[node name="NameLabel" type="Label" parent="SheetContainer/HeaderContainer/HeaderTextContainer/HeaderTextLine1"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Riley"
+text = "Chris"
 
-[node name="@@59927" type="Label" parent="@@59921/@@59922/@@59924/@@59925"]
+[node name="LevelLabel" type="Label" parent="SheetContainer/HeaderContainer/HeaderTextContainer/HeaderTextLine1"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "Level 5"
+text = "Level 1"
 
-[node name="@@59928" type="Label" parent="@@59921/@@59922/@@59924/@@59925"]
+[node name="HatLabel" type="Label" parent="SheetContainer/HeaderContainer/HeaderTextContainer/HeaderTextLine1"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Rogue"
+text = "Cleric"
 
-[node name="@@59929" type="HBoxContainer" parent="@@59921/@@59922/@@59924"]
+[node name="HeaderTextLine2" type="HBoxContainer" parent="SheetContainer/HeaderContainer/HeaderTextContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="@@59930" type="Label" parent="@@59921/@@59922/@@59924/@@59929"]
+[node name="OtherInfoLabel" type="Label" parent="SheetContainer/HeaderContainer/HeaderTextContainer/HeaderTextLine2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Other information can go here, but I don't know what yet"
+
+[node name="FooterContainer" type="HBoxContainer" parent="SheetContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="DeleteButton" type="Button" parent="SheetContainer/FooterContainer"]
+layout_mode = 2
+theme_type_variation = &"BrownButton"
+text = "Delete
+"
+
+[node name="DialogContainer" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4

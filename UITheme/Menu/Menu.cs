@@ -33,56 +33,46 @@ public partial class Menu : PanelContainer
 	[Signal]
 	public delegate void ShowTitleChangedEventHandler(bool isVisible);
 	
-	private VBoxContainer _menuOuterContainer = new();
-	private Label _menuTitleLabel = new();
+	private VBoxContainer _menuOuterContainer;
+	private Label _menuTitleLabel;
 
-	private ScrollContainer _menuBodyContainer = new();
-	protected VBoxContainer MenuItemsContainer = new();
+	private ScrollContainer _menuBodyContainer;
+	protected VBoxContainer MenuItemsContainer;
 
 	public Menu()
 	{
-		if (Engine.IsEditorHint())
-		{
-			foreach (var child in GetChildren())
-			{
-				child.QueueFree();
-			}
-		}
-
-
 		Theme = ResourceLoader.Load<Theme>(ResourcePath.Theme);
 
-		_menuOuterContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-		_menuOuterContainer.SizeFlagsVertical = SizeFlags.ExpandFill;
-		AddChild(_menuOuterContainer);
-		_menuOuterContainer.Owner = this;
-		_menuOuterContainer.Name = "MenuOuterContainer";
+		// _menuOuterContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+		// _menuOuterContainer.SizeFlagsVertical = SizeFlags.ExpandFill;
+		// AddChild(_menuOuterContainer);
+		// _menuOuterContainer.Owner = this;
+		// _menuOuterContainer.Name = "MenuOuterContainer";
 
-		_menuTitleLabel.Text = _menuTitle;
-		_menuTitleLabel.SizeFlagsHorizontal = SizeFlags.ShrinkCenter;
-		// _menuTitleLabel.SizeFlagsVertical = SizeFlags.Expand;
-		// _menuTitleLabel.Position = Vector2.Zero;
-		_menuTitleLabel.ThemeTypeVariation = "LightText";
-		_menuOuterContainer.AddChild(_menuTitleLabel);
-		_menuTitleLabel.Owner = this;
-		_menuTitleLabel.Name = "MenuTitleLabel";
+		// _menuTitleLabel.Text = _menuTitle;
+		// _menuTitleLabel.SizeFlagsHorizontal = SizeFlags.ShrinkCenter;
+		// // _menuTitleLabel.SizeFlagsVertical = SizeFlags.Expand;
+		// // _menuTitleLabel.Position = Vector2.Zero;
+		// _menuTitleLabel.ThemeTypeVariation = "LightText";
+		// _menuOuterContainer.AddChild(_menuTitleLabel);
+		// _menuTitleLabel.Owner = this;
+		// _menuTitleLabel.Name = "MenuTitleLabel";
 
-		MenuTitleChanged += OnMenuTitleChanged;
-		ShowTitleChanged += OnShowTitleChanged;
+
 		
-		_menuBodyContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-		_menuBodyContainer.SizeFlagsVertical = SizeFlags.ExpandFill;
-		// var stylebox = ResourceLoader.Load<StyleBox>(ResourcePath.Content.Medium);
-		// _menuBodyContainer.AddThemeStyleboxOverride("panel", stylebox);
-		_menuOuterContainer.AddChild(_menuBodyContainer);
-		_menuBodyContainer.Owner = this;
-		_menuBodyContainer.Name = "MenuBodyContainer";
+		// _menuBodyContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+		// _menuBodyContainer.SizeFlagsVertical = SizeFlags.ExpandFill;
+		// // var stylebox = ResourceLoader.Load<StyleBox>(ResourcePath.Content.Medium);
+		// // _menuBodyContainer.AddThemeStyleboxOverride("panel", stylebox);
+		// _menuOuterContainer.AddChild(_menuBodyContainer);
+		// _menuBodyContainer.Owner = this;
+		// _menuBodyContainer.Name = "MenuBodyContainer";
 
-		MenuItemsContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-		MenuItemsContainer.SizeFlagsVertical = SizeFlags.ExpandFill;
-		_menuBodyContainer.AddChild(MenuItemsContainer);
-		MenuItemsContainer.Owner = this;
-		MenuItemsContainer.Name = "MenuItemsContainer";
+		// MenuItemsContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+		// MenuItemsContainer.SizeFlagsVertical = SizeFlags.ExpandFill;
+		// _menuBodyContainer.AddChild(MenuItemsContainer);
+		// MenuItemsContainer.Owner = this;
+		// MenuItemsContainer.Name = "MenuItemsContainer";
 
 		// for (var i = 0; i < 5; i++)
 		// {
@@ -109,6 +99,18 @@ public partial class Menu : PanelContainer
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_menuOuterContainer = FindChild("MenuOuterContainer", true, false) as VBoxContainer;
+		_menuTitleLabel = FindChild("MenuTitleLabel", true, false) as Label;
+		_menuBodyContainer = FindChild("MenuBodyContainer", true, false) as ScrollContainer;
+		MenuItemsContainer = FindChild("MenuItemsContainer", true, false) as VBoxContainer;
+
+		foreach (Node node in MenuItemsContainer.GetChildren())
+		{
+			node.QueueFree();
+		}
+		
+		MenuTitleChanged += OnMenuTitleChanged;
+		ShowTitleChanged += OnShowTitleChanged;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

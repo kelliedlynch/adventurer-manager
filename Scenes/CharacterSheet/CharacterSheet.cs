@@ -6,65 +6,33 @@ public partial class CharacterSheet : PanelContainer
 {
     private int _portraitSize = 180;
 
-    private VBoxContainer _sheetContainer = new();
-    private HBoxContainer _headerContainer = new();
-    private TextureRect _portrait = new();
-    private VBoxContainer _headerTextContainer = new();
-    private HBoxContainer _headerTextLine1 = new();
-    private Label _nameLabel = new();
-    private Label _levelLabel = new();
-    private Label _hatLabel = new();
-    private HBoxContainer _headerTextLine2 = new();
-    private Label _otherInfoLabel = new();
+    private VBoxContainer _sheetContainer;
+    private HBoxContainer _headerContainer;
+    private TextureRect _portrait;
+    private VBoxContainer _headerTextContainer;
+    private HBoxContainer _headerTextLine1;
+    private Label _nameLabel;
+    private Label _levelLabel;
+    private Label _hatLabel;
+    private HBoxContainer _headerTextLine2;
+    private Label _otherInfoLabel;
+    private Button _deleteButton;
+    private Control _dialogContainer;
     
-
-    public CharacterSheet()
+    public override void _Ready()
     {
-        _sheetContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _sheetContainer.SizeFlagsVertical = SizeFlags.ExpandFill;
-        AddChild(_sheetContainer);
-        _sheetContainer.Owner = this;
+        _portrait = FindChild("Portrait", true, false) as TextureRect;
+        _nameLabel = FindChild("NameLabel", true, false) as Label;
+        _levelLabel = FindChild("LevelLabel", true, false) as Label;
+        _hatLabel = FindChild("HatLabel", true, false) as Label;
+        _otherInfoLabel = FindChild("OtherInfoLabel", true, false) as Label;
+        _deleteButton = FindChild("DeleteButton", true, false) as Button;
+        _dialogContainer = FindChild("DialogContainer", true, false) as Control;
 
-        _headerContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _sheetContainer.AddChild(_headerContainer);
-        _headerContainer.Owner = this;
+        _dialogContainer.CustomMinimumSize = GetViewportRect().Size / 2;
+        _dialogContainer.SizeFlagsHorizontal = SizeFlags.ShrinkCenter;
+        _dialogContainer.SizeFlagsVertical = SizeFlags.ShrinkCenter;
         
-        _portrait.ExpandMode = TextureRect.ExpandModeEnum.FitHeightProportional;
-        _portrait.Size = new Vector2(_portraitSize, _portraitSize);
-        _portrait.CustomMinimumSize = new Vector2(_portraitSize, _portraitSize);
-        _portrait.SizeFlagsHorizontal = SizeFlags.ShrinkBegin;
-        _portrait.SizeFlagsVertical = SizeFlags.ShrinkCenter;
-        _headerContainer.AddChild(_portrait);
-        _portrait.Owner = this;
-
-        _headerTextContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _headerContainer.AddChild(_headerTextContainer);
-        _headerTextContainer.Owner = this;
-
-        _headerTextLine1.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _headerTextContainer.AddChild(_headerTextLine1);
-        _headerTextLine1.Owner = this;
-
-        _nameLabel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _headerTextLine1.AddChild(_nameLabel);
-        _nameLabel.Owner = this;
-
-        _levelLabel.SizeFlagsHorizontal = SizeFlags.ShrinkEnd;
-        _headerTextLine1.AddChild(_levelLabel);
-        _levelLabel.Owner = this;
-        
-        _hatLabel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _headerTextLine1.AddChild(_hatLabel);
-        _hatLabel.Owner = this;
-        
-        _headerTextLine2.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _headerTextContainer.AddChild(_headerTextLine2);
-        _headerTextLine2.Owner = this;
-
-        _otherInfoLabel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _headerTextLine2.AddChild(_otherInfoLabel);
-        _otherInfoLabel.Owner = this;
-
         if (Engine.IsEditorHint())
         {
             var rng = new RandomNumberGenerator();
@@ -73,18 +41,35 @@ public partial class CharacterSheet : PanelContainer
             InitWithData(hero);
         }
     }
-    
-    public CharacterSheet(Hero hero) : this()
-    {
-        InitWithData(hero);
-    }
 
-    private void InitWithData(Hero hero)
+    public void InitWithData(Hero hero)
     {
         _portrait.Texture = GD.Load<Texture2D>(hero.PortraitPath);
         _nameLabel.Text = hero.Name;
         _levelLabel.Text = "Level " + hero.Level;
         _hatLabel.Text = hero.Hat;
         _otherInfoLabel.Text = "Other information can go here, but I don't know what yet";
+        // void PressedEventHandler() => OnDeleteButtonPressed(hero);
+        _deleteButton.ButtonDown += () => OnDeleteButtonPressed(hero);
+        // _deleteButton.Connect("Pressed", PressedEventHandler);
+    }
+
+    private void OnDeleteButtonPressed(Hero hero)
+    {
+        var scene = ResourceLoader.Load<PackedScene>("res://UITheme/Dialog/Dialog.tscn");
+        var dialog = scene.Instantiate<Dialog>();
+        _dialogContainer.AddChild(dialog);
+        dialog.Owner = this;
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event is InputEventKey key)
+        {
+            if (key.Keycode == Key.Escape)
+            {
+                QueueFree();
+            }
+        }
     }
 }

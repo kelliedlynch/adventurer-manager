@@ -4,75 +4,82 @@ using System;
 [Tool]
 public partial class HeroRosterEntry : MenuItem
 {
-    
-    [Export] private int _minColWidth = 76;
-    [Export] private int _portraitSize = 48;
-    
-    private HBoxContainer _entryContainer = new();
-    private TextureRect _portrait = new();
-    private Control _portraitSpacer = new();
-    private Label _nameLabel = new();
-    private Label _hatLabel = new();
-    private Label _levelLabel = new();
 
-    public HeroRosterEntry()
+    private int _minColWidth = 76;
+
+    [Export]
+    public int MinColumnWidth
     {
-        _entryContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _entryContainer.SizeFlagsVertical = SizeFlags.Fill;
-        // _entryContainer.CustomMinimumSize = new Vector2(0, 60);
-        AddChild(_entryContainer);
-        _entryContainer.Owner = this;
-        
-        _portrait.ExpandMode = TextureRect.ExpandModeEnum.FitHeightProportional;
-        _portrait.Size = new Vector2(_portraitSize, _portraitSize);
-        _portrait.CustomMinimumSize = new Vector2(_portraitSize, _portraitSize);
-        _portrait.SizeFlagsHorizontal = SizeFlags.ShrinkBegin;
-        _portrait.SizeFlagsVertical = SizeFlags.ShrinkCenter;
-        _entryContainer.AddChild(_portrait);
-        _portrait.Owner = this;
-
-        // _portraitSpacer.SizeFlagsHorizontal = SizeFlags.Expand;
-        // var spacer = _portraitSize / 2;
-        // _portraitSpacer.CustomMinimumSize = new Vector2(spacer, 0);
-        // _entryContainer.AddChild(_portraitSpacer);
-        // _portraitSpacer.Owner = this;
-
-        // _nameLabel.SizeFlagsHorizontal = SizeFlags.Expand;
-        _nameLabel.CustomMinimumSize = new Vector2(_minColWidth, 0);
-        _entryContainer.AddChild(_nameLabel);
-        _nameLabel.Text = "Name";
-        _nameLabel.Owner = this;
-
-        // _hatLabel.SizeFlagsHorizontal = SizeFlags.Expand;
-        _hatLabel.Text = "Class";
-        _hatLabel.CustomMinimumSize = new Vector2(_minColWidth, 0);
-        _entryContainer.AddChild(_hatLabel);
-        _hatLabel.Owner = this;
-
-        // _levelLabel.SizeFlagsHorizontal = SizeFlags.Expand;
-        _levelLabel.Text = "Lv.";
-        _levelLabel.CustomMinimumSize = new Vector2(_minColWidth, 0);
-        _entryContainer.AddChild(_levelLabel);
-        _levelLabel.Owner = this;
-
+        get => _minColWidth;
+        set
+        {
+            _minColWidth = value;
+            EmitSignal("MinimumColumnWidthChanged", value);
+        }
     }
-    public HeroRosterEntry(Hero hero) : this()
+
+    [Signal]
+    public delegate void MinimumColumnWidthChangedEventHandler(int newValue);
+
+    private int _portraitSize = 48;
+
+    [Export]
+    public int PortraitSize
+    {
+        get => _portraitSize;
+        set
+        {
+            _portraitSize = value;
+            EmitSignal("PortraitSizeChanged", value);
+        }
+    }
+
+    [Signal]
+    public delegate void PortraitSizeChangedEventHandler(int newValue);
+
+    private TextureRect _portrait;
+    private Label _nameLabel;
+    private Label _hatLabel;
+    private Label _levelLabel;
+
+    public override void _Ready()
+    {
+        var test = FindChild("Portrait", true, false);
+        _portrait = FindChild("Portrait", true, false) as TextureRect;
+        _nameLabel = FindChild("NameLabel", true, false) as Label;
+        _hatLabel = FindChild("HatLabel", true, false) as Label;
+        _levelLabel = FindChild("LevelLabel", true, false) as Label;
+
+        _portrait.Texture = GD.Load<Texture2D>("res://Assets/Images/HeroPortraits/blank_portrait.png");
+        
+        PortraitSizeChanged += OnPortraitSizeChanged;
+        MinimumColumnWidthChanged += OnMinimumColumnWidthChanged;
+        EmitSignal("PortraitSizeChanged", _portraitSize);
+        EmitSignal("MinimumColumnWidthChanged", _minColWidth);
+    }
+    public void LoadHeroData(Hero hero)
     {
         _portrait.Texture = GD.Load<Texture2D>(hero.PortraitPath);
         _nameLabel.Text = hero.Name;
         _hatLabel.Text = hero.Hat;
-        _levelLabel.Text += " " + hero.Level;
+        _levelLabel.Text = "Lv. " + hero.Level;
 
     }
-
-    public void AttachToSceneTree(Node sceneRoot)
+    
+    private void OnMinimumColumnWidthChanged(int newVal)
     {
-        Owner = sceneRoot;
-        _entryContainer.Owner = sceneRoot;
-        _portrait.Owner = sceneRoot;
-        _portraitSpacer.Owner = sceneRoot;
-        _nameLabel.Owner = sceneRoot;
-        _hatLabel.Owner = sceneRoot;
-        _levelLabel.Owner = sceneRoot;
+        var size = new Vector2(newVal, 0);
+        _nameLabel.CustomMinimumSize = size;
+        _hatLabel.CustomMinimumSize = size;
+        _levelLabel.CustomMinimumSize = size;
     }
+
+    private void OnPortraitSizeChanged(int newVal)
+    {
+        var size = new Vector2(newVal, newVal);
+        _portrait.Size = size;
+        _portrait.CustomMinimumSize = size;
+    }
+    
+
 }

@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://e23m2h3ng14t"]
+
+[ext_resource type="Theme" uid="uid://b3nnla4gofcr2" path="res://UITheme/main_ui_theme.tres" id="1_xicr1"]
+[ext_resource type="Script" path="res://UITheme/Dialog/Dialog.cs" id="2_6wgi2"]
+
+[node name="Dialog" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xicr1")
+theme_type_variation = &"BeigePanel"
+script = ExtResource("2_6wgi2")
+
+[node name="DialogOuterContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DialogHeaderContainer" type="PanelContainer" parent="DialogOuterContainer"]
+layout_mode = 2
+
+[node name="DialogTitleLabel" type="Label" parent="DialogOuterContainer/DialogHeaderContainer"]
+layout_mode = 2
+theme_type_variation = &"LightText"
+text = "Dialog Title"
+horizontal_alignment = 1
+
+[node name="DialogBodyContainer" type="PanelContainer" parent="DialogOuterContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"LtBeigePanel"
+
+[node name="DialogBodyLabel" type="Label" parent="DialogOuterContainer/DialogBodyContainer"]
+layout_mode = 2
+text = "Are you sure you want to do that?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogFooterContainer" type="HBoxContainer" parent="DialogOuterContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="DialogOuterContainer/DialogFooterContainer"]
+layout_mode = 2
+theme_type_variation = &"GreyButton"
+text = "Cancel
+"
+
+[node name="ConfirmButton" type="Button" parent="DialogOuterContainer/DialogFooterContainer"]
+layout_mode = 2
+theme_type_variation = &"BrownButton"
+text = "Confirm
+"

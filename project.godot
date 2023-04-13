@@ -17,13 +17,8 @@ ResourceScriptDirectories=["res://"]
 [application]
 
 config/name="Adventurer Manager"
-run/main_scene="res://Scenes/HeroRoster/HeroRoster.tscn"
 config/features=PackedStringArray("4.0", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
-
-[autoload]
-
-ResourcePath="*res://UITheme/ResourcePath.cs"
 
 [dotnet]
 

@@ -5,46 +5,22 @@ using AdventurerManager.UITheme.Menu;
 [Tool]
 public partial class HeroRoster : Menu
 {
-    
-    private HBoxContainer _headerContainer = new();
-    private Control _portraitColumnSpacer = new();
-    private Label _nameColumnLabel = new();
-    private Label _hatColumnLabel = new();
-    
-    public HeroRoster()
+    public override void _Ready()
     {
+        base._Ready();
         MenuTitle = "Hero Roster";
-
-        // _headerContainer.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        // MenuItemsContainer.AddChild(_headerContainer);
-        // _headerContainer.Owner = this;
-        //
-        // _portraitColumnSpacer.CustomMinimumSize = new Vector2(48, 16);
-        // _headerContainer.AddChild(_portraitColumnSpacer);
-        // _portraitColumnSpacer.Owner = this;
-        //
-        // _nameColumnLabel.Text = "Name";
-        // _nameColumnLabel.ThemeTypeVariation = "LightText";
-        // _nameColumnLabel.Position = new Vector2(48, 0);
-        // _headerContainer.AddChild(_nameColumnLabel);
-        // _nameColumnLabel.Owner = this;
-        //
-        // _hatColumnLabel.Text = "Class";
-        // _hatColumnLabel.ThemeTypeVariation = "LightText";
-        // _headerContainer.AddChild(_hatColumnLabel);
-        // _hatColumnLabel.Owner = this;
-        
-        
         var roster = GenerateDummyRoster();
+        var scene = ResourceLoader.Load<PackedScene>("res://Scenes/HeroRoster/HeroRosterEntry.tscn");
         foreach (Hero hero in roster.Heroes)
         {
-            // var rosterEntry = ResourceLoader.Load<PackedScene>("res://Scenes/HeroRoster/HeroRosterEntry.tscn").Instantiate();
-            
-            var rosterEntry = new HeroRosterEntry(hero);
+            var rosterEntry = scene.Instantiate<HeroRosterEntry>();
             MenuItemsContainer.AddChild(rosterEntry);
-            // rosterEntry.Owner = this;
-            rosterEntry.AttachToSceneTree(this);
+            rosterEntry.LoadHeroData(hero);
+            rosterEntry.Owner = this;
+            void MenuItemWasClickedEventHandler() => OnRosterEntryClicked(hero);
+            rosterEntry.MenuItemWasClicked += MenuItemWasClickedEventHandler;
         }
+        
     }
 
     private static Roster GenerateDummyRoster(int qty = 9)
@@ -59,5 +35,35 @@ public partial class HeroRoster : Menu
         }
 
         return roster;
+    }
+
+    private void OnRosterEntryClicked(Hero hero)
+    {
+        GD.Print("RosterEntryWasClicked " + hero.Name);
+        var scene = ResourceLoader.Load<PackedScene>("res://Scenes/CharacterSheet/CharacterSheet.tscn");
+        var charSheet = scene.Instantiate<CharacterSheet>();
+        AddChild(charSheet);
+        charSheet.Owner = this;
+        charSheet.InitWithData(hero);
+        charSheet.Name = "CharacterSheet";
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        // if (@event is InputEventMouseButton button)
+        // {
+        //     if (button.ButtonIndex == MouseButton.Left && button.IsPressed())
+        //     {
+        //         GD.Print("Input");
+        //     }
+        // }
+        if (@event is InputEventKey key)
+        {
+            if (key.Keycode == Key.Escape)
+            {
+                // var sheet = FindChild("CharacterSheet", true, false);
+                // sheet.QueueFree();
+            }
+        }
     }
 }
