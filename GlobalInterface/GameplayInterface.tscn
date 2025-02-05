@@ -14,13 +14,22 @@ script = ExtResource("1_sww6f")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MenuBar" type="PanelContainer" parent="."]
+[node name="ActionBar" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_type_variation = &"GameplayMenuBar"
 
-[node name="RosterButton" type="Button" parent="MenuBar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ActionBar"]
+layout_mode = 2
+
+[node name="RosterButton" type="Button" parent="ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Roster"
+
+[node name="TownButton" type="Button" parent="ActionBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Town"

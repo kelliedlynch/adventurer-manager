@@ -14,3 +14,4 @@ script = ExtResource("1_lr21u")
 
 [node name="UnitList" parent="." instance=ExtResource("2_71r5l")]
 layout_mode = 1
+list_title = null

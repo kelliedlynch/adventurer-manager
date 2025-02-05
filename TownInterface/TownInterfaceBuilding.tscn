@@ -3,8 +3,13 @@
 [ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://TownInterface/TownInterfaceBuilding.gd" id="1_r1xdi"]
 
 [node name="TownInterfaceBuilding" type="PanelContainer"]
-offset_right = 364.0
-offset_bottom = 85.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("1_r1xdi")
 
@@ -16,8 +21,11 @@ layout_mode = 2
 text = "Building Name"
 
 [node name="BuildingDescription" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
+size_flags_vertical = 1
 text = "Description of what you can do at this building "
+autowrap_mode = 2
 
 [node name="EnterBuilding" type="Button" parent="VBoxContainer"]
 layout_mode = 2

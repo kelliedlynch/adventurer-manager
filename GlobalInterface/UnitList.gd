@@ -1,34 +1,45 @@
 @tool
 extends ScrollContainer
+class_name UnitList
 
-var units: Array[Adventurer]:
+@export var list_title: String = "Unit List":
 	set(value):
-		units = value
-		#if not is_inside_tree():
-			#await ready
-		#_update_unit_list()
-		#
-		#
-#func _update_unit_list():
-	#for unit in units:
-		#pass
+		if value != list_title:
+			list_title = value
+			if not is_inside_tree():
+				await ready
+			$VBoxContainer/ListTitle.text = list_title
+			
+var list_items: Array[UnitListItem] = []
+
+var _units: Array[Adventurer] = []
+
+func add_unit(unit: Adventurer):
+	_units.append(unit)
+	_refresh_list()
+	
+func remove_unit(unit: Adventurer):
+	var index = _units.find(unit)
+	if index != -1:
+		_units.remove_at(index)
+		_refresh_list()
+
 
 func _ready() -> void:
-	#if Engine.is_editor_hint():
-		#for i in 10:
-			#units.append(Adventurer.new())
+	if Engine.is_editor_hint():
+		_units.clear()
+		for i in 10:
+			_units.append(Adventurer.new())
+	_refresh_list()
+
+
+func _refresh_list() -> void:
 	for child in $VBoxContainer.get_children():
 		if child is UnitListItem:
-			remove_child(child)
+			#remove_child(child)
 			child.queue_free()
-	if Engine.is_editor_hint():
-		units.clear()
-		for i in 10:
-			units.append(Adventurer.new())
-	else:
-		units = Player.roster
-
-	for unit in units:
+	for unit in _units:
 		var list_item = load("res://GlobalInterface/UnitListItem.tscn").instantiate()
 		list_item.unit = unit
 		$VBoxContainer.add_child(list_item)
+		list_items.append(list_item)

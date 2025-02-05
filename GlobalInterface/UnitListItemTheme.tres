@@ -1,0 +1,16 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://p751urah5hp2"]
+
+[ext_resource type="StyleBox" uid="uid://b673q8gufql0x" path="res://GlobalInterface/ButtonLightNormal.tres" id="1_v5d6t"]
+[ext_resource type="StyleBox" uid="uid://ckpt2dqmuf4n5" path="res://GlobalInterface/UnitListItemNormal.tres" id="2_07hbp"]
+[ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://GlobalInterface/UnitListPortraitStyleBox.tres" id="3_fk23e"]
+
+[resource]
+default_font_size = 36
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/styles/normal = ExtResource("1_v5d6t")
+Label/colors/font_color = Color(1, 0.968627, 0.917647, 1)
+MainLayoutContainer/base_type = &"HBoxContainer"
+MainLayoutContainer/constants/separation = 12
+PanelContainer/styles/panel = ExtResource("2_07hbp")
+PortraitFrame/base_type = &"PanelContainer"
+PortraitFrame/styles/panel = ExtResource("3_fk23e")

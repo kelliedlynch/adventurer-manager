@@ -39,6 +39,7 @@ func _ready() -> void:
 	if text == "":
 		_text_label.visible = false
 	add_child(_text_label)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
 var _internal_vars: Dictionary = {}
 func _set(property, value):

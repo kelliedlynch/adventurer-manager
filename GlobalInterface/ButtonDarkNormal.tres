@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dji6sq4i48jc2"]
+
+[ext_resource type="Texture2D" uid="uid://ciixescyjot78" path="res://Graphics/SmallBorders/Panel/panel-001.png" id="1_crupu"]
+
+[resource]
+texture = ExtResource("1_crupu")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+modulate_color = Color(0.231373, 0.231373, 0.231373, 1)

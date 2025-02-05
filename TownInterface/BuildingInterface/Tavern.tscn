@@ -1,21 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf7xslet4e5yi"]
+[gd_scene load_steps=6 format=3 uid="uid://cf7xslet4e5yi"]
 
 [ext_resource type="PackedScene" uid="uid://fhkh1rl8twib" path="res://TownInterface/BuildingInterface/BuildingInterface.tscn" id="1_a6jfi"]
-[ext_resource type="Theme" uid="uid://p751urah5hp2" path="res://GlobalInterface/BuildingInterface.tres" id="2_6co1r"]
+[ext_resource type="Theme" uid="uid://p751urah5hp2" path="res://GlobalInterface/UnitListItemTheme.tres" id="2_6co1r"]
 [ext_resource type="Script" uid="uid://b6cha1jhjbe1q" path="res://TownInterface/BuildingInterface/Tavern.gd" id="2_dtd14"]
 [ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://GlobalInterface/UnitList.tscn" id="4_6bejq"]
+[ext_resource type="Theme" uid="uid://b7r8lfk0nrmjk" path="res://GlobalInterface/DialogBoxTheme.tres" id="5_e5x1o"]
 
 [node name="Tavern" instance=ExtResource("1_a6jfi")]
 theme = ExtResource("2_6co1r")
 script = ExtResource("2_dtd14")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." index="0"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" index="0"]
+[node name="Control" type="Control" parent="HBoxContainer" index="0"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="UnitList" parent="HBoxContainer" index="1" instance=ExtResource("4_6bejq")]
 layout_mode = 2
+size_flags_horizontal = 3
+list_title = "Adventurers For Hire"
+
+[node name="HireConfirmDialog" type="PanelContainer" parent="." index="1"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_e5x1o")
+theme_type_variation = &"DialogBox"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HireConfirmDialog" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HireConfirmDialog/VBoxContainer" index="0"]
+layout_mode = 2
+text = "Hire this adventurer?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HireConfirmDialog/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Yes" type="Button" parent="HireConfirmDialog/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+text = "Yes"
+
+[node name="No" type="Button" parent="HireConfirmDialog/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+text = "No"
