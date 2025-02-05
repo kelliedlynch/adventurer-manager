@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://ry2u1lm3nnr"]
+
+[ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://TownInterface/TownInterfaceBuilding.gd" id="1_r1xdi"]
+
+[node name="TownInterfaceBuilding" type="PanelContainer"]
+offset_right = 364.0
+offset_bottom = 85.0
+theme_type_variation = &"TownInterfaceBuilding"
+script = ExtResource("1_r1xdi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="BuildingName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Building Name"
+
+[node name="BuildingDescription" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Description of what you can do at this building "
+
+[node name="EnterBuilding" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Enter"

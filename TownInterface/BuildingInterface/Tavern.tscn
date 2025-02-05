@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf7xslet4e5yi"]
+
+[ext_resource type="PackedScene" uid="uid://fhkh1rl8twib" path="res://TownInterface/BuildingInterface/BuildingInterface.tscn" id="1_a6jfi"]
+[ext_resource type="Theme" uid="uid://p751urah5hp2" path="res://GlobalInterface/BuildingInterface.tres" id="2_6co1r"]
+[ext_resource type="Script" uid="uid://b6cha1jhjbe1q" path="res://TownInterface/BuildingInterface/Tavern.gd" id="2_dtd14"]
+[ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://GlobalInterface/UnitList.tscn" id="4_6bejq"]
+
+[node name="Tavern" instance=ExtResource("1_a6jfi")]
+theme = ExtResource("2_6co1r")
+script = ExtResource("2_dtd14")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="UnitList" parent="HBoxContainer" index="1" instance=ExtResource("4_6bejq")]
+layout_mode = 2

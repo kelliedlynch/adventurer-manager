@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://p751urah5hp2"]
+
+[ext_resource type="StyleBox" uid="uid://5u11r4ook4uv" path="res://GlobalInterface/MenuBarStyleBox.tres" id="1_bxk2m"]
+[ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://GlobalInterface/UnitListPortraitStyleBox.tres" id="2_l0ayf"]
+[ext_resource type="StyleBox" uid="uid://bl2g0tpe5ei52" path="res://TownInterface/TownInterfaceBuildingStyleBox.tres" id="3_kcbqq"]
+[ext_resource type="StyleBox" uid="uid://ckpt2dqmuf4n5" path="res://TownInterface/BuildingInterface/BuildingInterfaceStyleBox.tres" id="4_frrke"]
+
+[resource]
+default_font_size = 36
+GameplayMenuBar/base_type = &"PanelContainer"
+GameplayMenuBar/styles/panel = ExtResource("1_bxk2m")
+PortraitFrame/base_type = &"PanelContainer"
+PortraitFrame/styles/panel = ExtResource("2_l0ayf")
+TownInterfaceBuilding/base_type = &"PanelContainer"
+TownInterfaceBuilding/styles/panel = ExtResource("3_kcbqq")
+UnitListItem/base_type = &"PanelContainer"
+UnitListItem/styles/panel = ExtResource("4_frrke")

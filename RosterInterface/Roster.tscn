@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbwqnm3tjoajf"]
+
+[ext_resource type="Script" uid="uid://bmole24vnb60i" path="res://RosterInterface/Roster.gd" id="1_lr21u"]
+[ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://GlobalInterface/UnitList.tscn" id="2_71r5l"]
+
+[node name="Roster" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lr21u")
+
+[node name="UnitList" parent="." instance=ExtResource("2_71r5l")]
+layout_mode = 1

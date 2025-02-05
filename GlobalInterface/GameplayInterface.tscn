@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bykhx0iesxr8d"]
+
+[ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
+
+[node name="GameplayInterface" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sww6f")
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MenuBar" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_type_variation = &"GameplayMenuBar"
+
+[node name="RosterButton" type="Button" parent="MenuBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Roster"
