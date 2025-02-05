@@ -83,12 +83,12 @@ func watch_object(obj: Object):
 	var prop = get("/linked_property")
 	if prop:
 		text = str(obj.get(prop))
-		obj.	property_list_changed.connect(_on_property_list_changed)
+		obj.property_changed.connect(_on_property_changed)
 
-func _on_property_list_changed(_foo = null):
-	var val = _linked_model.get(get("/linked_property"))
-	if val and str(val) != text:
-		text = str(val)
-		pass
-	pass
+func _on_property_changed(prop_name: String):
+	if prop_name == get("/linked_property"):
+		var val = _linked_model.get(get("/linked_property"))
+		if val and str(val) != text:
+			text = str(val)
+			pass
 	

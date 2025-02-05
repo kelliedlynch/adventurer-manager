@@ -15,9 +15,9 @@ enum {
 }
 
 var _menu_file: Dictionary = {
-	MENU_VIEW_ROSTER: "res://RosterInterface/Roster.tscn",
-	MENU_VIEW_TOWN: "res://TownInterface/TownInterface.tscn",
-	MENU_TAVERN: "res://TownInterface/BuildingInterface/Tavern.tscn"
+	MENU_VIEW_ROSTER: "res://Interface/RosterInterface/Roster.tscn",
+	MENU_VIEW_TOWN: "res://Interface/TownInterface/TownInterface.tscn",
+	MENU_TAVERN: "res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn"
 }
 
 func open_menu(menu: int):

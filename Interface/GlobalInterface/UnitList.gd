@@ -12,42 +12,31 @@ class_name UnitList
 			
 @onready var list_items: VBoxContainer = $ScrollContainer/ListItems
 
-var _units: Array[Adventurer]:
+var action_buttons: Dictionary = {}
+
+var _units: Array[Adventurer] = []:
 	set(value):
 		_units = value
 		_refresh_list()
-		
-func remove_list_item(item: UnitListItem):
-	item.queue_free()
-	
-func add_list_item(item: UnitListItem):
-	list_items.add_child(item)
 
 func _ready() -> void:
-	if get_tree().root.get_children().has(self):
+	if get_tree().current_scene == self or (Engine.is_editor_hint() and _units.is_empty()):
 		for i in 10:
 			var adv = Adventurer.new()
-			adv.name = "Dummy Adventurer"
+			adv.name = "Adventurer " + str(i)
 			_units.append(adv)
 	_refresh_list()
 
-func test(foo):
-	return foo.unit == null
-
 func _refresh_list() -> void:
-	var new_list: Array[UnitListItem] = []
-	var existing_items = list_items.get_children()
+	for child in list_items.get_children():
+		child.queue_free()
 	for unit in _units:
-		var index = existing_items.find_custom(func (x): return x.unit == unit)
-		if index != -1:
-			new_list.append(existing_items[index])
-			existing_items[index] = null
-		else:
-			var new_item = UnitListItem.instantiate()
-			new_item.unit = unit
-			new_list.append(new_item)
-	if new_list != existing_items:
-		for item in existing_items:
-			remove_list_item(item)
-		for item in new_list:
-			add_list_item(item)
+		var new_item = UnitListItem.instantiate()
+		new_item.unit = unit
+		list_items.add_child(new_item)
+		for button in action_buttons:
+			new_item.add_action_button("Hire", action_buttons[button].bind(unit))
+
+func register_action_button(text: String, action: Callable):
+	action_buttons[text] = action
+	_refresh_list()

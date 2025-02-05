@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://p751urah5hp2" path="res://Interface/GlobalInterface/UnitListItemTheme.tres" id="1_gwixg"]
 [ext_resource type="Script" uid="uid://bhw5owkxkm55i" path="res://Interface/GlobalInterface/UnitListItem.gd" id="1_suabm"]
-[ext_resource type="Texture2D" uid="uid://dpd8j22ocjs3d" path="res://Graphics/Portraits/cultist_03.png" id="3_48wti"]
+[ext_resource type="Texture2D" uid="uid://dihsdt0uxkak" path="res://Graphics/Portraits/m_04.png" id="3_48wti"]
 [ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="3_q06h3"]
 
 [node name="UnitListItem" type="PanelContainer"]
