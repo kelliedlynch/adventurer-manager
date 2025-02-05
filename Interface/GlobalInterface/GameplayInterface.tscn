@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bykhx0iesxr8d"]
 
-[ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
+[ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://Interface/GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
 
 [node name="GameplayInterface" type="VBoxContainer"]
 anchors_preset = 15

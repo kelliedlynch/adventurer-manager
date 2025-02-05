@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://b7r8lfk0nrmjk"]
 
-[ext_resource type="StyleBox" uid="uid://dji6sq4i48jc2" path="res://GlobalInterface/ButtonDarkNormal.tres" id="1_1h3ym"]
-[ext_resource type="StyleBox" uid="uid://b7jhv4w71vcs1" path="res://GlobalInterface/DialogStyleBox.tres" id="2_0t6mq"]
+[ext_resource type="StyleBox" uid="uid://dji6sq4i48jc2" path="res://Interface/GlobalInterface/ButtonDarkNormal.tres" id="1_1h3ym"]
+[ext_resource type="StyleBox" uid="uid://b7jhv4w71vcs1" path="res://Interface/GlobalInterface/DialogStyleBox.tres" id="2_0t6mq"]
 
 [resource]
 Button/colors/font_color = Color(0.94902, 0.94902, 0.94902, 1)

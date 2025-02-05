@@ -8,7 +8,7 @@ func _ready() -> void:
 		child.queue_free()
 	await get_tree().process_frame 
 	for i in 9:
-		var bldg: TownInterfaceBuilding = load("res://TownInterface/TownInterfaceBuilding.tscn").instantiate()
+		var bldg: TownInterfaceBuilding = load("res://Interface/TownInterface/TownInterfaceBuilding.tscn").instantiate()
 		bldg.building_name = "Building " + str(i + 1)
 		bldg.name = bldg.building_name
 		$GridContainer.add_child(bldg)

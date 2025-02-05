@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://pm6rhiq4laht"]
 
-[ext_resource type="Script" uid="uid://bchxhhcdbcwcn" path="res://TownInterface/TownInterface.gd" id="1_20l4v"]
-[ext_resource type="PackedScene" uid="uid://ry2u1lm3nnr" path="res://TownInterface/TownInterfaceBuilding.tscn" id="2_20l4v"]
-[ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://TownInterface/TownInterfaceBuilding.gd" id="3_ptfhb"]
+[ext_resource type="Script" uid="uid://bchxhhcdbcwcn" path="res://Interface/TownInterface/TownInterface.gd" id="1_20l4v"]
+[ext_resource type="PackedScene" uid="uid://ry2u1lm3nnr" path="res://Interface/TownInterface/TownInterfaceBuilding.tscn" id="2_20l4v"]
+[ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://Interface/TownInterface/TownInterfaceBuilding.gd" id="3_ptfhb"]
 
 [node name="TownInterface" type="Control"]
 layout_mode = 3

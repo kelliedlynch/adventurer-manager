@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ry2u1lm3nnr"]
 
-[ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://TownInterface/TownInterfaceBuilding.gd" id="1_r1xdi"]
+[ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://Interface/TownInterface/TownInterfaceBuilding.gd" id="1_r1xdi"]
 
 [node name="TownInterfaceBuilding" type="PanelContainer"]
 anchors_preset = 15

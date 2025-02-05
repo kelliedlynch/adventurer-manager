@@ -22,7 +22,7 @@ var _labeled_fields: Array[LabeledField] = []
 			await ready
 		_portrait_texture_rect.custom_minimum_size = value
 		
-var unit: Adventurer:
+var unit: Adventurer = null:
 	set(value):
 		unit = value
 		#if not is_inside_tree():
@@ -30,7 +30,7 @@ var unit: Adventurer:
 		#_update_list_item()
 
 func _ready() -> void:
-	if Engine.is_editor_hint() and unit == null:
+	if get_tree().root.get_children().has(self) or (Engine.is_editor_hint()):
 		unit = Adventurer.new()
 		for child in $HBoxContainer/ActionButtons.get_children():
 			child.queue_free()
@@ -38,6 +38,8 @@ func _ready() -> void:
 			add_action_button("Button " + str(i + 1))
 	if unit:
 		_watch_labeled_fields(unit, self)
+		await get_tree().process_frame
+
 		_portrait_texture_rect.texture = unit.portrait
 		
 func _watch_labeled_fields(watched, current_node) -> void:
@@ -53,6 +55,9 @@ func add_action_button(text: String) -> Button:
 	$HBoxContainer/ActionButtons.add_child(button)
 	action_buttons.append(button)
 	return button
+
+static func instantiate():
+	return load("res://Interface/GlobalInterface/UnitListItem.tscn").instantiate()
 
 #func _update_list_item():
 	#for prop in unit.get_property_list():

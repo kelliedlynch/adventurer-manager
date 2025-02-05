@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://fhkh1rl8twib"]
 
-[ext_resource type="Script" uid="uid://nnto0l10ardc" path="res://TownInterface/BuildingInterface/BuildingInterface.gd" id="1_iqfk8"]
+[ext_resource type="Script" uid="uid://nnto0l10ardc" path="res://Interface/TownInterface/BuildingInterface/BuildingInterface.gd" id="1_iqfk8"]
 
 [node name="BuildingInterface" type="Control"]
 layout_mode = 3
