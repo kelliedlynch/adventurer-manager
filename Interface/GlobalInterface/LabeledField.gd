@@ -15,7 +15,7 @@ var _linked_model: Object
 			_label_label.visible = false
 		else:
 			_label_label.visible = true
-			_label_label.text = value
+			_label_label.text = value + ":"
 
 var text: String = "":
 	set(value):
@@ -29,17 +29,22 @@ var text: String = "":
 			_text_label.text = value
 		
 func _ready() -> void:
+	theme_type_variation = "LabeledField"
 	_label_label = Label.new()
 	_label_label.text = label
 	if label == "":
 		_label_label.visible = false
+	#_label_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#_label_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	add_child(_label_label)
 	_text_label = Label.new()
 	_text_label.text = text
 	if text == "":
 		_text_label.visible = false
+	#_text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#_text_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	add_child(_text_label)
-	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
 var _internal_vars: Dictionary = {}
 func _set(property, value):

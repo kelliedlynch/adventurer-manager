@@ -16,7 +16,7 @@ var portrait: Texture2D = get_random_portrait():
 		portrait = value
 		property_changed.emit("portrait")
 		
-var level: int = 1 + randi_range(0, 12):
+var level: int = 1 + randi_range(0, 4):
 	set(value):
 		level = value
 		property_changed.emit("level")

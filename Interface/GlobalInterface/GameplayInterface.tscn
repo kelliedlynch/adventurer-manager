@@ -38,6 +38,10 @@ size_flags_vertical = 4
 toggle_mode = true
 text = "Town"
 
+[node name="DungeonButton" type="Button" parent="ActionBar/HBoxContainer"]
+layout_mode = 2
+text = "Dungeon"
+
 [node name="Control" type="Control" parent="ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3

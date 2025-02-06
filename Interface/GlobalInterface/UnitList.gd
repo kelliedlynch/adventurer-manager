@@ -1,6 +1,8 @@
 @tool
-extends VBoxContainer
+extends Menu
 class_name UnitList
+
+@onready var title_label = $VBoxContainer/ListTitle
 
 @export var list_title: String = "Unit List":
 	set(value):
@@ -8,15 +10,27 @@ class_name UnitList
 			list_title = value
 			if not is_inside_tree():
 				await ready
-			$ListTitle.text = list_title
+			title_label.text = list_title
 			
-@onready var list_items: VBoxContainer = $ScrollContainer/ListItems
+@onready var list_items_container: VBoxContainer = $VBoxContainer/ScrollContainer/ListItems
+
+signal item_clicked
 
 var registered_buttons: Array[Dictionary] = []
 
 var _units: Array[Adventurer] = []:
 	set(value):
 		_units = value
+		_refresh_list()
+		
+func add_unit(unit: Adventurer):
+	_units.append(unit)
+	_refresh_list()
+
+func remove_unit(unit: Adventurer):
+	var index = _units.find(unit)
+	if index != -1:
+		_units.remove_at(index)
 		_refresh_list()
 
 func _ready() -> void:
@@ -28,16 +42,18 @@ func _ready() -> void:
 	_refresh_list()
 
 func _refresh_list() -> void:
-	for child in list_items.get_children():
+	for child in list_items_container.get_children():
 		child.queue_free()
 	for unit in _units:
 		var new_item = UnitListItem.instantiate()
 		new_item.unit = unit
-		list_items.add_child(new_item)
+		list_items_container.add_child(new_item)
+		new_item.item_clicked.connect(item_clicked.emit.bind(unit))
 		for button in registered_buttons:
 			var butt = new_item.add_action_button(button.text, button.action.bind(unit))
 			if not button.active_if.call(unit):
 				butt.disabled = true
+		_watch_labeled_fields(unit, new_item)
 
 func register_action_button(text: String, action: Callable, active_if: Callable = func(): return true):
 	var dict = {

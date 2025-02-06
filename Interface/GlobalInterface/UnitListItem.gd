@@ -25,9 +25,8 @@ var _labeled_fields: Array[LabeledField] = []
 var unit: Adventurer = null:
 	set(value):
 		unit = value
-		#if not is_inside_tree():
-			#await ready
-		#_update_list_item()
+
+signal item_clicked
 
 func _ready() -> void:
 	if get_tree().current_scene == self or (Engine.is_editor_hint() and unit == null):
@@ -37,16 +36,12 @@ func _ready() -> void:
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
 	if unit:
-		_watch_labeled_fields(unit, self)
-		#await get_tree().process_frame
-
 		_portrait_texture_rect.texture = unit.portrait
+	gui_input.connect(_on_gui_input)
 		
-func _watch_labeled_fields(watched, current_node) -> void:
-	for child in current_node.get_children():
-		if child is LabeledField:
-			child.watch_object(watched)
-		_watch_labeled_fields(watched, child)
+func _on_gui_input(event: InputEvent):
+	if event.is_action("ui_accept") or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()):
+		item_clicked.emit()
 
 func add_action_button(text: String, action: Callable) -> Button:
 	var button = Button.new()

@@ -2,7 +2,7 @@ extends Node
 class_name PlayerData
 
 var roster: Array[Adventurer] = []
-var money: int = 100:
+var money: int = 120:
 	set(value):
 		money = value
 		property_changed.emit("money")

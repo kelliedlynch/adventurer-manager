@@ -32,8 +32,7 @@ func _ready() -> void:
 func _open_building_menu(building: Building):
 	var menu = building.interface.instantiate()
 	menu.model = building
-	add_sibling(menu)
-	
+	add_child(menu)
 
 static func instantiate() -> TownInterface:
 	return load("res://Interface/TownInterface/TownInterface.tscn").instantiate()

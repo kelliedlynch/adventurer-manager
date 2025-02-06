@@ -11,7 +11,7 @@ var model: Tavern:
 			await ready
 		unit_list._units = value.adventurers_for_hire
 		value.adventurers_for_hire_changed.connect(unit_list._refresh_list)
-		Player.property_changed.connect(unit_list.call.bind("_refresh_list"))
+		Player.property_changed.connect(func(x): unit_list._refresh_list())
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():

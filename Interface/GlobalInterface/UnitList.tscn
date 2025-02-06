@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c6ahtgaoidyjo" path="res://Interface/GlobalInterface/UnitList.gd" id="1_krmi3"]
 
-[node name="UnitList" type="VBoxContainer"]
+[node name="UnitList" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,15 +11,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_krmi3")
 
-[node name="ListTitle" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ListTitle" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Unit List"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ListItems" type="VBoxContainer" parent="ScrollContainer"]
+[node name="ListItems" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
