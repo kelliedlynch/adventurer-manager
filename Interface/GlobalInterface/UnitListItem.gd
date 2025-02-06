@@ -48,12 +48,12 @@ func _watch_labeled_fields(watched, current_node) -> void:
 			child.watch_object(watched)
 		_watch_labeled_fields(watched, child)
 
-#TODO: Action buttons disappear after hiring. Fix that.
-func add_action_button(text: String, action: Callable):
+func add_action_button(text: String, action: Callable) -> Button:
 	var button = Button.new()
 	button.text = text
 	button.pressed.connect(action)
 	action_buttons.add_child(button)
+	return button
 
 static func instantiate():
 	return load("res://Interface/GlobalInterface/UnitListItem.tscn").instantiate()

@@ -1,7 +1,14 @@
 extends Node
-#class_name Player
+class_name PlayerData
 
 var roster: Array[Adventurer] = []
+var money: int = 100:
+	set(value):
+		money = value
+		property_changed.emit("money")
+var current_town: Town
+
+signal property_changed
 
 func _init() -> void:
 	pass
@@ -9,4 +16,7 @@ func _init() -> void:
 		#roster.append(Adventurer.new())
 
 func _ready() -> void:
+	var town = Town.new()
+	town.name = "Townsville"
+	current_town = town
 	pass

@@ -11,18 +11,28 @@ var model: Tavern:
 			await ready
 		unit_list._units = value.adventurers_for_hire
 		value.adventurers_for_hire_changed.connect(unit_list._refresh_list)
+		Player.property_changed.connect(unit_list.call.bind("_refresh_list"))
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
 		model = Tavern.new()
-	unit_list.register_action_button("Hire", _on_hire_button_pressed)
+	unit_list.register_action_button("Hire", _on_hire_button_pressed, _can_hire_unit)
+
+func _can_hire_unit(unit: Adventurer) -> bool:
+	return Player.money >= unit.hire_cost
 
 func _on_hire_button_pressed(unit: Adventurer):
 	var dialog = DialogBox.instantiate()
-	dialog.message = "Hire this adventurer?"
+	dialog.message = "Hire this adventurer for %d money?" % unit.hire_cost
 	dialog.add_action_button("Yes", _confirm_hire.bind(unit))
 	dialog.add_cancel_button("No")
 	add_child(dialog)
 	
 func _confirm_hire(unit: Adventurer):
 	model.hire_adventurer(unit)
+	
+func _on_player_money_changed():
+	pass
+
+static func instantiate() -> TavernInterface:
+	return load("res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn").instantiate()

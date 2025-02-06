@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://pm6rhiq4laht"]
+[gd_scene load_steps=5 format=3 uid="uid://pm6rhiq4laht"]
 
 [ext_resource type="Script" uid="uid://bchxhhcdbcwcn" path="res://Interface/TownInterface/TownInterface.gd" id="1_20l4v"]
+[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="2_2en7i"]
 [ext_resource type="PackedScene" uid="uid://ry2u1lm3nnr" path="res://Interface/TownInterface/TownInterfaceBuilding.tscn" id="2_20l4v"]
 [ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://Interface/TownInterface/TownInterfaceBuilding.gd" id="3_ptfhb"]
 
@@ -15,83 +16,87 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_20l4v")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
+
+[node name="TownName" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("2_2en7i")
+/linked_class = &"Town"
+/linked_property = &"town_name"
+metadata/_custom_type_script = ExtResource("2_2en7i")
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
 columns = 3
 
-[node name="Building 1" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 1" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 1"
 
-[node name="Building 2" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 2" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 2"
 
-[node name="Building 3" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 3" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 3"
 
-[node name="Building 4" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 4" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 4"
 
-[node name="Building 5" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 5" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 5"
 
-[node name="Building 6" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 6" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 6"
 
-[node name="Building 7" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 7" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 7"
 
-[node name="Building 8" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 8" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 8"
 
-[node name="Building 9" type="PanelContainer" parent="GridContainer" instance=ExtResource("2_20l4v")]
+[node name="Building 9" type="PanelContainer" parent="VBoxContainer/GridContainer" instance=ExtResource("2_20l4v")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"TownInterfaceBuilding"
 script = ExtResource("3_ptfhb")
-building_name = "Building 9"

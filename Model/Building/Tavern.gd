@@ -6,6 +6,9 @@ var adventurers_for_hire: Array[Adventurer] = []
 signal adventurers_for_hire_changed
 
 func _init() -> void:
+	building_name = "Tavern"
+	building_description = "Hire adventurers, and nothing else yet."
+	interface = TavernInterface
 	if not Engine.is_editor_hint():
 		GameplayEngine.game_tick_advanced.connect(_on_game_tick_advanced)
 	else:
@@ -14,9 +17,11 @@ func _init() -> void:
 func hire_adventurer(unit: Adventurer):
 	var index = adventurers_for_hire.find(unit)
 	if index != -1:
-		Player.roster.append(unit)
-		adventurers_for_hire.remove_at(index)
-		adventurers_for_hire_changed.emit()
+		if Player.money >= unit.hire_cost:
+			Player.money -= unit.hire_cost
+			Player.roster.append(unit)
+			adventurers_for_hire.remove_at(index)
+			adventurers_for_hire_changed.emit()
 
 func _on_game_tick_advanced():
 	var available_adventurers = adventurers_for_hire.size()

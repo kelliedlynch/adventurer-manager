@@ -68,6 +68,8 @@ var stat_cha: int = 2 + randi_range(0, 5):
 
 signal property_changed
 
+var hire_cost: int = 3 * level
+
 static func get_random_portrait():
 	var portraits = ResourceLoader.list_directory("res://Graphics/Portraits")
 	var filename = portraits[randi_range(0, portraits.size() - 1)]

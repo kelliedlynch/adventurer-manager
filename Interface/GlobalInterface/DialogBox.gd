@@ -30,5 +30,10 @@ func add_cancel_button(text: String = "Cancel"):
 func close_dialog():
 	queue_free()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		close_dialog()
+
 static func instantiate() -> DialogBox:
 	return load("res://Interface/GlobalInterface/DialogBox.tscn").instantiate()

@@ -12,7 +12,7 @@ class_name UnitList
 			
 @onready var list_items: VBoxContainer = $ScrollContainer/ListItems
 
-var action_buttons: Dictionary = {}
+var registered_buttons: Array[Dictionary] = []
 
 var _units: Array[Adventurer] = []:
 	set(value):
@@ -34,9 +34,16 @@ func _refresh_list() -> void:
 		var new_item = UnitListItem.instantiate()
 		new_item.unit = unit
 		list_items.add_child(new_item)
-		for button in action_buttons:
-			new_item.add_action_button("Hire", action_buttons[button].bind(unit))
+		for button in registered_buttons:
+			var butt = new_item.add_action_button(button.text, button.action.bind(unit))
+			if not button.active_if.call(unit):
+				butt.disabled = true
 
-func register_action_button(text: String, action: Callable):
-	action_buttons[text] = action
+func register_action_button(text: String, action: Callable, active_if: Callable = func(): return true):
+	var dict = {
+		"text": text,
+		"action": action,
+		"active_if": active_if
+	}
+	registered_buttons.append(dict)
 	_refresh_list()

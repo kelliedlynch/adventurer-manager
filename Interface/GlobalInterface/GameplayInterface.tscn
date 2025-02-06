@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bykhx0iesxr8d"]
+[gd_scene load_steps=4 format=3 uid="uid://bykhx0iesxr8d"]
 
 [ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://Interface/GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
+[ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/coin_01.png" id="2_8cgt8"]
+[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="3_t0gix"]
 
 [node name="GameplayInterface" type="VBoxContainer"]
 anchors_preset = 15
@@ -35,3 +37,24 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 toggle_mode = true
 text = "Town"
+
+[node name="Control" type="Control" parent="ActionBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ActionBar/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_8cgt8")
+expand_mode = 1
+
+[node name="MoneyLabel" type="HBoxContainer" parent="ActionBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("3_t0gix")
+/linked_class = &"PlayerData"
+/linked_property = &"money"
+metadata/_custom_type_script = ExtResource("3_t0gix")
