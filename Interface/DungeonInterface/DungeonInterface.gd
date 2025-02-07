@@ -24,20 +24,21 @@ func _ready() -> void:
 	send_button.pressed.connect(_on_press_send_button)
 	
 func _on_press_send_button():
-	if current_party.is_empty():
-		current_party.append_array(dungeon_units_list._units)
-		for unit in current_party:
+	if model.party.is_empty():
+		model.party.append_array(dungeon_units_list._units)
+		for unit in model.party:
 			dungeon_units_list.remove_unit(unit)
 		send_button.text = "Recall Party"
 		send_button.disabled = false
 		party_status_label.text = "Party Exploring"
+		model.begin_quest()
 	else:
-		for unit in current_party:
+		for unit in model.party:
 			idle_units_list.add_unit(unit)
-		current_party.clear()
+		model.party.clear()
 		send_button.text = "Send Party"
 		send_button.disabled = true
-		party_status_label.text = "Party Exploring"
+		party_status_label.text = "Not Ready"
 	pass
 
 func _add_to_party(unit: Adventurer):
@@ -45,12 +46,11 @@ func _add_to_party(unit: Adventurer):
 		return
 	idle_units_list.remove_unit(unit)
 	dungeon_units_list.add_unit(unit)
-	if dungeon_units_list._units.size() == 4:
-		party_status_label.text = "Ready"
-		send_button.disabled = false
-	else:
-		party_status_label.text = "Not Ready"
-		send_button.disabled = true
+	party_status_label.text = "Ready"
+	send_button.disabled = false
+	#else:
+		#party_status_label.text = "Not Ready"
+		#send_button.disabled = true
 	
 func _remove_from_party(unit: Adventurer):
 	idle_units_list.add_unit(unit)

@@ -11,6 +11,6 @@ var buildings: Array[Building] = []
 
 func _init() -> void:
 	var tav = Tavern.new()
-	tav.name = "The Rusty Dragon"
+	tav.building_name = "The Rusty Dragon"
 	buildings.append(tav)
 	pass

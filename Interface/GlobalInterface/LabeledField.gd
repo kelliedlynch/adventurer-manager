@@ -29,7 +29,7 @@ var text: String = "":
 			_text_label.text = value
 		
 func _ready() -> void:
-	theme_type_variation = "LabeledField"
+	#theme_type_variation = "LabeledField"
 	_label_label = Label.new()
 	_label_label.text = label
 	if label == "":
@@ -45,6 +45,16 @@ func _ready() -> void:
 	#_text_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	add_child(_text_label)
 	#size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	theme_changed.connect(_on_theme_changed)
+	#await ready
+	_on_theme_changed()
+	
+func _on_theme_changed():
+	var variation = theme_type_variation
+	var font_size = get_theme_font_size("font_size", variation)
+	_label_label.add_theme_font_size_override("font_size", font_size)
+	_text_label.add_theme_font_size_override("font_size", font_size)
+	pass
 	
 var _internal_vars: Dictionary = {}
 func _set(property, value):

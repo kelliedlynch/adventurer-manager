@@ -1,10 +1,12 @@
 extends Control
 class_name Menu
 
+@export var is_submenu = false
+
 signal menu_item_clicked
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if not is_submenu and event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		queue_free()
 

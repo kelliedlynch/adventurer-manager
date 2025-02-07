@@ -1,0 +1,37 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://1jaex7wbidaq"]
+
+[ext_resource type="StyleBox" uid="uid://brow5uaanil8s" path="res://Interface/GlobalInterface/ButtonLightDisabled.tres" id="1_ae3cl"]
+[ext_resource type="StyleBox" uid="uid://cd2tkcya4cs64" path="res://Interface/GlobalInterface/ButtonLightHover.tres" id="1_c3lfg"]
+[ext_resource type="StyleBox" uid="uid://b673q8gufql0x" path="res://Interface/GlobalInterface/ButtonLightNormal.tres" id="2_ae3cl"]
+[ext_resource type="StyleBox" uid="uid://212enke06llj" path="res://Interface/GlobalInterface/ButtonLightPressed.tres" id="3_2f0ad"]
+[ext_resource type="StyleBox" uid="uid://ckpt2dqmuf4n5" path="res://Interface/GlobalInterface/UnitListItemNormal.tres" id="4_aubws"]
+[ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://Interface/GlobalInterface/UnitListPortraitStyleBox.tres" id="5_1u76n"]
+
+[resource]
+default_font_size = 36
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.359069, 0.359069, 0.359069, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = ExtResource("1_ae3cl")
+Button/styles/hover = ExtResource("1_c3lfg")
+Button/styles/normal = ExtResource("2_ae3cl")
+Button/styles/pressed = ExtResource("3_2f0ad")
+FieldBig/base_type = &"LabeledField"
+FieldBig/font_sizes/font_size = 28
+FieldSmall/base_type = &"LabeledField"
+FieldSmall/font_sizes/font_size = 24
+Label/colors/font_color = Color(1, 0.968627, 0.917647, 1)
+LabeledField/base_type = &"HBoxContainer"
+LabeledField/constants/separation = 16
+MainLayoutContainer/base_type = &"HBoxContainer"
+MainLayoutContainer/constants/separation = 12
+PanelContainer/styles/panel = ExtResource("4_aubws")
+PortraitFrame/base_type = &"PanelContainer"
+PortraitFrame/styles/panel = ExtResource("5_1u76n")
+TitleBig/base_type = &"LabeledField"
+TitleBig/font_sizes/font_size = 36
+TitleSmall/base_type = &"LabeledField"
+TitleSmall/font_sizes/font_size = 28

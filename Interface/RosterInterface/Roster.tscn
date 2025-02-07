@@ -11,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lr21u")
+is_submenu = null
 
 [node name="UnitList" parent="." instance=ExtResource("2_71r5l")]
 layout_mode = 1

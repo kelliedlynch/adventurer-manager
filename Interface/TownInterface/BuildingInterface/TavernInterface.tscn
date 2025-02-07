@@ -1,27 +1,43 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf7xslet4e5yi"]
 
 [ext_resource type="PackedScene" uid="uid://fhkh1rl8twib" path="res://Interface/TownInterface/BuildingInterface/BuildingInterface.tscn" id="1_i4t8l"]
-[ext_resource type="Theme" uid="uid://p751urah5hp2" path="res://Interface/GlobalInterface/UnitListItemTheme.tres" id="2_lw6vm"]
 [ext_resource type="Script" uid="uid://b6cha1jhjbe1q" path="res://Interface/TownInterface/BuildingInterface/TavernInterface.gd" id="3_jl7te"]
+[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="4_0e4hc"]
 [ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://Interface/GlobalInterface/UnitList.tscn" id="4_2shlc"]
 
 [node name="TavernInterface" instance=ExtResource("1_i4t8l")]
-theme = ExtResource("2_lw6vm")
 script = ExtResource("3_jl7te")
+is_submenu = null
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="0"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="Control" type="Control" parent="HBoxContainer" index="0"]
+[node name="TavernName" type="HBoxContainer" parent="VBoxContainer" index="0"]
+layout_mode = 2
+theme_type_variation = &"LabeledField"
+alignment = 1
+script = ExtResource("4_0e4hc")
+/linked_class = &"Tavern"
+/linked_property = &"building_name"
+metadata/_custom_type_script = ExtResource("4_0e4hc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="UnitList" parent="HBoxContainer" index="1" instance=ExtResource("4_2shlc")]
+[node name="UnitList" parent="VBoxContainer/HBoxContainer" index="1" instance=ExtResource("4_2shlc")]
 layout_mode = 2
 size_flags_horizontal = 3
 list_title = "Adventurers For Hire"
+is_submenu = true

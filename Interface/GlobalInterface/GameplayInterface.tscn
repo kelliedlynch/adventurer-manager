@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bykhx0iesxr8d"]
+[gd_scene load_steps=7 format=3 uid="uid://bykhx0iesxr8d"]
 
 [ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://Interface/GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
-[ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/coin_01.png" id="2_8cgt8"]
+[ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/Icons/coin_01.png" id="2_8cgt8"]
 [ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="3_t0gix"]
+[ext_resource type="Texture2D" uid="uid://dc82phwa54dbb" path="res://Graphics/Icons/Black/barsHorizontal.png" id="4_t0gix"]
+[ext_resource type="PackedScene" uid="uid://dabq6vuayb2v3" path="res://Interface/GlobalInterface/ActivityLogInterface.tscn" id="5_h0faj"]
+[ext_resource type="Texture2D" uid="uid://dppkq8w7qayxr" path="res://Graphics/Icons/Black/fastForward.png" id="6_nexvb"]
 
-[node name="GameplayInterface" type="VBoxContainer"]
+[node name="GameplayInterface" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,41 +16,51 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sww6f")
 
-[node name="Main" type="Control" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ActionBar" type="PanelContainer" parent="."]
+[node name="ActionBar" type="PanelContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_type_variation = &"GameplayMenuBar"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ActionBar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ActionBar"]
 layout_mode = 2
 
-[node name="RosterButton" type="Button" parent="ActionBar/HBoxContainer"]
+[node name="RosterButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 toggle_mode = true
 text = "Roster"
 
-[node name="TownButton" type="Button" parent="ActionBar/HBoxContainer"]
+[node name="TownButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 toggle_mode = true
 text = "Town"
 
-[node name="DungeonButton" type="Button" parent="ActionBar/HBoxContainer"]
+[node name="DungeonButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Dungeon"
 
-[node name="Control" type="Control" parent="ActionBar/HBoxContainer"]
+[node name="Control" type="Control" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="ActionBar/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ActionBar/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -54,11 +68,53 @@ size_flags_vertical = 4
 texture = ExtResource("2_8cgt8")
 expand_mode = 1
 
-[node name="MoneyLabel" type="HBoxContainer" parent="ActionBar/HBoxContainer"]
+[node name="MoneyLabel" type="HBoxContainer" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_type_variation = &"LabeledField"
 script = ExtResource("3_t0gix")
 /linked_class = &"PlayerData"
 /linked_property = &"money"
 metadata/_custom_type_script = ExtResource("3_t0gix")
+
+[node name="ActivityLogButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/icon_max_width = 48
+toggle_mode = true
+icon = ExtResource("4_t0gix")
+icon_alignment = 1
+
+[node name="ActivityLogContainer" type="Control" parent="."]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(480, 240)
+anchors_preset = 0
+offset_left = 1240.0
+offset_top = 590.0
+offset_right = 1920.0
+offset_bottom = 930.0
+
+[node name="ActivityLog" parent="ActivityLogContainer" instance=ExtResource("5_h0faj")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DebugAdvanceTick" type="Button" parent="."]
+modulate = Color(0.403922, 0.580392, 0.211765, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.0
+offset_bottom = 87.0
+grow_horizontal = 0
+icon = ExtResource("6_nexvb")
+expand_icon = true
