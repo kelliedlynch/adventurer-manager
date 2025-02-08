@@ -25,6 +25,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 list_title = "Idle Units"
+is_submenu = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -38,19 +39,20 @@ layout_mode = 2
 
 [node name="DungeonName" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"LabeledField"
+theme_type_variation = &"TitleBig"
 alignment = 1
 script = ExtResource("3_srn1t")
 /linked_class = &"Dungeon"
 /linked_property = &"dungeon_name"
 metadata/_custom_type_script = ExtResource("3_srn1t")
 
-[node name="DungeonStats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="DungeonStats" type="GridContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+columns = 2
 
 [node name="LevelRange" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats"]
 layout_mode = 2
-theme_type_variation = &"LabeledField"
+theme_type_variation = &"FieldBig"
 script = ExtResource("3_srn1t")
 label = "Level Range"
 /linked_class = &"Dungeon"
@@ -59,7 +61,7 @@ metadata/_custom_type_script = ExtResource("3_srn1t")
 
 [node name="RewardMoney" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats"]
 layout_mode = 2
-theme_type_variation = &"LabeledField"
+theme_type_variation = &"FieldBig"
 script = ExtResource("3_srn1t")
 label = "Reward"
 /linked_class = &"Dungeon"
@@ -71,7 +73,21 @@ layout_mode = 2
 
 [node name="PartyStatus" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
 layout_mode = 2
-text = "Not Ready"
+text = "Not ready"
+
+[node name="RemainingTime" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("3_srn1t")
+label = "Time"
+/linked_class = &"Dungeon"
+/linked_property = &"quest_time"
+metadata/_custom_type_script = ExtResource("3_srn1t")
+
+[node name="days" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
+layout_mode = 2
+text = " days"
 
 [node name="SendParty" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
 layout_mode = 2
@@ -85,3 +101,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 list_title = "Dungeon Party"
+is_submenu = true

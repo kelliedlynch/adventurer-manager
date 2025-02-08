@@ -7,6 +7,9 @@ func display_menu(menu: Menu, replace: bool = false):
 		close_all()
 	main_control_node.add_child(menu)
 	
+func close_menu(menu: Menu):
+	menu.queue_free()
+	
 func close_all():
 	for child in main_control_node.get_children():
 		if child is Menu:

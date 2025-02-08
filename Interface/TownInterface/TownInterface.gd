@@ -2,7 +2,7 @@
 extends Menu
 class_name TownInterface
 
-@onready var name_field: LabeledField = $VBoxContainer/TownName
+@onready var name_field: LabeledField = $VBoxContainer/PanelContainer/TownName
 @onready var building_grid: GridContainer = $VBoxContainer/GridContainer
 
 var model: Town
@@ -34,5 +34,7 @@ func _open_building_menu(building: Building):
 	menu.model = building
 	add_child(menu)
 
-static func instantiate() -> TownInterface:
-	return load("res://Interface/TownInterface/TownInterface.tscn").instantiate()
+static func instantiate(town: Town) -> TownInterface:
+	var menu = load("res://Interface/TownInterface/TownInterface.tscn").instantiate()
+	menu.model = town
+	return menu

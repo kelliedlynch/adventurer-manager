@@ -54,6 +54,7 @@ text = "Town"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+toggle_mode = true
 text = "Dungeon"
 
 [node name="Control" type="Control" parent="VBoxContainer/ActionBar/HBoxContainer"]
@@ -92,20 +93,13 @@ visible = false
 z_index = 1
 custom_minimum_size = Vector2(480, 240)
 anchors_preset = 0
-offset_left = 1240.0
+offset_left = 941.0
 offset_top = 590.0
-offset_right = 1920.0
+offset_right = 1921.0
 offset_bottom = 930.0
 
 [node name="ActivityLog" parent="ActivityLogContainer" instance=ExtResource("5_h0faj")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="DebugAdvanceTick" type="Button" parent="."]
 modulate = Color(0.403922, 0.580392, 0.211765, 1)
@@ -118,3 +112,11 @@ offset_bottom = 87.0
 grow_horizontal = 0
 icon = ExtResource("6_nexvb")
 expand_icon = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 50.0
+theme_type_variation = &"HighlightedLabel"
+text = "gjdfcjhgfikhj"

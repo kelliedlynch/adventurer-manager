@@ -3,9 +3,19 @@ class_name Dungeon
 
 var dungeon_name: String = "Scary Dungeon"
 var party: Array[Adventurer] = []
-var questing: bool = false
-var quest_time: int = 3
-var current_quest_time: int = 0
+var max_party_size: int = 4
+var questing: bool = false:
+	set(value):
+		questing = value
+		property_changed.emit("questing")
+var quest_time: int = 3:
+	set(value):
+		quest_time = value
+		property_changed.emit("quest_time")
+var remaining_quest_time: int = -1:
+	set(value):
+		remaining_quest_time = value
+		property_changed.emit("remaining_quest_time")
 
 var _min_level: int = 1:
 	set(value):
@@ -34,16 +44,26 @@ func _init() -> void:
 	
 func begin_quest():
 	if party.size() > 0:
+		for adv in party:
+			adv.status = Adventurer.STATUS_EXPLORING_DUNGEON
 		questing = true
-		current_quest_time = quest_time
+		remaining_quest_time = quest_time
+		
+func complete_quest():
+	for adv in party:
+		adv.status = Adventurer.STATUS_IDLE
+	party.clear()
+	var log = ActivityLogMessage.new()
+	log.menu = DungeonInterface.instantiate.bind(self)
+	var reward = randi_range(_min_reward, _max_reward)
+	log.text = "Party finished quest in %s. Received %d money." % [dungeon_name, reward]
+	GameplayEngine.activity_log.push_message(log)
+	Player.money += reward
+	questing = false
+	remaining_quest_time = -1
 
 func _on_advance_tick():
 	if questing:
-		current_quest_time -= 1
-		if current_quest_time <= 0:
-			var log = ActivityLogMessage.new()
-			log.menu = DungeonInterface
-			log.text = "Party finished quest"
-			GameplayEngine.activity_log.push_message(log)
-			questing = false
-	pass
+		remaining_quest_time -= 1
+		if remaining_quest_time <= 0:
+			complete_quest()

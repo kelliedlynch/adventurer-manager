@@ -63,7 +63,7 @@ func _set(property, value):
 			_internal_vars[property] = value
 			notify_property_list_changed()
 		if property == "/linked_property":
-			text = value if value else ""
+			text = str(_linked_model.get(value)) if _linked_model else value
 		return true
 	return false
 	
@@ -83,7 +83,6 @@ func _get_property_list() -> Array:
 	var hint_str = ""
 	if get("/linked_class"):
 		var instance = load(ProjectSettings.get_global_class_list()[custom_classes.find_custom(func (x): return x.class == get("/linked_class"))].path).new()
-		var a = instance.get_property_list()
 		hint_str = instance.get_property_list().reduce(func (accum, val): return accum + val.name + ",", "").left(-1)
 	props.append({
 		name = "/linked_property",

@@ -14,8 +14,8 @@ func push_message(msg: ActivityLogMessage) -> void:
 	log_changed.emit()
 
 func get_messages(qty: int = -1) -> Array[ActivityLogMessage]:
-	var len = _messages.size()
-	if qty == -1 or qty >= len:
+	var length = _messages.size()
+	if qty == -1 or qty >= length:
 		return _messages
 	else:
-		return _messages.slice(len - 1 - qty)
+		return _messages.slice(length - 1 - qty)

@@ -65,12 +65,24 @@ var stat_cha: int = 2 + randi_range(0, 5):
 	set(value):
 		stat_cha = value
 		property_changed.emit("stat_cha")
+		
+var hire_cost: int = 3 * level:
+	set(value):
+		hire_cost = value
+		property_changed.emit("hire_cost")
 
 signal property_changed
 
-var hire_cost: int = 3 * level
+var status: int = STATUS_IDLE
+
+
 
 static func get_random_portrait():
 	var portraits = ResourceLoader.list_directory("res://Graphics/Portraits")
 	var filename = portraits[randi_range(0, portraits.size() - 1)]
 	return load("res://Graphics/Portraits/" + filename)
+
+enum {
+	STATUS_IDLE,
+	STATUS_EXPLORING_DUNGEON
+}

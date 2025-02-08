@@ -9,9 +9,6 @@ class_name DialogBox
 
 func _ready() -> void:
 	message_label.text = message
-	#for child in action_buttons.get_children():
-		#child.queue_free()
-	#add_cancel_button()
 	
 func add_action_button(text: String, action: Callable, close_after: bool = true):
 	var button = Button.new()

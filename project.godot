@@ -26,6 +26,10 @@ GameplayEngine="*res://GameplayEngine.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[global_group]
+
+idle_adventurers="Adventurers in player roster not currently involved in a task"
+
 [gui]
 
 theme/custom="uid://1jaex7wbidaq"

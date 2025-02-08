@@ -16,22 +16,28 @@ class_name UnitList
 
 signal item_clicked
 
+
 var registered_buttons: Array[Dictionary] = []
 
 var _units: Array[Adventurer] = []:
 	set(value):
 		_units = value
-		_refresh_list()
+		_refresh_queued = true
+var units: Array[Adventurer]:
+	get:
+		return _units
+	set(value):
+		push_error("can't set units directly; use add/remove functions")
 		
 func add_unit(unit: Adventurer):
 	_units.append(unit)
-	_refresh_list()
+	_refresh_queued = true
 
 func remove_unit(unit: Adventurer):
 	var index = _units.find(unit)
 	if index != -1:
 		_units.remove_at(index)
-		_refresh_list()
+		_refresh_queued = true
 
 func _ready() -> void:
 	if get_tree().current_scene == self or (Engine.is_editor_hint() and _units.is_empty()):
@@ -39,9 +45,10 @@ func _ready() -> void:
 			var adv = Adventurer.new()
 			adv.name = "Adventurer " + str(i)
 			_units.append(adv)
-	_refresh_list()
+	_refresh_queued = true
+	super._ready()
 
-func _refresh_list() -> void:
+func _refresh_menu() -> void:
 	for child in list_items_container.get_children():
 		child.queue_free()
 	for unit in _units:
@@ -62,4 +69,4 @@ func register_action_button(text: String, action: Callable, active_if: Callable 
 		"active_if": active_if
 	}
 	registered_buttons.append(dict)
-	_refresh_list()
+	_refresh_queued = true
