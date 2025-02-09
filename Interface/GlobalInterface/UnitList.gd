@@ -2,7 +2,7 @@
 extends Menu
 class_name UnitList
 
-@onready var title_label = $VBoxContainer/ListTitle
+@onready var title_label = $VBoxContainer/PanelContainer/ListTitle
 
 @export var list_title: String = "Unit List":
 	set(value):
@@ -25,10 +25,10 @@ var _units: Array[Adventurer] = []:
 		_refresh_queued = true
 var units: Array[Adventurer]:
 	get:
-		return _units
+		return _units.duplicate()
 	set(value):
 		push_error("can't set units directly; use add/remove functions")
-		
+
 func add_unit(unit: Adventurer):
 	_units.append(unit)
 	_refresh_queued = true
@@ -38,6 +38,9 @@ func remove_unit(unit: Adventurer):
 	if index != -1:
 		_units.remove_at(index)
 		_refresh_queued = true
+
+func clear_units():
+	_units.clear()
 
 func _ready() -> void:
 	if get_tree().current_scene == self or (Engine.is_editor_hint() and _units.is_empty()):

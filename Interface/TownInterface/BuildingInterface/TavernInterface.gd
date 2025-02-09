@@ -37,5 +37,8 @@ func _confirm_hire(unit: Adventurer):
 func _on_player_money_changed():
 	pass
 
+func _refresh_menu():
+	pass
+
 static func instantiate() -> TavernInterface:
 	return load("res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn").instantiate()

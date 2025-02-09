@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnwh3ltkopbuh"]
+
+[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="1_pmowl"]
+
+[node name="LabeledField" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 50.0
+script = ExtResource("1_pmowl")
+/linked_class = null
+/linked_property = null
+/max_val_property = null
+
+[node name="FieldLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+
+[node name="CurrentValue" type="Label" parent="."]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+
+[node name="MaxValue" type="Label" parent="."]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 36

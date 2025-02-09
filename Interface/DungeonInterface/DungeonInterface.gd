@@ -7,16 +7,14 @@ var model: Dungeon
 @onready var dungeon_units_list: UnitList = $HBoxContainer/VBoxContainer/DungeonParty
 @onready var send_button: Button = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/SendParty
 @onready var party_status_label: Label = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/PartyStatus
-@onready var remaining_time: LabeledField = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/RemainingTime
+@onready var remaining_time: LabeledField = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/ExploreTime
 
 #var staged_party: Array[Adventurer] = []
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
 		model = Dungeon.new()
-	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE)
-	for adv in idle:
-		idle_units_list.add_unit(adv)
+	_get_idle_units()
 	if not is_inside_tree():
 		await ready
 	#for item in idle_units_list.list_items.get_children():
@@ -27,6 +25,21 @@ func _ready() -> void:
 	send_button.pressed.connect(_on_press_send_button)
 	model.property_changed.connect(_on_dungeon_property_changed)
 	super._ready()
+	
+func _refresh_menu():
+	_get_idle_units()
+	super._refresh_menu()
+			
+func _get_idle_units():
+	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE)
+	var combined = idle_units_list.units
+	if !dungeon_units_list.units.is_empty():
+		combined.append_array(dungeon_units_list.units)
+	if idle != combined:
+		idle_units_list.clear_units()
+		for adv in idle:
+			if !dungeon_units_list.units.has(adv):
+				idle_units_list.add_unit(adv)
 	
 func _on_dungeon_property_changed(prop: String):
 	if prop == "questing":

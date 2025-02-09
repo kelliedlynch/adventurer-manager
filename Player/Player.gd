@@ -13,7 +13,7 @@ signal property_changed
 func _init() -> void:
 	pass
 	for i in 10:
-		roster.append(Adventurer.new())
+		roster.append(Adventurer.generate_random_newbie())
 
 func _ready() -> void:
 	var town = Town.new()

@@ -1,11 +1,12 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://1jaex7wbidaq"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://1jaex7wbidaq"]
 
 [ext_resource type="StyleBox" uid="uid://brow5uaanil8s" path="res://Interface/GlobalInterface/ButtonLightDisabled.tres" id="1_ae3cl"]
 [ext_resource type="StyleBox" uid="uid://cd2tkcya4cs64" path="res://Interface/GlobalInterface/ButtonLightHover.tres" id="1_c3lfg"]
 [ext_resource type="StyleBox" uid="uid://b673q8gufql0x" path="res://Interface/GlobalInterface/ButtonLightNormal.tres" id="2_ae3cl"]
 [ext_resource type="StyleBox" uid="uid://212enke06llj" path="res://Interface/GlobalInterface/ButtonLightPressed.tres" id="3_2f0ad"]
-[ext_resource type="StyleBox" uid="uid://ckpt2dqmuf4n5" path="res://Interface/GlobalInterface/UnitListItemNormal.tres" id="4_aubws"]
 [ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://Interface/GlobalInterface/UnitListPortraitStyleBox.tres" id="5_1u76n"]
+[ext_resource type="StyleBox" uid="uid://c8kg8j4t2mhuy" path="res://Interface/GlobalInterface/DefaultPanelStyleBox.tres" id="5_2f0ad"]
+[ext_resource type="StyleBox" uid="uid://bsxv6jjyd6o14" path="res://Interface/GlobalInterface/TitleBarStyleBox.tres" id="7_2f0ad"]
 
 [resource]
 default_font_size = 36
@@ -34,9 +35,11 @@ LabeledField/base_type = &"HBoxContainer"
 LabeledField/constants/separation = 16
 MainLayoutContainer/base_type = &"HBoxContainer"
 MainLayoutContainer/constants/separation = 12
-PanelContainer/styles/panel = ExtResource("4_aubws")
+PanelContainer/styles/panel = ExtResource("5_2f0ad")
 PortraitFrame/base_type = &"PanelContainer"
 PortraitFrame/styles/panel = ExtResource("5_1u76n")
+TitleBar/base_type = &"PanelContainer"
+TitleBar/styles/panel = ExtResource("7_2f0ad")
 TitleBig/base_type = &"LabeledField"
 TitleBig/font_sizes/font_size = 36
 TitleSmall/base_type = &"LabeledField"

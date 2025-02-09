@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://c8kg8j4t2mhuy"]
+
+[ext_resource type="Texture2D" uid="uid://1wurhmfacamg" path="res://Graphics/LargeBorders/Exported/b_f4d793ff_p_3b3b3bff.png" id="1_surby"]
+
+[resource]
+texture = ExtResource("1_surby")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+modulate_color = Color(1, 1, 1, 0.807843)

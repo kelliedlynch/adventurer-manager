@@ -1,7 +1,7 @@
 extends Control
 
 @onready var main_control: Control = $VBoxContainer/Main
-@onready var money_label: LabeledField = $VBoxContainer/ActionBar/HBoxContainer/MoneyLabel
+@onready var money_label: LabeledField = $VBoxContainer/ActionBar/HBoxContainer/MoneyField
 @onready var roster_button: Button = $VBoxContainer/ActionBar/HBoxContainer/RosterButton
 @onready var town_button: Button = $VBoxContainer/ActionBar/HBoxContainer/TownButton
 @onready var dungeon_button: Button = $VBoxContainer/ActionBar/HBoxContainer/DungeonButton

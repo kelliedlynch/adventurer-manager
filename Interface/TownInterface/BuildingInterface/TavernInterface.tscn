@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf7xslet4e5yi"]
+[gd_scene load_steps=5 format=3 uid="uid://cf7xslet4e5yi"]
 
+[ext_resource type="Texture2D" uid="uid://bfhth0qeb4r3p" path="res://Graphics/Backgrounds/tavern_2.png" id="2_llgr7"]
 [ext_resource type="Script" uid="uid://b6cha1jhjbe1q" path="res://Interface/TownInterface/BuildingInterface/TavernInterface.gd" id="3_jl7te"]
-[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="4_0e4hc"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_llgr7"]
 [ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://Interface/GlobalInterface/UnitList.tscn" id="4_2shlc"]
 
 [node name="TavernInterface" type="Control"]
@@ -13,6 +14,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_jl7te")
 is_submenu = null
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_llgr7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -26,14 +36,11 @@ alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="TavernName" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+[node name="TavernName" parent="VBoxContainer/PanelContainer" instance=ExtResource("3_llgr7")]
 layout_mode = 2
-theme_type_variation = &"LabeledField"
 alignment = 1
-script = ExtResource("4_0e4hc")
 /linked_class = &"Tavern"
 /linked_property = &"building_name"
-metadata/_custom_type_script = ExtResource("4_0e4hc")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

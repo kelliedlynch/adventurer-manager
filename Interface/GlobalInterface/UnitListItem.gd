@@ -6,7 +6,7 @@ class_name UnitListItem
 @onready var _portrait_texture_rect: TextureRect = $HBoxContainer/PortraitFrame/TextureRect
 @onready var action_buttons: VBoxContainer = $HBoxContainer/ActionButtons
 
-var _labeled_fields: Array[LabeledField] = []
+#var _labeled_fields: Array[LabeledField] = []
 
 @export var portrait_style: StyleBox:
 	set(value):

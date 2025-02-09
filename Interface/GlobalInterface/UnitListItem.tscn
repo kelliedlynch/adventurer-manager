@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cwoqhme8j6mm0"]
 
 [ext_resource type="Script" uid="uid://bhw5owkxkm55i" path="res://Interface/GlobalInterface/UnitListItem.gd" id="1_suabm"]
-[ext_resource type="Texture2D" uid="uid://bl0m1ssf06du4" path="res://Graphics/Portraits/m_05.png" id="2_3ny6k"]
-[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="3_q06h3"]
+[ext_resource type="Texture2D" uid="uid://dspmskbqb5kx" path="res://Graphics/Portraits/f_03.png" id="2_3ny6k"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_48wti"]
 
 [node name="UnitListItem" type="PanelContainer"]
 anchors_preset = 14
@@ -48,132 +48,112 @@ alignment = 1
 [node name="Header" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
 layout_mode = 2
 
-[node name="Name" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/Header"]
+[node name="LabeledField" parent="HBoxContainer/StatsBlock/VBoxContainer/Header" instance=ExtResource("3_48wti")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"TitleBig"
-script = ExtResource("3_q06h3")
 /linked_class = &"Adventurer"
 /linked_property = &"name"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
 [node name="LevelAndClass" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Level" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass"]
+[node name="Level" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass" instance=ExtResource("3_48wti")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"TitleBig"
-script = ExtResource("3_q06h3")
-label = "Lv."
+label = "Lv"
+label_divider = "."
 /linked_class = &"Adventurer"
 /linked_property = &"level"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
-[node name="Class" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass"]
+[node name="Class" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass" instance=ExtResource("3_48wti")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"TitleBig"
-script = ExtResource("3_q06h3")
 /linked_class = &"Adventurer"
 /linked_property = &"adventurer_class"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
 [node name="MainStats" type="GridContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
 layout_mode = 2
 columns = 3
 
-[node name="HitPoints" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="HitPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "HP"
+show_max = true
 /linked_class = &"Adventurer"
-/linked_property = &"stat_hp"
-metadata/_custom_type_script = ExtResource("3_q06h3")
+/linked_property = &"current_hp"
+/max_val_property = &"stat_hp"
 
-[node name="MagicPoints" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="MagicPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "MP"
+show_max = true
 /linked_class = &"Adventurer"
-/linked_property = &"stat_mp"
-metadata/_custom_type_script = ExtResource("3_q06h3")
+/linked_property = &"current_mp"
+/max_val_property = &"stat_mp"
 
-[node name="AttackPower" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="AttackPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "ATK"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_atk"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
-[node name="DefensePower" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="DefensePower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "DEF"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_def"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
-[node name="MagicPower" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="MagicPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "MAG"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_mag"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
-[node name="MagicDefense" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="MagicDefense" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "RES"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_res"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
-[node name="Dexterity" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="Dexterity" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "DEX"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_dex"
-metadata/_custom_type_script = ExtResource("3_q06h3")
 
-[node name="Luck" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
+[node name="Charisma" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
-label = "LUK"
-/linked_class = &"Adventurer"
-/linked_property = &"stat_luk"
-metadata/_custom_type_script = ExtResource("3_q06h3")
-
-[node name="Charisma" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-script = ExtResource("3_q06h3")
 label = "CHA"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_cha"
-metadata/_custom_type_script = ExtResource("3_q06h3")
+
+[node name="Luck" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+layout_mode = 2
+size_flags_horizontal = 3
+label = "LUK"
+/linked_class = &"Adventurer"
+/linked_property = &"stat_luk"
+
+[node name="Experience" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+layout_mode = 2
+size_flags_horizontal = 3
+label = "EXP"
+/linked_class = &"Adventurer"
+/linked_property = &"experience"
+
+[node name="ToNext" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+layout_mode = 2
+size_flags_horizontal = 3
+label = "TO_NEXT"
+/linked_class = &"Adventurer"
+/linked_property = &"next_level_exp"
 
 [node name="ActionButtons" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2

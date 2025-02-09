@@ -30,5 +30,5 @@ func _on_game_tick_advanced():
 			_add_new_adventurer_for_hire()
 
 func _add_new_adventurer_for_hire():
-	adventurers_for_hire.append(Adventurer.new())
+	adventurers_for_hire.append(Adventurer.generate_random_newbie())
 	adventurers_for_hire_changed.emit()

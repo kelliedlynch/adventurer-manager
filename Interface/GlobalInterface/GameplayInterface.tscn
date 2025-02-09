@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bykhx0iesxr8d"]
+[gd_scene load_steps=8 format=3 uid="uid://bykhx0iesxr8d"]
 
 [ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://Interface/GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
 [ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/Icons/coin_01.png" id="2_8cgt8"]
-[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="3_t0gix"]
+[ext_resource type="Texture2D" uid="uid://ctso5fp13bg5t" path="res://Graphics/Backgrounds/landscape_4.png" id="2_mpu5g"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="4_mpu5g"]
 [ext_resource type="Texture2D" uid="uid://dc82phwa54dbb" path="res://Graphics/Icons/Black/barsHorizontal.png" id="4_t0gix"]
 [ext_resource type="PackedScene" uid="uid://dabq6vuayb2v3" path="res://Interface/GlobalInterface/ActivityLogInterface.tscn" id="5_h0faj"]
 [ext_resource type="Texture2D" uid="uid://dppkq8w7qayxr" path="res://Graphics/Icons/Black/fastForward.png" id="6_nexvb"]
@@ -15,6 +16,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sww6f")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mpu5g")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -69,15 +79,10 @@ size_flags_vertical = 4
 texture = ExtResource("2_8cgt8")
 expand_mode = 1
 
-[node name="MoneyLabel" type="HBoxContainer" parent="VBoxContainer/ActionBar/HBoxContainer"]
+[node name="MoneyField" parent="VBoxContainer/ActionBar/HBoxContainer" instance=ExtResource("4_mpu5g")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_type_variation = &"LabeledField"
-script = ExtResource("3_t0gix")
 /linked_class = &"PlayerData"
 /linked_property = &"money"
-metadata/_custom_type_script = ExtResource("3_t0gix")
 
 [node name="ActivityLogButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2

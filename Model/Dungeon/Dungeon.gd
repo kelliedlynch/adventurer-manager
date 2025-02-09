@@ -51,6 +51,7 @@ func begin_quest():
 		
 func complete_quest():
 	for adv in party:
+		adv.add_experience(randi_range(50, 100))
 		adv.status = Adventurer.STATUS_IDLE
 	party.clear()
 	var log = ActivityLogMessage.new()
@@ -65,5 +66,13 @@ func complete_quest():
 func _on_advance_tick():
 	if questing:
 		remaining_quest_time -= 1
+		_simulate_battle()
 		if remaining_quest_time <= 0:
 			complete_quest()
+
+func _simulate_battle():
+	var rounds = randi_range(3, 12)
+	for i in rounds:
+		var unit = party.pick_random()
+		var damage = randi_range(1, 4) * randi_range(_min_level, _max_level)
+		unit.current_hp -= damage
