@@ -25,7 +25,6 @@ FieldBig/base_type = &"LabeledField"
 FieldBig/font_sizes/font_size = 28
 FieldSmall/base_type = &"LabeledField"
 FieldSmall/font_sizes/font_size = 24
-HighlightedLabel/base_type = &"Label"
 HighlightedLabel/colors/font_color = Color(1, 1, 1, 1)
 HighlightedLabel/colors/font_outline_color = Color(0.231373, 0.231373, 0.231373, 1)
 HighlightedLabel/colors/font_shadow_color = Color(1, 1, 0, 0.423529)

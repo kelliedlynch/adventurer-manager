@@ -13,7 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_jl7te")
-is_submenu = null
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
