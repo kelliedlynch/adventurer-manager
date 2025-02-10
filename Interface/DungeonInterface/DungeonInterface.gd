@@ -1,7 +1,7 @@
-extends Menu
+extends Control
 class_name DungeonInterface
 
-var model: Dungeon
+var dungeon: Dungeon
 @onready var idle_units_list: UnitListMenu = $HBoxContainer/IdleUnits
 @onready var dungeon_panel: VBoxContainer = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer
 @onready var dungeon_units_list: UnitListMenu = $HBoxContainer/VBoxContainer/DungeonParty
@@ -13,37 +13,38 @@ var model: Dungeon
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
-		model = Dungeon.new()
-	_get_idle_units()
+		dungeon = Dungeon.new()
+	#idle_units_list.clear_menu_items()
+	#dungeon_units_list.clear_menu_items()
+	for unit in _get_idle_units():
+		idle_units_list.add_unit(unit)
 	if not is_inside_tree():
 		await ready
 	#for item in idle_units_list.list_items.get_children():
 		#item.item_clicked.connect(_add_to_party.bind(item.unit))
 	idle_units_list.menu_item_selected.connect(_add_to_party)
 	dungeon_units_list.menu_item_selected.connect(_remove_from_party)
-	_watch_labeled_fields(model, dungeon_panel)
+	watch_labeled_fields(dungeon, dungeon_panel)
 	send_button.pressed.connect(_on_press_send_button)
-	model.property_changed.connect(_on_dungeon_property_changed)
-	super._ready()
-	
-func _refresh_menu():
-	_get_idle_units()
-	super._refresh_menu()
+	dungeon.property_changed.connect(_on_dungeon_property_changed)
+	#super._ready()
+
+func watch_labeled_fields(watched, current_node) -> void:
+	for child in current_node.get_children():
+		if child is LabeledField:
+			child.watch_object(watched)
+		watch_labeled_fields(watched, child)
 			
-func _get_idle_units():
+func _get_idle_units() -> Array[Adventurer]:
 	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE)
-	var combined = idle_units_list.units
 	if !dungeon_units_list.units.is_empty():
-		combined.append_array(dungeon_units_list.units)
-	if idle != combined:
-		idle_units_list.clear_units()
-		for adv in idle:
-			if !dungeon_units_list.units.has(adv):
-				idle_units_list.add_unit(adv)
+		for unit in dungeon_units_list.units:
+			idle.remove_at(idle.find(unit))
+	return idle
 	
 func _on_dungeon_property_changed(prop: String):
 	if prop == "questing":
-		if model.questing == true:
+		if dungeon.questing == true:
 			send_button.disabled = true
 			party_status_label.text = "Exploring dungeon"
 			remaining_time.label = "Time left"
@@ -55,32 +56,32 @@ func _on_dungeon_property_changed(prop: String):
 			remaining_time.set("/linked_property", "quest_time")
 	
 func _on_press_send_button():
-	if model.party.is_empty():
-		model.party.append_array(dungeon_units_list.units)
-		for unit in model.party:
+	if dungeon.party.is_empty():
+		dungeon.party.append_array(dungeon_units_list.units)
+		for unit in dungeon.party:
 			dungeon_units_list.remove_unit(unit)
 		party_status_label.text = "Party Exploring"
-		model.begin_quest()
+		dungeon.begin_quest()
 
-func _add_to_party(item: UnitListItem):
-	if dungeon_units_list.units.size() >= model.max_party_size:
+func _add_to_party(item: UnitListMenuItem):
+	if dungeon_units_list.units.size() >= dungeon.max_party_size:
 		return
 	idle_units_list.remove_unit(item.unit)
 	dungeon_units_list.add_unit(item.unit)
-	party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), model.max_party_size]
+	party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), dungeon.max_party_size]
 	send_button.disabled = false
 	
-func _remove_from_party(item: UnitListItem):
+func _remove_from_party(item: UnitListMenuItem):
 	idle_units_list.add_unit(item.unit)
 	dungeon_units_list.remove_unit(item.unit)
 	if dungeon_units_list._units.size() == 0:
 		party_status_label.text = "Not ready"
 		send_button.disabled = true
 	else:
-		party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), model.max_party_size]
+		party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), dungeon.max_party_size]
 		send_button.disabled = false
 
 static func instantiate(dungeon: Dungeon) -> DungeonInterface:
 	var menu = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()
-	menu.model = dungeon
+	menu.dungeon = dungeon
 	return menu

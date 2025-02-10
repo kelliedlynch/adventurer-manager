@@ -52,7 +52,7 @@ func _on_heal_button_pressed():
 	
 	
 func _get_injured_units():
-	injured_units.clear_units()
+	#injured_units.clear_units()
 	var units = Player.roster.filter(func(x): return x.current_hp < x.stat_hp)
 	for unit in units:
 		injured_units.add_unit(unit)

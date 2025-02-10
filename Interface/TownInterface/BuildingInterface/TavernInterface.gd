@@ -10,7 +10,8 @@ var model: Tavern:
 		model = value
 		if not is_inside_tree():
 			await ready
-		unit_list._units = value.adventurers_for_hire
+		for unit in model.adventurers_for_hire:
+			unit_list.add_unit(unit)
 		if not Engine.is_editor_hint():
 			value.adventurers_for_hire_changed.connect(unit_list.set.bind("_refresh_queued", true))
 			Player.property_changed.connect(unit_list.set.unbind(1).bind("_refresh_queued", true))
