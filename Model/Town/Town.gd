@@ -13,4 +13,5 @@ func _init() -> void:
 	var tav = Tavern.new()
 	tav.building_name = "The Rusty Dragon"
 	buildings.append(tav)
-	pass
+	var hosp = Hospital.new()
+	buildings.append(hosp)

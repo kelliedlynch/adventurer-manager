@@ -2,7 +2,8 @@
 extends Menu
 class_name UnitList
 
-@onready var title_label = $VBoxContainer/PanelContainer/ListTitle
+@onready var title_container: PanelContainer = $VBoxContainer/PanelContainer
+@onready var title_label: Label = $VBoxContainer/PanelContainer/ListTitle
 
 @export var list_title: String = "Unit List":
 	set(value):
@@ -11,6 +12,7 @@ class_name UnitList
 			if not is_inside_tree():
 				await ready
 			title_label.text = list_title
+			title_container.visible = value != ""
 			
 @onready var list_items_container: VBoxContainer = $VBoxContainer/ScrollContainer/ListItems
 
@@ -58,12 +60,13 @@ func _refresh_menu() -> void:
 		var new_item = UnitListItem.instantiate()
 		new_item.unit = unit
 		list_items_container.add_child(new_item)
-		new_item.item_clicked.connect(item_clicked.emit.bind(unit))
+		new_item.item_clicked.connect(item_clicked.emit)
 		for button in registered_buttons:
 			var butt = new_item.add_action_button(button.text, button.action.bind(unit))
 			if not button.active_if.call(unit):
 				butt.disabled = true
-		_watch_labeled_fields(unit, new_item)
+		#new_item._watch_labeled_fields()
+		#_watch_labeled_fields(unit, new_item)
 
 func register_action_button(text: String, action: Callable, active_if: Callable = func(): return true):
 	var dict = {
@@ -73,3 +76,6 @@ func register_action_button(text: String, action: Callable, active_if: Callable 
 	}
 	registered_buttons.append(dict)
 	_refresh_queued = true
+
+func _on_is_submenu_changed(val: bool):
+	title_label.theme_type_variation = "TitleSmall" if val == true else "TitleBig"

@@ -10,8 +10,8 @@ var stat_level_up_values: Dictionary = {
 		"weights": [.5, .6, .8, 1, .8, .6, .5]
 	},
 	"stat_mp": {
-		"range": range(1, 6),
-		"weights": [.5, .8, 1, .6, .2]
+		"range": range(2, 5),
+		"weights": [.4, 1, .7, .3]
 	},
 	"stat_atk": {
 		"range": range(1, 4),
@@ -39,7 +39,7 @@ var stat_level_up_values: Dictionary = {
 	},
 	"stat_luk": {
 		"range": range(0, 4),
-		"weights": [4, .1, .05, .01]
+		"weights": [2, .1, .05, .01]
 	}
 }
 

@@ -4,8 +4,8 @@ class_name ClassWarrior
 func _init():
 	adventurer_class_name = "Warrior"
 	stat_overrides = {
-		"stat_hp": 102,
-		"stat_mp": 21,
+		"stat_hp": 19,
+		"stat_mp": 4,
 		"stat_atk": 10,
 		"stat_def": 7,
 		"stat_mag": 1,

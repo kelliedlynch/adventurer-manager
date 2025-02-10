@@ -11,4 +11,4 @@ var building_description: String = "Description of what you can do at this build
 		property_changed.emit("building_description")
 signal property_changed
 
-var interface = BuildingInterface
+var interface = Menu

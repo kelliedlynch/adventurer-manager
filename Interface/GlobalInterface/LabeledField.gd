@@ -134,7 +134,8 @@ func watch_object(obj: Object):
 	if max_prop:
 		max_val = str(obj.get(max_prop))
 	if prop or max_prop:
-		obj.property_changed.connect(_on_property_changed)
+		if not obj.property_changed.is_connected(_on_property_changed):
+			obj.property_changed.connect(_on_property_changed)
 
 func _on_property_changed(prop_name: String):
 	if prop_name == get("/linked_property"):

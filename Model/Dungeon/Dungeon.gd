@@ -40,7 +40,8 @@ var reward_range: String = str(_min_reward) + "-" + str(_max_reward)
 signal property_changed
 
 func _init() -> void:
-	GameplayEngine.game_tick_advanced.connect(_on_advance_tick)
+	if not Engine.is_editor_hint():
+		GameplayEngine.game_tick_advanced.connect(_on_advance_tick)
 	
 func begin_quest():
 	if party.size() > 0:
@@ -71,8 +72,8 @@ func _on_advance_tick():
 			complete_quest()
 
 func _simulate_battle():
-	var rounds = randi_range(3, 12)
+	var rounds = randi_range(3, 6)
 	for i in rounds:
 		var unit = party.pick_random()
-		var damage = randi_range(1, 4) * randi_range(_min_level, _max_level)
+		var damage = randi_range(_min_level, _max_level)
 		unit.current_hp -= damage

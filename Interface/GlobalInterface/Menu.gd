@@ -1,14 +1,20 @@
 extends Control
 class_name Menu
 
-@export var is_submenu = false
+@export var is_submenu: bool = false:
+	set(value):
+		is_submenu = value
+		if not is_inside_tree():
+			await ready
+		_on_is_submenu_changed(value)
 
 signal menu_item_clicked
 
 var _refresh_queued: bool = false
 
 func _ready() -> void:
-	GameplayEngine.game_tick_advanced.connect(set.bind("_refresh_queued", true))
+	if not Engine.is_editor_hint():
+		GameplayEngine.game_tick_advanced.connect(set.bind("_refresh_queued", true))
 
 func _input(event: InputEvent) -> void:
 	if not is_submenu and event.is_action_pressed("ui_cancel"):
@@ -22,6 +28,9 @@ func _watch_labeled_fields(watched, current_node) -> void:
 		_watch_labeled_fields(watched, child)
 
 func _refresh_menu():
+	pass
+	
+func _on_is_submenu_changed(val: bool):
 	pass
 
 func _process(delta: float) -> void:

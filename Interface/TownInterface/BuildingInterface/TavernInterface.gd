@@ -40,5 +40,7 @@ func _on_player_money_changed():
 func _refresh_menu():
 	pass
 
-static func instantiate() -> TavernInterface:
-	return load("res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn").instantiate()
+static func instantiate(tav: Tavern) -> TavernInterface:
+	var menu = load("res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn").instantiate()
+	menu.model = tav
+	return menu

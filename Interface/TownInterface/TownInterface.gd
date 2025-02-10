@@ -30,7 +30,7 @@ func _ready() -> void:
 			bldg.enter_button.pressed.connect(_open_building_menu.bind(building))
 
 func _open_building_menu(building: Building):
-	var menu = building.interface.instantiate()
+	var menu = building.interface.instantiate(building)
 	menu.model = building
 	add_child(menu)
 

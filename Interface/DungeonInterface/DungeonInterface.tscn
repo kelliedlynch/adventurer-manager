@@ -33,7 +33,6 @@ grow_vertical = 2
 
 [node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("2_srn1t")]
 layout_mode = 2
-size_flags_horizontal = 3
 list_title = "Idle Units"
 is_submenu = true
 
@@ -49,6 +48,7 @@ layout_mode = 2
 
 [node name="DungeonName" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
+alignment = 1
 /linked_class = &"Dungeon"
 /linked_property = &"dungeon_name"
 
@@ -58,12 +58,14 @@ columns = 2
 
 [node name="Level" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
+theme_type_variation = &"FieldBig"
 label = "Level"
 /linked_class = &"Dungeon"
 /linked_property = &"level_range"
 
 [node name="Reward" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
+theme_type_variation = &"FieldBig"
 label = "Reward"
 /linked_class = &"Dungeon"
 /linked_property = &"reward_range"
@@ -73,28 +75,29 @@ layout_mode = 2
 
 [node name="PartyStatus" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Not ready"
 
 [node name="ExploreTime" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
+size_flags_horizontal = 3
 label = "Time"
 /linked_class = &"Dungeon"
 /linked_property = &"quest_time"
 
 [node name="days" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = " days"
 
 [node name="SendParty" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 3
 size_flags_vertical = 4
 disabled = true
 text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_srn1t")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 list_title = "Dungeon Party"
 is_submenu = true

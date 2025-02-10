@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://1wurhmfacamg" path="res://Graphics/LargeBorders/Exported/b_f4d793ff_p_3b3b3bff.png" id="1_sputo"]
 
 [resource]
+content_margin_top = 16.0
+content_margin_bottom = 16.0
 texture = ExtResource("1_sputo")
 texture_margin_left = 32.0
 texture_margin_top = 32.0

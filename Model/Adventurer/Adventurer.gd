@@ -1,6 +1,8 @@
 extends Resource
 class_name Adventurer
 
+static var rng = RandomNumberGenerator.new()
+
 var name: String = "Adventurer":
 	set(value):
 		name = value
@@ -21,12 +23,12 @@ var level: int = 0:
 		level = value
 		property_changed.emit("level")
 		
-var stat_hp: int = 70:
+var stat_hp: int = 16:
 	set(value):
 		stat_hp = value
 		property_changed.emit("stat_hp")
 		
-var stat_mp: int = 10:
+var stat_mp: int = 6:
 	set(value):
 		stat_mp = value
 		property_changed.emit("stat_mp")
@@ -114,7 +116,7 @@ func _init() -> void:
 
 func level_up():
 	level += 1
-	var rng = RandomNumberGenerator.new()
+	
 	var vals = adventurer_class.stat_level_up_values
 	for stat in vals:
 		var add_val = vals[stat].range[rng.rand_weighted(vals[stat].weights)]
@@ -145,7 +147,9 @@ func add_experience(exp: int):
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
 	noob.level_up()
-	noob.add_experience(randi_range(0, 180))
+	var base_xp = range(50)[rng.rand_weighted(range(50))]
+	var add_xp = range(0, 300, 15)[rng.rand_weighted(range(21, 1, -1))]
+	noob.add_experience(base_xp + add_xp)
 	return noob
 
 static func get_random_portrait():

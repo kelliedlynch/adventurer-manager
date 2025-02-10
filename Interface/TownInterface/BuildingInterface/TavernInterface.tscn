@@ -35,6 +35,7 @@ alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"TitleBar"
 
 [node name="TavernName" parent="VBoxContainer/PanelContainer" instance=ExtResource("3_llgr7")]
 layout_mode = 2
@@ -53,6 +54,5 @@ size_flags_horizontal = 3
 
 [node name="UnitList" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_2shlc")]
 layout_mode = 2
-size_flags_horizontal = 3
 list_title = "Adventurers For Hire"
 is_submenu = true

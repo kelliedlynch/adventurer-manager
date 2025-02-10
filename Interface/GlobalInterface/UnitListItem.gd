@@ -25,6 +25,11 @@ class_name UnitListItem
 var unit: Adventurer = null:
 	set(value):
 		unit = value
+		if unit:
+			if not is_inside_tree():
+				await ready
+			_portrait_texture_rect.texture = unit.portrait
+			_watch_labeled_fields(unit, self)
 
 signal item_clicked
 
@@ -37,11 +42,19 @@ func _ready() -> void:
 			add_action_button("Button " + str(i + 1), func(): pass)
 	if unit:
 		_portrait_texture_rect.texture = unit.portrait
+		_watch_labeled_fields(unit, self)
 	gui_input.connect(_on_gui_input)
+	
+	
+func _watch_labeled_fields(watched, current_node) -> void:
+	for child in current_node.get_children():
+		if child is LabeledField:
+			child.watch_object(watched)
+		_watch_labeled_fields(watched, child)
 		
 func _on_gui_input(event: InputEvent):
 	if event.is_action("ui_accept") or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()):
-		item_clicked.emit()
+		item_clicked.emit(unit)
 
 func add_action_button(text: String, action: Callable) -> Button:
 	var button = Button.new()
