@@ -3,8 +3,8 @@ extends HBoxContainer
 class_name LabeledField
 
 @onready var _label_label: Label = $FieldLabel
-@onready var _curr_val_label: Label = $CurrentValue
-@onready var _max_val_label: Label = $MaxValue
+@onready var _curr_val_label: Label = $HBoxContainer/CurrentValue
+@onready var _max_val_label: Label = $HBoxContainer/MaxValue
 var _linked_model: Object
 
 @export_placeholder("Label") var label: String = "":

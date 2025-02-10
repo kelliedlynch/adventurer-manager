@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cg6erugp8u2cn"]
 
 [ext_resource type="Script" uid="uid://bfxp2f1vguwg6" path="res://Interface/DungeonInterface/DungeonInterface.gd" id="1_nv7fk"]
-[ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://Interface/GlobalInterface/UnitList.tscn" id="2_srn1t"]
 [ext_resource type="Texture2D" uid="uid://dkdgccxy2yk4v" path="res://Graphics/Backgrounds/dungeon_3.png" id="2_yjc0f"]
+[ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="3_yjc0f"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="4_yjc0f"]
 
 [node name="DungeonInterface" type="Control"]
@@ -31,10 +31,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("2_srn1t")]
+[node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-list_title = "Idle Units"
-is_submenu = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -97,7 +95,5 @@ size_flags_vertical = 4
 disabled = true
 text = "Send Party"
 
-[node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_srn1t")]
+[node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-list_title = "Dungeon Party"
-is_submenu = true

@@ -7,14 +7,33 @@ class_name Menu
 		if not is_inside_tree():
 			await ready
 		_on_is_submenu_changed(value)
+		
+@onready var list_items_container: VBoxContainer
+var menu_items: Array[MenuItemBase] = []
 
-signal menu_item_clicked
+func add_menu_item(item: MenuItemBase):
+	menu_items.append(item)
+	item.selected.connect(_on_item_selected.bind(item))
+	
+func remove_menu_item(item: MenuItemBase):
+	menu_items.remove_at(menu_items.find(item))
+	item.selected.disconnect(_on_item_selected)
+	
+func clear_menu_items():
+	for item in menu_items:
+		remove_menu_item(item)
+	
+func _on_item_selected(item: MenuItemBase):
+	menu_item_selected.emit(item)
+
+signal menu_item_selected
 
 var _refresh_queued: bool = false
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		GameplayEngine.game_tick_advanced.connect(set.bind("_refresh_queued", true))
+	list_items_container = find_child("ListItems")
 
 func _input(event: InputEvent) -> void:
 	if not is_submenu and event.is_action_pressed("ui_cancel"):

@@ -2,11 +2,17 @@
 extends Menu
 class_name RosterInterface
 
-@onready var units: Array[Adventurer] = Player.roster
-@onready var unit_list: UnitList = $UnitList
+@onready var units: Array[Adventurer]
+@onready var unit_list: UnitListMenu = $UnitListMenu
 
 func _ready() -> void:
-	unit_list._units = Player.roster
+	if not Engine.is_editor_hint():
+		units = Player.roster
+		unit_list._units = Player.roster
+	else:
+		for i in 6:
+			unit_list.add_unit(Adventurer.new())
+		units = unit_list.units
 	super._ready()
 
 static func instantiate(units: Array[Adventurer] = []) -> RosterInterface:

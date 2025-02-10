@@ -1,10 +1,10 @@
 extends Menu
 class_name HospitalInterface
 
-@onready var injured_units: UnitList = $VBoxContainer/HBoxContainer/InjuredUnits
+@onready var injured_units: UnitListMenu = $VBoxContainer/HBoxContainer/InjuredUnits
 @onready var select_unit_label: Label = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/SelectUnitLabel
 @onready var heal_button: Button = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/HealButton
-@onready var selected_unit: UnitListItem = $VBoxContainer/HBoxContainer/VBoxContainer/SelectedUnit
+@onready var selected_unit: UnitListMenuItem = $VBoxContainer/HBoxContainer/VBoxContainer/SelectedUnit
 
 var heal_cost: int = 0:
 	set(value):
@@ -23,8 +23,8 @@ var model: Hospital:
 func _ready() -> void:
 	heal_button.pressed.connect(_on_heal_button_pressed)
 	heal_button.disabled = heal_cost == 0
-	injured_units.item_clicked.connect(_add_to_hospital)
-	selected_unit.item_clicked.connect(_remove_from_hospital)
+	injured_units.menu_item_selected.connect(_add_to_hospital)
+	selected_unit.selected.connect(_remove_from_hospital)
 	selected_unit.visible = false
 	super._ready()
 	

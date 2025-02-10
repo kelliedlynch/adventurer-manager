@@ -15,12 +15,16 @@ visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="CurrentValue" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CurrentValue" type="Label" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
+horizontal_alignment = 2
 
-[node name="MaxValue" type="Label" parent="."]
+[node name="MaxValue" type="Label" parent="HBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 36

@@ -1,7 +1,7 @@
 extends Resource
 class_name Adventurer
 
-static var rng = RandomNumberGenerator.new()
+static var rng: RandomNumberGenerator
 
 var name: String = "Adventurer":
 	set(value):
@@ -119,6 +119,7 @@ func level_up():
 	
 	var vals = adventurer_class.stat_level_up_values
 	for stat in vals:
+		rng = RandomNumberGenerator.new()
 		var add_val = vals[stat].range[rng.rand_weighted(vals[stat].weights)]
 		if add_val > 0:
 			set(stat, get(stat) + add_val)
@@ -127,7 +128,7 @@ func level_up():
 			if stat == "stat_mp":
 				set("current_mp", get("current_mp") + add_val)
 	hire_cost += 3
-	if Player and Player.roster.has(self):
+	if not Engine.is_editor_hint() and Player and Player.roster.has(self):
 		var msg = ActivityLogMessage.new()
 		msg.menu = RosterInterface.instantiate
 		msg.text = "%s is now level %d" % [name, level]
@@ -147,6 +148,7 @@ func add_experience(exp: int):
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
 	noob.level_up()
+	rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]
 	var add_xp = range(0, 300, 15)[rng.rand_weighted(range(21, 1, -1))]
 	noob.add_experience(base_xp + add_xp)

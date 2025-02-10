@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bfhth0qeb4r3p" path="res://Graphics/Backgrounds/tavern_2.png" id="2_llgr7"]
 [ext_resource type="Script" uid="uid://b6cha1jhjbe1q" path="res://Interface/TownInterface/BuildingInterface/TavernInterface.gd" id="3_jl7te"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_llgr7"]
-[ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://Interface/GlobalInterface/UnitList.tscn" id="4_2shlc"]
+[ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="4_llgr7"]
 
 [node name="TavernInterface" type="Control"]
 layout_mode = 3
@@ -51,7 +51,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="UnitList" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_2shlc")]
+[node name="UnitListMenu" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_llgr7")]
 layout_mode = 2
 list_title = "Adventurers For Hire"
 is_submenu = true

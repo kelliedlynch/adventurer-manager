@@ -2,7 +2,7 @@
 extends Menu
 class_name TavernInterface
 
-@onready var unit_list: UnitList = $VBoxContainer/HBoxContainer/UnitList
+@onready var unit_list: UnitListMenu = $VBoxContainer/HBoxContainer/UnitListMenu
 @onready var name_label: LabeledField = $VBoxContainer/PanelContainer/TavernName
 
 var model: Tavern:
@@ -11,9 +11,10 @@ var model: Tavern:
 		if not is_inside_tree():
 			await ready
 		unit_list._units = value.adventurers_for_hire
-		value.adventurers_for_hire_changed.connect(unit_list.set.bind("_refresh_queued", true))
-		Player.property_changed.connect(unit_list.set.unbind(1).bind("_refresh_queued", true))
-		name_label.watch_object(model)
+		if not Engine.is_editor_hint():
+			value.adventurers_for_hire_changed.connect(unit_list.set.bind("_refresh_queued", true))
+			Player.property_changed.connect(unit_list.set.unbind(1).bind("_refresh_queued", true))
+			name_label.watch_object(model)
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
@@ -22,6 +23,8 @@ func _ready() -> void:
 	super._ready()
 
 func _can_hire_unit(unit: Adventurer) -> bool:
+	if Engine.is_editor_hint():
+		return true
 	return Player.money >= unit.hire_cost
 
 func _on_hire_button_pressed(unit: Adventurer):

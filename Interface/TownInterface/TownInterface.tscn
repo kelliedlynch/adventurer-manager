@@ -16,7 +16,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_godi7")
 script = ExtResource("1_20l4v")
-is_submenu = null
 
 [node name="Village3" type="TextureRect" parent="."]
 self_modulate = Color(0.94902, 0.94902, 0.94902, 1)

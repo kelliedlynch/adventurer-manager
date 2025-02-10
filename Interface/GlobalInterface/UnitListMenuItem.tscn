@@ -1,25 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwoqhme8j6mm0"]
+[gd_scene load_steps=4 format=3 uid="uid://cexrovdxbxapb"]
 
-[ext_resource type="Script" uid="uid://bhw5owkxkm55i" path="res://Interface/GlobalInterface/UnitListItem.gd" id="1_suabm"]
-[ext_resource type="Texture2D" uid="uid://c6e4oovs0mybe" path="res://Graphics/Portraits/m_38.png" id="2_3ny6k"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_48wti"]
+[ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitListMenuItem.gd" id="1_r7cqq"]
+[ext_resource type="Texture2D" uid="uid://bdeds4yss8slp" path="res://Graphics/Portraits/simplified cartoon serious noble posing italian greyhound side profile looking left isolated white b 09-02-2025 at 13-52-20.jpeg" id="2_r7cqq"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_bele2"]
 
-[node name="UnitListItem" type="PanelContainer"]
+[node name="UnitListMenuItem" type="PanelContainer"]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -139.0
-offset_bottom = 139.0
+offset_top = -33.0
+offset_bottom = 237.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_suabm")
+theme_type_variation = &"MenuItem"
+script = ExtResource("1_r7cqq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_type_variation = &"MainLayoutContainer"
 alignment = 1
 
 [node name="PortraitFrame" type="PanelContainer" parent="HBoxContainer"]
@@ -35,7 +35,7 @@ custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_3ny6k")
+texture = ExtResource("2_r7cqq")
 expand_mode = 1
 
 [node name="StatsBlock" type="MarginContainer" parent="HBoxContainer"]
@@ -49,7 +49,7 @@ alignment = 1
 [node name="Header" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
 layout_mode = 2
 
-[node name="Name" parent="HBoxContainer/StatsBlock/VBoxContainer/Header" instance=ExtResource("3_48wti")]
+[node name="Name" parent="HBoxContainer/StatsBlock/VBoxContainer/Header" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
 /linked_class = &"Adventurer"
@@ -60,7 +60,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Level" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass" instance=ExtResource("3_48wti")]
+[node name="Level" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
 label = "Lv"
@@ -68,7 +68,7 @@ label_divider = "."
 /linked_class = &"Adventurer"
 /linked_property = &"level"
 
-[node name="Class" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass" instance=ExtResource("3_48wti")]
+[node name="Class" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
 /linked_class = &"Adventurer"
@@ -78,7 +78,7 @@ theme_type_variation = &"FieldBig"
 layout_mode = 2
 columns = 3
 
-[node name="HitPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="HitPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -88,7 +88,7 @@ show_max = true
 /linked_property = &"current_hp"
 /max_val_property = &"stat_hp"
 
-[node name="MagicPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="MagicPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -98,7 +98,7 @@ show_max = true
 /linked_property = &"current_mp"
 /max_val_property = &"stat_mp"
 
-[node name="AttackPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="AttackPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -106,7 +106,7 @@ label = "ATK"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_atk"
 
-[node name="DefensePower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="DefensePower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -114,7 +114,7 @@ label = "DEF"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_def"
 
-[node name="MagicPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="MagicPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -122,7 +122,7 @@ label = "MAG"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_mag"
 
-[node name="MagicDefense" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="MagicDefense" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -130,7 +130,7 @@ label = "RES"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_res"
 
-[node name="Dexterity" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="Dexterity" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -138,7 +138,7 @@ label = "DEX"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_dex"
 
-[node name="Charisma" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="Charisma" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -146,7 +146,7 @@ label = "CHA"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_cha"
 
-[node name="Luck" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_48wti")]
+[node name="Luck" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"

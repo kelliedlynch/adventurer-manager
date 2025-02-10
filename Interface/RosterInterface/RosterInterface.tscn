@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbwqnm3tjoajf"]
 
 [ext_resource type="Script" uid="uid://bmole24vnb60i" path="res://Interface/RosterInterface/RosterInterface.gd" id="1_k460v"]
-[ext_resource type="PackedScene" uid="uid://cg4c48j5w31ij" path="res://Interface/GlobalInterface/UnitList.tscn" id="2_akf7j"]
+[ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="2_k460v"]
 
 [node name="Roster" type="Control"]
 layout_mode = 3
@@ -12,6 +12,5 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k460v")
 
-[node name="UnitList" parent="." instance=ExtResource("2_akf7j")]
+[node name="UnitListMenu" parent="." instance=ExtResource("2_k460v")]
 layout_mode = 1
-is_submenu = false

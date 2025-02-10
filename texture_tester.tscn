@@ -1,22 +1,22 @@
 [gd_scene load_steps=4 format=3 uid="uid://chixd2sah1fk5"]
 
 [ext_resource type="Script" uid="uid://3kyci7tpudao" path="res://texture_tester.gd" id="1_7gm72"]
-[ext_resource type="Texture2D" uid="uid://cuoncb40e50c1" path="res://Graphics/LargeBorders/Panel/panel-006.png" id="2_7gm72"]
-[ext_resource type="Texture2D" uid="uid://ddpmc7n5q530n" path="res://Graphics/LargeBorders/Border/panel-border-006.png" id="3_ryqqu"]
+[ext_resource type="Texture2D" uid="uid://dtkcv3xro06qc" path="res://Graphics/LargeBorders/Panel/panel-015.png" id="2_7gm72"]
+[ext_resource type="Texture2D" uid="uid://cbctgghtn65px" path="res://Graphics/LargeBorders/Border/panel-border-015.png" id="3_ryqqu"]
 
 [node name="TextureTester" type="VBoxContainer"]
 theme_override_constants/separation = 36
 script = ExtResource("1_7gm72")
-texture = 6
-border_color = Color(0.956863, 0.843137, 0.576471, 1)
-panel_color = Color(0.231373, 0.231373, 0.231373, 1)
+texture = 15
+border_color = Color(1, 0.831373, 0.439216, 1)
+panel_color = Color(0.184314, 0.192157, 0.215686, 1)
 
 [node name="Row1" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 36
 
 [node name="Panel1" type="NinePatchRect" parent="Row1"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
@@ -29,7 +29,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row1/Panel1"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -44,7 +44,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Panel2" type="NinePatchRect" parent="Row1"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(300, 128)
 layout_mode = 2
@@ -57,7 +57,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row1/Panel2"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -72,7 +72,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Panel3" type="NinePatchRect" parent="Row1"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(360, 80)
 layout_mode = 2
@@ -85,7 +85,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row1/Panel3"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -100,7 +100,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Panel4" type="NinePatchRect" parent="Row1"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(600, 72)
 layout_mode = 2
@@ -113,7 +113,7 @@ patch_margin_right = 32
 patch_margin_bottom = 32
 
 [node name="Border" type="NinePatchRect" parent="Row1/Panel4"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -132,7 +132,7 @@ layout_mode = 2
 theme_override_constants/separation = 36
 
 [node name="Panel1" type="NinePatchRect" parent="Row2"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(240, 200)
 layout_mode = 2
@@ -145,7 +145,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row2/Panel1"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -160,7 +160,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Panel2" type="NinePatchRect" parent="Row2"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(500, 240)
 layout_mode = 2
@@ -173,7 +173,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row2/Panel2"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -188,7 +188,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Panel3" type="NinePatchRect" parent="Row2"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(800, 280)
 layout_mode = 2
@@ -201,7 +201,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row2/Panel3"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -220,7 +220,7 @@ layout_mode = 2
 theme_override_constants/separation = 36
 
 [node name="Panel1" type="NinePatchRect" parent="Row3"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(1080, 580)
 layout_mode = 2
@@ -233,7 +233,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row3/Panel1"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -248,7 +248,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Panel2" type="NinePatchRect" parent="Row3"]
-self_modulate = Color(0.231373, 0.231373, 0.231373, 1)
+self_modulate = Color(0.184314, 0.192157, 0.215686, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(720, 480)
 layout_mode = 2
@@ -261,7 +261,7 @@ patch_margin_right = 48
 patch_margin_bottom = 48
 
 [node name="Border" type="NinePatchRect" parent="Row3/Panel2"]
-self_modulate = Color(0.956863, 0.843137, 0.576471, 1)
+self_modulate = Color(1, 0.831373, 0.439216, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15

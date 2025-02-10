@@ -12,11 +12,11 @@ func _ready() -> void:
 		#remove_child(child)
 		child.queue_free()
 	await get_tree().process_frame 
-	if get_tree().current_scene == self or Engine.is_editor_hint():
+	if Engine.is_editor_hint() or get_tree().current_scene == self:
 		for i in 9:
 			var bldg: TownInterfaceBuilding = TownInterfaceBuilding.instantiate()
-			bldg.building_name = "Building " + str(i + 1)
-			bldg.name = bldg.building_name
+			#bldg.name_label.text = "Building " + str(i + 1)
+			#bldg.name = bldg.building_name
 			building_grid.add_child(bldg)
 			bldg.owner = self
 	else:

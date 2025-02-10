@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://1jaex7wbidaq"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://1jaex7wbidaq"]
 
 [ext_resource type="StyleBox" uid="uid://brow5uaanil8s" path="res://Interface/GlobalInterface/ButtonLightDisabled.tres" id="1_ae3cl"]
 [ext_resource type="StyleBox" uid="uid://cd2tkcya4cs64" path="res://Interface/GlobalInterface/ButtonLightHover.tres" id="1_c3lfg"]
@@ -6,6 +6,9 @@
 [ext_resource type="StyleBox" uid="uid://212enke06llj" path="res://Interface/GlobalInterface/ButtonLightPressed.tres" id="3_2f0ad"]
 [ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://Interface/GlobalInterface/UnitListPortraitStyleBox.tres" id="5_1u76n"]
 [ext_resource type="StyleBox" uid="uid://c8kg8j4t2mhuy" path="res://Interface/GlobalInterface/DefaultPanelStyleBox.tres" id="5_2f0ad"]
+[ext_resource type="StyleBox" uid="uid://bisiieqgesgfw" path="res://Interface/GlobalInterface/MenuItemFocus.tres" id="5_2t38o"]
+[ext_resource type="StyleBox" uid="uid://cbn4ndwansd7w" path="res://Interface/GlobalInterface/MenuItemHover.tres" id="5_3r0tp"]
+[ext_resource type="StyleBox" uid="uid://c2w67utdtber" path="res://Interface/GlobalInterface/MenuItemNormal.tres" id="6_2t38o"]
 [ext_resource type="StyleBox" uid="uid://bsxv6jjyd6o14" path="res://Interface/GlobalInterface/TitleBarStyleBox.tres" id="7_2f0ad"]
 
 [resource]
@@ -35,6 +38,11 @@ LabeledField/base_type = &"HBoxContainer"
 LabeledField/constants/separation = 16
 MainLayoutContainer/base_type = &"HBoxContainer"
 MainLayoutContainer/constants/separation = 12
+MenuItem/base_type = &"PanelContainer"
+MenuItem/styles/focus = ExtResource("5_2t38o")
+MenuItem/styles/hover = ExtResource("5_3r0tp")
+MenuItem/styles/panel = ExtResource("6_2t38o")
+MenuItem/styles/pressed = ExtResource("5_3r0tp")
 PanelContainer/styles/panel = ExtResource("5_2f0ad")
 PortraitFrame/base_type = &"PanelContainer"
 PortraitFrame/styles/panel = ExtResource("5_1u76n")
