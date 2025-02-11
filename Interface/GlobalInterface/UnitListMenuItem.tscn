@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitListMenuItem.gd" id="1_r7cqq"]
-[ext_resource type="Texture2D" uid="uid://d1xjwcthcpbl7" path="res://Graphics/Portraits/m_27.png" id="2_r7cqq"]
+[ext_resource type="Texture2D" uid="uid://dvtnbjhj1mygp" path="res://Graphics/Portraits/m_19.png" id="2_r7cqq"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_bele2"]
 
 [node name="PanelContainer" type="PanelContainer"]

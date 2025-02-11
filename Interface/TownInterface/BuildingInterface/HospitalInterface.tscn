@@ -73,7 +73,6 @@ size_flags_stretch_ratio = 0.5
 
 [node name="SelectedUnit" parent="VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("6_emvv3")]
 layout_mode = 2
-is_root_interface = false
 
 [node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

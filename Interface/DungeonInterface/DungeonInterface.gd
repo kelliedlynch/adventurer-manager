@@ -9,19 +9,14 @@ var dungeon: Dungeon
 @onready var party_status_label: Label = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/PartyStatus
 @onready var remaining_time: LabeledField = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/ExploreTime
 
-#var staged_party: Array[Adventurer] = []
-
+#TODO: Currently does not accurately populate info panel when menu closed and reopened with party in dungeon
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
 		dungeon = Dungeon.new()
-	#idle_units_list.clear_menu_items()
-	#dungeon_units_list.clear_menu_items()
 	for unit in _get_idle_units():
 		idle_units_list.add_unit(unit)
 	if not is_inside_tree():
 		await ready
-	#for item in idle_units_list.list_items.get_children():
-		#item.item_clicked.connect(_add_to_party.bind(item.unit))
 	idle_units_list.menu_item_selected.connect(_add_to_party)
 	dungeon_units_list.menu_item_selected.connect(_remove_from_party)
 	watch_labeled_fields(dungeon, dungeon_panel)
