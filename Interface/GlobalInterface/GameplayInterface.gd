@@ -1,51 +1,52 @@
 extends Control
 
-@onready var main_control: Control = $VBoxContainer/Main
-@onready var money_label: LabeledField = $VBoxContainer/ActionBar/HBoxContainer/MoneyField
-@onready var roster_button: Button = $VBoxContainer/ActionBar/HBoxContainer/RosterButton
-@onready var town_button: Button = $VBoxContainer/ActionBar/HBoxContainer/TownButton
-@onready var dungeon_button: Button = $VBoxContainer/ActionBar/HBoxContainer/DungeonButton
-@onready var activity_log_button: Button = $VBoxContainer/ActionBar/HBoxContainer/ActivityLogButton
-@onready var activity_log_container: Control = $ActivityLogContainer
+@onready var main_control: Control = find_child("Main")
+@onready var money_label: LabeledField = find_child("MoneyField")
+@onready var roster_button: Button = find_child("RosterButton")
+@onready var town_button: Button = find_child("TownButton")
+@onready var dungeon_button: Button = find_child("DungeonButton")
+@onready var activity_log_button: Button = find_child("ActivityLogButton")
+@onready var activity_log_container: Control = find_child("ActivityLogContainer")
+@onready var debug_advance_tick: Button = find_child("DebugAdvanceTick")
 
 func _ready() -> void:
-	MenuManager.main_control_node = $VBoxContainer/Main
+	InterfaceManager.main_control_node = $VBoxContainer/Main
 	roster_button.pressed.connect(_on_roster_button_pressed)
 	town_button.pressed.connect(_on_town_button_pressed)
 	dungeon_button.pressed.connect(_on_dungeon_button_pressed)
-	activity_log_button.pressed.connect(_toggle_notification_window)
+	activity_log_button.pressed.connect(_toggle_activity_log)
 	money_label.watch_object(Player)
-	$DebugAdvanceTick.pressed.connect(GameplayEngine.advance_tick)
+	debug_advance_tick.pressed.connect(GameplayEngine.advance_tick)
 	
-func _toggle_notification_window():
+func _toggle_activity_log():
 	activity_log_container.visible = !activity_log_container.visible
 	
 func _on_roster_button_pressed():
 	var nodes = main_control.get_children()
 	var index = nodes.find_custom(func (x): return x is RosterInterface)
 	if index != -1:
-		MenuManager.close_menu(nodes[index])
+		InterfaceManager.close_menu(nodes[index])
 	else:
 		var roster = RosterInterface.instantiate(Player.roster)
 		roster.tree_exited.connect(roster_button.set_pressed_no_signal.bind(false))
-		MenuManager.display_menu(roster, true)
+		InterfaceManager.display_menu(roster, true)
 
 func _on_dungeon_button_pressed():
 	var nodes = main_control.get_children()
 	var index = nodes.find_custom(func (x): return x is DungeonInterface)
 	if index != -1:
-		MenuManager.close_menu(nodes[index])
+		InterfaceManager.close_menu(nodes[index])
 	else:
 		var dungeon = DungeonInterface.instantiate(GameplayEngine.dungeon)
 		dungeon.tree_exited.connect(dungeon_button.set_pressed_no_signal.bind(false))
-		MenuManager.display_menu(dungeon, true)
+		InterfaceManager.display_menu(dungeon, true)
 
 func _on_town_button_pressed():
 	var nodes = main_control.get_children()
 	var index = nodes.find_custom(func (x): return x is TownInterface)
 	if index != -1:
-		MenuManager.close_menu(nodes[index])
+		InterfaceManager.close_menu(nodes[index])
 	else:
 		var town = TownInterface.instantiate(GameplayEngine.town)
 		town.tree_exited.connect(town_button.set_pressed_no_signal.bind(false))
-		MenuManager.display_menu(town, true)
+		InterfaceManager.display_menu(town, true)

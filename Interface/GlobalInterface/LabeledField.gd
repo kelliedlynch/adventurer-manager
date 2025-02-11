@@ -109,7 +109,7 @@ func _get_property_list() -> Array:
 	})
 	var hint_str = ""
 	if get("/linked_class"):
-		var instance = load(ProjectSettings.get_global_class_list()[custom_classes.find_custom(func (x): return x.class == get("/linked_class"))].path).new()
+		var instance = load(custom_classes[custom_classes.find_custom(func (x): return x.class == get("/linked_class"))].path).new()
 		hint_str = instance.get_property_list().reduce(func (accum, val): return accum + val.name + ",", "").left(-1)
 	props.append_array([{
 		name = "/linked_property",

@@ -1,4 +1,5 @@
-extends PanelContainer
+extends Interface
+class_name ActivityLogInterface
 
 @onready var log_messages: VBoxContainer = $VBoxContainer/ScrollContainer/LogMessages
 

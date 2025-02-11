@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ry2u1lm3nnr"]
 
-[ext_resource type="Theme" uid="uid://dm3yglq2m22q6" path="res://Interface/GlobalInterface/TownInterfaceTheme.tres" id="1_21y65"]
 [ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://Interface/TownInterface/TownInterfaceBuilding.gd" id="1_r1xdi"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_21y65"]
+[ext_resource type="Theme" uid="uid://d0bl6jabh3mof" path="res://Interface/TownInterface/TownInterfaceTheme.tres" id="3_iu46e"]
 
 [node name="TownInterfaceBuilding" type="PanelContainer"]
 anchors_preset = 8
@@ -17,7 +17,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme = ExtResource("1_21y65")
+theme = ExtResource("3_iu46e")
 script = ExtResource("1_r1xdi")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -30,6 +30,7 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"BuildingDescription"
 
 [node name="BuildingDescription" parent="VBoxContainer/MarginContainer" instance=ExtResource("3_21y65")]
 layout_mode = 2

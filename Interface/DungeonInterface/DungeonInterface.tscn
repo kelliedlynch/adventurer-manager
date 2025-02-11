@@ -5,35 +5,25 @@
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="3_yjc0f"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="4_yjc0f"]
 
-[node name="DungeonInterface" type="Control"]
-layout_mode = 3
+[node name="DungeonInterface" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nv7fk")
+is_root_interface = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 texture = ExtResource("2_yjc0f")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 
 [node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-menu_title = ""
+menu_title = "Idle Units"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -57,6 +47,7 @@ columns = 2
 
 [node name="Level" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
 label = "Level"
 /linked_class = &"Dungeon"
@@ -64,6 +55,7 @@ label = "Level"
 
 [node name="Reward" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
 label = "Reward"
 /linked_class = &"Dungeon"
@@ -80,6 +72,7 @@ text = "Not ready"
 [node name="ExploreTime" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
 label = "Time"
 /linked_class = &"Dungeon"
 /linked_property = &"quest_time"
@@ -98,4 +91,4 @@ text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-menu_title = ""
+menu_title = "Dungeon Party"

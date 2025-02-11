@@ -55,11 +55,11 @@ func complete_quest():
 		adv.add_experience(randi_range(50, 100))
 		adv.status = Adventurer.STATUS_IDLE
 	party.clear()
-	var log = ActivityLogMessage.new()
-	log.menu = DungeonInterface.instantiate.bind(self)
+	var log_msg = ActivityLogMessage.new()
+	log_msg.menu = DungeonInterface.instantiate.bind(self)
 	var reward = randi_range(_min_reward, _max_reward)
-	log.text = "Party finished quest in %s. Received %d money." % [dungeon_name, reward]
-	GameplayEngine.activity_log.push_message(log)
+	log_msg.text = "Party finished quest in %s. Received %d money." % [dungeon_name, reward]
+	GameplayEngine.activity_log.push_message(log_msg)
 	Player.money += reward
 	questing = false
 	remaining_quest_time = -1

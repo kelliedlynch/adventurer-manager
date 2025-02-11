@@ -2,9 +2,9 @@
 extends MenuItemBase
 class_name UnitListMenuItem
 
-@onready var _portrait_frame: PanelContainer = $HBoxContainer/PortraitFrame
-@onready var _portrait_texture_rect: TextureRect = $HBoxContainer/PortraitFrame/TextureRect
-@onready var action_buttons: VBoxContainer = $HBoxContainer/ActionButtons
+@onready var _portrait_frame: PanelContainer = find_child("PortraitFrame")
+@onready var _portrait_texture_rect: TextureRect = find_child("PortraitTexture")
+@onready var action_buttons: VBoxContainer = find_child("ActionButtons")
 
 @export var portrait_size: Vector2:
 	set(value):
@@ -20,18 +20,18 @@ var unit: Adventurer = null:
 			if not is_inside_tree():
 				await ready
 			_portrait_texture_rect.texture = unit.portrait
-			_watch_labeled_fields(unit, self)
+			watch_labeled_fields(unit, self)
 
 func _ready() -> void:
 	if get_tree().current_scene == self or (Engine.is_editor_hint() and unit == null):
 		unit = Adventurer.new()
-		for child in $HBoxContainer/ActionButtons.get_children():
+		for child in action_buttons.get_children():
 			child.queue_free()
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
 	if unit:
 		_portrait_texture_rect.texture = unit.portrait
-		_watch_labeled_fields(unit, self)
+		watch_labeled_fields(unit, self)
 	super._ready()
 		
 func add_action_button(text: String, action: Callable) -> Button:

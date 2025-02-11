@@ -1,8 +1,8 @@
-extends Control
+extends Interface
 class_name DungeonInterface
 
 var dungeon: Dungeon
-@onready var idle_units_list: UnitListMenu = $HBoxContainer/IdleUnits
+@onready var idle_units_list: UnitListMenu = find_child("IdleUnits")
 @onready var dungeon_panel: VBoxContainer = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer
 @onready var dungeon_units_list: UnitListMenu = $HBoxContainer/VBoxContainer/DungeonParty
 @onready var send_button: Button = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/SendParty
@@ -27,20 +27,26 @@ func _ready() -> void:
 	watch_labeled_fields(dungeon, dungeon_panel)
 	send_button.pressed.connect(_on_press_send_button)
 	dungeon.property_changed.connect(_on_dungeon_property_changed)
-	#super._ready()
+	GameplayEngine.game_tick_advanced.connect(_refresh_interface)
 
-func watch_labeled_fields(watched, current_node) -> void:
-	for child in current_node.get_children():
-		if child is LabeledField:
-			child.watch_object(watched)
-		watch_labeled_fields(watched, child)
-			
 func _get_idle_units() -> Array[Adventurer]:
 	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE)
 	if !dungeon_units_list.units.is_empty():
 		for unit in dungeon_units_list.units:
 			idle.remove_at(idle.find(unit))
 	return idle
+	
+func _refresh_interface():
+	var idle = _get_idle_units()
+	var existing = idle_units_list.units
+	if idle == existing:
+		return
+	for unit in existing:
+		if !idle.has(unit):
+			idle_units_list.remove_unit(unit)
+	for unit in idle:
+		if !existing.has(unit):
+			idle_units_list.add_unit(unit)
 	
 func _on_dungeon_property_changed(prop: String):
 	if prop == "questing":
@@ -66,22 +72,22 @@ func _on_press_send_button():
 func _add_to_party(item: UnitListMenuItem):
 	if dungeon_units_list.units.size() >= dungeon.max_party_size:
 		return
-	idle_units_list.remove_unit(item.unit)
 	dungeon_units_list.add_unit(item.unit)
+	idle_units_list.remove_unit(item.unit)
 	party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), dungeon.max_party_size]
 	send_button.disabled = false
 	
 func _remove_from_party(item: UnitListMenuItem):
 	idle_units_list.add_unit(item.unit)
 	dungeon_units_list.remove_unit(item.unit)
-	if dungeon_units_list._units.size() == 0:
+	if dungeon_units_list.units.size() == 0:
 		party_status_label.text = "Not ready"
 		send_button.disabled = true
 	else:
 		party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), dungeon.max_party_size]
 		send_button.disabled = false
 
-static func instantiate(dungeon: Dungeon) -> DungeonInterface:
+static func instantiate(dun: Dungeon) -> DungeonInterface:
 	var menu = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()
-	menu.dungeon = dungeon
+	menu.dungeon = dun
 	return menu

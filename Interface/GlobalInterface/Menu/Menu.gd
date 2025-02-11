@@ -1,4 +1,4 @@
-extends Control
+extends Interface
 class_name Menu
 
 @export_placeholder("Menu Title") var menu_title: String:
@@ -9,10 +9,8 @@ class_name Menu
 				await ready
 			title_label.text = menu_title
 			title_container.visible = value != ""
-			
-@export var is_submenu: bool = false
 		
-@onready var menu_items_container: VBoxContainer = find_child("MenuItems")
+@onready var menu_items_container: Container = find_child("MenuItems")
 @onready var title_container: PanelContainer = find_child("TitleContainer")
 @onready var title_label: Label = find_child("TitleLabel")
 
@@ -47,17 +45,6 @@ var _refresh_queued: bool = false
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		GameplayEngine.game_tick_advanced.connect(set.bind("_refresh_queued", true))
-
-func _input(event: InputEvent) -> void:
-	if not is_submenu and event.is_action_pressed("ui_cancel"):
-		get_viewport().set_input_as_handled()
-		queue_free()
-
-func watch_labeled_fields(watched, current_node) -> void:
-	for child in current_node.get_children():
-		if child is LabeledField:
-			child.watch_object(watched)
-		watch_labeled_fields(watched, child)
 
 func _refresh_menu():
 	pass

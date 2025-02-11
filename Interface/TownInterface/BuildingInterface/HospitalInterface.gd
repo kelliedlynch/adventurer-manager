@@ -1,4 +1,4 @@
-extends Menu
+extends Interface
 class_name HospitalInterface
 
 @onready var injured_units: UnitListMenu = $VBoxContainer/HBoxContainer/InjuredUnits
@@ -11,7 +11,6 @@ var heal_cost: int = 0:
 		heal_cost = value
 		heal_button.text = str(value)
 		heal_button.disabled = value == 0
-		
 
 var model: Hospital:
 	set(value):
@@ -26,20 +25,22 @@ func _ready() -> void:
 	injured_units.menu_item_selected.connect(_add_to_hospital)
 	selected_unit.selected.connect(_remove_from_hospital)
 	selected_unit.visible = false
-	super._ready()
+	watch_labeled_fields(model, self)
+	#super._ready()
 	
-func _add_to_hospital(unit: Adventurer):
+func _add_to_hospital(item: UnitListMenuItem):
 	if selected_unit.unit:
-		_remove_from_hospital(selected_unit.unit)
-	selected_unit.unit = unit
+		_remove_from_hospital(selected_unit)
+	selected_unit.unit = item.unit
+	selected_unit.input_state = UnitListMenuItem.NORMAL
 	selected_unit.visible = true
-	injured_units.remove_unit(unit)
-	heal_cost = unit.stat_hp - unit.current_hp
+	injured_units.remove_unit(item.unit)
+	heal_cost = item.unit.stat_hp - item.unit.current_hp
 
-func _remove_from_hospital(unit: Adventurer):
+func _remove_from_hospital(item: UnitListMenuItem = selected_unit):
+	injured_units.add_unit(item.unit)
 	selected_unit.unit = null
 	selected_unit.visible = false
-	injured_units.add_unit(unit)
 	heal_cost = 0
 	pass
 	

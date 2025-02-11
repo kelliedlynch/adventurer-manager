@@ -134,15 +134,15 @@ func level_up():
 		msg.text = "%s is now level %d" % [name, level]
 		GameplayEngine.activity_log.push_message(msg)
 	
-func add_experience(exp: int):
-	var remaining = exp
+func add_experience(add_xp: int):
+	var remaining = add_xp
 	while remaining > 0:
 		if remaining >= next_level_exp:
 			level_up()
 			remaining -= next_level_exp
 		else:
 			remaining = 0
-	_experience += exp
+	_experience += add_xp
 
 
 static func generate_random_newbie() -> Adventurer:

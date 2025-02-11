@@ -23,7 +23,7 @@ func _init(msg: ActivityLogMessage):
 	
 func _on_clicked(constructor: Callable):
 	var menu = constructor.call()
-	MenuManager.display_menu(menu, true)
+	InterfaceManager.display_menu(menu, true)
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action("ui_accept") or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()):

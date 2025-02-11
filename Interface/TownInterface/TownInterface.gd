@@ -1,9 +1,9 @@
 @tool
-extends Menu
+extends Interface
 class_name TownInterface
 
-@onready var name_field: LabeledField = $VBoxContainer/PanelContainer/TownName
-@onready var building_grid: GridContainer = $VBoxContainer/GridContainer
+@onready var name_field: LabeledField = find_child("TownName")
+@onready var building_grid: GridContainer = find_child("Buildings")
 
 var model: Town
 
@@ -15,10 +15,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint() or get_tree().current_scene == self:
 		for i in 9:
 			var bldg: TownInterfaceBuilding = TownInterfaceBuilding.instantiate()
-			#bldg.name_label.text = "Building " + str(i + 1)
-			#bldg.name = bldg.building_name
 			building_grid.add_child(bldg)
-			bldg.owner = self
 	else:
 		name_field.watch_object(model)
 		for building in model.buildings:
@@ -31,7 +28,6 @@ func _ready() -> void:
 
 func _open_building_menu(building: Building):
 	var menu = building.interface.instantiate(building)
-	menu.model = building
 	add_child(menu)
 
 static func instantiate(town: Town) -> TownInterface:

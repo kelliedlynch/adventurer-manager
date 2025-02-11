@@ -1,0 +1,11 @@
+[gd_resource type="Theme" format=3 uid="uid://d0bl6jabh3mof"]
+
+[resource]
+BuildingDescription/base_type = &"MarginContainer"
+BuildingDescription/constants/margin_bottom = 16
+BuildingDescription/constants/margin_left = 16
+BuildingDescription/constants/margin_right = 16
+BuildingDescription/constants/margin_top = 16
+BuildingGrid/base_type = &"GridContainer"
+BuildingGrid/constants/h_separation = 16
+BuildingGrid/constants/v_separation = 16

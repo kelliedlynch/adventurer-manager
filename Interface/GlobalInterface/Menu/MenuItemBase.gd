@@ -1,5 +1,5 @@
 @tool
-extends PanelContainer
+extends Interface
 class_name MenuItemBase
 
 var input_state: int = NORMAL:
@@ -10,19 +10,11 @@ signal input_state_changed
 
 signal selected
 
-
 func _ready() -> void:
-
 	input_state_changed.connect(_on_input_state_changed)
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	gui_input.connect(_on_gui_input)
-
-func _watch_labeled_fields(watched, current_node) -> void:
-	for child in current_node.get_children():
-		if child is LabeledField:
-			child.watch_object(watched)
-		_watch_labeled_fields(watched, child)
 		
 func _on_gui_input(event: InputEvent):
 	if event.is_action("ui_accept") or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()):

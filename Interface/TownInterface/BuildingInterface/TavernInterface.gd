@@ -1,9 +1,9 @@
 @tool
-extends Menu
+extends Interface
 class_name TavernInterface
 
-@onready var unit_list: UnitListMenu = $VBoxContainer/HBoxContainer/UnitListMenu
-@onready var name_label: LabeledField = $VBoxContainer/PanelContainer/TavernName
+@onready var for_hire_menu: UnitListMenu = find_child("ForHireMenu")
+@onready var name_label: LabeledField = find_child("TavernName")
 
 var model: Tavern:
 	set(value):
@@ -11,17 +11,17 @@ var model: Tavern:
 		if not is_inside_tree():
 			await ready
 		for unit in model.adventurers_for_hire:
-			unit_list.add_unit(unit)
+			for_hire_menu.add_unit(unit)
 		if not Engine.is_editor_hint():
-			value.adventurers_for_hire_changed.connect(unit_list.set.bind("_refresh_queued", true))
-			Player.property_changed.connect(unit_list.set.unbind(1).bind("_refresh_queued", true))
+			value.adventurers_for_hire_changed.connect(_refresh_for_hire_list)
+			#Player.property_changed.connect(for_hire_menu.set.unbind(1).bind("_refresh_queued", true))
 			name_label.watch_object(model)
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
 		model = Tavern.new()
-	unit_list.register_action_button("Hire", _on_hire_button_pressed, _can_hire_unit)
-	super._ready()
+	for_hire_menu.register_action_button("Hire", _on_hire_button_pressed, _can_hire_unit)
+	#super._ready()
 
 func _can_hire_unit(unit: Adventurer) -> bool:
 	if Engine.is_editor_hint():
@@ -37,12 +37,18 @@ func _on_hire_button_pressed(unit: Adventurer):
 	
 func _confirm_hire(unit: Adventurer):
 	model.hire_adventurer(unit)
+	#for_hire_menu.remove_unit(unit)
 	
 func _on_player_money_changed():
 	pass
 
-func _refresh_menu():
-	pass
+func _refresh_for_hire_list():
+	for unit in for_hire_menu.units:
+		if !model.adventurers_for_hire.has(unit):
+			for_hire_menu.remove_unit(unit)
+	for unit in model.adventurers_for_hire:
+		if !for_hire_menu.units.has(unit):
+			for_hire_menu.add_unit(unit)
 
 static func instantiate(tav: Tavern) -> TavernInterface:
 	var menu = load("res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn").instantiate()

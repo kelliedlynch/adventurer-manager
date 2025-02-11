@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ctso5fp13bg5t" path="res://Graphics/Backgrounds/landscape_4.png" id="2_mpu5g"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="4_mpu5g"]
 [ext_resource type="Texture2D" uid="uid://dc82phwa54dbb" path="res://Graphics/Icons/Black/barsHorizontal.png" id="4_t0gix"]
-[ext_resource type="PackedScene" uid="uid://dabq6vuayb2v3" path="res://Interface/GlobalInterface/ActivityLogInterface.tscn" id="5_h0faj"]
+[ext_resource type="PackedScene" uid="uid://dabq6vuayb2v3" path="res://Interface/GlobalInterface/ActivityLog/ActivityLogInterface.tscn" id="5_h0faj"]
 [ext_resource type="Texture2D" uid="uid://dppkq8w7qayxr" path="res://Graphics/Icons/Black/fastForward.png" id="6_nexvb"]
 
 [node name="GameplayInterface" type="Control"]
@@ -18,30 +18,41 @@ grow_vertical = 2
 script = ExtResource("1_sww6f")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = ExtResource("2_mpu5g")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="DebugControls" type="HBoxContainer" parent="."]
+top_level = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 64.0
 grow_horizontal = 2
-grow_vertical = 2
+alignment = 2
+
+[node name="DebugAdvanceTick" type="Button" parent="DebugControls"]
+modulate = Color(0.611765, 0.843137, 0.509804, 1)
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("6_nexvb")
+expand_icon = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
 
 [node name="Main" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ActionBar" type="PanelContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-theme_type_variation = &"GameplayMenuBar"
+theme_type_variation = &"TitleBar"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ActionBar"]
 layout_mode = 2
@@ -85,6 +96,7 @@ layout_mode = 2
 /linked_property = &"money"
 
 [node name="ActivityLogButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -92,36 +104,23 @@ theme_override_constants/icon_max_width = 48
 toggle_mode = true
 icon = ExtResource("4_t0gix")
 icon_alignment = 1
+expand_icon = true
 
-[node name="ActivityLogContainer" type="Control" parent="."]
+[node name="ActivityLogContainer" type="MarginContainer" parent="."]
 visible = false
-z_index = 1
+top_level = true
 custom_minimum_size = Vector2(480, 240)
-anchors_preset = 0
-offset_left = 941.0
-offset_top = 590.0
-offset_right = 1921.0
-offset_bottom = 930.0
+layout_mode = 2
+offset_left = 792.0
+offset_top = 572.0
+offset_right = 1920.0
+offset_bottom = 944.0
 
 [node name="ActivityLog" parent="ActivityLogContainer" instance=ExtResource("5_h0faj")]
-layout_mode = 1
-
-[node name="DebugAdvanceTick" type="Button" parent="."]
-modulate = Color(0.403922, 0.580392, 0.211765, 1)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -87.0
-offset_bottom = 87.0
-grow_horizontal = 0
-icon = ExtResource("6_nexvb")
-expand_icon = true
+layout_mode = 2
 
 [node name="Label" type="Label" parent="."]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 50.0
+layout_mode = 2
 theme_type_variation = &"HighlightedLabel"
 text = "gjdfcjhgfikhj"

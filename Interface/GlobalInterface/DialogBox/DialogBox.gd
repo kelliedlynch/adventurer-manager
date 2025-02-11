@@ -33,4 +33,4 @@ func _input(event: InputEvent) -> void:
 		close_dialog()
 
 static func instantiate() -> DialogBox:
-	return load("res://Interface/GlobalInterface/DialogBox.tscn").instantiate()
+	return load("res://Interface/GlobalInterface/DialogBox/DialogBox.tscn").instantiate()
