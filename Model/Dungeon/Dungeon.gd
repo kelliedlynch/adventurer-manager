@@ -27,15 +27,15 @@ var _max_level: int = 5:
 		property_changed.emit("level_range")
 var level_range: String = str(_min_level) + "-" + str(_max_level)
 
-var _min_reward: int = 10:
-	set(value):
-		_min_reward = value
-		property_changed.emit("reward_range")
-var _max_reward: int = 90:
-	set(value):
-		_max_reward = value
-		property_changed.emit("reward_range")
-var reward_range: String = str(_min_reward) + "-" + str(_max_reward)
+#var _min_reward: int = 10:
+	#set(value):
+		#_min_reward = value
+		#property_changed.emit("reward_range")
+#var _max_reward: int = 90:
+	#set(value):
+		#_max_reward = value
+		#property_changed.emit("reward_range")
+#var reward_range: String = str(_min_reward) + "-" + str(_max_reward)
 
 var combat: Combat
 var dungeon_reward_money: int = 0
@@ -52,58 +52,39 @@ func begin_quest():
 			adv.status = Adventurer.STATUS_EXPLORING_DUNGEON
 		questing = true
 		remaining_quest_time = quest_time
-		
-func complete_quest():
-	for adv in party:
-		adv.status = Adventurer.STATUS_IDLE
-	party.clear()
-	var log_msg = ActivityLogMessage.new()
-	log_msg.menu = DungeonInterface.instantiate.bind(self)
-	log_msg.text = "Party finished quest in %s. Received %d money." % [dungeon_name, dungeon_reward_money]
-	GameplayEngine.activity_log.push_message(log_msg)
-	Player.money += dungeon_reward_money
-	questing = false
-	remaining_quest_time = -1
 
 func _on_advance_tick():
 	if !questing:
 		return
 	combat = Combat.new()
 	for i in randi_range(1,4):
-		combat.add_enemy(Enemy.new())
+		var enemy = Enemy.new()
+		enemy.stat_hp = 12 + randi_range(_min_level, _max_level) * 3
+		enemy.current_hp = enemy.stat_hp
+		enemy.stat_atk = 3 + randi_range(_min_level, _max_level)
+		combat.add_unit(enemy)
 	for unit in party:
-		combat.add_adventurer(unit)
-	
-	for i in 100:
-		combat.perform_combat_round()
-		if combat.party.is_empty():
-			fail_quest()
-			break
-		if combat.enemies.is_empty():
-			var xp = floor(combat.reward_xp / combat.party.size())
-			combat.party.all(func(x): x.add_experience(xp))
-			dungeon_reward_money += combat.reward_money
-			break
-		
+		combat.add_unit(unit)
+	var result = combat.run_combat()
+	if result == Combat.RESULT_WIN:
+		dungeon_reward_money += combat.reward_money
+	elif result == Combat.RESULT_LOSS:
+		complete_quest(false)
 	remaining_quest_time -= 1
-
 	if remaining_quest_time <= 0:
-		complete_quest()
-		
-func fail_quest():
+		complete_quest(true)
+	
+func complete_quest(success: bool):
 	for adv in party:
 		adv.status = Adventurer.STATUS_IDLE
 	party.clear()
 	var log_msg = ActivityLogMessage.new()
 	log_msg.menu = DungeonInterface.instantiate.bind(self)
-	log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
+	if success:
+		log_msg.text = "Party finished quest in %s. Received %d money." % [dungeon_name, dungeon_reward_money]
+		Player.money += dungeon_reward_money
+	else:
+		log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
 	GameplayEngine.activity_log.push_message(log_msg)
 	questing = false
 	remaining_quest_time = -1
-
-func _simulate_battle():
-	var rounds = randi_range(3, 6)
-	for i in rounds:
-		var unit = party.pick_random()
-		var damage = randi_range(_min_level, _max_level)
-		unit.current_hp -= damage

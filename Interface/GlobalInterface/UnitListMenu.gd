@@ -14,7 +14,9 @@ var units: Array[Adventurer]:
 func add_unit(unit: Adventurer):
 	if !_unit_menuitem_map.has(unit):
 		var item = UnitListMenuItem.instantiate(unit)
+		
 		_unit_menuitem_map[unit] = item
+		
 		add_menu_item(item)
 		for button in registered_buttons:
 			var butt = item.add_action_button(button.text, button.action.bind(unit))
@@ -31,7 +33,7 @@ func remove_unit(unit: Adventurer):
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
 		for i in 10:
-			add_unit(Adventurer.new())
+			add_unit(Adventurer.generate_random_newbie())
 	#_refresh_queued = true
 	super._ready()
 

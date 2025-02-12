@@ -25,10 +25,12 @@ func hire_adventurer(unit: Adventurer):
 
 func _on_game_tick_advanced():
 	var available_adventurers = adventurers_for_hire.size()
-	if available_adventurers < 10:
-		for i in 10 - available_adventurers:
+	if available_adventurers < 4:
+		for i in 4 - available_adventurers:
 			_add_new_adventurer_for_hire()
+		adventurers_for_hire_changed.emit()
 
 func _add_new_adventurer_for_hire():
-	adventurers_for_hire.append(Adventurer.generate_random_newbie())
-	adventurers_for_hire_changed.emit()
+	var adv = Adventurer.generate_random_newbie()
+	adventurers_for_hire.append(adv)
+	

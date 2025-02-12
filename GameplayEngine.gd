@@ -2,7 +2,6 @@ extends Node
 
 var activity_log: ActivityLog = ActivityLog.new()
 
-var town: Town
 var dungeon: Dungeon
 
 var _tick: int = 0
@@ -24,6 +23,5 @@ func _ready() -> void:
 func begin_game() -> void:
 	PhysicsServer2D.set_active(false)
 	PhysicsServer3D.set_active(false)
-	town = Town.new()
 	dungeon = Dungeon.new()
 	advance_tick()

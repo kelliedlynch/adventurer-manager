@@ -47,6 +47,6 @@ func _on_town_button_pressed():
 	if index != -1:
 		InterfaceManager.close_menu(nodes[index])
 	else:
-		var town = TownInterface.instantiate(GameplayEngine.town)
+		var town = TownInterface.instantiate(Player.current_town)
 		town.tree_exited.connect(town_button.set_pressed_no_signal.bind(false))
 		InterfaceManager.display_menu(town, true)

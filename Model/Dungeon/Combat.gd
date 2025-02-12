@@ -3,27 +3,55 @@ class_name Combat
 
 var party: Array[Adventurer] = []
 var enemies: Array[Enemy] = []
+var participants: Array[CombatUnit]:
+	get:
+		var p: Array[CombatUnit] = []
+		p.append_array(party)
+		p.append_array(enemies)
+		return p
 var reward_xp: int = 0
 var reward_money: int = 0
 
-func add_adventurer(adv: Adventurer):
-	party.append(adv)
-	adv.adventurer_died.connect(_on_adventurer_died)
-	
-func add_enemy(enemy: Enemy):
-	enemies.append(enemy)
-	enemy.enemy_died.connect(_on_enemy_died)
+signal combat_ended
 
-func _on_adventurer_died(adv: Adventurer):
-	party.erase(adv)
-	
-func _on_enemy_died(enemy: Enemy):
-	reward_xp += enemy.reward_xp
-	reward_money += enemy.reward_money
-	enemies.erase(enemy)
+func add_unit(unit: CombatUnit):
+	if unit is Adventurer:
+		party.append(unit)
+	elif unit is Enemy:
+		enemies.append(unit)
+	unit.combat = self
 
-func perform_combat_round():
-	for adv in party:
-		adv.adventurer_class.combat_action(adv, self)
-	for enemy in enemies:
-		enemy.combat_action(self)
+func remove_unit(unit: CombatUnit):
+	combat_ended.connect(unit.set.bind("combat", null))
+	if unit is Adventurer:
+		party.erase(unit)
+	elif unit is Enemy:
+		reward_xp += unit.reward_xp
+		reward_money += unit.reward_money
+		enemies.erase(unit)
+
+func _perform_combat_round():
+	for unit in participants:
+		if participants.has(unit):
+			unit.combat_action()
+		if party.is_empty() or enemies.is_empty():
+			return
+
+func run_combat() -> int:
+	for i in 100:
+		_perform_combat_round()
+		if party.is_empty():
+			return RESULT_LOSS
+		if enemies.is_empty():
+			var xp = floor(reward_xp / party.size())
+			party.all(func(x): x.add_experience(xp))
+			return RESULT_WIN
+	reward_xp = 0
+	reward_money = 0
+	return RESULT_STALEMATE
+
+enum {
+	RESULT_WIN,
+	RESULT_LOSS,
+	RESULT_STALEMATE
+}

@@ -21,17 +21,20 @@ var unit: Adventurer = null:
 				await ready
 			_portrait_texture_rect.texture = unit.portrait
 			watch_labeled_fields(unit, self)
+			#print("after watch ", unit.adventurer_class, value.adventurer_class)
 
 func _ready() -> void:
 	if get_tree().current_scene == self or (Engine.is_editor_hint() and unit == null):
-		unit = Adventurer.new()
+		unit = Adventurer.generate_random_newbie()
 		for child in action_buttons.get_children():
 			child.queue_free()
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
 	if unit:
 		_portrait_texture_rect.texture = unit.portrait
-		watch_labeled_fields(unit, self)
+		#print("before_watch ", unit.adventurer_class, find_child("Class").curr_val, find_child("Class").find_child("CurrentValue").text)
+		#watch_labeled_fields(unit, self)
+		#print("after_watch ", unit.adventurer_class, find_child("Class").curr_val, find_child("Class").find_child("CurrentValue").text)
 	super._ready()
 		
 func add_action_button(text: String, action: Callable) -> Button:

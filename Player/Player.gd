@@ -11,9 +11,9 @@ var current_town: Town
 signal property_changed
 
 func _init() -> void:
-	pass
-	for i in 10:
-		roster.append(Adventurer.generate_random_newbie())
+	for i in 6:
+		var adv = Adventurer.generate_random_newbie()
+		roster.append(adv)
 
 func _ready() -> void:
 	var town = Town.new()

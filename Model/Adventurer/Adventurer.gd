@@ -1,4 +1,4 @@
-extends Resource
+extends CombatUnit
 class_name Adventurer
 
 static var rng: RandomNumberGenerator
@@ -10,6 +10,7 @@ var name: String = NameGenerator.new_name():
 		
 var adventurer_class: AdventurerClass = AdventurerClass.random().new():
 	set(value):
+		print("set adventurer_class from ", adventurer_class, " to ", value)
 		adventurer_class = value
 		property_changed.emit("adventurer_class")
 		
@@ -23,65 +24,10 @@ var level: int = 0:
 		level = value
 		property_changed.emit("level")
 		
-var stat_hp: int = 16:
-	set(value):
-		stat_hp = value
-		property_changed.emit("stat_hp")
-		
-var stat_mp: int = 6:
-	set(value):
-		stat_mp = value
-		property_changed.emit("stat_mp")
-		
-var stat_atk: int = 5:
-	set(value):
-		stat_atk = value
-		property_changed.emit("stat_atk")
-		
-var stat_def: int = 3:
-	set(value):
-		stat_def = value
-		property_changed.emit("stat_def")
-		
-var stat_mag: int = 1:
-	set(value):
-		stat_mag = value
-		property_changed.emit("stat_mag")
-		
-var stat_res: int = 1:
-	set(value):
-		stat_res = value
-		property_changed.emit("stat_res")
-		
-var stat_dex: int = 2:
-	set(value):
-		stat_dex = value
-		property_changed.emit("stat_dex")
-		
-var stat_luk: int = 0:
-	set(value):
-		stat_luk = value
-		property_changed.emit("stat_luk")
-		
-var stat_cha: int = 2:
-	set(value):
-		stat_cha = value
-		property_changed.emit("stat_cha")
-		
 var hire_cost: int = 0:
 	set(value):
 		hire_cost = value
 		property_changed.emit("hire_cost")
-		
-var current_hp: int = stat_hp:
-	set(value):
-		current_hp = value
-		property_changed.emit("current_hp")
-		
-var current_mp: int = stat_mp:
-	set(value):
-		current_mp = value
-		property_changed.emit("current_mp")
 
 var _experience: int = 0:
 	set(value):
@@ -102,9 +48,6 @@ var next_level_exp: int:
 	set(value):
 		push_error("cannot set next_level_exp")
 
-signal property_changed
-signal adventurer_died
-
 var status: int = STATUS_IDLE
 
 func _init() -> void:
@@ -114,6 +57,12 @@ func _init() -> void:
 			set("current_hp", adventurer_class.stat_overrides[stat])
 		if stat == "stat_mp":
 			set("current_mp", adventurer_class.stat_overrides[stat])
+	if !Engine.is_editor_hint():
+		GameplayEngine.game_tick_advanced.connect(_on_game_tick_advanced)
+
+func _on_game_tick_advanced():
+	if current_mp < stat_mp:
+		current_mp += 1
 
 func level_up():
 	level += 1
@@ -144,12 +93,9 @@ func add_experience(add_xp: int):
 		else:
 			remaining = 0
 	_experience += add_xp
-
-func take_damage(dmg: int):
-	current_hp -= dmg
-	if current_hp <= 0:
-		current_hp = 0
-		adventurer_died.emit(self)
+		
+func combat_action():
+	adventurer_class.combat_action(self, combat)
 
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()

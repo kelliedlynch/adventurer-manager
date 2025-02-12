@@ -4,26 +4,28 @@ class_name ClassWarrior
 func _init():
 	adventurer_class_name = "Warrior"
 	stat_overrides = {
-		"stat_hp": 19,
-		"stat_mp": 4,
-		"stat_atk": 10,
-		"stat_def": 7,
+		"stat_hp": 16,
+		"stat_mp": 2,
+		"stat_atk": 7,
+		"stat_def": 6,
 		"stat_mag": 1,
-		"stat_res": 0
+		"stat_res": 0,
+		"stat_dex": 3,
+		"stat_luk": 0
 	}
 	
 	stat_level_up_overrides = {
 		"stat_hp": {
-			"range": range(8, 15),
-			"weights": [.3, .4, .6, .7, .8, .6, .5]
+			"range": range(6, 10),
+			"weights": [.3, .6, .1, .6, .3]
 		},
 		"stat_mp": {
-			"range": range(1, 6),
-			"weights": [1, .6, .4, .4, .2]
+			"range": range(1, 4),
+			"weights": [1, .4, .1]
 		},
 		"stat_atk": {
-			"range": range(2, 6),
-			"weights": [.2, .4, 1, .5]
+			"range": range(2, 5),
+			"weights": [.2, .5, 1]
 		},
 		"stat_def": {
 			"range": range(1, 4),
@@ -39,3 +41,6 @@ func _init():
 		}
 	}
 	super._init()
+
+func combat_action(unit: Adventurer, combat: Combat):
+	super(unit, combat)
