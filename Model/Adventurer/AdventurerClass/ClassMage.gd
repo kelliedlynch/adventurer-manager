@@ -20,27 +20,21 @@ func _init():
 	stat_level_up_overrides = {
 		"stat_hp": {
 			"range": range(3, 7),
-			"weights": [.6, .7, 1, .4]
 		},
 		"stat_mp": {
 			"range": range(3, 7),
-			"weights": [.1, .6, 1, .5]
 		},
 		"stat_atk": {
 			"range": range(1, 4),
-			"weights": [3, 1.2, .5]
 		},
 		"stat_def": {
 			"range": range(1, 4),
-			"weights": [1, .8, .6]
 		},
 		"stat_mag": {
 			"range": range(2, 6),
-			"weights": [.2, .8, 2, .5]
 		},
 		"stat_res": {
 			"range": range(3, 6),
-			"weights": [.5, .8, 1]
 		}
 	}
 	super._init()

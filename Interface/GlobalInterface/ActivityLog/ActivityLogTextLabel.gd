@@ -1,5 +1,5 @@
 extends Label
-class_name ActivityLogInterfaceItem
+class_name ActivityLogTextLabel
 
 var outlined: bool = false:
 	set(value):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bykhx0iesxr8d"]
+[gd_scene load_steps=8 format=3 uid="uid://bykhx0iesxr8d"]
 
 [ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://Interface/GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
 [ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/Icons/coin_01.png" id="2_8cgt8"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dc82phwa54dbb" path="res://Graphics/Icons/Black/barsHorizontal.png" id="4_t0gix"]
 [ext_resource type="PackedScene" uid="uid://dabq6vuayb2v3" path="res://Interface/GlobalInterface/ActivityLog/ActivityLogInterface.tscn" id="5_h0faj"]
 [ext_resource type="Texture2D" uid="uid://dppkq8w7qayxr" path="res://Graphics/Icons/Black/fastForward.png" id="6_nexvb"]
-[ext_resource type="Script" uid="uid://bau58ncqp2fye" path="res://Interface/GlobalInterface/ActivityLogContainer.gd" id="7_jylv7"]
 
 [node name="GameplayInterface" type="Control"]
 layout_mode = 3
@@ -108,22 +107,9 @@ icon = ExtResource("4_t0gix")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ActivityLogContainer" type="MarginContainer" parent="."]
-visible = false
-top_level = true
-custom_minimum_size = Vector2(480, 240)
+[node name="ActivityLog" parent="." instance=ExtResource("5_h0faj")]
 layout_mode = 2
 offset_left = 792.0
 offset_top = 572.0
-offset_right = 1920.0
-offset_bottom = 944.0
-script = ExtResource("7_jylv7")
-
-[node name="ActivityLog" parent="ActivityLogContainer" instance=ExtResource("5_h0faj")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="."]
-visible = false
-layout_mode = 2
-theme_type_variation = &"HighlightedLabel"
-text = "gjdfcjhgfikhj"
+offset_right = -11.0
+offset_bottom = -115.0

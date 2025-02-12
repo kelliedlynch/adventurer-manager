@@ -61,16 +61,23 @@ func _init() -> void:
 		GameplayEngine.game_tick_advanced.connect(_on_game_tick_advanced)
 
 func _on_game_tick_advanced():
-	if current_mp < stat_mp:
+	if status == STATUS_IDLE and current_mp < stat_mp:
 		current_mp += 1
 
 func level_up():
 	level += 1
-	
 	var vals = adventurer_class.stat_level_up_values
 	for stat in vals:
-		rng = RandomNumberGenerator.new()
-		var add_val = vals[stat].range[rng.rand_weighted(vals[stat].weights)]
+		if not rng:
+			rng = RandomNumberGenerator.new()
+		var weights = []
+		var normalized = Utility.normalize_range(vals[stat].range)
+		for i in normalized.size():
+			var b = normalized[i]
+			var a = vals[stat].curve.sample(b)
+			weights.append(a)
+		var index = rng.rand_weighted(weights)
+		var add_val = vals[stat].range[index]
 		if add_val > 0:
 			set(stat, get(stat) + add_val)
 			if stat == "stat_hp":

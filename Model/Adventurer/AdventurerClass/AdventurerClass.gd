@@ -9,39 +9,39 @@ var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCu
 var stat_level_up_values: Dictionary = {
 	"stat_hp": {
 		"range": range(3, 10),
-		"weights": [.5, .6, .8, 1, .8, .6, .5]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_mp": {
 		"range": range(2, 5),
-		"weights": [.4, 1, .7, .3]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_atk": {
 		"range": range(1, 4),
-		"weights": [.5, 1, .5]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_def": {
 		"range": range(1, 4),
-		"weights": [.5, 1, .5]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_mag": {
 		"range": range(1, 4),
-		"weights": [.5, 1, .5]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_res": {
 		"range": range(1, 4),
-		"weights": [.5, 1, .5]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_dex": {
 		"range": range(1, 4),
-		"weights": [.5, 1, .5]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_cha": {
 		"range": range(1, 4),
-		"weights": [.5, 1, .5]
+		"curve": load("res://Utility/BellCurve.tres")
 	},
 	"stat_luk": {
 		"range": range(0, 4),
-		"weights": [2, .1, .05, .01]
+		"curve": load("res://Utility/BellCurve.tres")
 	}
 }
 
@@ -50,7 +50,8 @@ var stat_level_up_overrides: Dictionary
 
 func _init() -> void:
 	for stat in stat_level_up_overrides:
-		stat_level_up_values[stat] = stat_level_up_overrides[stat]
+		for key in stat_level_up_overrides[stat]:
+			stat_level_up_values[stat][key] = stat_level_up_overrides[stat][key]
 
 func combat_action(unit: Adventurer, combat: Combat):
 	var target = combat.enemies.pick_random()

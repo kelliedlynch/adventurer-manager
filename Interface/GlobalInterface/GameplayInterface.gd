@@ -6,7 +6,7 @@ extends Control
 @onready var town_button: Button = find_child("TownButton")
 @onready var dungeon_button: Button = find_child("DungeonButton")
 @onready var activity_log_button: Button = find_child("ActivityLogButton")
-@onready var activity_log_container: Control = find_child("ActivityLogContainer")
+@onready var activity_log: ActivityLogInterface = find_child("ActivityLog")
 @onready var debug_advance_tick: Button = find_child("DebugAdvanceTick")
 
 func _ready() -> void:
@@ -14,12 +14,11 @@ func _ready() -> void:
 	roster_button.pressed.connect(_on_roster_button_pressed)
 	town_button.pressed.connect(_on_town_button_pressed)
 	dungeon_button.pressed.connect(_on_dungeon_button_pressed)
-	activity_log_button.pressed.connect(_toggle_activity_log)
+	activity_log_button.pressed.connect(activity_log.toggle_window)
 	money_label.watch_object(Player)
 	debug_advance_tick.pressed.connect(GameplayEngine.advance_tick)
 	
-func _toggle_activity_log():
-	activity_log_container.visible = !activity_log_container.visible
+
 	
 func _on_roster_button_pressed():
 	var nodes = main_control.get_children()

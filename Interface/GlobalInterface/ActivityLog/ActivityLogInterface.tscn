@@ -2,28 +2,35 @@
 
 [ext_resource type="Script" uid="uid://b1tr3vh2ot33q" path="res://Interface/GlobalInterface/ActivityLog/ActivityLogInterface.gd" id="1_1qi8q"]
 
-[node name="ActivityLogInterface" type="PanelContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="ActivityLogInterface" type="MarginContainer"]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1888.0
+offset_bottom = 1048.0
+mouse_filter = 2
 script = ExtResource("1_1qi8q")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="LogWindow" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LogWindow"]
 layout_mode = 2
 
-[node name="ActivityLog" type="Label" parent="VBoxContainer"]
+[node name="ActivityLog" type="Label" parent="LogWindow/VBoxContainer"]
 layout_mode = 2
 text = "Activity Log"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="LogWindow/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LogMessages" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="LogMessages" type="VBoxContainer" parent="LogWindow/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="NotificationWindow" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2

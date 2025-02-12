@@ -11,7 +11,7 @@ func push_message(msg: ActivityLogMessage) -> void:
 	else:
 		var index = _messages.rfind_custom(func (x): return x.time <= msg.time)
 		_messages.insert(index + 1, msg)
-	log_changed.emit()
+	log_changed.emit(msg)
 
 func get_messages(qty: int = -1) -> Array[ActivityLogMessage]:
 	var length = _messages.size()
