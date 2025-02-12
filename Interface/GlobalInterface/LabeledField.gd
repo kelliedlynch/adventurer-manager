@@ -2,7 +2,8 @@
 extends HBoxContainer
 class_name LabeledField
 
-@onready var _label_label: Label = $FieldLabel
+@onready var _icon: TextureRect = find_child("Icon")
+@onready var _field_label: Label = $FieldLabel
 @onready var _curr_val_label: Label = $HBoxContainer/CurrentValue
 @onready var _max_val_label: Label = $HBoxContainer/MaxValue
 var _linked_model: Object
@@ -12,15 +13,23 @@ var _linked_model: Object
 		label = value
 		if not is_inside_tree():
 			await ready
-		_label_label.text = value + label_divider
-		_label_label.visible = label != ""
+		_field_label.text = value + label_divider
+		_field_label.visible = label != ""
 			
 @export var label_divider: String = ":":
 	set(value):
 		label_divider = value
 		if not is_inside_tree():
 			await ready
-		_label_label.text = label + value
+		_field_label.text = label + value
+		
+@export var icon: Texture2D:
+	set(value):
+		icon = value
+		if not is_inside_tree():
+			await ready
+		_icon.texture = value
+		_icon.visible = value != null
 			
 @export var show_max: bool = false:
 	set(value):
@@ -60,23 +69,27 @@ var curr_val: String = "":
 			_curr_val_label.text = value
 		
 func _ready() -> void:
-	#theme_type_variation = "LabeledField"
-	_label_label.text = label
-	if label == "":
-		_label_label.visible = false
-	_curr_val_label.text = curr_val
-	if curr_val == "":
-		_curr_val_label.visible = false
-	_max_val_label.text = max_val
-	if max_val == "":
-		_max_val_label.visible = false
+	if get_tree().edited_scene_root != self:
+		label = label
+		label_divider = label_divider
+		show_max = show_max
+		curr_val = curr_val
+		max_val = max_val
+		max_val_divider = max_val_divider
+		icon = icon
 	theme_changed.connect(_on_theme_changed)
 	_on_theme_changed()
+	
+#func _on_tree_exiting():
+	#if get_tree().edited_scene_root == self:
+		#label = ""
+		#label_divider = ":"
+		
 	
 func _on_theme_changed():
 	var variation = theme_type_variation
 	var font_size = get_theme_font_size("font_size", variation)
-	_label_label.add_theme_font_size_override("font_size", font_size)
+	_field_label.add_theme_font_size_override("font_size", font_size)
 	_curr_val_label.add_theme_font_size_override("font_size", font_size)
 	_max_val_label.add_theme_font_size_override("font_size", font_size)
 	pass

@@ -1,8 +1,8 @@
 extends Resource
 class_name AdventurerClass
 
-var adventurer_class_name: String = "Commoner"
-var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCurve.tres")
+static var adventurer_class_name: String = "Commoner"
+static var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCurve.tres")
 
 var stat_level_up_values: Dictionary = {
 	"stat_hp": {
@@ -49,6 +49,10 @@ var stat_level_up_overrides: Dictionary
 func _init() -> void:
 	for stat in stat_level_up_overrides:
 		stat_level_up_values[stat] = stat_level_up_overrides[stat]
+
+func combat_action(unit: Adventurer, combat: Combat):
+	var target = combat.enemy.pick_random()
+	target.take_damage(unit.stat_atk)
 
 func _to_string() -> String:
 	return adventurer_class_name

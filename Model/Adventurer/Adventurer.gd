@@ -3,7 +3,7 @@ class_name Adventurer
 
 static var rng: RandomNumberGenerator
 
-var name: String = "Adventurer":
+var name: String = NameGenerator.new_name():
 	set(value):
 		name = value
 		property_changed.emit("name")
@@ -103,6 +103,7 @@ var next_level_exp: int:
 		push_error("cannot set next_level_exp")
 
 signal property_changed
+signal adventurer_died
 
 var status: int = STATUS_IDLE
 
@@ -144,6 +145,11 @@ func add_experience(add_xp: int):
 			remaining = 0
 	_experience += add_xp
 
+func take_damage(dmg: int):
+	current_hp -= dmg
+	if current_hp <= 0:
+		current_hp = 0
+		adventurer_died.emit(self)
 
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()

@@ -22,7 +22,7 @@ func _ready() -> void:
 	watch_labeled_fields(dungeon, dungeon_panel)
 	send_button.pressed.connect(_on_press_send_button)
 	dungeon.property_changed.connect(_on_dungeon_property_changed)
-	GameplayEngine.game_tick_advanced.connect(_refresh_interface)
+	super()
 
 func _get_idle_units() -> Array[Adventurer]:
 	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE)

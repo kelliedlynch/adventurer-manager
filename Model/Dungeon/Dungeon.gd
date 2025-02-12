@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name Dungeon
 
 var dungeon_name: String = "Scary Dungeon"
@@ -37,6 +37,9 @@ var _max_reward: int = 90:
 		property_changed.emit("reward_range")
 var reward_range: String = str(_min_reward) + "-" + str(_max_reward)
 
+var combat: Combat
+var dungeon_reward_money: int = 0
+
 signal property_changed
 
 func _init() -> void:
@@ -52,24 +55,51 @@ func begin_quest():
 		
 func complete_quest():
 	for adv in party:
-		adv.add_experience(randi_range(50, 100))
 		adv.status = Adventurer.STATUS_IDLE
 	party.clear()
 	var log_msg = ActivityLogMessage.new()
 	log_msg.menu = DungeonInterface.instantiate.bind(self)
-	var reward = randi_range(_min_reward, _max_reward)
-	log_msg.text = "Party finished quest in %s. Received %d money." % [dungeon_name, reward]
+	log_msg.text = "Party finished quest in %s. Received %d money." % [dungeon_name, dungeon_reward_money]
 	GameplayEngine.activity_log.push_message(log_msg)
-	Player.money += reward
+	Player.money += dungeon_reward_money
 	questing = false
 	remaining_quest_time = -1
 
 func _on_advance_tick():
-	if questing:
-		remaining_quest_time -= 1
-		_simulate_battle()
-		if remaining_quest_time <= 0:
-			complete_quest()
+	if !questing:
+		return
+	combat = Combat.new()
+	for i in randi_range(1,4):
+		combat.add_enemy(Enemy.new())
+	for unit in party:
+		combat.add_adventurer(unit)
+	
+	for i in 100:
+		combat.perform_combat_round()
+		if combat.party.is_empty():
+			fail_quest()
+			break
+		if combat.enemies.is_empty():
+			var xp = floor(combat.reward_xp / combat.party.size())
+			combat.party.all(func(x): x.add_experience(xp))
+			dungeon_reward_money += combat.reward_money
+			break
+		
+	remaining_quest_time -= 1
+
+	if remaining_quest_time <= 0:
+		complete_quest()
+		
+func fail_quest():
+	for adv in party:
+		adv.status = Adventurer.STATUS_IDLE
+	party.clear()
+	var log_msg = ActivityLogMessage.new()
+	log_msg.menu = DungeonInterface.instantiate.bind(self)
+	log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
+	GameplayEngine.activity_log.push_message(log_msg)
+	questing = false
+	remaining_quest_time = -1
 
 func _simulate_battle():
 	var rounds = randi_range(3, 6)

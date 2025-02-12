@@ -17,11 +17,11 @@ var model: Hospital:
 		model = value
 		if not is_inside_tree():
 			await ready
-		_get_injured_units()
+		_refresh_interface()
 			
 func _ready() -> void:
 	heal_button.pressed.connect(_on_heal_button_pressed)
-	heal_button.disabled = heal_cost == 0
+	heal_button.disabled = heal_cost == 0 or heal_cost > Player.money
 	injured_units.menu_item_selected.connect(_add_to_hospital)
 	selected_unit.selected.connect(_remove_from_hospital)
 	selected_unit.visible = false
@@ -51,12 +51,22 @@ func _on_heal_button_pressed():
 	selected_unit.unit = null
 	selected_unit.visible = false
 	
+func _refresh_interface():
+	var injured = _get_injured_units()
+	var existing = injured_units.units
+	if injured == existing:
+		return
+	for inj in injured:
+		if !existing.has(inj):
+			injured_units.add_unit(inj)
+	for exist in existing:
+		if !injured.has(exist):
+			injured_units.remove_unit(exist)
 	
-func _get_injured_units():
+func _get_injured_units() -> Array[Adventurer]:
 	#injured_units.clear_units()
-	var units = Player.roster.filter(func(x): return x.current_hp < x.stat_hp)
-	for unit in units:
-		injured_units.add_unit(unit)
+	return Player.roster.filter(func(x): return x.current_hp < x.stat_hp)
+	
 
 static func instantiate(hospital: Hospital) -> HospitalInterface:
 	var menu = load("res://Interface/TownInterface/BuildingInterface/HospitalInterface.tscn").instantiate()

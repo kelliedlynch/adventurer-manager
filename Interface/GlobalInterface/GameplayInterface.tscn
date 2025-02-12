@@ -57,6 +57,7 @@ theme_type_variation = &"TitleBar"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ActionBar"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="RosterButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2

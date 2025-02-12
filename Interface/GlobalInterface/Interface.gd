@@ -4,6 +4,12 @@ class_name Interface
 
 @export var is_root_interface: bool = false
 
+func _ready() -> void:
+	GameplayEngine.game_tick_advanced.connect(_refresh_interface)
+
+func _refresh_interface():
+	pass
+
 func watch_labeled_fields(watched, current_node) -> void:
 	for child in current_node.get_children():
 		if child is LabeledField and watched.get_script().get_global_name() == child.get("/linked_class"):

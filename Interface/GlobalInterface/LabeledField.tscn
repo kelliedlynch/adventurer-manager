@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnwh3ltkopbuh"]
+[gd_scene load_steps=3 format=3 uid="uid://bnwh3ltkopbuh"]
 
 [ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="1_pmowl"]
+[ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="2_dvg5y"]
 
 [node name="LabeledField" type="HBoxContainer"]
 offset_right = 40.0
@@ -10,21 +11,26 @@ script = ExtResource("1_pmowl")
 /linked_property = null
 /max_val_property = null
 
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_dvg5y")
+expand_mode = 2
+
 [node name="FieldLabel" type="Label" parent="."]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
+text = "Label:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
 [node name="CurrentValue" type="Label" parent="HBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
+text = "0"
 horizontal_alignment = 2
 
 [node name="MaxValue" type="Label" parent="HBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
+text = "/100"
