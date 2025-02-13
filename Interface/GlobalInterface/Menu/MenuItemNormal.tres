@@ -1,10 +1,4 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://c2w67utdtber"]
-
-[ext_resource type="Texture2D" uid="uid://b16d5jmybga4m" path="res://Graphics/LargeBorders/Exported/b_ffe7adff_p_2f3137ff.png" id="1_tpqih"]
+[gd_resource type="StyleBoxFlat" format=3 uid="uid://w1t75fbsdbtr"]
 
 [resource]
-texture = ExtResource("1_tpqih")
-texture_margin_left = 33.0
-texture_margin_top = 33.0
-texture_margin_right = 33.0
-texture_margin_bottom = 33.0
+bg_color = Color(0.215686, 0.215686, 0.262745, 1)

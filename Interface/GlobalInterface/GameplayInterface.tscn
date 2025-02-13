@@ -65,6 +65,13 @@ size_flags_vertical = 4
 toggle_mode = true
 text = "Roster"
 
+[node name="InventoryButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+text = "Inventory"
+
 [node name="TownButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -111,5 +118,5 @@ expand_icon = true
 layout_mode = 2
 offset_left = 792.0
 offset_top = 572.0
-offset_right = -11.0
-offset_bottom = -115.0
+offset_right = 1908.0
+offset_bottom = 965.0

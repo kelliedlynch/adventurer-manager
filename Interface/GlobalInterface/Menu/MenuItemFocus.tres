@@ -1,11 +1,9 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bisiieqgesgfw"]
-
-[ext_resource type="Texture2D" uid="uid://dqs14ax4nj8v8" path="res://Graphics/LargeBorders/Exported/b_ffd470ff_p_2f3137ff.png" id="1_ugcsu"]
+[gd_resource type="StyleBoxFlat" format=3 uid="uid://bck135yqyhe6k"]
 
 [resource]
-texture = ExtResource("1_ugcsu")
-texture_margin_left = 33.0
-texture_margin_top = 33.0
-texture_margin_right = 33.0
-texture_margin_bottom = 33.0
-modulate_color = Color(1, 1, 0.909804, 1)
+bg_color = Color(0.184314, 0.192157, 0.215686, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.784314, 0.792157, 0.815686, 1)

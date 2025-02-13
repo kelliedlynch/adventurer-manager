@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cexrovdxbxapb"]
+[gd_scene load_steps=8 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitListMenuItem.gd" id="1_r7cqq"]
-[ext_resource type="Texture2D" uid="uid://bcm2ej5ytb8cm" path="res://Graphics/Portraits/simplified cartoon serious menacing doberman dog looking up isolated white background 09-02-2025 at 13-46-56.jpeg" id="2_5xqe5"]
+[ext_resource type="Texture2D" uid="uid://dpgr5fkx7iwly" path="res://Graphics/Portraits/f_21.PNG" id="2_pb6xb"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_bele2"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="4_pb6xb"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="5_wrwym"]
 [ext_resource type="Texture2D" uid="uid://cw7pp4uidrpwy" path="res://Graphics/Icons/White/magic_staff.png" id="6_0xsdr"]
+[ext_resource type="PackedScene" uid="uid://cc3uq6b0rbj7n" path="res://Interface/PlayerMenuInterface/EquipmentSlot.tscn" id="7_wrwym"]
 
 [node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 14
@@ -16,7 +17,7 @@ offset_top = -136.0
 offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"MenuItem"
+theme_type_variation = &"MenuItemPanel"
 script = ExtResource("1_r7cqq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -36,7 +37,7 @@ custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_5xqe5")
+texture = ExtResource("2_pb6xb")
 expand_mode = 1
 
 [node name="StatsBlock" type="MarginContainer" parent="HBoxContainer"]
@@ -75,11 +76,15 @@ theme_type_variation = &"FieldBig"
 /linked_class = &"Adventurer"
 /linked_property = &"adventurer_class"
 
-[node name="MainStats" type="GridContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
 layout_mode = 2
+
+[node name="MainStats" type="GridContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 columns = 3
 
-[node name="HitPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="HitPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -89,7 +94,7 @@ show_max = true
 /linked_property = &"current_hp"
 /max_val_property = &"stat_hp"
 
-[node name="MagicPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="MagicPoints" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -99,7 +104,7 @@ show_max = true
 /linked_property = &"current_mp"
 /max_val_property = &"stat_mp"
 
-[node name="AttackPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="AttackPower" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -107,7 +112,7 @@ icon = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_atk"
 
-[node name="DefensePower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="DefensePower" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -115,7 +120,7 @@ icon = ExtResource("5_wrwym")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_def"
 
-[node name="MagicPower" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="MagicPower" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -123,7 +128,7 @@ icon = ExtResource("6_0xsdr")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_mag"
 
-[node name="MagicDefense" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="MagicDefense" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -131,7 +136,7 @@ label = "RES"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_res"
 
-[node name="Dexterity" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="Dexterity" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -139,7 +144,7 @@ label = "DEX"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_dex"
 
-[node name="Charisma" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="Charisma" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
@@ -147,13 +152,19 @@ label = "CHA"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_cha"
 
-[node name="Luck" parent="HBoxContainer/StatsBlock/VBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+[node name="Luck" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
 label = "LUK"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_luk"
+
+[node name="WeaponSlot" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer" instance=ExtResource("7_wrwym")]
+layout_mode = 2
+
+[node name="ArmorSlot" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer" instance=ExtResource("7_wrwym")]
+layout_mode = 2
 
 [node name="ActionButtons" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2

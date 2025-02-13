@@ -1,6 +1,11 @@
 extends Resource
 class_name AdventurerClass
 
+const CURVE_BELL = preload("res://Utility/BellCurve.tres")
+const CURVE_BELL_HIGH = preload("res://Utility/HighBell.tres")
+const CURVE_BELL_LOW = preload("res://Utility/LowBell.tres")
+const CURVE_WEIGHTED_HIGH = preload("res://Utility/WeightedHigh.tres")
+const CURVE_WEIGHTED_LOW = preload("res://Utility/WeightedLow.tres")
 
 # TODO: AdventurerClasses should be singletons--the class won't have different instances for different units
 var adventurer_class_name: String = "Commoner"
@@ -9,39 +14,39 @@ var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCu
 var stat_level_up_values: Dictionary = {
 	"stat_hp": {
 		"range": range(3, 10),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_mp": {
 		"range": range(2, 5),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_atk": {
 		"range": range(1, 4),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_def": {
 		"range": range(1, 4),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_mag": {
 		"range": range(1, 4),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_res": {
 		"range": range(1, 4),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_dex": {
 		"range": range(1, 4),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_cha": {
 		"range": range(1, 4),
-		"curve": load("res://Utility/BellCurve.tres")
+		"curve": CURVE_BELL
 	},
 	"stat_luk": {
-		"range": range(0, 4),
-		"curve": load("res://Utility/BellCurve.tres")
+		"range": range(0, 1),
+		"curve": CURVE_WEIGHTED_LOW
 	}
 }
 
@@ -65,3 +70,6 @@ static func random() -> Variant:
 		ClassWarrior, ClassMage, ClassHealer
 	]
 	return classes.pick_random()
+
+enum {
+}

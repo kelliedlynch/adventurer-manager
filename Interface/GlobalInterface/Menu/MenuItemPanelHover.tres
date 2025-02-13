@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cbn4ndwansd7w"]
+
+[ext_resource type="Texture2D" uid="uid://4h2sdk7mfyck" path="res://Graphics/LargeBorders/Exported/b_ffd470ff_p_25252dff.png" id="1_hqj30"]
+
+[resource]
+texture = ExtResource("1_hqj30")
+texture_margin_left = 33.0
+texture_margin_top = 33.0
+texture_margin_right = 33.0
+texture_margin_bottom = 33.0
+modulate_color = Color(1, 1, 0.909804, 1)

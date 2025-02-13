@@ -49,7 +49,7 @@ func _init() -> void:
 func begin_quest():
 	if party.size() > 0:
 		for adv in party:
-			adv.status = Adventurer.STATUS_EXPLORING_DUNGEON
+			adv.status |= Adventurer.STATUS_IN_DUNGEON
 		questing = true
 		remaining_quest_time = quest_time
 
@@ -70,13 +70,14 @@ func _on_advance_tick():
 		dungeon_reward_money += combat.reward_money
 	elif result == Combat.RESULT_LOSS:
 		complete_quest(false)
+		return
 	remaining_quest_time -= 1
 	if remaining_quest_time <= 0:
 		complete_quest(true)
 	
 func complete_quest(success: bool):
 	for adv in party:
-		adv.status = Adventurer.STATUS_IDLE
+		adv.status &= ~Adventurer.STATUS_IN_DUNGEON
 	party.clear()
 	var log_msg = ActivityLogMessage.new()
 	log_msg.menu = DungeonInterface.instantiate.bind(self)

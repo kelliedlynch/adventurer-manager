@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://1jaex7wbidaq"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://1jaex7wbidaq"]
 
 [ext_resource type="StyleBox" uid="uid://brow5uaanil8s" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightDisabled.tres" id="1_ae3cl"]
 [ext_resource type="StyleBox" uid="uid://cd2tkcya4cs64" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightHover.tres" id="1_c3lfg"]
@@ -6,10 +6,25 @@
 [ext_resource type="StyleBox" uid="uid://212enke06llj" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightPressed.tres" id="3_2f0ad"]
 [ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://Interface/GlobalInterface/UnitListPortraitStyleBox.tres" id="5_1u76n"]
 [ext_resource type="StyleBox" uid="uid://c8kg8j4t2mhuy" path="res://Interface/GlobalInterface/BaseTheme/DefaultPanelStyleBox.tres" id="5_2f0ad"]
-[ext_resource type="StyleBox" uid="uid://bisiieqgesgfw" path="res://Interface/GlobalInterface/Menu/MenuItemFocus.tres" id="5_2t38o"]
-[ext_resource type="StyleBox" uid="uid://cbn4ndwansd7w" path="res://Interface/GlobalInterface/Menu/MenuItemHover.tres" id="5_3r0tp"]
-[ext_resource type="StyleBox" uid="uid://c2w67utdtber" path="res://Interface/GlobalInterface/Menu/MenuItemNormal.tres" id="6_2t38o"]
+[ext_resource type="StyleBox" uid="uid://bck135yqyhe6k" path="res://Interface/GlobalInterface/Menu/MenuItemFocus.tres" id="5_2t38o"]
+[ext_resource type="StyleBox" uid="uid://c8ndrot0d2yow" path="res://Interface/GlobalInterface/Menu/MenuItemHover.tres" id="5_3r0tp"]
+[ext_resource type="StyleBox" uid="uid://7eevomkjvvr4" path="res://Interface/PlayerMenuInterface/InventorySlotBorderNormal.tres" id="5_4qxki"]
+[ext_resource type="StyleBox" uid="uid://bisiieqgesgfw" path="res://Interface/GlobalInterface/Menu/MenuItemPanelFocus.tres" id="5_4yqev"]
+[ext_resource type="StyleBox" uid="uid://w1t75fbsdbtr" path="res://Interface/GlobalInterface/Menu/MenuItemNormal.tres" id="6_2t38o"]
+[ext_resource type="StyleBox" uid="uid://cbn4ndwansd7w" path="res://Interface/GlobalInterface/Menu/MenuItemPanelHover.tres" id="6_881vf"]
 [ext_resource type="StyleBox" uid="uid://bsxv6jjyd6o14" path="res://Interface/GlobalInterface/TitleBarStyleBox.tres" id="7_2f0ad"]
+[ext_resource type="StyleBox" uid="uid://c2w67utdtber" path="res://Interface/GlobalInterface/Menu/MenuItemPanelNormal.tres" id="8_1icwp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etxuw"]
+bg_color = Color(0.329412, 0.345098, 0.388235, 1)
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.184314, 0.192157, 0.215686, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yqev"]
+border_width_left = 16
+border_width_top = 1
+border_width_right = 16
 
 [resource]
 default_font_size = 36
@@ -33,6 +48,8 @@ HighlightedLabel/colors/font_outline_color = Color(0.231373, 0.231373, 0.231373,
 HighlightedLabel/colors/font_shadow_color = Color(1, 1, 0, 0.423529)
 HighlightedLabel/constants/outline_size = 2
 HighlightedLabel/constants/shadow_outline_size = 4
+InventorySlot/base_type = &"PanelContainer"
+InventorySlot/styles/panel = ExtResource("5_4qxki")
 Label/colors/font_color = Color(1, 0.968627, 0.917647, 1)
 LabeledField/base_type = &"HBoxContainer"
 LabeledField/constants/separation = 16
@@ -43,6 +60,11 @@ MenuItem/styles/focus = ExtResource("5_2t38o")
 MenuItem/styles/hover = ExtResource("5_3r0tp")
 MenuItem/styles/panel = ExtResource("6_2t38o")
 MenuItem/styles/pressed = ExtResource("5_3r0tp")
+MenuItemPanel/base_type = &"PanelContainer"
+MenuItemPanel/styles/focus = ExtResource("5_4yqev")
+MenuItemPanel/styles/hover = ExtResource("6_881vf")
+MenuItemPanel/styles/panel = ExtResource("8_1icwp")
+MenuItemPanel/styles/pressed = ExtResource("6_881vf")
 PanelContainer/styles/panel = ExtResource("5_2f0ad")
 PortraitFrame/base_type = &"PanelContainer"
 PortraitFrame/styles/panel = ExtResource("5_1u76n")
@@ -52,3 +74,5 @@ TitleBig/base_type = &"LabeledField"
 TitleBig/font_sizes/font_size = 36
 TitleSmall/base_type = &"LabeledField"
 TitleSmall/font_sizes/font_size = 30
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_etxuw")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_4yqev")

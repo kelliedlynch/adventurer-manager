@@ -7,6 +7,7 @@ class_name ActivityLogInterface
 
 func _ready() -> void:
 	GameplayEngine.activity_log.log_changed.connect(_on_log_changed)
+	log_window.visible = false
 	_build_log()
 	
 func _build_log():
@@ -19,9 +20,9 @@ func _build_log():
 func _on_log_changed(msg: ActivityLogMessage = null):
 	_build_log()
 	if msg:
-		var notif = ActivityLogNotification.new()
-		notif.add_child(ActivityLogTextLabel.new(msg))
-		pass
+		var existing = notification_window.get_child_count()
+		var notif = ActivityLogNotification.new(msg, .6 * existing)
+		notification_window.add_child(notif)
 
 func toggle_window():
 	log_window.visible = !log_window.visible

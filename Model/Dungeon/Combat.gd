@@ -43,7 +43,7 @@ func run_combat() -> int:
 		if party.is_empty():
 			return RESULT_LOSS
 		if enemies.is_empty():
-			var xp = floor(reward_xp / party.size())
+			var xp = floor(reward_xp / float(party.size()))
 			party.all(func(x): x.add_experience(xp))
 			return RESULT_WIN
 	reward_xp = 0

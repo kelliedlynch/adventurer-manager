@@ -32,12 +32,14 @@ func _add_to_hospital(item: UnitListMenuItem):
 	if selected_unit.unit:
 		_remove_from_hospital(selected_unit)
 	selected_unit.unit = item.unit
+	item.unit.status |= Adventurer.STATUS_IN_BUILDING
 	selected_unit.input_state = UnitListMenuItem.NORMAL
 	selected_unit.visible = true
 	injured_units.remove_unit(item.unit)
 	heal_cost = item.unit.stat_hp - item.unit.current_hp
 
 func _remove_from_hospital(item: UnitListMenuItem = selected_unit):
+	item.unit.status &= ~Adventurer.STATUS_IN_BUILDING
 	injured_units.add_unit(item.unit)
 	selected_unit.unit = null
 	selected_unit.visible = false

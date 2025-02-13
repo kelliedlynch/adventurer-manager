@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc3uq6b0rbj7n"]
+
+[ext_resource type="Script" uid="uid://dr25rtdprsuvp" path="res://Interface/PlayerMenuInterface/EquipmentSlot.gd" id="1_2p5nb"]
+[ext_resource type="StyleBox" uid="uid://7eevomkjvvr4" path="res://Interface/PlayerMenuInterface/InventorySlotBorderNormal.tres" id="1_5u142"]
+[ext_resource type="Texture2D" uid="uid://cnqpqw3f4tpyy" path="res://Graphics/Equipment/Weapons/sv_t_04.png" id="1_criwv"]
+[ext_resource type="StyleBox" uid="uid://cgeah78dfb8r" path="res://Interface/PlayerMenuInterface/InventorySlotBackgroundNormal.tres" id="3_wmo3w"]
+
+[node name="EquipmentSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(86, 86)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("1_5u142")
+script = ExtResource("1_2p5nb")
+
+[node name="SlotBackground" type="PanelContainer" parent="."]
+show_behind_parent = true
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_wmo3w")
+
+[node name="EquipmentTexture" type="TextureRect" parent="."]
+show_behind_parent = true
+light_mask = 16385
+layout_mode = 2
+texture = ExtResource("1_criwv")
+expand_mode = 1

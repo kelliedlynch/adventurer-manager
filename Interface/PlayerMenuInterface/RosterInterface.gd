@@ -12,6 +12,6 @@ func _ready() -> void:
 		for i in 6:
 			unit_list.add_unit(Adventurer.generate_random_newbie())
 
-static func instantiate(units: Array[Adventurer] = []) -> RosterInterface:
-	var menu = load("res://Interface/RosterInterface/RosterInterface.tscn").instantiate()
+static func instantiate() -> RosterInterface:
+	var menu = load("res://Interface/PlayerMenuInterface/RosterInterface.tscn").instantiate()
 	return menu

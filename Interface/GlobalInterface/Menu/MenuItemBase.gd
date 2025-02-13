@@ -25,15 +25,17 @@ func _on_gui_input(event: InputEvent):
 			input_state -= PRESSED
 
 func _on_input_state_changed(state: int):
-	remove_theme_stylebox_override("panel")
+	var normal = "panel"
+		
+	remove_theme_stylebox_override(normal)
 	if state & PRESSED:
-		add_theme_stylebox_override("panel", get_theme_stylebox("pressed", theme_type_variation))
+		add_theme_stylebox_override(normal, get_theme_stylebox("pressed", theme_type_variation))
 	elif state & HOVERED:
-		add_theme_stylebox_override("panel", get_theme_stylebox("hover", theme_type_variation))
+		add_theme_stylebox_override(normal, get_theme_stylebox("hover", theme_type_variation))
 	elif state & FOCUSED:
-		add_theme_stylebox_override("panel", get_theme_stylebox("focus", theme_type_variation))
+		add_theme_stylebox_override(normal, get_theme_stylebox("focus", theme_type_variation))
 	else:
-		add_theme_stylebox_override("panel", get_theme_stylebox("panel", theme_type_variation))
+		add_theme_stylebox_override(normal, get_theme_stylebox(normal, theme_type_variation))
 
 func _on_mouse_entered():
 	if not input_state & HOVERED:

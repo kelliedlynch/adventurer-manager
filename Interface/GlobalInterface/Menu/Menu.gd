@@ -49,7 +49,7 @@ func _ready() -> void:
 func _refresh_menu():
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if _refresh_queued:
 		_refresh_menu()
 		_refresh_queued = false

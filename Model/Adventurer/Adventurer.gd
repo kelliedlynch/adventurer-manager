@@ -10,7 +10,6 @@ var name: String = NameGenerator.new_name():
 		
 var adventurer_class: AdventurerClass = AdventurerClass.random().new():
 	set(value):
-		print("set adventurer_class from ", adventurer_class, " to ", value)
 		adventurer_class = value
 		property_changed.emit("adventurer_class")
 		
@@ -50,6 +49,17 @@ var next_level_exp: int:
 
 var status: int = STATUS_IDLE
 
+var weapon: Weapon:
+	set(value):
+		weapon = value
+		equipment_changed.emit()
+var armor: Armor:
+	set(value):
+		armor = value
+		equipment_changed.emit()
+
+signal equipment_changed
+
 func _init() -> void:
 	for stat in adventurer_class.stat_overrides:
 		set(stat, adventurer_class.stat_overrides[stat])
@@ -61,7 +71,7 @@ func _init() -> void:
 		GameplayEngine.game_tick_advanced.connect(_on_game_tick_advanced)
 
 func _on_game_tick_advanced():
-	if status == STATUS_IDLE and current_mp < stat_mp:
+	if status & STATUS_IDLE and status & ~STATUS_INCAPACITATED and current_mp < stat_mp:
 		current_mp += 1
 
 func level_up():
@@ -104,6 +114,17 @@ func add_experience(add_xp: int):
 func combat_action():
 	adventurer_class.combat_action(self, combat)
 
+func take_damage(dmg: int):
+	super(dmg)
+	if current_hp == 0:
+		status |= STATUS_INCAPACITATED
+		
+func heal_damage(dmg: int):
+	pass
+	
+func revive():
+	pass
+
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
 	noob.level_up()
@@ -119,6 +140,8 @@ static func get_random_portrait():
 	return load("res://Graphics/Portraits/" + filename)
 
 enum {
-	STATUS_IDLE,
-	STATUS_EXPLORING_DUNGEON
+	STATUS_IDLE = 1,
+	STATUS_IN_BUILDING = 2,
+	STATUS_IN_DUNGEON = 4,
+	STATUS_INCAPACITATED = 8
 }
