@@ -7,6 +7,8 @@ class_name UnitListMenuItem
 @onready var armor_slot: EquipmentSlot = find_child("ArmorSlot")
 @onready var action_buttons: VBoxContainer = find_child("ActionButtons")
 
+var inventory_submenu: InventoryInterface
+
 @export var portrait_size: Vector2:
 	set(value):
 		portrait_size = value
@@ -22,8 +24,8 @@ var unit: Adventurer = null:
 				await ready
 			portrait_texture_rect.texture = unit.portrait
 			if unit.weapon:
-				weapon_slot.texture = unit.weapon.texture
-			weapon_slot.selected.connect(_on_slot_clicked)
+				weapon_slot.item = unit.weapon
+			unit.equipment_changed.connect(_on_unit_equipment_changed)
 			watch_labeled_fields(unit, self)
 
 func _ready() -> void:
@@ -33,17 +35,32 @@ func _ready() -> void:
 			child.queue_free()
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
-	if unit:
-		#portrait_texture_rect.texture = unit.portrait
 
-		if unit.armor:
-			armor_slot.texture = unit.armor_texture
-		armor_slot.selected.connect(_on_armor_clicked)
+	if unit:
+		weapon_slot.selected.connect(_on_slot_clicked.bind(weapon_slot))
+		armor_slot.selected.connect(_on_slot_clicked.bind(armor_slot))
+
+		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
+		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
 	super._ready()
 	
 func _on_slot_clicked(slot: EquipmentSlot):
-	var menu = InventoryInterface.instantiate(Player.inventory.filter(slot.filter))
-	get_tree().current_scene.add_child(menu)
+	inventory_submenu = InventoryInterface.instantiate(Player.inventory.filter(slot.filter))
+	inventory_submenu.menu_item_selected.connect(_on_equipment_selected)
+	get_tree().current_scene.add_child(inventory_submenu)
+	
+func _on_equipment_selected(menu_item: InventoryMenuItem):
+	if menu_item.item is Weapon:
+		unit.weapon = menu_item.item
+	elif menu_item.item is Armor:
+		unit.armor = menu_item.item
+	inventory_submenu.queue_free()
+	
+func _on_unit_equipment_changed(equip_type: String):
+	if equip_type == "weapon":
+		weapon_slot.item = unit.weapon
+	elif equip_type == "armor":
+		armor_slot.item = unit.armor
 	
 func _on_armor_clicked():
 	pass

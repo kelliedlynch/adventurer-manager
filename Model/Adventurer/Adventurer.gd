@@ -52,11 +52,13 @@ var status: int = STATUS_IDLE
 var weapon: Weapon:
 	set(value):
 		weapon = value
-		equipment_changed.emit()
+		value.status = Equipment.ITEM_EQUIPPED
+		equipment_changed.emit("weapon")
 var armor: Armor:
 	set(value):
 		armor = value
-		equipment_changed.emit()
+		value.status = Equipment.ITEM_EQUIPPED
+		equipment_changed.emit("armor")
 
 signal equipment_changed
 

@@ -56,5 +56,11 @@ var stat_cha: int = 0:
 		stat_cha = value
 		property_changed.emit("stat_cha")
 
-		
 signal property_changed
+
+var status: int = ITEM_NOT_EQUIPPED
+
+enum {
+	ITEM_NOT_EQUIPPED = 1,
+	ITEM_EQUIPPED = 2
+}

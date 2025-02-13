@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://1jaex7wbidaq"]
+[gd_resource type="Theme" load_steps=20 format=3 uid="uid://1jaex7wbidaq"]
 
 [ext_resource type="StyleBox" uid="uid://brow5uaanil8s" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightDisabled.tres" id="1_ae3cl"]
 [ext_resource type="StyleBox" uid="uid://cd2tkcya4cs64" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightHover.tres" id="1_c3lfg"]
@@ -14,6 +14,9 @@
 [ext_resource type="StyleBox" uid="uid://cbn4ndwansd7w" path="res://Interface/GlobalInterface/Menu/MenuItemPanelHover.tres" id="6_881vf"]
 [ext_resource type="StyleBox" uid="uid://bsxv6jjyd6o14" path="res://Interface/GlobalInterface/TitleBarStyleBox.tres" id="7_2f0ad"]
 [ext_resource type="StyleBox" uid="uid://c2w67utdtber" path="res://Interface/GlobalInterface/Menu/MenuItemPanelNormal.tres" id="8_1icwp"]
+[ext_resource type="StyleBox" uid="uid://ch2u3rkwkju3f" path="res://Interface/PlayerMenuInterface/InventorySlotBackgroundHover.tres" id="14_0sqcw"]
+[ext_resource type="StyleBox" uid="uid://bvghc4mtinieo" path="res://Interface/PlayerMenuInterface/InventorySlotBorderHover.tres" id="14_arso6"]
+[ext_resource type="StyleBox" uid="uid://cgeah78dfb8r" path="res://Interface/PlayerMenuInterface/InventorySlotBackgroundNormal.tres" id="15_ncu4y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etxuw"]
 bg_color = Color(0.329412, 0.345098, 0.388235, 1)
@@ -68,6 +71,16 @@ MenuItemPanel/styles/pressed = ExtResource("6_881vf")
 PanelContainer/styles/panel = ExtResource("5_2f0ad")
 PortraitFrame/base_type = &"PanelContainer"
 PortraitFrame/styles/panel = ExtResource("5_1u76n")
+SlotBackground/base_type = &"PanelContainer"
+SlotBackground/styles/focus = null
+SlotBackground/styles/hover = ExtResource("14_0sqcw")
+SlotBackground/styles/panel = ExtResource("15_ncu4y")
+SlotBackground/styles/pressed = ExtResource("14_0sqcw")
+SlotBorder/base_type = &"PanelContainer"
+SlotBorder/styles/focus = null
+SlotBorder/styles/hover = ExtResource("14_arso6")
+SlotBorder/styles/panel = ExtResource("5_4qxki")
+SlotBorder/styles/pressed = ExtResource("14_arso6")
 TitleBar/base_type = &"PanelContainer"
 TitleBar/styles/panel = ExtResource("7_2f0ad")
 TitleBig/base_type = &"LabeledField"
