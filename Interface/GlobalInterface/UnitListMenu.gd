@@ -1,4 +1,3 @@
-@tool
 extends Menu
 class_name UnitListMenu
 

@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dsehsh1y3fg78"]
+
+[ext_resource type="StyleBox" uid="uid://xdwkej3mquc8" path="res://Interface/DungeonInterface/HazardBorderActive.tres" id="1_7ttn2"]
+[ext_resource type="StyleBox" uid="uid://cte1qruhpij26" path="res://Interface/DungeonInterface/HazardBorderInactive.tres" id="1_bwac3"]
+[ext_resource type="StyleBox" uid="uid://dvqkekbqajiml" path="res://Interface/DungeonInterface/HazardBorderPartialActive.tres" id="1_cc0a2"]
+[ext_resource type="StyleBox" uid="uid://dflhowkij6jn6" path="res://Interface/DungeonInterface/HazardBackgroundInactive.tres" id="1_p7ex1"]
+[ext_resource type="StyleBox" uid="uid://b2f2srxuy5nq2" path="res://Interface/DungeonInterface/HazardBackgroundPartialActive.tres" id="2_vrk20"]
+[ext_resource type="StyleBox" uid="uid://c8bye0l3cpu23" path="res://Interface/DungeonInterface/HazardBackgroundActive.tres" id="3_rwvwk"]
+
+[resource]
+Background/base_type = &"PanelContainer"
+Background/styles/hazard_inactive = ExtResource("1_p7ex1")
+Background/styles/hazard_partial_active = ExtResource("2_vrk20")
+Background/styles/panel = ExtResource("3_rwvwk")
+Border/base_type = &"PanelContainer"
+Border/styles/hazard_inactive = ExtResource("1_bwac3")
+Border/styles/hazard_partial_active = ExtResource("1_cc0a2")
+Border/styles/panel = ExtResource("1_7ttn2")

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4sljqnaaytet"]
+
+[ext_resource type="Script" uid="uid://d2jaubd37jjwx" path="res://Interface/DungeonInterface/DungeonHazardIcon.gd" id="1_af0f3"]
+[ext_resource type="Texture2D" uid="uid://b3i5wc73o6lgm" path="res://Graphics/Icons/White/warning.png" id="1_ufo07"]
+[ext_resource type="Theme" uid="uid://dsehsh1y3fg78" path="res://Interface/DungeonInterface/HazardIconTheme.tres" id="1_yb5j4"]
+
+[node name="DungeonHazardIcon" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yb5j4")
+theme_type_variation = &"Border"
+script = ExtResource("1_af0f3")
+
+[node name="IconBackground" type="PanelContainer" parent="."]
+show_behind_parent = true
+layout_mode = 2
+theme_type_variation = &"Background"
+
+[node name="IconTexture" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_ufo07")

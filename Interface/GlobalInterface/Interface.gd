@@ -1,4 +1,3 @@
-@tool
 extends Container
 class_name Interface
 

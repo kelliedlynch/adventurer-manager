@@ -7,9 +7,6 @@
 offset_right = 40.0
 offset_bottom = 50.0
 script = ExtResource("1_pmowl")
-/linked_class = null
-/linked_property = null
-/max_val_property = null
 
 [node name="Icon" type="TextureRect" parent="."]
 layout_mode = 2

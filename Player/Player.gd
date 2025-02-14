@@ -13,7 +13,7 @@ signal property_changed
 var inventory: Array[Equipment] = []
 
 func _init() -> void:
-	for i in 6:
+	for i in 12:
 		var adv = Adventurer.generate_random_newbie()
 		roster.append(adv)
 	for i in 7:

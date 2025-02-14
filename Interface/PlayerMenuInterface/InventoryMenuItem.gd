@@ -1,4 +1,3 @@
-@tool
 extends MenuItemBase
 class_name InventoryMenuItem
 

@@ -41,10 +41,10 @@ layout_mode = 2
 alignment = 1
 /linked_class = &"Dungeon"
 /linked_property = &"dungeon_name"
+/max_val_property = null
 
-[node name="DungeonStats" type="GridContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
+[node name="DungeonStats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
-columns = 2
 
 [node name="Level" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
@@ -53,6 +53,7 @@ theme_type_variation = &"FieldBig"
 label = "Level"
 /linked_class = &"Dungeon"
 /linked_property = &"level_range"
+/max_val_property = null
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats"]
 layout_mode = 2
@@ -65,6 +66,9 @@ text = "Reward:"
 [node name="RewardAmount" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/HBoxContainer2"]
 layout_mode = 2
 theme_type_variation = &"TextBig"
+
+[node name="DungeonHazards" type="GridContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
+layout_mode = 2
 
 [node name="DungeonActions" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
@@ -81,6 +85,7 @@ alignment = 2
 label = "Time"
 /linked_class = &"Dungeon"
 /linked_property = &"quest_time"
+/max_val_property = null
 
 [node name="days" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions"]
 layout_mode = 2

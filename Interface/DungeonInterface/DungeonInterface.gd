@@ -10,6 +10,7 @@ var dungeon: Dungeon
 @onready var party_status_label: Label = find_child("PartyStatus")
 @onready var remaining_time: LabeledField = find_child("ExploreTime")
 @onready var status_window: MarginContainer = find_child("DungeonStatusWindow")
+@onready var hazard_icons: GridContainer = find_child("DungeonHazards")
 
 var staged_units: Array[Adventurer] = []
 
@@ -21,6 +22,9 @@ func _ready() -> void:
 		idle_units_list.add_unit(unit)
 	if not is_inside_tree():
 		await ready
+	for hazard in dungeon.hazards:
+		var icon = DungeonHazardIcon.instantiate(hazard, dungeon)
+		hazard_icons.add_child(icon)
 	_refresh_interface()
 	idle_units_list.menu_item_selected.connect(_on_unit_selected)
 	dungeon_units_list.menu_item_selected.connect(_on_unit_selected)
@@ -67,6 +71,8 @@ func _refresh_interface():
 			party_status_label.text = "Not ready"
 		else:
 			party_status_label.text = "Party: %d/%d" % [staged_units.size(), dungeon.max_party_size]
+	for icon in hazard_icons.get_children():
+		icon.refresh_icon()
 	
 func _on_dungeon_property_changed(prop: String):
 	if prop == "questing":
@@ -79,16 +85,19 @@ func _on_press_send_button():
 			dungeon_units_list.remove_unit(unit)
 		party_status_label.text = "Party Exploring"
 		staged_units.clear()
+		dungeon.staged.clear()
 		dungeon.begin_quest()
 
 func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 	if dungeon.questing: return
 	if selected:
 		if staged_units.has(item.unit):
+			dungeon.staged.erase(item.unit)
 			staged_units.erase(item.unit)
 			idle_units_list.add_unit(item.unit)
 			dungeon_units_list.remove_unit(item.unit)
-		elif staged_units.size() <= dungeon.max_party_size:
+		elif staged_units.size() < dungeon.max_party_size:
+			dungeon.staged.append(item.unit)
 			staged_units.append(item.unit)
 			dungeon_units_list.add_unit(item.unit)
 			idle_units_list.remove_unit(item.unit)
@@ -97,6 +106,8 @@ func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 		else:
 			party_status_label.text = "Party: %d/%d" % [staged_units.size(), dungeon.max_party_size]
 		send_button.disabled = staged_units.is_empty()
+	for icon in hazard_icons.get_children():
+		icon.refresh_icon()
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:
 	var menu = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()

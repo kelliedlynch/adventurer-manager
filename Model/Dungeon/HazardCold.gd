@@ -7,18 +7,33 @@ var mage_reduction: float = .5
 func _init() -> void:
 	hazard_name = "Cold"
 	hazard_description = "All party members take cold damage each day"
+	icon = load("res://Graphics/Icons/White/snowman.png")
 	counters = [
 		{
 			"counter_type": CounteredBy.CLASS,
 			"countered_by": ClassMage,
-			"counter_action": REDUCES_PARTY
+			"counter_action": CounterType.REDUCES_PARTY
 		},
 		{
 			"counter_type": CounteredBy.TRAIT,
 			"countered_by": Trait.ROBUST,
-			"counter_action": IGNORES
+			"counter_action": CounterType.IGNORES
 		}
 	]
+	
+func _traits_contain_robust(adv: Adventurer) -> bool:
+	return adv.traits.has(Trait.ROBUST)
+
+func _class_is_mage(adv: Adventurer) -> bool:
+	return adv.adventurer_class is ClassMage
+	
+func get_mitigated_state(dungeon: Dungeon):
+	if (!dungeon.staged.is_empty() and dungeon.staged.all(_traits_contain_robust)) or (!dungeon.party.is_empty() and dungeon.party.all(_traits_contain_robust)):
+		return MitigatedState.INACTIVE
+	if (!dungeon.staged.is_empty() and (dungeon.staged.any(_traits_contain_robust) or dungeon.staged.any(_class_is_mage))) \
+		or (!dungeon.party.is_empty() and (dungeon.party.any(_traits_contain_robust) or dungeon.party.any(_class_is_mage))):
+		return MitigatedState.PARTIAL
+	return MitigatedState.ACTIVE
 
 func per_tick_action(dungeon: Dungeon):
 	var dmg = cold_damage
@@ -27,6 +42,3 @@ func per_tick_action(dungeon: Dungeon):
 	for adv in dungeon.party:
 		if !adv.traits.has(Trait.ROBUST):
 			adv.take_damage(dmg)
-			print("dealing %d cold damage to %s" % [dmg, adv.name])
-		else:
-			print("no damage to ", adv.name)

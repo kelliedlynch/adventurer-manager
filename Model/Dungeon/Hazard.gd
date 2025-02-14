@@ -3,33 +3,32 @@ class_name Hazard
 
 var hazard_name: String = "Hazard"
 var hazard_description: String = "Makes stuff more dangerous."
-var icon: Texture2D
+var icon: Texture2D = load("res://Graphics/Icons/White/warning.png")
 
 var counters: Array[Dictionary] = [
 	{
 		"countered_by": ClassMage,
-		"counter_type": REDUCES_PARTY,
-		"per_quest_action": func(x): return,
-		"per_tick_action": func(x): return,
-		"per_combat_action": func(x): return,
-		"per_combat_round_action": func(x): return,
+		"counter_type": CounterType.REDUCES_PARTY,
 	}
 ]
 
-func per_quest_action(dungeon: Dungeon):
+func get_mitigated_state(_dungeon: Dungeon):
+	pass
+
+func per_quest_action(_dungeon: Dungeon):
 	pass
 	
-func per_tick_action(dungeon: Dungeon):
+func per_tick_action(_dungeon: Dungeon):
 	pass
 
-func per_combat_action(dungeon: Dungeon):
+func per_combat_action(_dungeon: Dungeon):
 	pass
 
-func per_combat_round_action(dungeon: Dungeon):
+func per_combat_round_action(_dungeon: Dungeon):
 	pass
 
 
-enum {
+enum CounterType {
 	COUNTERS,
 	REDUCES_PARTY,
 	REDUCES,
@@ -41,4 +40,10 @@ enum CounteredBy {
 	TRAIT,
 	SKILL,
 	STAT
+}
+
+enum MitigatedState {
+	ACTIVE,
+	PARTIAL,
+	INACTIVE
 }
