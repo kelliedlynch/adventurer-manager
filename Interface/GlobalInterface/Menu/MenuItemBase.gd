@@ -8,7 +8,12 @@ var input_state: int = NORMAL:
 		input_state_changed.emit(value)
 signal input_state_changed
 
-signal selected
+var selected: bool = false:
+	set(value):
+		selected = value
+		input_state &= PRESSED if value else ~PRESSED
+		selected_changed.emit(value)
+signal selected_changed
 
 func _ready() -> void:
 	input_state_changed.connect(_on_input_state_changed)
@@ -18,15 +23,10 @@ func _ready() -> void:
 		
 func _on_gui_input(event: InputEvent):
 	if event.is_action("ui_accept") or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()):
-		if not input_state & PRESSED:
-			input_state += PRESSED
-			selected.emit()
-		else:
-			input_state -= PRESSED
+		selected = !selected
 
 func _on_input_state_changed(state: int):
 	var normal = "panel"
-		
 	remove_theme_stylebox_override(normal)
 	if state & PRESSED:
 		add_theme_stylebox_override(normal, get_theme_stylebox("pressed", theme_type_variation))
@@ -38,20 +38,16 @@ func _on_input_state_changed(state: int):
 		add_theme_stylebox_override(normal, get_theme_stylebox(normal, theme_type_variation))
 
 func _on_mouse_entered():
-	if not input_state & HOVERED:
-		input_state += HOVERED
+	input_state |= HOVERED
 		
 func _on_mouse_exited():
-	if input_state & HOVERED:
-		input_state -= HOVERED
+	input_state &= ~HOVERED
 		
 func _on_focus_entered():
-	if not input_state & FOCUSED:
-		input_state += FOCUSED
+	input_state |= FOCUSED
 
 func _on_focus_exited():
-	if input_state & FOCUSED:
-		input_state -= FOCUSED
+	input_state &= ~FOCUSED
 
 enum {
 	NORMAL = 0,

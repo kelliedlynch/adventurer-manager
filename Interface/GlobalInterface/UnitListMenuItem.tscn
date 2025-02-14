@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitListMenuItem.gd" id="1_r7cqq"]
-[ext_resource type="Texture2D" uid="uid://bknuvwx2nhhf5" path="res://Graphics/Portraits/f_06.png" id="2_pb6xb"]
+[ext_resource type="Texture2D" uid="uid://c28mai4uwpxgb" path="res://Graphics/Portraits/f_15.png" id="2_pb6xb"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_bele2"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="4_pb6xb"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="5_wrwym"]
@@ -164,6 +164,9 @@ label = "LUK"
 layout_mode = 2
 
 [node name="ArmorSlot" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer" instance=ExtResource("7_wrwym")]
+layout_mode = 2
+
+[node name="Traits" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
 layout_mode = 2
 
 [node name="ActionButtons" type="VBoxContainer" parent="HBoxContainer"]

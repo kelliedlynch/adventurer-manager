@@ -27,6 +27,8 @@ var hire_cost: int = 0:
 	set(value):
 		hire_cost = value
 		property_changed.emit("hire_cost")
+		
+var traits: Array[Variant] = []
 
 var _experience: int = 0:
 	set(value):
@@ -129,6 +131,8 @@ func revive():
 
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
+	if randi() % 2 == 0:
+		noob.traits.append(Trait.ROBUST)
 	noob.level_up()
 	rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]

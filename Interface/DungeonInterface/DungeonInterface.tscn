@@ -23,6 +23,8 @@ layout_mode = 2
 
 [node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
+menu_title = "Idle Adventurers"
+select_multiple = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -31,20 +33,20 @@ size_flags_horizontal = 3
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+[node name="DungeonInfoPanel" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="DungeonName" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("4_yjc0f")]
+[node name="DungeonName" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
 alignment = 1
 /linked_class = &"Dungeon"
 /linked_property = &"dungeon_name"
 
-[node name="DungeonStats" type="GridContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="DungeonStats" type="GridContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
 columns = 2
 
-[node name="Level" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats" instance=ExtResource("4_yjc0f")]
+[node name="Level" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
@@ -52,23 +54,27 @@ label = "Level"
 /linked_class = &"Dungeon"
 /linked_property = &"level_range"
 
-[node name="Reward" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonStats" instance=ExtResource("4_yjc0f")]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-label = "Reward"
-/linked_class = &"Dungeon"
-/linked_property = &"reward_range"
-
-[node name="DungeonActions" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats"]
 layout_mode = 2
 
-[node name="PartyStatus" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
+[node name="RewardLabel" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/HBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"TextBig"
+text = "Reward:"
+
+[node name="RewardAmount" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/HBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"TextBig"
+
+[node name="DungeonActions" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
+layout_mode = 2
+
+[node name="PartyStatus" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Not ready"
 
-[node name="ExploreTime" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions" instance=ExtResource("4_yjc0f")]
+[node name="ExploreTime" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -76,12 +82,12 @@ label = "Time"
 /linked_class = &"Dungeon"
 /linked_property = &"quest_time"
 
-[node name="days" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
+[node name="days" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = " days"
 
-[node name="SendParty" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions"]
+[node name="SendParty" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -90,3 +96,22 @@ text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
+menu_title = "Dungeon Party"
+select_multiple = false
+
+[node name="DungeonStatusWindow" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DungeonStatusWindow"]
+layout_mode = 2
+
+[node name="DungeonStatusLabel" type="Label" parent="HBoxContainer/VBoxContainer/DungeonStatusWindow/PanelContainer"]
+layout_mode = 2
+text = "Quest In Progress"
+horizontal_alignment = 1

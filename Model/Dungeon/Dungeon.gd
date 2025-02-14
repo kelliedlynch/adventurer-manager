@@ -4,6 +4,13 @@ class_name Dungeon
 var dungeon_name: String = "Scary Dungeon"
 var party: Array[Adventurer] = []
 var max_party_size: int = 4
+var max_enemies_per_encounter: int = 4
+#TODO: this is a placeholder for reward estimation. Remove when reward estimation is dynamic based on
+#		dungeon contents
+var per_enemy: int = 3
+
+var hazards: Array[Hazard] = []
+
 var questing: bool = false:
 	set(value):
 		questing = value
@@ -27,16 +34,6 @@ var _max_level: int = 5:
 		property_changed.emit("level_range")
 var level_range: String = str(_min_level) + "-" + str(_max_level)
 
-#var _min_reward: int = 10:
-	#set(value):
-		#_min_reward = value
-		#property_changed.emit("reward_range")
-#var _max_reward: int = 90:
-	#set(value):
-		#_max_reward = value
-		#property_changed.emit("reward_range")
-#var reward_range: String = str(_min_reward) + "-" + str(_max_reward)
-
 var combat: Combat
 var dungeon_reward_money: int = 0
 
@@ -45,6 +42,7 @@ signal property_changed
 func _init() -> void:
 	if not Engine.is_editor_hint():
 		GameplayEngine.game_tick_advanced.connect(_on_advance_tick)
+	hazards.append(HazardCold.new())
 	
 func begin_quest():
 	if party.size() > 0:
@@ -52,12 +50,17 @@ func begin_quest():
 			adv.status |= Adventurer.STATUS_IN_DUNGEON
 		questing = true
 		remaining_quest_time = quest_time
+		
+func estimate_reward() -> Array:
+	var min_reward = _min_level * per_enemy * quest_time
+	var max_reward = _max_level * per_enemy * quest_time
+	return range(min_reward, max_reward + 1)
 
 func _on_advance_tick():
 	if !questing:
 		return
 	combat = Combat.new()
-	for i in randi_range(1,4):
+	for i in randi_range(1, max_enemies_per_encounter):
 		var enemy = Enemy.new()
 		enemy.stat_hp = 12 + randi_range(_min_level, _max_level) * 3
 		enemy.current_hp = enemy.stat_hp
@@ -70,7 +73,14 @@ func _on_advance_tick():
 		dungeon_reward_money += combat.reward_money
 	elif result == Combat.RESULT_LOSS:
 		complete_quest(false)
+		remaining_quest_time = -1
 		return
+	for haz in hazards:
+		haz.per_tick_action(self)
+		if party.is_empty():
+			complete_quest(false)
+			remaining_quest_time = -1
+			return
 	remaining_quest_time -= 1
 	if remaining_quest_time <= 0:
 		complete_quest(true)

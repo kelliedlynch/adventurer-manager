@@ -14,6 +14,9 @@ class_name Menu
 @onready var title_container: PanelContainer = find_child("TitleContainer")
 @onready var title_label: Label = find_child("TitleLabel")
 
+@export var select_multiple: bool = false
+var currently_selected: Array[MenuItemBase] = []
+
 var _menu_items: Array[MenuItemBase] = []
 
 func add_menu_item(item: MenuItemBase):
@@ -21,13 +24,13 @@ func add_menu_item(item: MenuItemBase):
 	if not is_inside_tree():
 		await ready
 	menu_items_container.add_child(item)
-	item.selected.connect(_on_item_selected.bind(item))
+	item.selected_changed.connect(_on_item_selected_changed.bind(item))
 	#_refresh_queued = true
 	
 func remove_menu_item(item: MenuItemBase):
-	_menu_items.remove_at(_menu_items.find(item))
-	#menu_items_container.remove_child(item)
-	item.selected.disconnect(_on_item_selected)
+	_menu_items.erase(item)
+	currently_selected.erase(item)
+	item.selected_changed.disconnect(_on_item_selected_changed)
 	item.queue_free()
 	#_refresh_queued = true
 	
@@ -35,8 +38,15 @@ func clear_menu_items():
 	for item in _menu_items:
 		remove_menu_item(item)
 	
-func _on_item_selected(item: MenuItemBase):
-	menu_item_selected.emit(item)
+func _on_item_selected_changed(val: bool, item: MenuItemBase):
+	if !val:
+		currently_selected.erase(item)
+	if val and !select_multiple and !currently_selected.is_empty():
+		for curr in currently_selected:
+			curr.selected = false
+			currently_selected.clear()
+	currently_selected.append(item)
+	menu_item_selected.emit(item, val)
 
 signal menu_item_selected
 

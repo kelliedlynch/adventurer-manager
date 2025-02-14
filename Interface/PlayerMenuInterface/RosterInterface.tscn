@@ -14,3 +14,4 @@ is_root_interface = true
 
 [node name="UnitListMenu" parent="." instance=ExtResource("2_k460v")]
 layout_mode = 2
+select_multiple = null

@@ -6,6 +6,7 @@ class_name UnitListMenuItem
 @onready var weapon_slot: EquipmentSlot = find_child("WeaponSlot")
 @onready var armor_slot: EquipmentSlot = find_child("ArmorSlot")
 @onready var action_buttons: VBoxContainer = find_child("ActionButtons")
+@onready var traits: HBoxContainer = find_child("Traits")
 
 var inventory_submenu: InventoryInterface
 
@@ -26,6 +27,10 @@ var unit: Adventurer = null:
 			if unit.weapon:
 				weapon_slot.item = unit.weapon
 			unit.equipment_changed.connect(_on_unit_equipment_changed)
+			for unit_trait in unit.traits:
+				var l = Label.new()
+				l.text = Trait.trait_name[unit_trait]
+				traits.add_child(l)
 			watch_labeled_fields(unit, self)
 
 func _ready() -> void:
@@ -37,8 +42,8 @@ func _ready() -> void:
 			add_action_button("Button " + str(i + 1), func(): pass)
 
 	if unit:
-		weapon_slot.selected.connect(_on_slot_clicked.bind(weapon_slot))
-		armor_slot.selected.connect(_on_slot_clicked.bind(armor_slot))
+		weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
+		armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
 
 		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED

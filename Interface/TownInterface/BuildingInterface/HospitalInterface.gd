@@ -23,7 +23,7 @@ func _ready() -> void:
 	heal_button.pressed.connect(_on_heal_button_pressed)
 	heal_button.disabled = heal_cost == 0 or heal_cost > Player.money
 	injured_units.menu_item_selected.connect(_add_to_hospital)
-	selected_unit.selected.connect(_remove_from_hospital)
+	selected_unit.selected_changed.connect(_remove_from_hospital)
 	selected_unit.visible = false
 	watch_labeled_fields(model, self)
 	#super._ready()

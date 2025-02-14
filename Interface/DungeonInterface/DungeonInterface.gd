@@ -3,11 +3,15 @@ class_name DungeonInterface
 
 var dungeon: Dungeon
 @onready var idle_units_list: UnitListMenu = find_child("IdleUnits")
-@onready var dungeon_panel: VBoxContainer = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer
-@onready var dungeon_units_list: UnitListMenu = $HBoxContainer/VBoxContainer/DungeonParty
-@onready var send_button: Button = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/SendParty
-@onready var party_status_label: Label = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/PartyStatus
-@onready var remaining_time: LabeledField = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/DungeonActions/ExploreTime
+@onready var dungeon_panel: VBoxContainer = find_child("DungeonInfoPanel")
+@onready var reward_amount: Label = find_child("RewardAmount")
+@onready var dungeon_units_list: UnitListMenu = find_child("DungeonParty")
+@onready var send_button: Button = find_child("SendParty")
+@onready var party_status_label: Label = find_child("PartyStatus")
+@onready var remaining_time: LabeledField = find_child("ExploreTime")
+@onready var status_window: MarginContainer = find_child("DungeonStatusWindow")
+
+var staged_units: Array[Adventurer] = []
 
 #TODO: Currently does not accurately populate info panel when menu closed and reopened with party in dungeon
 func _ready() -> void:
@@ -17,44 +21,56 @@ func _ready() -> void:
 		idle_units_list.add_unit(unit)
 	if not is_inside_tree():
 		await ready
-	idle_units_list.menu_item_selected.connect(_add_to_party)
-	dungeon_units_list.menu_item_selected.connect(_remove_from_party)
+	_refresh_interface()
+	idle_units_list.menu_item_selected.connect(_on_unit_selected)
+	dungeon_units_list.menu_item_selected.connect(_on_unit_selected)
 	watch_labeled_fields(dungeon, dungeon_panel)
 	send_button.pressed.connect(_on_press_send_button)
 	dungeon.property_changed.connect(_on_dungeon_property_changed)
 	super()
 
 func _get_idle_units() -> Array[Adventurer]:
-	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE)
-	if !dungeon_units_list.units.is_empty():
-		for unit in dungeon_units_list.units:
-			idle.remove_at(idle.find(unit))
+	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE and not staged_units.has(x))
 	return idle
 	
 func _refresh_interface():
+	var r = dungeon.estimate_reward()
+	reward_amount.text = str(r[0]) + "-" + str(r[-1])
 	var idle = _get_idle_units()
 	var existing = idle_units_list.units
-	if idle == existing:
-		return
-	for unit in existing:
-		if !idle.has(unit):
-			idle_units_list.remove_unit(unit)
-	for unit in idle:
-		if !existing.has(unit):
-			idle_units_list.add_unit(unit)
+	if idle != existing:
+		for unit in existing:
+			if !idle.has(unit):
+				idle_units_list.remove_unit(unit)
+		for unit in idle:
+			if !existing.has(unit):
+				idle_units_list.add_unit(unit)
+	var staged = dungeon_units_list.units
+	if staged_units != staged:
+		for unit in staged:
+			if !staged_units.has(unit):
+				dungeon_units_list.remove_unit(unit)
+		for unit in staged_units:
+			if !staged.has(unit):
+				dungeon_units_list.add_unit(unit)
+	status_window.visible = dungeon.questing
+	dungeon_units_list.visible = !dungeon.questing
+	send_button.disabled = dungeon.questing
+	if dungeon.questing:
+		party_status_label.text = "Exploring dungeon"
+		remaining_time.label = "Time left"
+		remaining_time.set("/linked_property", "remaining_quest_time")
+	else:
+		remaining_time.label = "Time"
+		remaining_time.set("/linked_property", "quest_time")
+		if staged_units.is_empty():
+			party_status_label.text = "Not ready"
+		else:
+			party_status_label.text = "Party: %d/%d" % [staged_units.size(), dungeon.max_party_size]
 	
 func _on_dungeon_property_changed(prop: String):
 	if prop == "questing":
-		if dungeon.questing == true:
-			send_button.disabled = true
-			party_status_label.text = "Exploring dungeon"
-			remaining_time.label = "Time left"
-			remaining_time.set("/linked_property", "remaining_quest_time")
-		else:
-			send_button.disabled = false
-			party_status_label.text = "Not ready"
-			remaining_time.label = "Time"
-			remaining_time.set("/linked_property", "quest_time")
+		_refresh_interface()
 	
 func _on_press_send_button():
 	if dungeon.party.is_empty():
@@ -62,25 +78,25 @@ func _on_press_send_button():
 		for unit in dungeon.party:
 			dungeon_units_list.remove_unit(unit)
 		party_status_label.text = "Party Exploring"
+		staged_units.clear()
 		dungeon.begin_quest()
 
-func _add_to_party(item: UnitListMenuItem):
-	if dungeon_units_list.units.size() >= dungeon.max_party_size:
-		return
-	dungeon_units_list.add_unit(item.unit)
-	idle_units_list.remove_unit(item.unit)
-	party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), dungeon.max_party_size]
-	send_button.disabled = false
-	
-func _remove_from_party(item: UnitListMenuItem):
-	idle_units_list.add_unit(item.unit)
-	dungeon_units_list.remove_unit(item.unit)
-	if dungeon_units_list.units.size() == 0:
-		party_status_label.text = "Not ready"
-		send_button.disabled = true
-	else:
-		party_status_label.text = "Party: %d/%d" % [dungeon_units_list.units.size(), dungeon.max_party_size]
-		send_button.disabled = false
+func _on_unit_selected(item: UnitListMenuItem, selected: bool):
+	if dungeon.questing: return
+	if selected:
+		if staged_units.has(item.unit):
+			staged_units.erase(item.unit)
+			idle_units_list.add_unit(item.unit)
+			dungeon_units_list.remove_unit(item.unit)
+		elif staged_units.size() <= dungeon.max_party_size:
+			staged_units.append(item.unit)
+			dungeon_units_list.add_unit(item.unit)
+			idle_units_list.remove_unit(item.unit)
+		if staged_units.is_empty():
+			party_status_label.text = "Not ready"
+		else:
+			party_status_label.text = "Party: %d/%d" % [staged_units.size(), dungeon.max_party_size]
+		send_button.disabled = staged_units.is_empty()
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:
 	var menu = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()
