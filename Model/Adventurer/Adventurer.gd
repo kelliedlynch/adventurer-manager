@@ -40,6 +40,8 @@ var experience: int:
 	set(value):
 		push_error("cannot set exp, use add_experience")
 		
+# TODO: figure out how I should actually handle modified stats, and how to make ReactiveFields remain
+#		reactive when I do so.
 var mod_stat_atk: int:
 	get:
 		var value = stat_atk

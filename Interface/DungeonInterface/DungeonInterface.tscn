@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bfxp2f1vguwg6" path="res://Interface/DungeonInterface/DungeonInterface.gd" id="1_nv7fk"]
 [ext_resource type="Texture2D" uid="uid://dkdgccxy2yk4v" path="res://Graphics/Backgrounds/dungeon_3.png" id="2_yjc0f"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="3_yjc0f"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="4_yjc0f"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveTextField.tscn" id="4_yjc0f"]
 
 [node name="DungeonInterface" type="MarginContainer"]
 anchors_preset = 15
@@ -23,8 +23,7 @@ layout_mode = 2
 
 [node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-menu_title = "Idle Adventurers"
-select_multiple = false
+script = null
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -39,9 +38,6 @@ layout_mode = 2
 [node name="DungeonName" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel" instance=ExtResource("4_yjc0f")]
 layout_mode = 2
 alignment = 1
-/linked_class = &"Dungeon"
-/linked_property = &"dungeon_name"
-/max_val_property = null
 
 [node name="DungeonStats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
@@ -51,9 +47,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
 label = "Level"
-/linked_class = &"Dungeon"
-/linked_property = &"level_range"
-/max_val_property = null
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats"]
 layout_mode = 2
@@ -83,9 +76,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 label = "Time"
-/linked_class = &"Dungeon"
-/linked_property = &"quest_time"
-/max_val_property = null
 
 [node name="days" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions"]
 layout_mode = 2
@@ -101,8 +91,7 @@ text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-menu_title = "Dungeon Party"
-select_multiple = false
+script = null
 
 [node name="DungeonStatusWindow" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false

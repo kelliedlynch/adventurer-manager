@@ -1,7 +1,7 @@
 extends Interface
 class_name TownInterface
 
-@onready var name_field: LabeledField = find_child("TownName")
+@onready var name_field: ReactiveField = find_child("TownName")
 @onready var building_grid: GridContainer = find_child("Buildings")
 
 var model: Town

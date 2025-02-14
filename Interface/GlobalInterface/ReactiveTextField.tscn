@@ -1,22 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnwh3ltkopbuh"]
 
-[ext_resource type="Script" uid="uid://cb6ngaf0f01ao" path="res://Interface/GlobalInterface/LabeledField.gd" id="1_pmowl"]
-[ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="2_dvg5y"]
+[ext_resource type="Script" uid="uid://2q00rg6ke06i" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="1_c7kf5"]
+[ext_resource type="Texture2D" uid="uid://b3i5wc73o6lgm" path="res://Graphics/Icons/White/warning.png" id="2_c87jh"]
 
-[node name="LabeledField" type="HBoxContainer"]
+[node name="ReactiveTextField" type="HBoxContainer"]
 offset_right = 40.0
 offset_bottom = 50.0
-script = ExtResource("1_pmowl")
+script = ExtResource("1_c7kf5")
+show_max = true
+icon = ExtResource("2_c87jh")
+/linked_class = null
+/linked_property = null
+/max_val_property = null
 
 [node name="Icon" type="TextureRect" parent="."]
 layout_mode = 2
-texture = ExtResource("2_dvg5y")
+texture = ExtResource("2_c87jh")
 expand_mode = 2
 
 [node name="FieldLabel" type="Label" parent="."]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "Label:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -24,7 +28,7 @@ layout_mode = 2
 [node name="CurrentValue" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "0"
+text = "50"
 horizontal_alignment = 2
 
 [node name="MaxValue" type="Label" parent="HBoxContainer"]

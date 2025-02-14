@@ -8,7 +8,7 @@ var dungeon: Dungeon
 @onready var dungeon_units_list: UnitListMenu = find_child("DungeonParty")
 @onready var send_button: Button = find_child("SendParty")
 @onready var party_status_label: Label = find_child("PartyStatus")
-@onready var remaining_time: LabeledField = find_child("ExploreTime")
+@onready var remaining_time: ReactiveField = find_child("ExploreTime")
 @onready var status_window: MarginContainer = find_child("DungeonStatusWindow")
 @onready var hazard_icons: GridContainer = find_child("DungeonHazards")
 

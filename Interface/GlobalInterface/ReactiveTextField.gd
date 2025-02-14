@@ -1,36 +1,36 @@
 @tool
-extends HBoxContainer
-class_name LabeledField
+extends ReactiveField
+class_name ReactiveTextField
 
-@onready var _icon: TextureRect = find_child("Icon")
-@onready var _field_label: Label = $FieldLabel
-@onready var _curr_val_label: Label = $HBoxContainer/CurrentValue
-@onready var _max_val_label: Label = $HBoxContainer/MaxValue
-var _linked_model: Object
-
-@export_placeholder("Label") var label: String = "":
-	set(value):
-		label = value
-		if not is_inside_tree():
-			await ready
-		_field_label.text = value + label_divider
-		_field_label.visible = label != ""
-			
-@export var label_divider: String = ":":
-	set(value):
-		label_divider = value
-		if not is_inside_tree():
-			await ready
-		_field_label.text = label + value
-		
-@export var icon: Texture2D:
-	set(value):
-		icon = value
-		if not is_inside_tree():
-			await ready
-		_icon.texture = value
-		_icon.visible = value != null
-			
+#@onready var _icon: TextureRect = find_child("Icon")
+#@onready var _field_label: Label = $FieldLabel
+#@onready var _curr_val_label: Label = $HBoxContainer/CurrentValue
+#@onready var _max_val_label: Label = $HBoxContainer/MaxValue
+#var _linked_model: Object
+#
+#@export_placeholder("Label") var label: String = "":
+	#set(value):
+		#label = value
+		#if not is_inside_tree():
+			#await ready
+		#_field_label.text = value + label_divider
+		#_field_label.visible = label != ""
+			#
+#@export var label_divider: String = ":":
+	#set(value):
+		#label_divider = value
+		#if not is_inside_tree():
+			#await ready
+		#_field_label.text = label + value
+		#
+#@export var icon: Texture2D:
+	#set(value):
+		#icon = value
+		#if not is_inside_tree():
+			#await ready
+		#_icon.texture = value
+		#_icon.visible = value != null
+			#
 @export var show_max: bool = false:
 	set(value):
 		show_max = value
@@ -56,7 +56,7 @@ var max_val: String = "":
 		if not is_inside_tree():
 			await ready
 		_max_val_label.text = max_val_divider + max_val
-
+#
 var curr_val: String = "":
 	set(value):
 		curr_val = value
@@ -69,16 +69,21 @@ var curr_val: String = "":
 			_curr_val_label.text = value
 		
 func _ready() -> void:
-	if get_tree().edited_scene_root != self:
-		label = label
-		label_divider = label_divider
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		show_max = true
+		curr_val = "50"
+		max_val = "100"
+		max_val_divider = "/"
+		icon = load("res://Graphics/Icons/White/warning.png")
+	else:
+		#label = label
+		#label_divider = label_divider
 		show_max = show_max
 		curr_val = curr_val
 		max_val = max_val
 		max_val_divider = max_val_divider
-		icon = icon
-	theme_changed.connect(_on_theme_changed)
-	_on_theme_changed()
+
+	super()
 	
 #func _on_tree_exiting():
 	#if get_tree().edited_scene_root == self:
@@ -92,9 +97,9 @@ func _on_theme_changed():
 	_field_label.add_theme_font_size_override("font_size", font_size)
 	_curr_val_label.add_theme_font_size_override("font_size", font_size)
 	_max_val_label.add_theme_font_size_override("font_size", font_size)
-	pass
+	#pass
 	
-var _internal_vars: Dictionary = {}
+#var _internal_vars: Dictionary = {}
 func _set(property, value):
 	if property == "/linked_class" or property == "/linked_property" or property == "/max_val_property":
 		if value:
@@ -111,32 +116,32 @@ func _get(property):
 	if property == "/linked_class" or property == "/linked_property" or property == "/max_val_property":
 		return _internal_vars.get(property)
 
-func _get_property_list() -> Array:
-	var props = []
-	var custom_classes = ProjectSettings.get_global_class_list()
-	props.append({
-		name = "/linked_class",
-		type = TYPE_STRING_NAME,
-		hint = PROPERTY_HINT_ENUM,
-		hint_string = custom_classes.reduce(func (accum, val): return accum + "," + val.class, "").left(-1)
-	})
-	var hint_str = ""
-	if get("/linked_class"):
-		var instance = load(custom_classes[custom_classes.find_custom(func (x): return x.class == get("/linked_class"))].path).new()
-		hint_str = instance.get_property_list().reduce(func (accum, val): return accum + val.name + ",", "").left(-1)
-	props.append_array([{
-		name = "/linked_property",
-		type = TYPE_STRING_NAME,
-		hint = PROPERTY_HINT_ENUM,
-		hint_string = hint_str
-	},
-	{
-		name = "/max_val_property",
-		type = TYPE_STRING_NAME,
-		hint = PROPERTY_HINT_ENUM,
-		hint_string = hint_str
-	}])
-	return props
+#func _get_property_list() -> Array:
+	#var props = []
+	#var custom_classes = ProjectSettings.get_global_class_list()
+	#props.append({
+		#name = "/linked_class",
+		#type = TYPE_STRING_NAME,
+		#hint = PROPERTY_HINT_ENUM,
+		#hint_string = custom_classes.reduce(func (accum, val): return accum + "," + val.class, "").left(-1)
+	#})
+	#var hint_str = ""
+	#if get("/linked_class"):
+		#var instance = load(custom_classes[custom_classes.find_custom(func (x): return x.class == get("/linked_class"))].path).new()
+		#hint_str = instance.get_property_list().reduce(func (accum, val): return accum + val.name + ",", "").left(-1)
+	#props.append_array([{
+		#name = "/linked_property",
+		#type = TYPE_STRING_NAME,
+		#hint = PROPERTY_HINT_ENUM,
+		#hint_string = hint_str
+	#},
+	#{
+		#name = "/max_val_property",
+		#type = TYPE_STRING_NAME,
+		#hint = PROPERTY_HINT_ENUM,
+		#hint_string = hint_str
+	#}])
+	#return props
 
 func watch_object(obj: Object):
 	_linked_model = obj

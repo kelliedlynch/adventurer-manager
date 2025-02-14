@@ -2,7 +2,7 @@ extends Interface
 class_name TavernInterface
 
 @onready var for_hire_menu: UnitListMenu = find_child("ForHireMenu")
-@onready var name_label: LabeledField = find_child("TavernName")
+@onready var name_label: ReactiveField = find_child("TavernName")
 
 var model: Tavern:
 	set(value):

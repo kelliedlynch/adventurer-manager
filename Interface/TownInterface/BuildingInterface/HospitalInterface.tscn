@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bd1nthpv4xopa" path="res://Interface/TownInterface/BuildingInterface/HospitalInterface.gd" id="1_v1xpe"]
 [ext_resource type="Texture2D" uid="uid://dwpixdg6m71fm" path="res://Graphics/Backgrounds/hospital_1.png" id="2_lo5q1"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_ictwp"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveTextField.tscn" id="3_ictwp"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="4_emvv3"]
 [ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/Icons/coin_01.png" id="5_6aoh6"]
 [ext_resource type="PackedScene" uid="uid://cexrovdxbxapb" path="res://Interface/GlobalInterface/UnitListMenuItem.tscn" id="6_emvv3"]
