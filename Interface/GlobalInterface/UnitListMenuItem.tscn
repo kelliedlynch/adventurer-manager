@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cexrovdxbxapb"]
+[gd_scene load_steps=11 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitListMenuItem.gd" id="1_r7cqq"]
-[ext_resource type="Texture2D" uid="uid://c28mai4uwpxgb" path="res://Graphics/Portraits/f_15.png" id="2_pb6xb"]
+[ext_resource type="Texture2D" uid="uid://d1rdslt88f8qd" path="res://Graphics/Portraits/simplified cartoon happy playful black long hair chihuahua looking up isolated white background 09-02-2025 at 13-39-44.jpeg" id="2_je2iw"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/LabeledField.tscn" id="3_bele2"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="4_pb6xb"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="5_wrwym"]
 [ext_resource type="Texture2D" uid="uid://cw7pp4uidrpwy" path="res://Graphics/Icons/White/magic_staff.png" id="6_0xsdr"]
+[ext_resource type="Texture2D" uid="uid://b51d0ju8bdmou" path="res://Graphics/Icons/White/magic_shield.png" id="7_0xsdr"]
 [ext_resource type="PackedScene" uid="uid://cc3uq6b0rbj7n" path="res://Interface/PlayerMenuInterface/EquipmentSlot.tscn" id="7_wrwym"]
+[ext_resource type="Texture2D" uid="uid://b0wdeco2raq4u" path="res://Graphics/Icons/White/wing_boot.png" id="8_je2iw"]
+[ext_resource type="Texture2D" uid="uid://ybhr3ql1syou" path="res://Graphics/Icons/White/shamrock.png" id="9_i6766"]
 
 [node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 14
@@ -37,7 +40,7 @@ custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_pb6xb")
+texture = ExtResource("2_je2iw")
 expand_mode = 1
 
 [node name="StatsBlock" type="MarginContainer" parent="HBoxContainer"]
@@ -56,6 +59,7 @@ layout_mode = 2
 theme_type_variation = &"FieldBig"
 /linked_class = &"Adventurer"
 /linked_property = &"name"
+/max_val_property = null
 
 [node name="LevelAndClass" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
@@ -69,12 +73,14 @@ label = "Lv"
 label_divider = "."
 /linked_class = &"Adventurer"
 /linked_property = &"level"
+/max_val_property = null
 
 [node name="Class" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
 /linked_class = &"Adventurer"
 /linked_property = &"adventurer_class"
+/max_val_property = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
 layout_mode = 2
@@ -104,13 +110,17 @@ show_max = true
 /linked_property = &"current_mp"
 /max_val_property = &"stat_mp"
 
+[node name="spacer" type="Control" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats"]
+layout_mode = 2
+
 [node name="AttackPower" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
 icon = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
-/linked_property = &"stat_atk"
+/linked_property = &"mod_stat_atk"
+/max_val_property = null
 
 [node name="DefensePower" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
@@ -118,7 +128,8 @@ size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
 icon = ExtResource("5_wrwym")
 /linked_class = &"Adventurer"
-/linked_property = &"stat_def"
+/linked_property = &"mod_stat_def"
+/max_val_property = null
 
 [node name="MagicPower" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
@@ -127,38 +138,44 @@ theme_type_variation = &"FieldSmall"
 icon = ExtResource("6_0xsdr")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_mag"
+/max_val_property = null
 
 [node name="MagicDefense" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
-label = "RES"
+icon = ExtResource("7_0xsdr")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_res"
+/max_val_property = null
 
 [node name="Dexterity" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
-label = "DEX"
+icon = ExtResource("8_je2iw")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_dex"
+/max_val_property = null
 
 [node name="Charisma" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
 label = "CHA"
 /linked_class = &"Adventurer"
 /linked_property = &"stat_cha"
+/max_val_property = null
 
 [node name="Luck" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/MainStats" instance=ExtResource("3_bele2")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
-label = "LUK"
+icon = ExtResource("9_i6766")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_luk"
+/max_val_property = null
 
 [node name="WeaponSlot" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer" instance=ExtResource("7_wrwym")]
 layout_mode = 2

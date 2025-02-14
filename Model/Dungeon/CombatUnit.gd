@@ -27,11 +27,13 @@ var stat_atk: int:
 	set(value):
 		stat_atk = value
 		property_changed.emit("stat_atk")
+		property_changed.emit("mod_stat_atk")
 		
 var stat_def: int:
 	set(value):
 		stat_def = value
 		property_changed.emit("stat_def")
+		property_changed.emit("mod_stat_def")
 		
 var stat_mag: int:
 	set(value):

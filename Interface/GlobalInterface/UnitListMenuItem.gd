@@ -1,3 +1,4 @@
+@tool
 extends MenuItemBase
 class_name UnitListMenuItem
 
@@ -48,16 +49,19 @@ func _ready() -> void:
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
 	super._ready()
 	
-func _on_slot_clicked(slot: EquipmentSlot):
+func _on_slot_clicked(_val, slot: EquipmentSlot):
 	inventory_submenu = InventoryInterface.instantiate(Player.inventory.filter(slot.filter))
 	inventory_submenu.menu_item_selected.connect(_on_equipment_selected)
-	get_tree().current_scene.add_child(inventory_submenu)
+	inventory_submenu.is_root_interface = true
+	InterfaceManager.main_control_node.add_child(inventory_submenu)
 	
-func _on_equipment_selected(menu_item: InventoryMenuItem):
+func _on_equipment_selected(menu_item: InventoryMenuItem, _val):
 	if menu_item.item is Weapon:
 		unit.weapon = menu_item.item
 	elif menu_item.item is Armor:
 		unit.armor = menu_item.item
+	unit.property_changed.emit("mod_stat_atk")
+	unit.property_changed.emit("mod_stat_def")
 	inventory_submenu.queue_free()
 	
 func _on_unit_equipment_changed(equip_type: String):
