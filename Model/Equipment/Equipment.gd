@@ -1,64 +1,66 @@
-extends Resource
+extends Watchable
 class_name Equipment
 
 var item_name: String = "Generic Equipment":
 	set(value):
 		item_name = value
-		property_changed.emit("item_name")
+		_set("item_name", value)
 		
 var texture: Texture2D = load("res://Graphics/Equipment/Weapons/sv_t_01.png"):
 	set(value):
 		texture = value
-		property_changed.emit("texture")
+		_set("texture", value)
 
 var stat_hp: int = 0:
 	set(value):
 		stat_hp = value
-		property_changed.emit("stat_hp")
+		_set("stat_hp", value)
 
 var stat_mp: int = 0:
 	set(value):
 		stat_mp = value
-		property_changed.emit("stat_mp")
+		_set("stat_mp", value)
 
 var stat_atk: int = 0:
 	set(value):
 		stat_atk = value
-		property_changed.emit("stat_atk")
+		_set("stat_atk", value)
 		
 var stat_def: int = 0: 
 	set(value):
 		stat_def = value
-		property_changed.emit("stat_def")
+		_set("stat_def", value)
 		
 var stat_mag: int = 0:
 	set(value):
 		stat_mag = value
-		property_changed.emit("stat_mag")
+		_set("stat_mag", value)
 		
 var stat_res: int = 0:
 	set(value):
 		stat_res = value
-		property_changed.emit("stat_res")
+		_set("stat_res", value)
 		
 var stat_dex: int = 0:
 	set(value):
 		stat_dex = value
-		property_changed.emit("stat_dex")
+		_set("stat_dex", value)
 		
 var stat_luk: int = 0:
 	set(value):
 		stat_luk = value
-		property_changed.emit("stat_luk")
+		_set("stat_luk", value)
 		
 var stat_cha: int = 0:
 	set(value):
 		stat_cha = value
-		property_changed.emit("stat_cha")
-
-signal property_changed
+		_set("stat_cha", value)
 
 var status: int = ITEM_NOT_EQUIPPED
+
+func _init() -> void:
+	watchable_props.append_array(["item_name", "stat_hp", "stat_mp", "stat_atk", "stat_def", \
+			"stat_mag", "stat_res", "stat_dex", "stat_luk", "stat_cha"])
 
 enum {
 	ITEM_NOT_EQUIPPED = 1,

@@ -2,38 +2,22 @@ extends CombatUnit
 class_name Adventurer
 
 static var rng: RandomNumberGenerator
-
-var name: String = NameGenerator.new_name():
-	set(value):
-		name = value
-		property_changed.emit("name")
 		
 var adventurer_class: AdventurerClass = AdventurerClass.random().new():
 	set(value):
 		adventurer_class = value
-		property_changed.emit("adventurer_class")
+		_set("adventurer_class", value)
 		
-var portrait: Texture2D = get_random_portrait():
-	set(value):
-		portrait = value
-		property_changed.emit("portrait")
-		
-var level: int = 0:
-	set(value):
-		level = value
-		property_changed.emit("level")
-		
-var hire_cost: int = 0:
-	set(value):
-		hire_cost = value
-		property_changed.emit("hire_cost")
+var portrait: Texture2D = get_random_portrait()
+
+var hire_cost: int = 0
 		
 var traits: Array[Variant] = []
 
 var _experience: int = 0:
 	set(value):
 		_experience = value
-		property_changed.emit("experience")
+		_set("experience", value)
 var experience: int:
 	get:
 		return _experience
@@ -79,16 +63,18 @@ var weapon: Weapon:
 	set(value):
 		weapon = value
 		value.status = Equipment.ITEM_EQUIPPED
-		equipment_changed.emit("weapon")
+		_set("weapon", value)
 var armor: Armor:
 	set(value):
 		armor = value
 		value.status = Equipment.ITEM_EQUIPPED
-		equipment_changed.emit("armor")
+		_set("armor", value)
 
-signal equipment_changed
+#signal equipment_changed
 
 func _init() -> void:
+	watchable_props.append_array(["experience", "weapon", "armor"])
+	unit_name = NameGenerator.new_name()
 	for stat in adventurer_class.stat_overrides:
 		set(stat, adventurer_class.stat_overrides[stat])
 		if stat == "stat_hp":
@@ -97,6 +83,7 @@ func _init() -> void:
 			set("current_mp", adventurer_class.stat_overrides[stat])
 	if !Engine.is_editor_hint():
 		GameplayEngine.game_tick_advanced.connect(_on_game_tick_advanced)
+	super()
 
 func _on_game_tick_advanced():
 	if status & STATUS_IDLE and status & ~STATUS_INCAPACITATED and current_mp < stat_mp:
@@ -126,7 +113,7 @@ func level_up():
 	if not Engine.is_editor_hint() and Player and Player.roster.has(self):
 		var msg = ActivityLogMessage.new()
 		msg.menu = RosterInterface.instantiate
-		msg.text = "%s is now level %d" % [name, level]
+		msg.text = "%s is now level %d" % [unit_name, level]
 		GameplayEngine.activity_log.push_message(msg)
 	
 func add_experience(add_xp: int):
@@ -147,16 +134,10 @@ func take_damage(dmg: int):
 	if current_hp == 0:
 		status |= STATUS_INCAPACITATED
 		
-func heal_damage(dmg: int):
-	pass
-	
-func revive():
-	pass
-
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
-	if randi() % 2 == 0:
-		noob.traits.append(Trait.ROBUST)
+	#if randi() % 2 == 0:
+	noob.traits.append(Trait.ROBUST)
 	noob.level_up()
 	rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]

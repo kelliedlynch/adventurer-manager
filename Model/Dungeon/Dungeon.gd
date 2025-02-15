@@ -1,4 +1,4 @@
-extends Resource
+extends Watchable
 class_name Dungeon
 
 var dungeon_name: String = "Scary Dungeon"
@@ -37,8 +37,6 @@ var level_range: String = str(_min_level) + "-" + str(_max_level)
 
 var combat: Combat
 var dungeon_reward_money: int = 0
-
-signal property_changed
 
 func _init() -> void:
 	if not Engine.is_editor_hint():

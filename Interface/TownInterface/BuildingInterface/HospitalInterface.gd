@@ -25,7 +25,7 @@ func _ready() -> void:
 	injured_units.menu_item_selected.connect(_add_to_hospital)
 	selected_unit.selected_changed.connect(_remove_from_hospital)
 	selected_unit.visible = false
-	watch_labeled_fields(model, self)
+	watch_reactive_fields(model, self)
 	#super._ready()
 	
 func _add_to_hospital(item: UnitListMenuItem):

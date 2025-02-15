@@ -1,31 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3gllupgt2pit"]
+[gd_scene load_steps=2 format=3 uid="uid://b3gllupgt2pit"]
 
 [ext_resource type="Script" uid="uid://cjm0qnpjon13w" path="res://Interface/GlobalInterface/ReactiveMultiField.gd" id="1_mhny2"]
-[ext_resource type="Texture2D" uid="uid://b3i5wc73o6lgm" path="res://Graphics/Icons/White/warning.png" id="2_mhny2"]
 
 [node name="ReactiveMultiField" type="MarginContainer"]
-offset_right = 162.0
-offset_bottom = 58.0
+offset_right = 777.0
+offset_bottom = 320.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_mhny2")
-/list_layout = &"VERTICAL"
-/label_position = &"BOTTOM"
-label = "Field Label"
-icon = ExtResource("2_mhny2")
+/list_layout = null
 /linked_class = null
-/linked_property = null
-/max_val_property = null
 
-[node name="LayoutContainer" type="VBoxContainer" parent="."]
+[node name="ValuesContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="LabelContainer" type="HBoxContainer" parent="LayoutContainer"]
+[node name="@Label@21840" type="Label" parent="ValuesContainer"]
 layout_mode = 2
+text = "lorem"
 
-[node name="Icon" type="TextureRect" parent="LayoutContainer/LabelContainer"]
+[node name="@Label@21841" type="Label" parent="ValuesContainer"]
 layout_mode = 2
+text = "ipsum"
 
-[node name="FieldLabel" type="Label" parent="LayoutContainer/LabelContainer"]
+[node name="@Label@21842" type="Label" parent="ValuesContainer"]
 layout_mode = 2
+text = "dolor"
 
-[node name="ValuesContainer" type="VBoxContainer" parent="LayoutContainer"]
+[node name="@Label@21843" type="Label" parent="ValuesContainer"]
 layout_mode = 2
+text = "sit"
+
+[node name="@Label@21844" type="Label" parent="ValuesContainer"]
+layout_mode = 2
+text = "amet"

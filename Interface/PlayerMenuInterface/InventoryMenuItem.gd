@@ -10,7 +10,7 @@ var item: Equipment = null:
 			if not is_inside_tree():
 				await ready
 			item_texture_rect.texture = item.texture
-			watch_labeled_fields(item, self)
+			watch_reactive_fields(item, self)
 
 #func _ready() -> void:
 	#super()

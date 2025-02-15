@@ -28,7 +28,7 @@ func _ready() -> void:
 	_refresh_interface()
 	idle_units_list.menu_item_selected.connect(_on_unit_selected)
 	dungeon_units_list.menu_item_selected.connect(_on_unit_selected)
-	watch_labeled_fields(dungeon, dungeon_panel)
+	watch_reactive_fields(dungeon, dungeon_panel)
 	send_button.pressed.connect(_on_press_send_button)
 	dungeon.property_changed.connect(_on_dungeon_property_changed)
 	super()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ry2u1lm3nnr"]
 
 [ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://Interface/TownInterface/TownInterfaceBuilding.gd" id="1_r1xdi"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveTextField.tscn" id="3_21y65"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveProgressField.tscn" id="3_21y65"]
 [ext_resource type="Theme" uid="uid://d0bl6jabh3mof" path="res://Interface/TownInterface/TownInterfaceTheme.tres" id="3_iu46e"]
 
 [node name="TownInterfaceBuilding" type="PanelContainer"]

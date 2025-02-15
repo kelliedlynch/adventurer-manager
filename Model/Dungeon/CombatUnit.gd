@@ -1,76 +1,86 @@
-extends Resource
+extends Watchable
 class_name CombatUnit
 
 var combat: Combat
 
+var unit_name: String = "":
+	set(value):
+		unit_name = value
+		_set("unit_name", value)
+
+var level: int = 0:
+	set(value):
+		level = value
+		_set("level", value)
+
 var stat_hp: int:
 	set(value):
 		stat_hp = value
-		property_changed.emit("stat_hp")
+		_set("stat_hp", value)
 
 var current_hp: int:
 	set(value):
 		current_hp = value
-		property_changed.emit("current_hp")
+		_set("current_hp", value)
 
 var stat_mp: int:
 	set(value):
 		stat_mp = value
-		property_changed.emit("stat_mp")
+		_set("stat_mp", value)
 
 var current_mp: int :
 	set(value):
 		current_mp = value
-		property_changed.emit("current_mp")
+		_set("current_mp", value)
 		
 var stat_atk: int:
 	set(value):
 		stat_atk = value
-		property_changed.emit("stat_atk")
-		property_changed.emit("mod_stat_atk")
+		_set("stat_atk", value)
 		
 var stat_def: int:
 	set(value):
 		stat_def = value
-		property_changed.emit("stat_def")
-		property_changed.emit("mod_stat_def")
+		_set("stat_def", value)
 		
 var stat_mag: int:
 	set(value):
 		stat_mag = value
-		property_changed.emit("stat_mag")
+		_set("stat_mag", value)
 		
 var stat_res: int:
 	set(value):
 		stat_res = value
-		property_changed.emit("stat_res")
+		_set("stat_res", value)
 		
 var stat_dex: int:
 	set(value):
 		stat_dex = value
-		property_changed.emit("stat_dex")
+		_set("stat_dex", value)
 		
 var stat_luk: int:
 	set(value):
 		stat_luk = value
-		property_changed.emit("stat_luk")
+		_set("stat_luk", value)
 		
 var stat_cha: int:
 	set(value):
 		stat_cha = value
-		property_changed.emit("stat_cha")
+		_set("stat_cha", value)
 
-signal property_changed
 signal died
+
+func _init() -> void:
+	watchable_props.append_array(["unit_name", "level", "stat_hp", "current_hp", "stat_mp", "current_mp",\
+			 "stat_atk", "stat_def", "stat_mag", "stat_res", "stat_dex", "stat_luk", "stat_cha"])
 
 func combat_action():
 	pass
 
 func heal_damage(dmg: int):
-	pass
-	
-func revive():
-	pass
+	current_hp += dmg
+	if current_hp > stat_hp:
+		current_hp = stat_hp
 
 func take_damage(dmg: int):
 	current_hp -= dmg

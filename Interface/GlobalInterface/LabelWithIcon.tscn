@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://je3btcu562d7"]
+
+[ext_resource type="Script" uid="uid://cfkbh6spasn5r" path="res://Interface/GlobalInterface/LabelWithIcon.gd" id="1_yeqpj"]
+
+[node name="LabelContainer" type="HBoxContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_yeqpj")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+expand_mode = 2
+
+[node name="FieldLabel" type="Label" parent="."]
+layout_mode = 2

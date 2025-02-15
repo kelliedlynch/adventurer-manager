@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxfkowy3k8qfs" path="res://Interface/PlayerMenuInterface/InventoryMenuItem.gd" id="1_bu0kc"]
 [ext_resource type="Texture2D" uid="uid://cs8l33hklv6au" path="res://Graphics/Equipment/Armor/armor_1.png" id="2_7k65x"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveTextField.tscn" id="3_0dy0q"]
+[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveProgressField.tscn" id="3_0dy0q"]
 
 [node name="InventoryMenuItem" type="PanelContainer"]
 anchors_preset = 14

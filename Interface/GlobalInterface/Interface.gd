@@ -9,11 +9,12 @@ func _ready() -> void:
 func _refresh_interface():
 	pass
 
-func watch_labeled_fields(watched, current_node) -> void:
+func watch_reactive_fields(watched, current_node) -> void:
 	for child in current_node.get_children():
-		if child is ReactiveField and Utility.is_derived_from(watched.get_script().get_global_name(), child.get("/linked_class")):
-			child.watch_object(watched)
-		watch_labeled_fields(watched, child)
+		if child.get("/linked_class"):
+			if child is ReactiveField and Utility.is_derived_from(watched.get_script().get_global_name(), child.get("/linked_class")):
+				child.linked_model = watched
+		watch_reactive_fields(watched, child)
 
 func _input(event: InputEvent) -> void:
 	if is_root_interface and event.is_action_pressed("ui_cancel"):

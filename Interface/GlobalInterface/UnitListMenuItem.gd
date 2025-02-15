@@ -26,13 +26,12 @@ var unit: Adventurer = null:
 			portrait_texture_rect.texture = unit.portrait
 			if unit.weapon:
 				weapon_slot.item = unit.weapon
-			unit.equipment_changed.connect(_on_unit_equipment_changed)
+			#unit.equipment_changed.connect(_on_unit_equipment_changed)
 			for unit_trait in unit.traits:
 				var l = Label.new()
-				var a = Trait.trait_name
 				l.text = Trait.trait_name[unit_trait]
 				traits.add_child(l)
-			watch_labeled_fields(unit, self)
+			watch_reactive_fields(unit, self)
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
