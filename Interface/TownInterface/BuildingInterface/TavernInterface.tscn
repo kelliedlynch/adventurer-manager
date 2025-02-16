@@ -29,6 +29,7 @@ theme_type_variation = &"TitleBar"
 [node name="TavernName" parent="VBoxContainer/PanelContainer" instance=ExtResource("3_llgr7")]
 layout_mode = 2
 alignment = 1
+/max_value_property = null
 /linked_class = &"Tavern"
 /linked_property = &"building_name"
 

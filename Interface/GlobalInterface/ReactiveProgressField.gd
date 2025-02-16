@@ -36,7 +36,7 @@ func _ready() -> void:
 		max_value_divider = "/"
 	#else:
 		#max_value_label.text = max_value_divider
-	super()
+	#super()
 #func _on_tree_exiting():
 	#if get_tree().edited_scene_root == self:
 		#label = ""

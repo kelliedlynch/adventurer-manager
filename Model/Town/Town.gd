@@ -1,18 +1,20 @@
-extends Node
+extends Watchable
 class_name Town
 
-var town_name: String = "Townsville":
+var town_name: String = "Townsvillia":
 	set(value):
 		town_name = value
-		property_changed.emit("town_name")
-signal property_changed
+		_set("town_name", value)
 		
 var buildings: Array[Building] = []
 
 func _init() -> void:
+	#super()
+	watchable_props.append_array(["town_name"])
 	var tav = Tavern.new()
 	tav.building_name = "The Rusty Dragon"
 	buildings.append(tav)
 	var hosp = Hospital.new()
 	hosp.building_name = "Sawbones Express"
 	buildings.append(hosp)
+	#super()

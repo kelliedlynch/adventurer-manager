@@ -5,13 +5,17 @@ class_name ReactiveField
 var linked_model: Object:
 	set(value):
 		linked_model = value
+
 		if not value.property_changed.is_connected(_on_property_changed):
 			value.property_changed.connect(_on_property_changed)
-		_on_property_changed("/linked_model")
+			if not is_inside_tree():
+				await ready
+			_on_property_changed("linked_model")
+		#_set("/linked_model", value)
 
-func _ready() -> void:
-	if linked_model:
-		_on_property_changed("linked_model")
+#func _ready() -> void:
+	#if linked_model:
+		#_on_property_changed("linked_model")
 
 
 var _internal_vars: Dictionary = {}
@@ -58,6 +62,6 @@ func get_watchable_properties() -> Array[String]:
 	return instance.watchable_props
 
 func _on_property_changed(prop_name: String):
-	if prop_name == "/linked_model":
+	if prop_name == "linked_model":
 		for prop in linked_model.watchable_props:
 			_on_property_changed(prop)

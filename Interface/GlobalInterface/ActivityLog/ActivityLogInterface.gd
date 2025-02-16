@@ -6,14 +6,14 @@ class_name ActivityLogInterface
 @onready var notification_window: VBoxContainer = find_child("NotificationWindow")
 
 func _ready() -> void:
-	GameplayEngine.activity_log.log_changed.connect(_on_log_changed)
+	Game.activity_log.log_changed.connect(_on_log_changed)
 	log_window.visible = false
 	_build_log()
 	
 func _build_log():
 	for child in log_messages.get_children():
 		child.queue_free()
-	for msg in GameplayEngine.activity_log.get_messages():
+	for msg in Game.activity_log.get_messages():
 		var item = ActivityLogTextLabel.new(msg)
 		log_messages.add_child(item)
 

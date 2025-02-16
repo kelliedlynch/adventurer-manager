@@ -18,7 +18,7 @@ func _ready() -> void:
 	dungeon_button.pressed.connect(_on_dungeon_button_pressed)
 	activity_log_button.pressed.connect(activity_log.toggle_window)
 	#money_label.linked_model = Player
-	debug_advance_tick.pressed.connect(GameplayEngine.advance_tick)
+	debug_advance_tick.pressed.connect(Game.advance_tick)
 	
 
 	
@@ -38,7 +38,7 @@ func _on_inventory_button_pressed():
 	if index != -1:
 		InterfaceManager.close_menu(nodes[index])
 	else:
-		var inventory = InventoryInterface.instantiate(Player.inventory)
+		var inventory = InventoryInterface.instantiate(Game.player.inventory)
 		inventory.tree_exited.connect(roster_button.set_pressed_no_signal.bind(false))
 		InterfaceManager.display_menu(inventory, true)
 
@@ -48,7 +48,7 @@ func _on_dungeon_button_pressed():
 	if index != -1:
 		InterfaceManager.close_menu(nodes[index])
 	else:
-		var dungeon = DungeonInterface.instantiate(GameplayEngine.dungeon)
+		var dungeon = DungeonInterface.instantiate(Game.dungeon)
 		dungeon.tree_exited.connect(dungeon_button.set_pressed_no_signal.bind(false))
 		InterfaceManager.display_menu(dungeon, true)
 
@@ -58,6 +58,6 @@ func _on_town_button_pressed():
 	if index != -1:
 		InterfaceManager.close_menu(nodes[index])
 	else:
-		var town = TownInterface.instantiate(Player.current_town)
+		var town = TownInterface.instantiate(Game.player.current_town)
 		town.tree_exited.connect(town_button.set_pressed_no_signal.bind(false))
 		InterfaceManager.display_menu(town, true)

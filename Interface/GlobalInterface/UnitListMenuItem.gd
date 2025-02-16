@@ -43,7 +43,7 @@ func _ready() -> void:
 	super._ready()
 	
 func _on_slot_clicked(_val, slot: EquipmentSlot):
-	inventory_submenu = InventoryInterface.instantiate(Player.inventory.filter(slot.filter))
+	inventory_submenu = InventoryInterface.instantiate(Game.player.inventory.filter(slot.filter))
 	inventory_submenu.menu_item_selected.connect(_on_equipment_selected)
 	inventory_submenu.is_root_interface = true
 	InterfaceManager.main_control_node.add_child(inventory_submenu)

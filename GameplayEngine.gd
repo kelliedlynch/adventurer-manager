@@ -1,5 +1,6 @@
 extends Node
 
+@onready var player: PlayerData = PlayerData.new()
 var activity_log: ActivityLog = ActivityLog.new()
 
 var dungeon: Dungeon

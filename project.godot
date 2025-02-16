@@ -17,8 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameplayEngine="*res://GameplayEngine.gd"
-Player="*res://Player/Player.gd"
+Game="*res://GameplayEngine.gd"
 InterfaceManager="*res://InterfaceManager.gd"
 
 [display]

@@ -5,7 +5,7 @@ class_name RosterInterface
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
-		for unit in Player.roster:
+		for unit in Game.player.roster:
 			unit_list.add_unit(unit)
 	else:
 		for i in 6:

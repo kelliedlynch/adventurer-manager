@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ry2u1lm3nnr"]
 
 [ext_resource type="Script" uid="uid://bm70t7ro5aib3" path="res://Interface/TownInterface/TownInterfaceBuilding.gd" id="1_r1xdi"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveProgressField.tscn" id="3_21y65"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="3_f0e54"]
 [ext_resource type="Theme" uid="uid://d0bl6jabh3mof" path="res://Interface/TownInterface/TownInterfaceTheme.tres" id="3_iu46e"]
 
 [node name="TownInterfaceBuilding" type="PanelContainer"]
@@ -23,8 +23,9 @@ script = ExtResource("1_r1xdi")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="BuildingName" parent="VBoxContainer" instance=ExtResource("3_21y65")]
+[node name="BuildingName" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+script = ExtResource("3_f0e54")
 /linked_class = &"Building"
 /linked_property = &"building_name"
 
@@ -32,8 +33,9 @@ layout_mode = 2
 layout_mode = 2
 theme_type_variation = &"BuildingDescription"
 
-[node name="BuildingDescription" parent="VBoxContainer/MarginContainer" instance=ExtResource("3_21y65")]
+[node name="BuildingDescription" type="Label" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
+script = ExtResource("3_f0e54")
 /linked_class = &"Building"
 /linked_property = &"building_description"
 

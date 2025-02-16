@@ -1,14 +1,12 @@
-extends Node
+extends Watchable
 class_name PlayerData
 
 var roster: Array[Adventurer] = []
 var money: int = 120:
 	set(value):
 		money = value
-		property_changed.emit("money")
+		_set("money", value)
 var current_town: Town
-
-signal property_changed
 
 var inventory: Array[Equipment] = []
 
@@ -20,8 +18,7 @@ func _init() -> void:
 		var item = Armor.new() if randi() % 2 == 0 else Weapon.new()
 		inventory.append(item)
 
-func _ready() -> void:
 	var town = Town.new()
-	town.name = "Townsville"
+	town.town_name = "Townsville"
 	current_town = town
 	pass

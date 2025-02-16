@@ -54,7 +54,7 @@ var _refresh_queued: bool = false
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
-		GameplayEngine.game_tick_advanced.connect(set.bind("_refresh_queued", true))
+		Game.game_tick_advanced.connect(set.bind("_refresh_queued", true))
 
 func _refresh_menu():
 	pass

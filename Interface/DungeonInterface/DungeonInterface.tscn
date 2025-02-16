@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bfxp2f1vguwg6" path="res://Interface/DungeonInterface/DungeonInterface.gd" id="1_nv7fk"]
 [ext_resource type="Texture2D" uid="uid://dkdgccxy2yk4v" path="res://Graphics/Backgrounds/dungeon_3.png" id="2_yjc0f"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="3_yjc0f"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveProgressField.tscn" id="4_yjc0f"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="5_6wovn"]
 
 [node name="DungeonInterface" type="MarginContainer"]
 anchors_preset = 15
@@ -23,7 +23,7 @@ layout_mode = 2
 
 [node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-script = null
+menu_title = "Idle Units"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -35,17 +35,29 @@ layout_mode = 2
 [node name="DungeonInfoPanel" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="DungeonName" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel" instance=ExtResource("4_yjc0f")]
+[node name="DungeonName" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
-alignment = 1
+text = "Not Scary Dungeon"
+horizontal_alignment = 1
+script = ExtResource("5_6wovn")
+/linked_class = &"Dungeon"
+/linked_property = &"dungeon_name"
 
 [node name="DungeonStats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
 
-[node name="Level" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats" instance=ExtResource("4_yjc0f")]
+[node name="LevelRangeLabel" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
+theme_type_variation = &"TextBig"
+text = "Level Range:"
+
+[node name="LevelRangeValue" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats"]
+layout_mode = 2
+theme_type_variation = &"TextBig"
+text = "1-5"
+script = ExtResource("5_6wovn")
+/linked_class = &"Dungeon"
+/linked_property = &"level_range"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats"]
 layout_mode = 2
@@ -58,6 +70,7 @@ text = "Reward:"
 [node name="RewardAmount" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/HBoxContainer2"]
 layout_mode = 2
 theme_type_variation = &"TextBig"
+text = "9-45"
 
 [node name="DungeonHazards" type="GridContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
@@ -70,10 +83,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Not ready"
 
-[node name="ExploreTime" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions" instance=ExtResource("4_yjc0f")]
+[node name="DungeonTime" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions"]
 layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
+text = "3"
+script = ExtResource("5_6wovn")
+/linked_class = &"Dungeon"
+/linked_property = "quest_time"
 
 [node name="days" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonActions"]
 layout_mode = 2
@@ -84,12 +99,11 @@ text = " days"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-disabled = true
 text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-script = null
+menu_title = "Dungeon Party"
 
 [node name="DungeonStatusWindow" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false

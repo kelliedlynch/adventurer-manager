@@ -1,3 +1,4 @@
+@tool
 extends Interface
 class_name DungeonInterface
 
@@ -8,7 +9,7 @@ var dungeon: Dungeon
 @onready var dungeon_units_list: UnitListMenu = find_child("DungeonParty")
 @onready var send_button: Button = find_child("SendParty")
 @onready var party_status_label: Label = find_child("PartyStatus")
-@onready var remaining_time: ReactiveField = find_child("ExploreTime")
+@onready var remaining_time: ReactiveField = find_child("DungeonTime")
 @onready var status_window: MarginContainer = find_child("DungeonStatusWindow")
 @onready var hazard_icons: GridContainer = find_child("DungeonHazards")
 
@@ -34,7 +35,7 @@ func _ready() -> void:
 	super()
 
 func _get_idle_units() -> Array[Adventurer]:
-	var idle = Player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE and not staged_units.has(x))
+	var idle = Game.player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE and not staged_units.has(x))
 	return idle
 	
 func _refresh_interface():
@@ -62,10 +63,10 @@ func _refresh_interface():
 	send_button.disabled = dungeon.questing
 	if dungeon.questing:
 		party_status_label.text = "Exploring dungeon"
-		remaining_time.label = "Time left"
+		#remaining_time.label = "Time left"
 		remaining_time.set("/linked_property", "remaining_quest_time")
 	else:
-		remaining_time.label = "Time"
+		#remaining_time.label = "Time"
 		remaining_time.set("/linked_property", "quest_time")
 		if staged_units.is_empty():
 			party_status_label.text = "Not ready"

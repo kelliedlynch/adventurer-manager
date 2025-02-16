@@ -21,7 +21,7 @@ var model: Hospital:
 			
 func _ready() -> void:
 	heal_button.pressed.connect(_on_heal_button_pressed)
-	heal_button.disabled = heal_cost == 0 or heal_cost > Player.money
+	heal_button.disabled = heal_cost == 0 or heal_cost > Game.player.money
 	injured_units.menu_item_selected.connect(_add_to_hospital)
 	selected_unit.selected_changed.connect(_remove_from_hospital)
 	selected_unit.visible = false
@@ -48,7 +48,7 @@ func _remove_from_hospital(item: UnitListMenuItem = selected_unit):
 	
 func _on_heal_button_pressed():
 	selected_unit.unit.current_hp = selected_unit.unit.stat_hp
-	Player.money -= heal_cost
+	Game.player.money -= heal_cost
 	heal_cost = 0
 	selected_unit.unit = null
 	selected_unit.visible = false
@@ -67,7 +67,7 @@ func _refresh_interface():
 	
 func _get_injured_units() -> Array[Adventurer]:
 	#injured_units.clear_units()
-	return Player.roster.filter(func(x): return x.current_hp < x.stat_hp)
+	return Game.player.roster.filter(func(x): return x.current_hp < x.stat_hp)
 	
 
 static func instantiate(hospital: Hospital) -> HospitalInterface:

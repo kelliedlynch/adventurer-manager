@@ -73,6 +73,7 @@ signal died
 func _init() -> void:
 	watchable_props.append_array(["unit_name", "level", "stat_hp", "current_hp", "stat_mp", "current_mp",\
 			 "stat_atk", "stat_def", "stat_mag", "stat_res", "stat_dex", "stat_luk", "stat_cha"])
+	#super()
 
 func combat_action():
 	pass

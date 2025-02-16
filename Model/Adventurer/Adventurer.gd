@@ -76,6 +76,7 @@ var armor: Armor:
 #signal equipment_changed
 
 func _init() -> void:
+	super()
 	watchable_props.append_array(["adventurer_class", "experience", "weapon", "armor", "traits"])
 	unit_name = NameGenerator.new_name()
 	for stat in adventurer_class.stat_overrides:
@@ -85,8 +86,8 @@ func _init() -> void:
 		if stat == "stat_mp":
 			set("current_mp", adventurer_class.stat_overrides[stat])
 	if !Engine.is_editor_hint():
-		GameplayEngine.game_tick_advanced.connect(_on_game_tick_advanced)
-	super()
+		Game.game_tick_advanced.connect(_on_game_tick_advanced)
+	
 
 func _on_game_tick_advanced():
 	if status & STATUS_IDLE and status & ~STATUS_INCAPACITATED and current_mp < stat_mp:
@@ -113,11 +114,11 @@ func level_up():
 			if stat == "stat_mp":
 				set("current_mp", get("current_mp") + add_val)
 	hire_cost += 3
-	if not Engine.is_editor_hint() and Player and Player.roster.has(self):
+	if not Engine.is_editor_hint() and Game.player and Game.player.roster.has(self):
 		var msg = ActivityLogMessage.new()
 		msg.menu = RosterInterface.instantiate
 		msg.text = "%s is now level %d" % [unit_name, level]
-		GameplayEngine.activity_log.push_message(msg)
+		Game.activity_log.push_message(msg)
 	
 func add_experience(add_xp: int):
 	var remaining = add_xp

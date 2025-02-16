@@ -1,9 +1,25 @@
-extends PanelContainer
+@tool
+extends Interface
 class_name TownInterfaceBuilding
 
-@onready var name_label: ReactiveField = $VBoxContainer/BuildingName
-@onready var description_label: ReactiveField = $VBoxContainer/MarginContainer/BuildingDescription
-@onready var enter_button: Button = $VBoxContainer/EnterBuilding
+@onready var name_label: ReactiveField = find_child("BuildingName")
+@onready var description_label: ReactiveField = find_child("BuildingDescription")
+@onready var enter_button: Button = find_child("EnterBuilding")
 
-static func instantiate() -> TownInterfaceBuilding:
-	return load("res://Interface/TownInterface/TownInterfaceBuilding.tscn").instantiate()
+var building: Building = null:
+	set(value):
+		building = value
+		if building:
+			if not is_inside_tree():
+				await ready
+			watch_reactive_fields(building, self)
+
+
+#func _ready() -> void:
+	#if get_tree().current_scene == self or Engine.is_editor_hint():
+			#name_label.text = "Buiding"
+
+static func instantiate(bldg: Building) -> TownInterfaceBuilding:
+	var menu = load("res://Interface/TownInterface/TownInterfaceBuilding.tscn").instantiate()
+	menu.building = bldg
+	return menu

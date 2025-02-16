@@ -1,7 +1,10 @@
 extends Watchable
 class_name Dungeon
 
-var dungeon_name: String = "Scary Dungeon"
+var dungeon_name: String = "Not Scary Dungeon":
+	set(value):
+		dungeon_name = value
+		_set("dungeon_name", value)
 var party: Array[Adventurer] = []
 var staged: Array[Adventurer] = []
 var max_party_size: int = 4
@@ -15,24 +18,24 @@ var hazards: Array[Hazard] = []
 var questing: bool = false:
 	set(value):
 		questing = value
-		property_changed.emit("questing")
+		_set("questing", value)
 var quest_time: int = 3:
 	set(value):
 		quest_time = value
-		property_changed.emit("quest_time")
+		_set("quest_time", value)
 var remaining_quest_time: int = -1:
 	set(value):
 		remaining_quest_time = value
-		property_changed.emit("remaining_quest_time")
+		_set("remaining_quest_time", value)
 
 var _min_level: int = 1:
 	set(value):
 		_min_level = value
-		property_changed.emit("level_range")
+		_set("level_range", value)
 var _max_level: int = 5:
 	set(value):
 		_max_level = value
-		property_changed.emit("level_range")
+		_set("level_range", value)
 var level_range: String = str(_min_level) + "-" + str(_max_level)
 
 var combat: Combat
@@ -40,8 +43,9 @@ var dungeon_reward_money: int = 0
 
 func _init() -> void:
 	if not Engine.is_editor_hint():
-		GameplayEngine.game_tick_advanced.connect(_on_advance_tick)
+		Game.game_tick_advanced.connect(_on_advance_tick)
 	hazards.append(HazardCold.new())
+	watchable_props.append_array(["dungeon_name", "questing", "quest_time", "remaining_quest_time", "level_range"])
 	
 func begin_quest():
 	if party.size() > 0:
@@ -92,9 +96,9 @@ func complete_quest(success: bool):
 	log_msg.menu = DungeonInterface.instantiate.bind(self)
 	if success:
 		log_msg.text = "Party finished quest in %s. Received %d money." % [dungeon_name, dungeon_reward_money]
-		Player.money += dungeon_reward_money
+		Game.player.money += dungeon_reward_money
 	else:
 		log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
-	GameplayEngine.activity_log.push_message(log_msg)
+	Game.activity_log.push_message(log_msg)
 	questing = false
 	remaining_quest_time = -1

@@ -14,7 +14,7 @@ var model: Tavern:
 		if not Engine.is_editor_hint():
 			value.adventurers_for_hire_changed.connect(_refresh_for_hire_list)
 			#Player.property_changed.connect(for_hire_menu.set.unbind(1).bind("_refresh_queued", true))
-			name_label.watch_object(model)
+			name_label.linked_model = model
 
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
@@ -25,7 +25,7 @@ func _ready() -> void:
 func _can_hire_unit(unit: Adventurer) -> bool:
 	if Engine.is_editor_hint():
 		return true
-	return Player.money >= unit.hire_cost
+	return Game.player.money >= unit.hire_cost
 
 func _on_hire_button_pressed(unit: Adventurer):
 	var dialog = DialogBox.instantiate()
