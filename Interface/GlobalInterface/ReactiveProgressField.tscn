@@ -7,6 +7,7 @@ offset_right = 40.0
 offset_bottom = 50.0
 script = ExtResource("1_c7kf5")
 show_max = true
+/linked_class = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -17,8 +18,12 @@ theme_override_font_sizes/font_size = 36
 text = "50"
 horizontal_alignment = 2
 
-[node name="MaxValue" type="Label" parent="HBoxContainer"]
-visible = false
+[node name="ValueDivider" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "/100"
+text = "/"
+
+[node name="MaxValue" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100"

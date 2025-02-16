@@ -12,7 +12,10 @@ var portrait: Texture2D = get_random_portrait()
 
 var hire_cost: int = 0
 		
-var traits: Array[Variant] = []
+var traits: Array[Trait] = []:
+	set(value):
+		traits = value
+		_set("traits", value)
 
 var _experience: int = 0:
 	set(value):
@@ -73,7 +76,7 @@ var armor: Armor:
 #signal equipment_changed
 
 func _init() -> void:
-	watchable_props.append_array(["experience", "weapon", "armor"])
+	watchable_props.append_array(["adventurer_class", "experience", "weapon", "armor", "traits"])
 	unit_name = NameGenerator.new_name()
 	for stat in adventurer_class.stat_overrides:
 		set(stat, adventurer_class.stat_overrides[stat])
@@ -136,8 +139,10 @@ func take_damage(dmg: int):
 		
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
-	#if randi() % 2 == 0:
-	noob.traits.append(Trait.ROBUST)
+	for i in randi_range(1, 3):
+		var t = Trait.TraitList.pick_random()
+		if noob.traits.has(t): continue
+		noob.traits.append(Trait.TraitList.pick_random())
 	noob.level_up()
 	rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]

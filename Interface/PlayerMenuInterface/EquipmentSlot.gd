@@ -1,3 +1,4 @@
+@tool
 extends MenuItemBase
 class_name EquipmentSlot
 

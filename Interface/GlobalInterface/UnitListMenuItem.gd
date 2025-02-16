@@ -24,13 +24,6 @@ var unit: Adventurer = null:
 			if not is_inside_tree():
 				await ready
 			portrait_texture_rect.texture = unit.portrait
-			if unit.weapon:
-				weapon_slot.item = unit.weapon
-			#unit.equipment_changed.connect(_on_unit_equipment_changed)
-			for unit_trait in unit.traits:
-				var l = Label.new()
-				l.text = Trait.trait_name[unit_trait]
-				traits.add_child(l)
 			watch_reactive_fields(unit, self)
 
 func _ready() -> void:

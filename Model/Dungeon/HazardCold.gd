@@ -16,13 +16,13 @@ func _init() -> void:
 		},
 		{
 			"counter_type": CounteredBy.TRAIT,
-			"countered_by": Trait.ROBUST,
+			"countered_by": Trait.Robust,
 			"counter_action": CounterType.IGNORES
 		}
 	]
 	
 func _traits_contain_robust(adv: Adventurer) -> bool:
-	return adv.traits.has(Trait.ROBUST)
+	return adv.traits.has(Trait.Robust)
 
 func _class_is_mage(adv: Adventurer) -> bool:
 	return adv.adventurer_class is ClassMage
@@ -40,5 +40,5 @@ func per_tick_action(dungeon: Dungeon):
 	if dungeon.party.find_custom(func(x): return x.adventurer_class is ClassMage) != -1:
 		dmg -= dmg * mage_reduction
 	for adv in dungeon.party:
-		if !adv.traits.has(Trait.ROBUST):
+		if !adv.traits.has(Trait.Robust):
 			adv.take_damage(dmg)
