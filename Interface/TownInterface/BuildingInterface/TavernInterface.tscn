@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bfhth0qeb4r3p" path="res://Graphics/Backgrounds/tavern_2.png" id="2_llgr7"]
 [ext_resource type="Script" uid="uid://b6cha1jhjbe1q" path="res://Interface/TownInterface/BuildingInterface/TavernInterface.gd" id="3_jl7te"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveProgressField.tscn" id="3_llgr7"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="3_llgr7"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="4_llgr7"]
 
 [node name="TavernInterface" type="MarginContainer"]
@@ -26,10 +26,10 @@ alignment = 1
 layout_mode = 2
 theme_type_variation = &"TitleBar"
 
-[node name="TavernName" parent="VBoxContainer/PanelContainer" instance=ExtResource("3_llgr7")]
+[node name="TavernName" type="Label" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
-alignment = 1
-/max_value_property = null
+horizontal_alignment = 1
+script = ExtResource("3_llgr7")
 /linked_class = &"Tavern"
 /linked_property = &"building_name"
 

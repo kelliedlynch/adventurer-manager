@@ -38,6 +38,12 @@ static func is_derived_from(this_class: String, base_class: String):
 			return is_derived_from(class_info.base, base_class)
 		current_class = class_info.base
 
+static func dict_to_hint_string(dict: Dictionary) -> String:
+	var hint = ""
+	for elem in dict:
+		hint += str(elem) + ":" + str(dict[elem]) + ","
+	return hint.left(-1)
+
 static func array_to_hint_string(arr: Array) -> String:
 	return arr.reduce(func(accum, val): return accum + val + ",", "").left(-1)
 

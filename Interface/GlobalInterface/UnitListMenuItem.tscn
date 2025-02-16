@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitListMenuItem.gd" id="1_i6766"]
-[ext_resource type="Texture2D" uid="uid://3b8ipkopicbo" path="res://Graphics/Portraits/f_01.png" id="2_xd66s"]
+[ext_resource type="Texture2D" uid="uid://d3dw7vg7jqcjj" path="res://Graphics/Portraits/f_20.PNG" id="2_xd66s"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveProgressField.tscn" id="3_bele2"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="4_pb6xb"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="5_llwmx"]
@@ -25,19 +25,22 @@ grow_vertical = 2
 theme_type_variation = &"MenuItemPanel"
 script = ExtResource("1_i6766")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MainLayoutRows" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MainLayoutCols" type="HBoxContainer" parent="MainLayoutRows"]
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="PortraitFrame" type="PanelContainer" parent="HBoxContainer"]
+[node name="PortraitFrame" type="PanelContainer" parent="MainLayoutRows/MainLayoutCols"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 theme_type_variation = &"PortraitFrame"
 
-[node name="PortraitTexture" type="TextureRect" parent="HBoxContainer/PortraitFrame"]
+[node name="PortraitTexture" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/PortraitFrame"]
 show_behind_parent = true
 custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
@@ -46,212 +49,217 @@ size_flags_vertical = 4
 texture = ExtResource("2_xd66s")
 expand_mode = 1
 
-[node name="StatsBlock" type="MarginContainer" parent="HBoxContainer"]
+[node name="StatsBlock" type="MarginContainer" parent="MainLayoutRows/MainLayoutCols"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/StatsBlock"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock"]
 layout_mode = 2
 alignment = 1
 
-[node name="Header" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer"]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/Header"]
+[node name="Name" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
-text = "Fri"
+text = "Preplusci"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"unit_name"
 
-[node name="LevelAndClass" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/Header"]
+[node name="LevelAndClass" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="LevelLabel" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass"]
+[node name="LevelLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
 text = "Lv."
 
-[node name="Level" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass"]
+[node name="Level" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
 text = "2"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="Class" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/Header/LevelAndClass"]
+[node name="Class" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
 text = "Healer"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer"]
+[node name="StatsBlockBody" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="StatsBlock" type="VBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer"]
+[node name="StatsBlock" type="VBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="HpMpBlock" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock"]
+[node name="HpMpBlock" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock"]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="StatHp" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/HpMpBlock"]
+[node name="StatHp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatHpLabel" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/HpMpBlock/StatHp"]
+[node name="StatHpLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp"]
 layout_mode = 2
 theme_type_variation = &"TextBig"
 text = "HP:"
 
-[node name="StatHpValue" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/HpMpBlock/StatHp" instance=ExtResource("3_bele2")]
+[node name="StatHpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
 /max_value_property = &"stat_hp"
 /linked_class = &"Adventurer"
 /linked_property = &"current_hp"
 
-[node name="StatMp" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/HpMpBlock"]
+[node name="StatMp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatMpLabel" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/HpMpBlock/StatMp"]
+[node name="StatMpLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp"]
 layout_mode = 2
 theme_type_variation = &"TextBig"
 text = "MP:"
 
-[node name="StatMpValue" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("3_bele2")]
+[node name="StatMpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
 /max_value_property = &"stat_mp"
 /linked_class = &"Adventurer"
 /linked_property = &"current_mp"
 
-[node name="StatValuesBlock" type="GridContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock"]
+[node name="StatValuesBlock" type="GridContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock"]
 layout_mode = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 8
 columns = 3
 
-[node name="StatAtk" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock"]
+[node name="StatAtk" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
 
-[node name="StatAtkLabel" type="TextureRect" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatAtk"]
+[node name="StatAtkLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatAtk"]
 layout_mode = 2
 texture = ExtResource("5_llwmx")
 expand_mode = 3
 
-[node name="StatAtkValue" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatAtk"]
+[node name="StatAtkValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatAtk"]
 layout_mode = 2
 theme_type_variation = &"TextSmall"
 text = "10"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="StatDef" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock"]
+[node name="StatDef" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
 
-[node name="StatDefLabel" type="TextureRect" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatDef"]
+[node name="StatDefLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDef"]
 layout_mode = 2
 texture = ExtResource("6_u5tcr")
 expand_mode = 2
 
-[node name="StatDefValue" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatDef"]
+[node name="StatDefValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDef"]
 layout_mode = 2
 theme_type_variation = &"TextSmall"
 text = "13"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="StatMag" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock"]
+[node name="StatMag" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
 
-[node name="StatMagLabel" type="TextureRect" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatMag"]
+[node name="StatMagLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatMag"]
 layout_mode = 2
 texture = ExtResource("7_cu7x5")
 expand_mode = 2
 
-[node name="StatMagValue" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatMag"]
+[node name="StatMagValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatMag"]
 layout_mode = 2
 theme_type_variation = &"TextSmall"
 text = "9"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="StatRes" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock"]
+[node name="StatRes" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
 
-[node name="StatResLabel" type="TextureRect" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatRes"]
+[node name="StatResLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatRes"]
 layout_mode = 2
 texture = ExtResource("8_jt7x4")
 expand_mode = 2
 
-[node name="StatResValue" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatRes"]
+[node name="StatResValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatRes"]
 layout_mode = 2
 theme_type_variation = &"TextSmall"
 text = "13"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="StatDex" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock"]
+[node name="StatDex" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
 
-[node name="StatDexLabel" type="TextureRect" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatDex"]
+[node name="StatDexLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDex"]
 layout_mode = 2
 texture = ExtResource("9_amu5k")
 expand_mode = 2
 
-[node name="StatDexValue" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatDex"]
+[node name="StatDexValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDex"]
 layout_mode = 2
 theme_type_variation = &"TextSmall"
 text = "6"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="StatLuk" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock"]
+[node name="StatLuk" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
 
-[node name="StatLukLabel" type="TextureRect" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatLuk"]
+[node name="StatLukLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatLuk"]
 layout_mode = 2
 texture = ExtResource("10_er6jn")
 expand_mode = 2
 
-[node name="StakLukValue" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatLuk"]
+[node name="StakLukValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatLuk"]
 layout_mode = 2
 theme_type_variation = &"TextSmall"
 text = "0"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="StatCha" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock"]
+[node name="StatCha" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 visible = false
 layout_mode = 2
 
-[node name="StatChaLabel" type="TextureRect" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatCha"]
+[node name="StatChaLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatCha"]
 layout_mode = 2
 
-[node name="StatChaValue" type="Label" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/StatsBlock/StatValuesBlock/StatCha"]
+[node name="StatChaValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatCha"]
 layout_mode = 2
 theme_type_variation = &"TextSmall"
 text = "8"
 script = ExtResource("4_pb6xb")
 /linked_class = null
 
-[node name="ReactiveMultiField" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer" instance=ExtResource("9_je2iw")]
+[node name="TraitsList" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody" instance=ExtResource("9_je2iw")]
 layout_mode = 2
+size_flags_horizontal = 1
 theme_type_variation = &"TextBig"
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="EquipSlots" type="HBoxContainer" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer"]
+[node name="EquipSlots" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="WeaponSlot" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/EquipSlots" instance=ExtResource("7_wrwym")]
+[node name="WeaponSlot" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/EquipSlots" instance=ExtResource("7_wrwym")]
 layout_mode = 2
 
-[node name="ArmorSlot" parent="HBoxContainer/StatsBlock/VBoxContainer/HBoxContainer/EquipSlots" instance=ExtResource("7_wrwym")]
+[node name="ArmorSlot" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/EquipSlots" instance=ExtResource("7_wrwym")]
 layout_mode = 2
 
-[node name="ActionButtons" type="VBoxContainer" parent="HBoxContainer"]
+[node name="ActionButtons" type="VBoxContainer" parent="MainLayoutRows/MainLayoutCols"]
 layout_mode = 2
 alignment = 1

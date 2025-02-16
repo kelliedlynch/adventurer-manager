@@ -20,22 +20,28 @@ func _init() -> void:
 	_internal_vars_list.append("/list_layout")
 		
 func _ready() -> void:
+	
 	grid_columns = grid_columns
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		_on_layout_changed(get("/list_layout"))
 		var field_values = ["lorem", "ipsum", "dolor", "sit", "amet"]
+		print(field_values)
 		for child in values_container.get_children():
 			child.queue_free()
 		for val in field_values:
 			var label = Label.new()
 			label.text = val
 			values_container.add_child(label)
-			if Engine.is_editor_hint():
-				label.owner = self
+			#if Engine.is_editor_hint():
+				#label.owner = self
 	layout_changed.connect(_on_layout_changed)
-	_on_layout_changed()
+	_on_layout_changed(get("/list_layout"))
 	theme_changed.connect(_on_theme_changed)
 	_on_theme_changed()
-	super()
+	#super()
+func _on_flags_changed():
+	var a = size_flags_horizontal
+	pass
 		
 func _on_theme_changed():
 	var variation = theme_type_variation
@@ -43,23 +49,35 @@ func _on_theme_changed():
 	for child in values_container.get_children():
 		child.add_theme_font_size_override("font_size", font_size)
 			
-func _on_layout_changed() -> void:
+func _on_layout_changed(value: int) -> void:
 	var new_container: Container
-	var layout = get("/list_layout")
-	if layout == "HORIZONTAL" and not values_container is HBoxContainer:
+	if value == ContentLayout.HORIZONTAL and not values_container is HBoxContainer:
 		new_container = HBoxContainer.new()
-	elif layout == "VERTICAL" and not values_container is VBoxContainer:
+		var a = new_container.size_flags_horizontal
+		new_container.size_flags_horizontal += Control.SIZE_EXPAND
+		new_container.size_flags_changed.connect(_on_flags_changed)
+		var b = new_container.size_flags_horizontal
+		pass
+	elif value == ContentLayout.VERTICAL and not values_container is VBoxContainer:
 		new_container = VBoxContainer.new()
-	elif layout == "GRID" and not values_container is GridContainer:
+	elif value == ContentLayout.GRID and not values_container is GridContainer:
 		new_container = GridContainer.new()
 		new_container.columns = grid_columns
 	if new_container != null:
-		for child in values_container.get_children():
-			child.reparent(new_container)
-		values_container.name = "fordeletion"
-		values_container.queue_free()
+		if values_container != null:
+			for child in values_container.get_children():
+				child.reparent(new_container)
+			values_container.name = "fordeletion"
+			values_container.queue_free()
 		new_container.name = "ValuesContainer"
+		var a = new_container.size_flags_horizontal
 		add_child(new_container)
+		var b = new_container.size_flags_horizontal
+		await new_container.ready
+		var c = new_container.size_flags_horizontal
+		pass
+		if Engine.is_editor_hint() and get_tree().edited_scene_root == self:
+			new_container.owner = self
 		values_container = new_container
 	notify_property_list_changed()
 
@@ -96,7 +114,7 @@ func _on_property_changed(prop_name: String):
 
 func _set(property, value):
 	if property == "/list_layout":
-		layout_changed.emit()
+		layout_changed.emit(value)
 	super(property, value)
 
 func _reduce_prop_list(accum, val):
@@ -108,9 +126,9 @@ func _get_property_list() -> Array:
 	var props = []
 	props.append({
 		name = "/list_layout",
-		type = TYPE_STRING_NAME,
+		type = TYPE_INT,
 		hint = PROPERTY_HINT_ENUM,
-		hint_string = Utility.array_to_hint_string(ContentLayout.keys())
+		hint_string = contentlayout_hint_string
 	})
 #
 	#if get("/linked_class"):
@@ -132,7 +150,7 @@ func get_property_hint_string() -> String:
 	var multi_props = all_props.filter(func(x): return x.type == TYPE_ARRAY or x.type == TYPE_DICTIONARY)
 	return multi_props.reduce(func(accum, val): return accum + val.name + ",", "").left(-1)
 	
-		
+var contentlayout_hint_string = Utility.dict_to_hint_string(ContentLayout)
 enum ContentLayout {
 	HORIZONTAL,
 	VERTICAL,

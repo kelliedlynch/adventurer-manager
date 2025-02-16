@@ -8,29 +8,9 @@ offset_bottom = 320.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_mhny2")
-/list_layout = null
+/list_layout = 1
 /linked_class = &"Adventurer"
 /linked_property = &"traits"
 
-[node name="ValuesContainer" type="HBoxContainer" parent="."]
+[node name="ValuesContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-
-[node name="@Label@21891" type="Label" parent="ValuesContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "lorem"
-
-[node name="@Label@21892" type="Label" parent="ValuesContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "ipsum"
-
-[node name="@Label@21893" type="Label" parent="ValuesContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "dolor"
-
-[node name="@Label@21894" type="Label" parent="ValuesContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "sit"

@@ -9,7 +9,6 @@ var town_name: String = "Townsvillia":
 var buildings: Array[Building] = []
 
 func _init() -> void:
-	#super()
 	watchable_props.append_array(["town_name"])
 	var tav = Tavern.new()
 	tav.building_name = "The Rusty Dragon"
@@ -17,4 +16,3 @@ func _init() -> void:
 	var hosp = Hospital.new()
 	hosp.building_name = "Sawbones Express"
 	buildings.append(hosp)
-	#super()

@@ -15,7 +15,6 @@ var town: Town = null:
 
 func _ready() -> void:
 	for child in building_grid.get_children():
-		#remove_child(child)
 		child.queue_free()
 	if not is_inside_tree():
 		await ready
@@ -26,7 +25,6 @@ func _ready() -> void:
 			var bldg = TownInterfaceBuilding.instantiate(building)
 			building_grid.add_child(bldg)
 			bldg.enter_button.pressed.connect(_open_building_menu.bind(building))
-	#watch_reactive_fields(town, self)
 	super()
 
 func _open_building_menu(building: Building):
