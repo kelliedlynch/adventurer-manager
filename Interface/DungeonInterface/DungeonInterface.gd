@@ -31,10 +31,14 @@ func _ready() -> void:
 	dungeon_units_list.menu_item_selected.connect(_on_unit_selected)
 	watch_reactive_fields(dungeon, dungeon_panel)
 	send_button.pressed.connect(_on_press_send_button)
-	dungeon.property_changed.connect(_on_dungeon_property_changed)
 	super()
 
 func _get_idle_units() -> Array[Adventurer]:
+	if get_tree().current_scene == self or Engine.is_editor_hint():
+		var u: Array[Adventurer] = []
+		for i in 6:
+			u.append(Adventurer.generate_random_newbie())
+		return u
 	var idle = Game.player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE and not staged_units.has(x))
 	return idle
 	
@@ -74,10 +78,6 @@ func _refresh_interface():
 			party_status_label.text = "Party: %d/%d" % [staged_units.size(), dungeon.max_party_size]
 	for icon in hazard_icons.get_children():
 		icon.refresh_icon()
-	
-func _on_dungeon_property_changed(prop: String, _value: Variant):
-	if prop == "questing":
-		_refresh_interface()
 	
 func _on_press_send_button():
 	if dungeon.party.is_empty():

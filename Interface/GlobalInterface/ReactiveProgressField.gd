@@ -22,10 +22,8 @@ class_name ReactiveProgressField
 		divider_label.text = value
 
 func _init() -> void:
-	#super()
 	_internal_vars_list.append("/max_value_property")
 
-		
 func _ready() -> void:
 	theme_changed.connect(_on_theme_changed)
 	_on_theme_changed()
@@ -34,14 +32,6 @@ func _ready() -> void:
 		current_value_label.text = "50"
 		max_value_label.text = "100"
 		max_value_divider = "/"
-	#else:
-		#max_value_label.text = max_value_divider
-	#super()
-#func _on_tree_exiting():
-	#if get_tree().edited_scene_root == self:
-		#label = ""
-		#label_divider = ":"
-		
 	
 func _on_theme_changed():
 	var variation = theme_type_variation
@@ -60,25 +50,10 @@ func _get_property_list() -> Array:
 			hint_string = hint_str
 		}]
 	return[]
-	#return props
 
-#func watch_object(obj: Object):
-	#linked_model = obj
-	#var prop = get("/linked_property")
-	##if prop:
-		##property_value = str(obj.get(prop))
-	#var max_prop = get("/max_val_property")
-	#if max_prop:
-		#max_value = str(obj.get(max_prop))
-	#if prop or max_prop:
-		#if not obj.property_changed.is_connected(_on_property_changed):
-			#obj.property_changed.connect(_on_property_changed)
-
-func _on_property_changed(prop_name: String, value: Variant):
-	super(prop_name, value)
-	if prop_name == get("/linked_property"):
-		current_value_label.text = str(linked_model.get(get("/linked_property")))
-	if prop_name == get("/max_value_property"):
-		max_value_label.text = str(linked_model.get(get("/max_value_property")))
-		max_value_label.visible = show_max and max_value_label.text != ""
-		divider_label.visible = max_value_label.visible
+func _process(delta: float) -> void:
+	if linked_model:
+		if get("/max_value_property"):
+			max_value_label.text = str(linked_model.get(get("/max_value_property")))
+		if get("/linked_property"):
+			current_value_label.text = str(linked_model.get(get("/linked_property")))

@@ -17,10 +17,10 @@ class_name Menu
 @export var select_multiple: bool = false
 var currently_selected: Array[MenuItemBase] = []
 
-var _menu_items: Array[MenuItemBase] = []
+var menu_items: Array[MenuItemBase] = []
 
 func add_menu_item(item: MenuItemBase):
-	_menu_items.append(item)
+	menu_items.append(item)
 	if not is_inside_tree():
 		await ready
 	menu_items_container.add_child(item)
@@ -28,14 +28,14 @@ func add_menu_item(item: MenuItemBase):
 	#_refresh_queued = true
 	
 func remove_menu_item(item: MenuItemBase):
-	_menu_items.erase(item)
+	menu_items.erase(item)
 	currently_selected.erase(item)
 	item.selected_changed.disconnect(_on_item_selected_changed)
 	item.queue_free()
 	#_refresh_queued = true
 	
 func clear_menu_items():
-	for item in _menu_items:
+	for item in menu_items:
 		remove_menu_item(item)
 	
 func _on_item_selected_changed(val: bool, item: MenuItemBase):

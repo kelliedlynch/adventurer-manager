@@ -19,15 +19,15 @@
 [ext_resource type="StyleBox" uid="uid://cgeah78dfb8r" path="res://Interface/PlayerMenuInterface/InventorySlotBackgroundNormal.tres" id="15_ncu4y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etxuw"]
-bg_color = Color(0.329412, 0.345098, 0.388235, 1)
+bg_color = Color(0.568627, 0.584314, 0.631373, 1)
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.184314, 0.192157, 0.215686, 1)
+border_color = Color(0.329412, 0.345098, 0.388235, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yqev"]
-border_width_left = 16
-border_width_top = 1
-border_width_right = 16
+content_margin_left = 16.0
+content_margin_right = 16.0
+bg_color = Color(0.184314, 0.192157, 0.215686, 1)
 
 [resource]
 default_font_size = 36

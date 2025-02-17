@@ -9,8 +9,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_mhny2")
 /list_layout = 1
-/linked_class = &"Adventurer"
-/linked_property = &"traits"
+/linked_class = ""
 
 [node name="ValuesContainer" type="VBoxContainer" parent="."]
 layout_mode = 2

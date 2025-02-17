@@ -4,4 +4,4 @@ class_name Armor
 func _init() -> void:
 	item_name = "Armor"
 	texture = load("res://Graphics/Equipment/Armor/armor_2.png")
-	stat_def = 2
+	stat_mods.stat_def = 2

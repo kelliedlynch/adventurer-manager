@@ -43,6 +43,7 @@ size_flags_vertical = 3
 
 [node name="InjuredUnits" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_emvv3")]
 layout_mode = 2
+layout_variation = 1
 menu_title = "Injured Units"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
@@ -74,6 +75,7 @@ size_flags_stretch_ratio = 0.5
 
 [node name="SelectedUnit" parent="VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("6_emvv3")]
 layout_mode = 2
+layout_variation = 1
 
 [node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

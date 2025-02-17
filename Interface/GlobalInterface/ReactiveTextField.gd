@@ -2,12 +2,8 @@
 extends ReactiveField
 class_name ReactiveTextField
 
-func _ready() -> void:
-	if linked_model and get("/linked_property"):
-		self.text = linked_model.get(get("/linked_property"))
-	#super()
-
-func _on_property_changed(prop_name: String, value: Variant):
-	if prop_name == get("/linked_property"):
-		self.text = str(linked_model.get(get("/linked_property")))
-	super(prop_name, value)
+func _process(delta: float) -> void:
+	if linked_model:
+		var prop_val = str(linked_model.get(get("/linked_property")))
+		if self.text != prop_val:
+			self.text = prop_val

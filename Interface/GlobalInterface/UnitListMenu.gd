@@ -2,6 +2,13 @@
 extends Menu
 class_name UnitListMenu
 
+
+@export var layout_variation: UnitListMenuItem.LayoutVariation = UnitListMenuItem.LayoutVariation.WIDE:
+	set(value):
+		layout_variation = value
+		for item in menu_items:
+			item.layout_variation = value
+
 var registered_buttons: Array[Dictionary] = []
 
 var _unit_menuitem_map: Dictionary[Adventurer, UnitListMenuItem] = {}
@@ -14,14 +21,16 @@ var units: Array[Adventurer]:
 func add_unit(unit: Adventurer):
 	if !_unit_menuitem_map.has(unit):
 		var item = UnitListMenuItem.instantiate(unit)
-		
 		_unit_menuitem_map[unit] = item
-		
+		item.layout_variation = layout_variation
 		add_menu_item(item)
 		for button in registered_buttons:
 			var butt = item.add_action_button(button.text, button.action.bind(unit))
 			if not button.active_if.call(unit):
 				butt.disabled = true
+		if not Engine.is_editor_hint() and not Game.player.roster.has(unit):
+			item.weapon_slot.select_disabled = true
+			item.armor_slot.select_disabled = true
 		
 
 func remove_unit(unit: Adventurer):
@@ -38,7 +47,7 @@ func _ready() -> void:
 	super._ready()
 
 func _refresh_menu() -> void:
-	for item in _menu_items:
+	for item in menu_items:
 		if !_unit_menuitem_map.has(item.unit):
 			remove_menu_item(item)
 
@@ -55,7 +64,7 @@ func _on_is_submenu_changed(val: bool):
 	title_label.theme_type_variation = "TitleSmall" if val == true else "TitleBig"
 
 static func instantiate(with_units: Array[Adventurer] = []) -> UnitListMenu:
-	var menu = load("res://Interface/RosterInterface/RosterInterface.tscn").instantiate()
+	var menu = preload("res://Interface/GlobalInterface/UnitListMenu.tscn").instantiate()
 	for unit in with_units:
 		menu.add_unit(unit)
 	return menu

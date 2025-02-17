@@ -10,10 +10,13 @@ signal input_state_changed
 
 var selected: bool = false:
 	set(value):
-		selected = value
-		input_state &= PRESSED if value else ~PRESSED
-		selected_changed.emit(value)
+		if !select_disabled:
+			selected = value
+			input_state &= PRESSED if value else ~PRESSED
+			selected_changed.emit(value)
 signal selected_changed
+
+var select_disabled: bool = false
 
 func _ready() -> void:
 	input_state_changed.connect(_on_input_state_changed)

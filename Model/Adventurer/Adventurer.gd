@@ -3,24 +3,15 @@ class_name Adventurer
 
 static var rng: RandomNumberGenerator
 		
-var adventurer_class: AdventurerClass = AdventurerClass.random().new():
-	set(value):
-		adventurer_class = value
-		_set("adventurer_class", value)
+var adventurer_class: AdventurerClass = AdventurerClass.random().new()
 		
 var portrait: Texture2D = get_random_portrait()
 
 var hire_cost: int = 0
 		
-var traits: Array[Trait] = []:
-	set(value):
-		traits = value
-		_set("traits", value)
+var traits: Array[Trait] = []
 
-var _experience: int = 0:
-	set(value):
-		_experience = value
-		_set("experience", value)
+var _experience: int = 0
 var experience: int:
 	get:
 		return _experience
@@ -42,18 +33,13 @@ var weapon: Weapon:
 	set(value):
 		weapon = value
 		value.status = Equipment.ITEM_EQUIPPED
-		_set("weapon", value)
+
 var armor: Armor:
 	set(value):
 		armor = value
 		value.status = Equipment.ITEM_EQUIPPED
-		_set("armor", value)
-
-#signal equipment_changed
 
 func _init() -> void:
-	super()
-	watchable_props.append_array(["adventurer_class", "experience", "weapon", "armor", "traits"])
 	unit_name = NameGenerator.new_name()
 	for stat in adventurer_class.stat_overrides:
 		set(stat, adventurer_class.stat_overrides[stat])
@@ -118,8 +104,9 @@ static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
 	for i in randi_range(1, 3):
 		var t = Trait.TraitList.pick_random()
-		if noob.traits.has(t): continue
-		noob.traits.append(Trait.TraitList.pick_random())
+		if noob.traits.has(t): 
+			continue
+		noob.traits.append(t)
 	noob.level_up()
 	rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]

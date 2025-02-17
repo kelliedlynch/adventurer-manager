@@ -8,9 +8,14 @@ class_name UnitListMenuItem
 @onready var armor_slot: EquipmentSlot = find_child("ArmorSlot")
 @onready var action_buttons: VBoxContainer = find_child("ActionButtons")
 @onready var traits: ReactiveMultiField = find_child("TraitsList")
-@onready var main_layout_rows: VBoxContainer = find_child("MainLayoutRows")
-@onready var stats_block_body: HBoxContainer = find_child("StatsBlockBody")
+@onready var traits_parent_wide: MarginContainer = find_child("TraitsListWideLayout")
+@onready var traits_parent_narrow: MarginContainer = find_child("TraitsListNarrowLayout")
 
+@export var layout_variation: LayoutVariation = LayoutVariation.WIDE:
+	set(value):
+		if value != layout_variation:
+			layout_variation = value
+			_set_layout_variation(value)
 
 var inventory_submenu: InventoryInterface
 
@@ -35,7 +40,7 @@ var unit: Adventurer = null:
 			watch_reactive_fields(unit, self)
 
 func _ready() -> void:
-	resized.connect(_on_size_changed)
+	_set_layout_variation(layout_variation)
 	if get_tree().current_scene == self or Engine.is_editor_hint():
 		unit = Adventurer.generate_random_newbie()
 		for child in action_buttons.get_children():
@@ -49,30 +54,18 @@ func _ready() -> void:
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
 	super()
 	
-func _on_size_changed():
-	#TODO: Would really like to do this without walking up parents
-	var width = get_rect().size.x
-
-	if traits.get_parent() == stats_block_body:
-		var p_width = get_parent().get_rect().size.x
-		var pp_width = get_parent().get_parent().get_rect().size.x
-		if (width > p_width or width > pp_width):
-			print("traits don't fit, reparenting below")
-			traits.reparent(main_layout_rows)
-			traits.set("/list_layout", ReactiveMultiField.ContentLayout.HORIZONTAL)
-	elif traits.get_parent() == main_layout_rows:
-		var p_width = stats_block_body.get_rect().size.x
-		var pp_width = stats_block_body.get_parent().get_rect().size.x
-		if (width < p_width and width < pp_width):
-			print("traits could fit, reparenting inside")
-			var children = stats_block_body.get_children()
-			var index = children.find(equip_slots)
-			var end_children = children.slice(index)
-			end_children.map(remove_child)
-			traits.reparent(stats_block_body)
+func _set_layout_variation(variation: int):
+	if !is_inside_tree():
+		await ready
+	if variation == LayoutVariation.WIDE:
+		if traits.get_parent() != traits_parent_wide:
+			traits.reparent(traits_parent_wide)
 			traits.set("/list_layout", ReactiveMultiField.ContentLayout.VERTICAL)
-			end_children.map(add_child)
-	pass
+	if variation == LayoutVariation.NARROW_TRAITS_BELOW:
+		if traits.get_parent() != traits_parent_narrow:
+			traits.reparent(traits_parent_narrow)
+			traits.set("/list_layout", ReactiveMultiField.ContentLayout.HORIZONTAL)
+
 	
 func _on_slot_clicked(_val, slot: EquipmentSlot):
 	inventory_submenu = InventoryInterface.instantiate(Game.player.inventory.filter(slot.filter))
@@ -89,23 +82,19 @@ func _on_equipment_selected(menu_item: InventoryMenuItem, _val):
 		armor_slot.item = unit.armor
 	inventory_submenu.queue_free()
 	
-#func _on_unit_equipment_changed(equip_type: String):
-	#if equip_type == "weapon":
-		#weapon_slot.item = unit.weapon
-	#elif equip_type == "armor":
-		#armor_slot.item = unit.armor
-	
-func _on_armor_clicked():
-	pass
-		
 func add_action_button(text: String, action: Callable) -> Button:
 	var button = Button.new()
 	button.text = text
 	button.pressed.connect(action)
 	action_buttons.add_child(button)
 	return button
+	
+enum LayoutVariation {
+	WIDE,
+	NARROW_TRAITS_BELOW
+}
 
 static func instantiate(adv: Adventurer) -> UnitListMenuItem:
-	var item = load("res://Interface/GlobalInterface/UnitListMenuItem.tscn").instantiate()
+	var item = preload("res://Interface/GlobalInterface/UnitListMenuItem.tscn").instantiate()
 	item.unit = adv
 	return item

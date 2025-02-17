@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxfkowy3k8qfs" path="res://Interface/PlayerMenuInterface/InventoryMenuItem.gd" id="1_bu0kc"]
 [ext_resource type="Texture2D" uid="uid://cs8l33hklv6au" path="res://Graphics/Equipment/Armor/armor_1.png" id="2_7k65x"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/ReactiveProgressField.tscn" id="3_0dy0q"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="3_7k65x"]
 
 [node name="InventoryMenuItem" type="PanelContainer"]
 anchors_preset = 14
@@ -29,9 +29,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 16
 
-[node name="ItemName" parent="HBoxContainer/MarginContainer" instance=ExtResource("3_0dy0q")]
+[node name="ItemName" type="Label" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme_type_variation = &"FieldBig"
-/max_value_property = null
+script = ExtResource("3_7k65x")
 /linked_class = &"Equipment"
 /linked_property = &"item_name"

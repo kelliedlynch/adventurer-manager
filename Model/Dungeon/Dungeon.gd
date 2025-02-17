@@ -1,10 +1,7 @@
-extends Watchable
+extends Resource
 class_name Dungeon
 
-var dungeon_name: String = "Not Scary Dungeon":
-	set(value):
-		dungeon_name = value
-		_set("dungeon_name", value)
+var dungeon_name: String = "Scary Dungeon"
 var party: Array[Adventurer] = []
 var staged: Array[Adventurer] = []
 var max_party_size: int = 4
@@ -15,27 +12,12 @@ var per_enemy: int = 3
 
 var hazards: Array[Hazard] = []
 
-var questing: bool = false:
-	set(value):
-		questing = value
-		_set("questing", value)
-var quest_time: int = 3:
-	set(value):
-		quest_time = value
-		_set("quest_time", value)
-var remaining_quest_time: int = -1:
-	set(value):
-		remaining_quest_time = value
-		_set("remaining_quest_time", value)
+var questing: bool = false
+var quest_time: int = 3
+var remaining_quest_time: int = -1
 
-var _min_level: int = 1:
-	set(value):
-		_min_level = value
-		_set("level_range", value)
-var _max_level: int = 5:
-	set(value):
-		_max_level = value
-		_set("level_range", value)
+var _min_level: int = 1
+var _max_level: int = 5
 var level_range: String = str(_min_level) + "-" + str(_max_level)
 
 var combat: Combat
@@ -45,7 +27,6 @@ func _init() -> void:
 	if not Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_on_advance_tick)
 	hazards.append(HazardCold.new())
-	watchable_props.append_array(["dungeon_name", "questing", "quest_time", "remaining_quest_time", "level_range"])
 	
 func begin_quest():
 	if party.size() > 0:

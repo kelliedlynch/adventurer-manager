@@ -6,7 +6,6 @@ var adventurers_for_hire: Array[Adventurer] = []
 signal adventurers_for_hire_changed
 
 func _init() -> void:
-	super()
 	building_name = "Tavern"
 	building_description = "Hire adventurers, and nothing else yet."
 	interface = TavernInterface

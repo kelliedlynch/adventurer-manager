@@ -23,6 +23,7 @@ layout_mode = 2
 
 [node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
+layout_variation = 1
 menu_title = "Idle Units"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -37,7 +38,7 @@ layout_mode = 2
 
 [node name="DungeonName" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
-text = "Not Scary Dungeon"
+text = "Scary Dungeon"
 horizontal_alignment = 1
 script = ExtResource("5_6wovn")
 /linked_class = &"Dungeon"
@@ -103,6 +104,7 @@ text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
+layout_variation = 1
 menu_title = "Dungeon Party"
 
 [node name="DungeonStatusWindow" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]

@@ -44,3 +44,4 @@ size_flags_horizontal = 3
 
 [node name="ForHireMenu" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_llgr7")]
 layout_mode = 2
+layout_variation = 1
