@@ -27,30 +27,6 @@ var experience: int:
 	set(value):
 		push_error("cannot set exp, use add_experience")
 		
-# TODO: figure out how I should actually handle modified stats, and how to make ReactiveFields remain
-#		reactive when I do so.
-var mod_stat_atk: int:
-	get:
-		var value = stat_atk
-		if armor:
-			value += armor.stat_atk
-		if weapon:
-			value += weapon.stat_atk
-		return value
-	set(value):
-		push_error("cannot set modified stat")
-		
-var mod_stat_def: int:
-	get:
-		var value = stat_def
-		if armor:
-			value += armor.stat_def
-		if weapon:
-			value += weapon.stat_def
-		return value
-	set(value):
-		push_error("cannot set modified stat")
-		
 var next_level_exp: int:
 	get:
 		var total = 0

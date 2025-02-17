@@ -7,7 +7,7 @@ func _ready() -> void:
 		self.text = linked_model.get(get("/linked_property"))
 	#super()
 
-func _on_property_changed(prop_name: String):
+func _on_property_changed(prop_name: String, value: Variant):
 	if prop_name == get("/linked_property"):
 		self.text = str(linked_model.get(get("/linked_property")))
-	super(prop_name)
+	super(prop_name, value)

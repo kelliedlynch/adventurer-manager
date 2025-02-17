@@ -99,16 +99,16 @@ func _add_value_interface(value):
 	label.text = value
 	values_container.add_child(label)
 
-func _on_property_changed(prop_name: String):
-	super(prop_name)
+func _on_property_changed(prop_name: String, value: Variant):
+	super(prop_name, value)
 	if prop_name == get("/linked_property"):
 		var v = linked_model.get(get("/linked_property"))
 		var values_list = v if v is Array else v.values()
 		for child in values_container.get_children():
 			child.queue_free()
-		for value in values_list:
+		for val in values_list:
 			var label = Label.new()
-			label.text = str(value)
+			label.text = str(val)
 			values_container.add_child(label)
 		theme_changed.emit()
 

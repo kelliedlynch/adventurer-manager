@@ -74,8 +74,8 @@ func _get_property_list() -> Array:
 		#if not obj.property_changed.is_connected(_on_property_changed):
 			#obj.property_changed.connect(_on_property_changed)
 
-func _on_property_changed(prop_name: String):
-	super(prop_name)
+func _on_property_changed(prop_name: String, value: Variant):
+	super(prop_name, value)
 	if prop_name == get("/linked_property"):
 		current_value_label.text = str(linked_model.get(get("/linked_property")))
 	if prop_name == get("/max_value_property"):

@@ -32,5 +32,6 @@ theme_override_constants/margin_left = 16
 [node name="ItemName" parent="HBoxContainer/MarginContainer" instance=ExtResource("3_0dy0q")]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
+/max_value_property = null
 /linked_class = &"Equipment"
 /linked_property = &"item_name"

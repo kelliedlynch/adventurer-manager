@@ -75,7 +75,7 @@ func _refresh_interface():
 	for icon in hazard_icons.get_children():
 		icon.refresh_icon()
 	
-func _on_dungeon_property_changed(prop: String):
+func _on_dungeon_property_changed(prop: String, _value: Variant):
 	if prop == "questing":
 		_refresh_interface()
 	

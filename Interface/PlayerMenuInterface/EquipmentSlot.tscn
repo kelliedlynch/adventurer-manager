@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc3uq6b0rbj7n"]
+[gd_scene load_steps=3 format=3 uid="uid://cc3uq6b0rbj7n"]
 
 [ext_resource type="Script" uid="uid://dr25rtdprsuvp" path="res://Interface/PlayerMenuInterface/EquipmentSlot.gd" id="1_2p5nb"]
-[ext_resource type="Texture2D" uid="uid://cnqpqw3f4tpyy" path="res://Graphics/Equipment/Weapons/sv_t_04.png" id="1_criwv"]
 [ext_resource type="Script" uid="uid://coq3mcovpt4ll" path="res://Interface/GlobalInterface/Menu/MenuItemBase.gd" id="2_5u142"]
 
 [node name="EquipmentSlot" type="PanelContainer"]
@@ -23,5 +22,4 @@ show_behind_parent = true
 light_mask = 16385
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("1_criwv")
 expand_mode = 1

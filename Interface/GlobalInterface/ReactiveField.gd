@@ -10,7 +10,7 @@ var linked_model: Object:
 			value.property_changed.connect(_on_property_changed)
 			if not is_inside_tree():
 				await ready
-			_on_property_changed("linked_model")
+			_on_property_changed("linked_model", value)
 		#_set("/linked_model", value)
 
 #func _ready() -> void:
@@ -61,7 +61,7 @@ func get_watchable_properties() -> Array[String]:
 	var instance = Utility.instance_class_from_string_name(get("/linked_class"))
 	return instance.watchable_props
 
-func _on_property_changed(prop_name: String):
+func _on_property_changed(prop_name: String, value: Variant):
 	if prop_name == "linked_model":
-		for prop in linked_model.watchable_props:
-			_on_property_changed(prop)
+		for prop in value.watchable_props:
+			_on_property_changed(prop, value.get(prop))

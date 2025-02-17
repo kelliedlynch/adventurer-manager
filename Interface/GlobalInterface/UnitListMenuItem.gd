@@ -27,6 +27,10 @@ var unit: Adventurer = null:
 		if unit:
 			if not is_inside_tree():
 				await ready
+			if unit.weapon:
+				weapon_slot.item = unit.weapon
+			if unit.armor:
+				armor_slot.item = unit.armor
 			portrait_texture_rect.texture = unit.portrait
 			watch_reactive_fields(unit, self)
 
@@ -79,17 +83,17 @@ func _on_slot_clicked(_val, slot: EquipmentSlot):
 func _on_equipment_selected(menu_item: InventoryMenuItem, _val):
 	if menu_item.item is Weapon:
 		unit.weapon = menu_item.item
+		weapon_slot.item = unit.weapon
 	elif menu_item.item is Armor:
 		unit.armor = menu_item.item
-	unit.property_changed.emit("mod_stat_atk")
-	unit.property_changed.emit("mod_stat_def")
+		armor_slot.item = unit.armor
 	inventory_submenu.queue_free()
 	
-func _on_unit_equipment_changed(equip_type: String):
-	if equip_type == "weapon":
-		weapon_slot.item = unit.weapon
-	elif equip_type == "armor":
-		armor_slot.item = unit.armor
+#func _on_unit_equipment_changed(equip_type: String):
+	#if equip_type == "weapon":
+		#weapon_slot.item = unit.weapon
+	#elif equip_type == "armor":
+		#armor_slot.item = unit.armor
 	
 func _on_armor_clicked():
 	pass

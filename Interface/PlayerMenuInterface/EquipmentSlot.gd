@@ -22,11 +22,11 @@ func _ready() -> void:
 	texture = texture
 	super()
 
-func _on_mouse_entered():
-	pass
-	
-func _on_mouse_exited():
-	pass
-
-func _on_gui_input(event: InputEvent):
-	super(event)
+#func _on_mouse_entered():
+	#pass
+	#
+#func _on_mouse_exited():
+	#pass
+#
+#func _on_gui_input(event: InputEvent):
+	#super(event)
