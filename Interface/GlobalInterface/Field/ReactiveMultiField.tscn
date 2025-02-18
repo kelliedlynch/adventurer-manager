@@ -8,8 +8,10 @@ offset_bottom = 320.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_mhny2")
-/list_layout = 1
+/list_layout = 0
 /linked_class = ""
 
-[node name="ValuesContainer" type="VBoxContainer" parent="."]
+[node name="ValuesContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16

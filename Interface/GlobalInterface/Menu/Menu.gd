@@ -1,7 +1,8 @@
+@tool
 extends Interface
 class_name Menu
 
-@export_placeholder("Menu Title") var menu_title: String:
+@export_placeholder("Menu Title") var menu_title: String = "":
 	set(value):
 		if value != menu_title:
 			menu_title = value

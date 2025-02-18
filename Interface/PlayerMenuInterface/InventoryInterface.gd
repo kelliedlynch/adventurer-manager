@@ -1,3 +1,4 @@
+@tool
 extends Menu
 class_name InventoryInterface
 

@@ -2,7 +2,7 @@
 extends MenuItemBase
 class_name EquipmentSlot
 
-var filter: Callable = func(x): return true
+var filter: Callable = func(_x): return true
 
 @onready var texture_rect: TextureRect = find_child("EquipmentTexture")
 @onready var background: PanelContainer = find_child("SlotBackground")

@@ -17,7 +17,7 @@ func _ready() -> void:
 	town_button.pressed.connect(_on_town_button_pressed)
 	dungeon_button.pressed.connect(_on_dungeon_button_pressed)
 	activity_log_button.pressed.connect(activity_log.toggle_window)
-	#money_label.linked_model = Player
+	money_label.linked_model = Game.player
 	debug_advance_tick.pressed.connect(Game.advance_tick)
 	
 

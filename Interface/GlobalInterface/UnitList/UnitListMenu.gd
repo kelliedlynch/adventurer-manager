@@ -37,13 +37,12 @@ func remove_unit(unit: Adventurer):
 	if _unit_menuitem_map.has(unit):
 		remove_menu_item(_unit_menuitem_map[unit])
 		_unit_menuitem_map.erase(unit)
-		
 
 func _ready() -> void:
-	if get_tree().current_scene == self or Engine.is_editor_hint():
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		for i in 10:
 			add_unit(Adventurer.generate_random_newbie())
-	#_refresh_queued = true
+
 	super._ready()
 
 func _refresh_menu() -> void:
@@ -59,9 +58,6 @@ func register_action_button(text: String, action: Callable, active_if: Callable 
 	}
 	registered_buttons.append(dict)
 	_refresh_queued = true
-
-func _on_is_submenu_changed(val: bool):
-	title_label.theme_type_variation = "TitleSmall" if val == true else "TitleBig"
 
 static func instantiate(with_units: Array[Adventurer] = []) -> UnitListMenu:
 	var menu = preload("res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn").instantiate()

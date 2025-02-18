@@ -14,7 +14,7 @@ var hazards: Array[Hazard] = []
 
 var questing: bool = false
 var quest_time: int = 3
-var remaining_quest_time: int = -1
+var remaining_quest_time: int = quest_time
 
 var _min_level: int = 1
 var _max_level: int = 5
@@ -83,4 +83,4 @@ func complete_quest(success: bool):
 		log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
 	Game.activity_log.push_message(log_msg)
 	questing = false
-	remaining_quest_time = -1
+	remaining_quest_time = quest_time

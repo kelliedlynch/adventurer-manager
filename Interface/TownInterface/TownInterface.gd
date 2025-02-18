@@ -31,7 +31,7 @@ func _open_building_menu(building: Building):
 	var menu = building.interface.instantiate(building)
 	add_child(menu)
 
-static func instantiate(town: Town) -> TownInterface:
+static func instantiate(for_town: Town) -> TownInterface:
 	var menu = load("res://Interface/TownInterface/TownInterface.tscn").instantiate()
-	menu.town = town
+	menu.town = for_town
 	return menu

@@ -16,6 +16,38 @@ signal layout_changed
 		if values_container is GridContainer:
 			values_container.columns = value
 			
+@export var v_separation: int = 8:
+	set(value):
+		v_separation = value
+		if values_container is VBoxContainer:
+			values_container.add_theme_constant_override("separation", value)
+		if values_container is GridContainer:
+			values_container.add_theme_constant_override("v_separation", value)
+		#notify_property_list_changed()
+			
+@export var h_separation: int = 16:
+	set(value):
+		h_separation = value
+		if values_container is HBoxContainer:
+			values_container.add_theme_constant_override("separation", value)
+		if values_container is GridContainer:
+			values_container.add_theme_constant_override("h_separation", value)
+		#notify_property_list_changed()
+			
+@export var fill_horizontal: bool = false:
+	set(value):
+		fill_horizontal = value
+		for child in values_container.get_children():
+			child.size_flags_horizontal = Control.SIZE_EXPAND_FILL if value == true else Control.SIZE_SHRINK_CENTER
+		notify_property_list_changed()
+		
+@export var fill_vertical: bool = false:
+	set(value):
+		fill_vertical = value
+		for child in values_container.get_children():
+			child.size_flags_vertical = Control.SIZE_EXPAND_FILL if value == true else Control.SIZE_SHRINK_CENTER
+		notify_property_list_changed()
+			
 var dummy_value = ["lorem", "ipsum", "dolor", "sit", "amet"]
 			
 func _init() -> void:
@@ -44,14 +76,18 @@ func _on_layout_changed(value: int) -> void:
 	var new_container: Container
 	if value == ContentLayout.HORIZONTAL and not values_container is HBoxContainer:
 		new_container = HBoxContainer.new()
-		new_container.size_flags_horizontal += Control.SIZE_EXPAND
+		new_container.add_theme_constant_override("separation", h_separation)
 		#new_container.size_flags_changed.connect(_on_flags_changed)
 	elif value == ContentLayout.VERTICAL and not values_container is VBoxContainer:
 		new_container = VBoxContainer.new()
+		new_container.add_theme_constant_override("separation", v_separation)
 	elif value == ContentLayout.GRID and not values_container is GridContainer:
 		new_container = GridContainer.new()
 		new_container.columns = grid_columns
+		new_container.add_theme_constant_override("h_separation", h_separation)
+		new_container.add_theme_constant_override("v_separation", v_separation)
 	if new_container != null:
+		new_container.size_flags_horizontal += Control.SIZE_EXPAND
 		if values_container != null:
 			for child in values_container.get_children():
 				child.reparent(new_container)
@@ -60,7 +96,7 @@ func _on_layout_changed(value: int) -> void:
 		values_container = new_container
 		new_container.name = "ValuesContainer"
 		add_child(new_container)
-		await new_container.ready
+		#await new_container.ready
 		if Engine.is_editor_hint() and get_tree().edited_scene_root == self:
 			new_container.owner = self
 		

@@ -5,7 +5,7 @@ static var Mage = ClassMage.new()
 static var Warrior = ClassWarrior.new()
 static var Healer = ClassHealer.new()
 
-static func random() -> Variant:
+func random() -> Variant:
 	var classes = [
 		Warrior, Mage, Healer
 	]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitList/UnitListMenuItem.gd" id="1_i6766"]
-[ext_resource type="Texture2D" uid="uid://bcm2ej5ytb8cm" path="res://Graphics/Portraits/simplified cartoon serious menacing doberman dog looking up isolated white background 09-02-2025 at 13-46-56.jpeg" id="2_xd66s"]
+[ext_resource type="Texture2D" uid="uid://dpgr5fkx7iwly" path="res://Graphics/Portraits/f_21.PNG" id="2_8d6ew"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/Field/ReactiveProgressField.tscn" id="3_bele2"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_pb6xb"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="5_llwmx"]
@@ -30,7 +30,7 @@ layout_mode = 2
 
 [node name="MainLayoutCols" type="HBoxContainer" parent="MainLayoutRows"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 18
 alignment = 1
 
 [node name="PortraitFrame" type="PanelContainer" parent="MainLayoutRows/MainLayoutCols"]
@@ -46,7 +46,7 @@ custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_xd66s")
+texture = ExtResource("2_8d6ew")
 expand_mode = 1
 
 [node name="StatsBlock" type="MarginContainer" parent="MainLayoutRows/MainLayoutCols"]
@@ -62,7 +62,7 @@ layout_mode = 2
 
 [node name="Name" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
-text = "Praxofra"
+text = "Irkultensent"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"unit_name"
@@ -76,14 +76,14 @@ alignment = 2
 layout_mode = 2
 text = "Lv."
 
-[node name="Level" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
+[node name="LevelValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
-text = "2"
+text = "1"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"level"
 
-[node name="Class" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
+[node name="ClassValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
 text = "Mage"
 script = ExtResource("4_pb6xb")
@@ -137,12 +137,13 @@ theme_type_variation = &"TextBig"
 
 [node name="StatValuesBlock" type="GridContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock"]
 layout_mode = 2
-theme_override_constants/h_separation = 24
-theme_override_constants/v_separation = 8
+theme_override_constants/h_separation = 28
+theme_override_constants/v_separation = 12
 columns = 3
 
 [node name="StatAtk" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="StatAtkLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatAtk"]
 layout_mode = 2
@@ -151,14 +152,15 @@ expand_mode = 3
 
 [node name="StatAtkValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatAtk"]
 layout_mode = 2
-theme_type_variation = &"TextSmall"
-text = "8"
+theme_type_variation = &"FieldSmall"
+text = "7"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_atk"
 
 [node name="StatDef" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="StatDefLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDef"]
 layout_mode = 2
@@ -167,7 +169,7 @@ expand_mode = 2
 
 [node name="StatDefValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDef"]
 layout_mode = 2
-theme_type_variation = &"TextSmall"
+theme_type_variation = &"FieldSmall"
 text = "7"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
@@ -175,6 +177,7 @@ script = ExtResource("4_pb6xb")
 
 [node name="StatMag" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="StatMagLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatMag"]
 layout_mode = 2
@@ -183,14 +186,15 @@ expand_mode = 2
 
 [node name="StatMagValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatMag"]
 layout_mode = 2
-theme_type_variation = &"TextSmall"
-text = "14"
+theme_type_variation = &"FieldSmall"
+text = "10"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_mag"
 
 [node name="StatRes" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="StatResLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatRes"]
 layout_mode = 2
@@ -199,14 +203,15 @@ expand_mode = 2
 
 [node name="StatResValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatRes"]
 layout_mode = 2
-theme_type_variation = &"TextSmall"
-text = "13"
+theme_type_variation = &"FieldSmall"
+text = "9"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_res"
 
 [node name="StatDex" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="StatDexLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDex"]
 layout_mode = 2
@@ -215,14 +220,15 @@ expand_mode = 2
 
 [node name="StatDexValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatDex"]
 layout_mode = 2
-theme_type_variation = &"TextSmall"
-text = "5"
+theme_type_variation = &"FieldSmall"
+text = "4"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_dex"
 
 [node name="StatLuk" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="StatLukLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatLuk"]
 layout_mode = 2
@@ -231,7 +237,7 @@ expand_mode = 2
 
 [node name="StakLukValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatLuk"]
 layout_mode = 2
-theme_type_variation = &"TextSmall"
+theme_type_variation = &"FieldSmall"
 text = "0"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
@@ -240,14 +246,15 @@ script = ExtResource("4_pb6xb")
 [node name="StatCha" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="StatChaLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatCha"]
 layout_mode = 2
 
 [node name="StatChaValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/StatValuesBlock/StatCha"]
 layout_mode = 2
-theme_type_variation = &"TextSmall"
-text = "8"
+theme_type_variation = &"FieldSmall"
+text = "6"
 script = ExtResource("4_pb6xb")
 /linked_class = &"Adventurer"
 /linked_property = &"stat_cha"
@@ -258,9 +265,9 @@ layout_mode = 2
 [node name="TraitsList" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/TraitsListWideLayout" instance=ExtResource("9_je2iw")]
 layout_mode = 2
 size_flags_horizontal = 1
-theme_type_variation = &"TextBig"
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_bottom = 16
+theme_type_variation = &"FieldBig"
+h_separation = 24
+/list_layout = 1
 /linked_class = &"Adventurer"
 /linked_property = &"traits"
 

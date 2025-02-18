@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://bxp4t42nv4lyd" path="res://Interface/GlobalInterface/GameplayInterface.gd" id="1_sww6f"]
 [ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/Icons/coin_01.png" id="2_8cgt8"]
 [ext_resource type="Texture2D" uid="uid://ctso5fp13bg5t" path="res://Graphics/Backgrounds/landscape_4.png" id="2_mpu5g"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/Field/ReactiveProgressField.tscn" id="4_mpu5g"]
 [ext_resource type="Texture2D" uid="uid://dc82phwa54dbb" path="res://Graphics/Icons/Black/barsHorizontal.png" id="4_t0gix"]
 [ext_resource type="PackedScene" uid="uid://dabq6vuayb2v3" path="res://Interface/GlobalInterface/ActivityLog/ActivityLogInterface.tscn" id="5_h0faj"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="5_mpu5g"]
 [ext_resource type="Texture2D" uid="uid://dppkq8w7qayxr" path="res://Graphics/Icons/Black/fastForward.png" id="6_nexvb"]
 
 [node name="GameplayInterface" type="Control"]
@@ -90,7 +90,7 @@ text = "Dungeon"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ActionBar/HBoxContainer"]
+[node name="MoneyIcon" type="TextureRect" parent="VBoxContainer/ActionBar/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -98,8 +98,11 @@ size_flags_vertical = 4
 texture = ExtResource("2_8cgt8")
 expand_mode = 1
 
-[node name="MoneyField" parent="VBoxContainer/ActionBar/HBoxContainer" instance=ExtResource("4_mpu5g")]
+[node name="MoneyField" type="Label" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
+script = ExtResource("5_mpu5g")
+/linked_class = &"PlayerData"
+/linked_property = &"money"
 
 [node name="ActivityLogButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 custom_minimum_size = Vector2(72, 72)

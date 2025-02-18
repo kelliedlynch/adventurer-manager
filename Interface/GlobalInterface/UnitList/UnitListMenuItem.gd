@@ -41,7 +41,7 @@ var unit: Adventurer = null:
 
 func _ready() -> void:
 	_set_layout_variation(layout_variation)
-	if get_tree().current_scene == self or Engine.is_editor_hint():
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		unit = Adventurer.generate_random_newbie()
 		for child in action_buttons.get_children():
 			child.queue_free()
