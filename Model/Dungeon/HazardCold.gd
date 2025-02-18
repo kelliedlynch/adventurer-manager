@@ -11,7 +11,7 @@ func _init() -> void:
 	counters = [
 		{
 			"counter_type": CounteredBy.CLASS,
-			"countered_by": ClassMage,
+			"countered_by": AdventurerClass.Mage,
 			"counter_action": CounterType.REDUCES_PARTY
 		},
 		{
@@ -21,19 +21,19 @@ func _init() -> void:
 		}
 	]
 	
-func _traits_contain_robust(adv: Adventurer) -> bool:
-	return adv.traits.has(Trait.Robust)
-
-func _class_is_mage(adv: Adventurer) -> bool:
-	return adv.adventurer_class is ClassMage
-	
-func get_mitigated_state(dungeon: Dungeon):
-	if (!dungeon.staged.is_empty() and dungeon.staged.all(_traits_contain_robust)) or (!dungeon.party.is_empty() and dungeon.party.all(_traits_contain_robust)):
-		return MitigatedState.INACTIVE
-	if (!dungeon.staged.is_empty() and (dungeon.staged.any(_traits_contain_robust) or dungeon.staged.any(_class_is_mage))) \
-		or (!dungeon.party.is_empty() and (dungeon.party.any(_traits_contain_robust) or dungeon.party.any(_class_is_mage))):
-		return MitigatedState.PARTIAL
-	return MitigatedState.ACTIVE
+#func _traits_contain_robust(adv: Adventurer) -> bool:
+	#return adv.traits.has(Trait.Robust)
+#
+#func _class_is_mage(adv: Adventurer) -> bool:
+	#return adv.adventurer_class is ClassMage
+	#
+#func get_mitigated_state(dungeon: Dungeon):
+	#if (!dungeon.staged.is_empty() and dungeon.staged.all(_traits_contain_robust)) or (!dungeon.party.is_empty() and dungeon.party.all(_traits_contain_robust)):
+		#return MitigatedState.INACTIVE
+	#if (!dungeon.staged.is_empty() and (dungeon.staged.any(_traits_contain_robust) or dungeon.staged.any(_class_is_mage))) \
+		#or (!dungeon.party.is_empty() and (dungeon.party.any(_traits_contain_robust) or dungeon.party.any(_class_is_mage))):
+		#return MitigatedState.PARTIAL
+	#return MitigatedState.ACTIVE
 
 func per_tick_action(dungeon: Dungeon):
 	var dmg = cold_damage

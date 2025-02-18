@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bfhth0qeb4r3p" path="res://Graphics/Backgrounds/tavern_2.png" id="2_llgr7"]
 [ext_resource type="Script" uid="uid://b6cha1jhjbe1q" path="res://Interface/TownInterface/BuildingInterface/TavernInterface.gd" id="3_jl7te"]
-[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="3_llgr7"]
-[ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitListMenu.tscn" id="4_llgr7"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="3_llgr7"]
+[ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn" id="4_llgr7"]
 
 [node name="TavernInterface" type="MarginContainer"]
 anchors_preset = 15

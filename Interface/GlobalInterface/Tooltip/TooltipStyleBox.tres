@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://iybcf1v1xgcp"]
+
+[ext_resource type="Texture2D" uid="uid://dtrq8865hmwk8" path="res://Graphics/LargeBorders/Exported/b_ffbd23ff_p_2f3137ff.png" id="1_faicr"]
+
+[resource]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+texture = ExtResource("1_faicr")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0

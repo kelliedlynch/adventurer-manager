@@ -76,8 +76,7 @@ func _refresh_interface():
 			party_status_label.text = "Not ready"
 		else:
 			party_status_label.text = "Party: %d/%d" % [staged_units.size(), dungeon.max_party_size]
-	for icon in hazard_icons.get_children():
-		icon.refresh_icon()
+
 	
 func _on_press_send_button():
 	if dungeon.party.is_empty():
@@ -107,8 +106,6 @@ func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 		else:
 			party_status_label.text = "Party: %d/%d" % [staged_units.size(), dungeon.max_party_size]
 		send_button.disabled = staged_units.is_empty()
-	for icon in hazard_icons.get_children():
-		icon.refresh_icon()
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:
 	var menu = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()

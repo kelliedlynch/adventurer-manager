@@ -1,4 +1,4 @@
-extends AdventurerClass
+extends AdventurerClassBase
 class_name ClassMage
 
 var spell_mp_cost: int = 3

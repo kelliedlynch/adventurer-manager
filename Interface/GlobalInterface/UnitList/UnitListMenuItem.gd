@@ -95,6 +95,6 @@ enum LayoutVariation {
 }
 
 static func instantiate(adv: Adventurer) -> UnitListMenuItem:
-	var item = preload("res://Interface/GlobalInterface/UnitListMenuItem.tscn").instantiate()
+	var item = preload("res://Interface/GlobalInterface/UnitList/UnitListMenuItem.tscn").instantiate()
 	item.unit = adv
 	return item

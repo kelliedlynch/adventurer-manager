@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3gllupgt2pit"]
 
-[ext_resource type="Script" uid="uid://cjm0qnpjon13w" path="res://Interface/GlobalInterface/ReactiveMultiField.gd" id="1_mhny2"]
+[ext_resource type="Script" uid="uid://cjm0qnpjon13w" path="res://Interface/GlobalInterface/Field/ReactiveMultiField.gd" id="1_mhny2"]
 
 [node name="ReactiveMultiField" type="MarginContainer"]
 offset_right = 777.0

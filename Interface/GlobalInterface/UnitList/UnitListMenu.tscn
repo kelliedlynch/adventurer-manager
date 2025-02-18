@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dhnu4lwb5olyj"]
 
-[ext_resource type="Script" uid="uid://i78glav1qvx1" path="res://Interface/GlobalInterface/UnitListMenu.gd" id="1_3c6nv"]
+[ext_resource type="Script" uid="uid://i78glav1qvx1" path="res://Interface/GlobalInterface/UnitList/UnitListMenu.gd" id="1_3c6nv"]
 
 [node name="UnitListMenu" type="VBoxContainer"]
 anchors_preset = 15

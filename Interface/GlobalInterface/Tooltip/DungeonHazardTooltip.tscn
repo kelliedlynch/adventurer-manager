@@ -1,0 +1,118 @@
+[gd_scene load_steps=10 format=3 uid="uid://u8d06c0u6rh8"]
+
+[ext_resource type="PackedScene" uid="uid://cqx5kbs5aacqp" path="res://Interface/GlobalInterface/Tooltip/Tooltip.tscn" id="1_we5v6"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="2_7r4q7"]
+[ext_resource type="Script" uid="uid://ca4wjqiedg455" path="res://Interface/GlobalInterface/Tooltip/DungeonHazardTooltip.gd" id="2_eep71"]
+[ext_resource type="Texture2D" uid="uid://du5vw50v52jim" path="res://Graphics/Icons/White/person_double.png" id="4_7b6rs"]
+[ext_resource type="StyleBox" uid="uid://cte1qruhpij26" path="res://Interface/DungeonInterface/HazardBorderInactive.tres" id="4_fr2uo"]
+[ext_resource type="StyleBox" uid="uid://dflhowkij6jn6" path="res://Interface/DungeonInterface/HazardBackgroundInactive.tres" id="5_iapvf"]
+[ext_resource type="Texture2D" uid="uid://cip2tl4ojsbch" path="res://Graphics/Icons/White/person_single.png" id="7_iapvf"]
+[ext_resource type="StyleBox" uid="uid://dvqkekbqajiml" path="res://Interface/DungeonInterface/HazardBorderPartialActive.tres" id="8_ratya"]
+[ext_resource type="StyleBox" uid="uid://b2f2srxuy5nq2" path="res://Interface/DungeonInterface/HazardBackgroundPartialActive.tres" id="9_jdxuo"]
+
+[node name="DungeonHazardTooltip" instance=ExtResource("1_we5v6")]
+custom_minimum_size = Vector2(400, 300)
+offset_right = 400.0
+offset_bottom = 0.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_eep71")
+is_root_interface = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tooltip" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HazardName" type="Label" parent="Tooltip/VBoxContainer" index="0"]
+layout_mode = 2
+theme_type_variation = &"TitleBig"
+text = "Cold"
+script = ExtResource("2_7r4q7")
+/linked_class = &"Hazard"
+/linked_property = &"hazard_name"
+
+[node name="MarginContainer" type="MarginContainer" parent="Tooltip/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 16
+
+[node name="HazardDescription" type="Label" parent="Tooltip/VBoxContainer/MarginContainer" index="0"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "All party members take cold damage each day"
+autowrap_mode = 3
+script = ExtResource("2_7r4q7")
+/linked_class = &"Hazard"
+/linked_property = &"hazard_description"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tooltip/VBoxContainer" index="2"]
+layout_mode = 2
+
+[node name="MitigateParty" type="HBoxContainer" parent="Tooltip/VBoxContainer/VBoxContainer" index="0"]
+visible = false
+layout_mode = 2
+
+[node name="IconBorder" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/MitigateParty" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_fr2uo")
+
+[node name="IconBackground" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/MitigateParty/IconBorder" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_iapvf")
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/VBoxContainer/VBoxContainer/MitigateParty/IconBorder" index="1"]
+layout_mode = 2
+texture = ExtResource("4_7b6rs")
+expand_mode = 3
+
+[node name="MitigateSingle" type="HBoxContainer" parent="Tooltip/VBoxContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="IconBorder" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/MitigateSingle" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_fr2uo")
+
+[node name="IconBackground" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/MitigateSingle/IconBorder" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_iapvf")
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/VBoxContainer/VBoxContainer/MitigateSingle/IconBorder" index="1"]
+layout_mode = 2
+texture = ExtResource("7_iapvf")
+expand_mode = 3
+
+[node name="PartialMitigateParty" type="HBoxContainer" parent="Tooltip/VBoxContainer/VBoxContainer" index="2"]
+layout_mode = 2
+
+[node name="IconBorder" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateParty" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("8_ratya")
+
+[node name="IconBackground" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateParty/IconBorder" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("9_jdxuo")
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateParty/IconBorder" index="1"]
+layout_mode = 2
+texture = ExtResource("4_7b6rs")
+expand_mode = 3
+
+[node name="PartialMitigateSingle" type="HBoxContainer" parent="Tooltip/VBoxContainer/VBoxContainer" index="3"]
+visible = false
+layout_mode = 2
+
+[node name="IconBorder" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateSingle" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("8_ratya")
+
+[node name="IconBackground" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateSingle/IconBorder" index="0"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("9_jdxuo")
+
+[node name="TextureRect" type="TextureRect" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateSingle/IconBorder" index="1"]
+layout_mode = 2
+texture = ExtResource("7_iapvf")
+expand_mode = 3

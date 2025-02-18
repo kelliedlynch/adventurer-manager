@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://je3btcu562d7"]
 
-[ext_resource type="Script" uid="uid://cfkbh6spasn5r" path="res://Interface/GlobalInterface/LabelWithIcon.gd" id="1_yeqpj"]
+[ext_resource type="Script" uid="uid://cfkbh6spasn5r" path="res://Interface/GlobalInterface/Field/LabelWithIcon.gd" id="1_yeqpj"]
 
 [node name="LabelContainer" type="HBoxContainer"]
 size_flags_horizontal = 4

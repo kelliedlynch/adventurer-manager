@@ -30,4 +30,3 @@ class_name LabelWithIcon
 		
 func _ready() -> void:
 	var unit = Adventurer.generate_random_newbie()
-	unit._foo = ""

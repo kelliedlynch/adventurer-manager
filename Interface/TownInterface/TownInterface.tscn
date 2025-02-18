@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://d0bl6jabh3mof" path="res://Interface/TownInterface/TownInterfaceTheme.tres" id="1_2en7i"]
 [ext_resource type="Script" uid="uid://bchxhhcdbcwcn" path="res://Interface/TownInterface/TownInterface.gd" id="1_20l4v"]
 [ext_resource type="Texture2D" uid="uid://dfmg46bqwiryt" path="res://Graphics/Backgrounds/village_3.png" id="3_2en7i"]
-[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/ReactiveTextField.gd" id="4_2en7i"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_2en7i"]
 
 [node name="TownInterface" type="MarginContainer"]
 anchors_preset = 15

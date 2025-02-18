@@ -1,5 +1,5 @@
 extends Resource
-class_name AdventurerClass
+class_name AdventurerClassBase
 
 const CURVE_BELL = preload("res://Utility/BellCurve.tres")
 const CURVE_BELL_HIGH = preload("res://Utility/HighBell.tres")
@@ -7,7 +7,6 @@ const CURVE_BELL_LOW = preload("res://Utility/LowBell.tres")
 const CURVE_WEIGHTED_HIGH = preload("res://Utility/WeightedHigh.tres")
 const CURVE_WEIGHTED_LOW = preload("res://Utility/WeightedLow.tres")
 
-# TODO: AdventurerClasses should be singletons--the class won't have different instances for different units
 var adventurer_class_name: String = "Commoner"
 var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCurve.tres")
 
@@ -64,12 +63,3 @@ func combat_action(unit: Adventurer, combat: Combat):
 
 func _to_string() -> String:
 	return adventurer_class_name
-
-static func random() -> Variant:
-	var classes = [
-		ClassWarrior, ClassMage, ClassHealer
-	]
-	return classes.pick_random()
-
-enum {
-}

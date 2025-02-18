@@ -27,6 +27,7 @@ func _init() -> void:
 	if not Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_on_advance_tick)
 	hazards.append(HazardCold.new())
+	hazards.append(HazardSwarms.new())
 	
 func begin_quest():
 	if party.size() > 0:

@@ -1,4 +1,4 @@
-extends Container
+extends Control
 class_name Interface
 
 @export var is_root_interface: bool = false

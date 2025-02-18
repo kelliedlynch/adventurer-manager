@@ -22,7 +22,7 @@ func add_unit(unit: CombatUnit):
 	unit.combat = self
 
 func remove_unit(unit: CombatUnit):
-	combat_ended.connect(unit.set.bind("combat", null))
+	combat_ended.connect(unit.set.bind("combat", null), CONNECT_ONE_SHOT)
 	if unit is Adventurer:
 		party.erase(unit)
 	elif unit is Enemy:
@@ -37,17 +37,24 @@ func _perform_combat_round():
 		if party.is_empty() or enemies.is_empty():
 			return
 
+func _end_combat():
+	for conn in combat_ended.get_connections():
+		combat_ended.disconnect(conn.callable)
+
 func run_combat() -> int:
 	for i in 100:
 		_perform_combat_round()
 		if party.is_empty():
+			_end_combat()
 			return RESULT_LOSS
 		if enemies.is_empty():
 			var xp = floor(reward_xp / float(party.size()))
 			party.all(func(x): x.add_experience(xp))
+			_end_combat()
 			return RESULT_WIN
 	reward_xp = 0
 	reward_money = 0
+	_end_combat()
 	return RESULT_STALEMATE
 
 enum {

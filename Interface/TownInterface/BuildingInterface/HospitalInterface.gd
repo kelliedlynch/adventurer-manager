@@ -28,7 +28,8 @@ func _ready() -> void:
 	watch_reactive_fields(model, self)
 	#super._ready()
 	
-func _add_to_hospital(item: UnitListMenuItem):
+func _add_to_hospital(item: UnitListMenuItem, val: bool):
+	if !val: return
 	if selected_unit.unit:
 		_remove_from_hospital(selected_unit)
 	selected_unit.unit = item.unit

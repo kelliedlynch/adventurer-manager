@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://v5qspy7cth8p"]
+
+[ext_resource type="StyleBox" uid="uid://iybcf1v1xgcp" path="res://Interface/GlobalInterface/Tooltip/TooltipStyleBox.tres" id="1_wkn3v"]
+
+[resource]
+PanelContainer/styles/panel = ExtResource("1_wkn3v")

@@ -64,7 +64,7 @@ func _on_is_submenu_changed(val: bool):
 	title_label.theme_type_variation = "TitleSmall" if val == true else "TitleBig"
 
 static func instantiate(with_units: Array[Adventurer] = []) -> UnitListMenu:
-	var menu = preload("res://Interface/GlobalInterface/UnitListMenu.tscn").instantiate()
+	var menu = preload("res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn").instantiate()
 	for unit in with_units:
 		menu.add_unit(unit)
 	return menu
