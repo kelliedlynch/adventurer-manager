@@ -1,4 +1,4 @@
-extends AdventurerClassBase
+extends AdventurerClass
 class_name ClassHealer
 
 var heal_mp_cost: int = 3

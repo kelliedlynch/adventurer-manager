@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 Game="*res://GameplayEngine.gd"
 InterfaceManager="*res://InterfaceManager.gd"
-AdventurerClass="*res://Model/Adventurer/AdventurerClass/AdventurerClassAutoload.gd"
 Stats="*res://Model/Unit/StatsAutoload.gd"
 
 [display]

@@ -1,5 +1,6 @@
+@tool
 extends Resource
-class_name AdventurerClassBase
+class_name AdventurerClass
 
 const CURVE_BELL = preload("res://Utility/BellCurve.tres")
 const CURVE_BELL_HIGH = preload("res://Utility/HighBell.tres")
@@ -63,3 +64,13 @@ func combat_action(unit: Adventurer, combat: Combat):
 
 func _to_string() -> String:
 	return adventurer_class_name
+
+static var Mage = ClassMage.new()
+static var Warrior = ClassWarrior.new()
+static var Healer = ClassHealer.new()
+
+static func random() -> Variant:
+	var classes = [
+		Warrior, Mage, Healer
+	]
+	return classes.pick_random()

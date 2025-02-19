@@ -1,56 +1,65 @@
 @tool
 extends Node
 
-static var stat_atk = {
+const stat_atk = {
 	"name": "Attack",
 	"abbreviation": "ATK",
-	"icon": "basic_sword.png"
+	"icon": "basic_sword.png",
+	"property_name": "stat_atk"
 }
 
-static var stat_hp = {
+const stat_hp = {
 	"name": "Hit Points",
 	"abbreviation": "HP",
-	"icon": ""
+	"icon": "",
+	"property_name": "stat_hp"
 }
 
-static var stat_mp = {
+const stat_mp = {
 	"name": "Magic Points",
 	"abbreviation": "MP",
-	"icon": ""
+	"icon": "",
+	"property_name": "stat_mp"
 }
 
-static var stat_def = {
+const stat_def = {
 	"name": "Defense",
 	"abbreviation": "DEF",
-	"icon": "basic_shield.png"
+	"icon": "basic_shield.png",
+	"property_name": "stat_def"
 }
 
-static var stat_mag = {
+const stat_mag = {
 	"name": "Magic Power",
 	"abbreviation": "MAG",
-	"icon": "magic_staff.png"
+	"icon": "magic_staff.png",
+	"property_name": "stat_mag"
 }
 
-static var stat_res = {
+const stat_res = {
 	"name": "Magic Resistance",
 	"abbreviation": "RES",
-	"icon": "magic_shield.png"
+	"icon": "magic_shield.png",
+	"property_name": "stat_res"
 }
 
-static var stat_dex = {
+const stat_dex = {
 	"name": "Dexterity",
 	"abbreviation": "DEX",
-	"icon": "winged_boot.png"
+	"icon": "winged_boot.png",
+	"property_name": "stat_dex"
 }
 
-static var stat_luk = {
+const stat_luk = {
 	"name": "Luck",
 	"abbreviation": "LUK",
-	"icon": "shamrock.png"
+	"icon": "shamrock.png",
+	"property_name": "stat_luk"
 }
 
-static var stat_cha = {
+const stat_cha = {
 	"name": "Charisma",
 	"abbreviation": "CHA",
-	"icon": ""
+	"icon": "",
+	"property_name": "stat_cha"
 }

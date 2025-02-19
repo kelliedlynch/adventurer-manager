@@ -2,7 +2,7 @@
 extends Tooltip
 class_name DungeonHazardTooltip
 
-var hazard: Hazard = HazardCold.new()
+var hazard: Hazard
 
 @onready var mitigate_party: HBoxContainer = find_child("MitigateParty")
 @onready var mitigate_single: HBoxContainer = find_child("MitigateSingle")
@@ -10,27 +10,29 @@ var hazard: Hazard = HazardCold.new()
 @onready var partial_mitigate_single: HBoxContainer = find_child("PartialMitigateSingle")
 
 func _ready() -> void:
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		hazard = Hazard.random()
 	for counter in hazard.counters:
 		var l = Label.new()
 		l.theme_type_variation = "FieldBig"
 		match counter.counter_type:
-			Hazard.CounteredBy.CLASS:
+			Hazard.CounterType.CLASS:
 				l.text = str(counter.countered_by) + " class"
-			Hazard.CounteredBy.STAT:
+			Hazard.CounterType.STAT:
 				l.text = counter.countered_by.name + " > " + str(counter.countered_by_value)
-			Hazard.CounteredBy.SKILL:
+			Hazard.CounterType.SKILL:
 				l.text = counter.countered_by
-			Hazard.CounteredBy.TRAIT:
+			Hazard.CounterType.TRAIT:
 				l.text = str(counter.countered_by) + " trait"
 				
 		match counter.counter_action:
-			Hazard.CounterType.COUNTERS:
+			Hazard.CounterAction.COUNTERS:
 				mitigate_party.add_child(l)
-			Hazard.CounterType.REDUCES_PARTY:
+			Hazard.CounterAction.REDUCES_PARTY:
 				partial_mitigate_party.add_child(l)
-			Hazard.CounterType.IGNORES:
+			Hazard.CounterAction.IGNORES:
 				mitigate_single.add_child(l)
-			Hazard.CounterType.REDUCES:
+			Hazard.CounterAction.REDUCES:
 				partial_mitigate_single.add_child(l)
 	mitigate_party.visible = mitigate_party.get_child_count() > 1
 	mitigate_single.visible = mitigate_single.get_child_count() > 1

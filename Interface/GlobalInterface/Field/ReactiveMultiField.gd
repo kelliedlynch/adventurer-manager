@@ -6,6 +6,8 @@ class_name ReactiveMultiField
 
 @onready var values_container: Container = find_child("ValuesContainer")
 
+var current_values: Array[Variant] = []
+
 signal layout_changed
 
 @export var grid_columns: int = 3:
@@ -128,14 +130,16 @@ func _set(property, value):
 	#return accum
 func _process(delta: float) -> void:
 	if linked_model and get("/linked_property"):
-		var val = linked_model.get(get("/linked_property"))
-		for child in values_container.get_children():
-			child.queue_free()
-		for value in val:
-			var label = Label.new()
-			label.text = str(value)
-			values_container.add_child(label)
-		theme_changed.emit()
+		var new_vals = linked_model.get(get("/linked_property")).map(func(x): return str(x))
+		if new_vals != current_values:
+			for child in values_container.get_children():
+				child.queue_free()
+			for value in new_vals:
+				var label = Label.new()
+				label.text = str(value)
+				values_container.add_child(label)
+			current_values = new_vals
+			theme_changed.emit()
 	
 func _get_property_list() -> Array:
 	var props = []

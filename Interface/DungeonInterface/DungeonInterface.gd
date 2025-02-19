@@ -97,67 +97,126 @@ func _process(delta: float) -> void:
 	status_window.visible = dungeon.questing
 	dungeon_units_list.visible = !dungeon.questing
 
-func _find_labels_for_property(prop_name: String, node: Node):
-	var labels: Array[Control] = []
+func _find_fields_for_property(prop_name: String, node: Node):
+	var fields: Array[Control] = []
 	for child in node.get_children():
 		if child is ReactiveField and child.get("/linked_property") == prop_name:
 			if child is ReactiveMultiField:
-				labels.append_array(child.values_container.get_children().filter(func(x): return x is Label))
+				fields.append_array(child.values_container.get_children().filter(func(x): return x is Label))
 				continue
-			labels.append(child)
+			fields.append(child)
 			if child.name.right(5) == "Value":
 				var field_label = child.get_parent().find_child(child.name.left(-5) + "Label", false)
 				if field_label != null:
-					labels.append(field_label)
-		labels.append_array(_find_labels_for_property(prop_name, child))
-	return labels
+					fields.append(field_label)
+		fields.append_array(_find_fields_for_property(prop_name, child))
+	return fields
 	
-func _highlight_counter_properties(item: MenuItemBase, prop_name: String, counter: Dictionary):
-	for label in _find_labels_for_property(prop_name, item):
-		if prop_name == "traits" and label.text != str(counter.countered_by):
-			continue
-		if counter.counter_action == Hazard.CounterType.COUNTERS or counter.counter_action == Hazard.CounterType.IGNORES:
-			label.add_theme_color_override("font_color", get_theme_color("success_color", "Label"))
+func _highlight_props_that_counter(item: UnitListMenuItem, counter: Dictionary):
+	var prop_name = ""
+	match counter.counter_type:
+		Hazard.CounterType.TRAIT:
+			if item.unit.traits.has(counter.countered_by):
+				prop_name = "traits"
+		Hazard.CounterType.STAT:
+			if item.unit.get(counter.countered_by.property_name) >= counter.countered_by_value:
+				prop_name = counter.countered_by.property_name
+		Hazard.CounterType.SKILL:
 			pass
-		elif counter.counter_action == Hazard.CounterType.REDUCES_PARTY or counter.counter_action == Hazard.CounterType.REDUCES_PARTY:
-			label.add_theme_color_override("font_color", get_theme_color("partial_success_color", "Label"))
+		Hazard.CounterType.CLASS:
+			if item.unit.adventurer_class == counter.countered_by:
+				prop_name = "adventurer_class"
+	if prop_name == "":
+		return
+	var fields = _find_fields_for_property(prop_name, item)
+	for field in fields:
+		if counter.counter_type == Hazard.CounterType.TRAIT and field.text != str(counter.countered_by):
+			continue
+		if counter.counter_action == Hazard.CounterAction.COUNTERS or counter.counter_action == Hazard.CounterAction.IGNORES:
+			_highlight_field(field, get_theme_color("success_color", "Label"))
+		elif counter.counter_action == Hazard.CounterAction.REDUCES_PARTY or counter.counter_action == Hazard.CounterAction.REDUCES_PARTY:
+			_highlight_field(field, get_theme_color("partial_success_color", "Label"))
+		else:
+			continue
+
+func _highlight_field(field: Control, highlight_color: Color):
+	if field is Label:
+		field.add_theme_color_override("font_color", highlight_color)
+	else:
+		field.modulate = highlight_color
+
+func _clear_highlights_for_property(item: UnitListMenuItem, prop_name: String):
+	for field in _find_fields_for_property(prop_name, item):
+		if field is Label and field.has_theme_color_override("font_color"):
+			field.remove_theme_color_override("font_color")
+		elif not field is Label and field.modulate != Color.WHITE:
+			field.modulate = Color.WHITE
+
 
 func _on_hazard_icon_hovered(haz: Hazard):
-	print("hazard icon hovered")
+	var prop_name = ""
 	for counter in haz.counters:
-		#var partial_labels: Array[Label] = []
-		#var full_labels: Array[Label] = []
-		match counter.counter_type:
-			Hazard.CounteredBy.CLASS:
-				for item in idle_units_list.menu_items:
-					if item.unit.adventurer_class == counter.countered_by:
-						_highlight_counter_properties(item, "adventurer_class", counter)
-			Hazard.CounteredBy.STAT:
-				for item in idle_units_list.menu_items:
-					if item.unit.get(counter.countered_by.name) >= counter.countered_by_value:
-						_highlight_counter_properties(item, counter.countered_by.name, counter)
-			Hazard.CounteredBy.TRAIT:
-				for item in idle_units_list.menu_items:
-					if item.unit.traits.has(counter.countered_by):
-						_highlight_counter_properties(item, "traits", counter)
-		#
-		#if countering_party_members.is_empty(): 
-			#continue
-		#
-		#match counter.counter_action:
-			#Hazard.CounterType.COUNTERS:
-				#mit_state = MitigatedState.INACTIVE
-			#Hazard.CounterType.REDUCES_PARTY:
-				#mit_state = MitigatedState.PARTIAL
-			#Hazard.CounterType.IGNORES:
-				#mit_state = MitigatedState.INACTIVE if countering_party_members.size() == party.size() else MitigatedState.PARTIAL
-			#Hazard.CounterType.REDUCES:
-				#mit_state = MitigatedState.PARTIAL
-	#
-	#pass
+		#match counter.counter_type:
+			#Hazard.CounterType.TRAIT:
+				#prop_name = "traits"
+			#Hazard.CounterType.STAT:
+				#prop_name = str(counter.countered_by)
+			#Hazard.CounterType.SKILL:
+				#pass
+			#Hazard.CounterType.CLASS:
+				#prop_name = "adventurer_class"
+		for item in idle_units_list.menu_items:
+			_highlight_props_that_counter(item, counter)
+		for item in dungeon_units_list.menu_items:
+			_highlight_props_that_counter(item, counter)
 	
 func _on_hazard_icon_exited(haz: Hazard):
-	pass
+	var prop_name = ""
+	for counter in haz.counters:
+		match counter.counter_type:
+			Hazard.CounterType.TRAIT:
+				prop_name = "traits"
+			Hazard.CounterType.STAT:
+				prop_name = counter.countered_by.property_name
+			Hazard.CounterType.SKILL:
+				pass
+			Hazard.CounterType.CLASS:
+				prop_name = "adventurer_class"
+		for item in idle_units_list.menu_items:
+			_clear_highlights_for_property(item, prop_name)
+		for item in dungeon_units_list.menu_items:
+			_clear_highlights_for_property(item, prop_name)
+#func _color_hazard_counter_stats(haz: Hazard):
+	#for counter in haz.counters:
+		#match counter.counter_type:
+			#Hazard.CounterType.CLASS:
+				#for item in idle_units_list.menu_items:
+					#if item.unit.adventurer_class == counter.countered_by:
+						#_highlight_counter_properties(item, "adventurer_class", counter)
+			#Hazard.CounterType.STAT:
+				#for item in idle_units_list.menu_items:
+					#if item.unit.get(counter.countered_by.name) >= counter.countered_by_value:
+						#_highlight_counter_properties(item, counter.countered_by.name, counter)
+			#Hazard.CounterType.TRAIT:
+				#for item in idle_units_list.menu_items:
+					#if item.unit.traits.has(counter.countered_by):
+						#_highlight_counter_properties(item, "traits", counter)
+	
+	
+	
+	#for label in _find_labels_for_property(prop_name, item):
+		#if prop_name == "traits" and label.text != str(counter.countered_by):
+			#continue
+		#if counter.counter_action == Hazard.CounterAction.COUNTERS or counter.counter_action == Hazard.CounterAction.IGNORES:
+			#if label is Label:
+				#label.add_theme_color_override("font_color", get_theme_color("success_color", "Label"))
+			#else:
+				#label.modulate = get_theme_color("success_color", "Label")
+		#elif counter.counter_action == Hazard.CounterAction.REDUCES_PARTY or counter.counter_action == Hazard.CounterAction.REDUCES_PARTY:
+			#if label is Label:
+				#label.add_theme_color_override("font_color", get_theme_color("partial_success_color", "Label"))
+			#else:
+				#label.modulate = get_theme_color("success_color", "Label")
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:
 	var menu = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()

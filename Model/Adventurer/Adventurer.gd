@@ -3,7 +3,7 @@ class_name Adventurer
 
 static var rng: RandomNumberGenerator
 		
-var adventurer_class: AdventurerClassBase = AdventurerClass.random()
+var adventurer_class: AdventurerClass = AdventurerClass.random()
 		
 var portrait: Texture2D = get_random_portrait()
 

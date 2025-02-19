@@ -1,3 +1,4 @@
+@tool
 extends Hazard
 class_name HazardCold
 
@@ -8,16 +9,18 @@ func _init() -> void:
 	hazard_name = "Cold"
 	hazard_description = "All party members take cold damage each day"
 	icon = load("res://Graphics/Icons/White/snowman.png")
-	counters = [
+	
+func _get_counters() -> Array[Dictionary]:
+	return [
 		{
-			"counter_type": CounteredBy.CLASS,
-			"countered_by": AdventurerClass.Mage,
-			"counter_action": CounterType.REDUCES_PARTY
+			counter_type = CounterType.CLASS,
+			countered_by = AdventurerClass.Mage,
+			counter_action = CounterAction.REDUCES_PARTY
 		},
 		{
-			"counter_type": CounteredBy.TRAIT,
-			"countered_by": Trait.Robust,
-			"counter_action": CounterType.IGNORES
+			counter_type = CounterType.TRAIT,
+			countered_by = Trait.Robust,
+			counter_action = CounterAction.IGNORES
 		}
 	]
 	

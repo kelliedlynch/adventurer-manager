@@ -14,7 +14,7 @@ var dungeon: Dungeon
 @onready var icon_texture: TextureRect = find_child("IconTexture")
 
 func _ready():
-	if get_tree().edited_scene_root == self:
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		hazard = Hazard.new()
 	icon_texture.texture = hazard.icon
 	

@@ -26,8 +26,9 @@ var dungeon_reward_money: int = 0
 func _init() -> void:
 	if not Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_on_advance_tick)
-	hazards.append(HazardCold.new())
-	hazards.append(HazardSwarms.new())
+	hazards.append(Hazard.Cold)
+	hazards.append(Hazard.Swarms)
+	hazards.append(Hazard.RoughTerrain)
 	
 func begin_quest():
 	if party.size() > 0:

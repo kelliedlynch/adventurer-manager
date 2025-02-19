@@ -1,4 +1,4 @@
-extends AdventurerClassBase
+extends AdventurerClass
 class_name ClassWarrior
 
 func _init():

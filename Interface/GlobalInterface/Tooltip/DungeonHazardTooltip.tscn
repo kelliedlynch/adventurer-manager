@@ -26,7 +26,7 @@ theme_override_constants/separation = 4
 [node name="HazardName" type="Label" parent="Tooltip/VBoxContainer" index="0"]
 layout_mode = 2
 theme_type_variation = &"TitleBig"
-text = "Cold"
+text = "Rough Terrain"
 script = ExtResource("2_7r4q7")
 /linked_class = &"Hazard"
 /linked_property = &"hazard_name"
@@ -42,7 +42,7 @@ theme_override_constants/margin_bottom = 16
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_type_variation = &"FieldBig"
-text = "All party members take cold damage each day"
+text = "Dexterity reduced in battle. Chance of taking damage each day."
 autowrap_mode = 3
 script = ExtResource("2_7r4q7")
 /linked_class = &"Hazard"
@@ -85,6 +85,7 @@ texture = ExtResource("7_iapvf")
 expand_mode = 3
 
 [node name="PartialMitigateParty" type="HBoxContainer" parent="Tooltip/VBoxContainer/VBoxContainer" index="2"]
+visible = false
 layout_mode = 2
 
 [node name="IconBorder" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateParty" index="0"]
@@ -101,7 +102,6 @@ texture = ExtResource("4_7b6rs")
 expand_mode = 3
 
 [node name="PartialMitigateSingle" type="HBoxContainer" parent="Tooltip/VBoxContainer/VBoxContainer" index="3"]
-visible = false
 layout_mode = 2
 
 [node name="IconBorder" type="PanelContainer" parent="Tooltip/VBoxContainer/VBoxContainer/PartialMitigateSingle" index="0"]
