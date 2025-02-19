@@ -181,6 +181,7 @@ text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
+layout_variation = 1
 
 [node name="DungeonStatusWindow" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false

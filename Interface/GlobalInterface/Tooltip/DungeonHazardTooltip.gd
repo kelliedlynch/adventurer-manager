@@ -4,14 +4,18 @@ class_name DungeonHazardTooltip
 
 var hazard: Hazard
 
-@onready var mitigate_party: HBoxContainer = find_child("MitigateParty")
-@onready var mitigate_single: HBoxContainer = find_child("MitigateSingle")
-@onready var partial_mitigate_party: HBoxContainer = find_child("PartialMitigateParty")
-@onready var partial_mitigate_single: HBoxContainer = find_child("PartialMitigateSingle")
+@onready var mitigate_party: HFlowContainer = find_child("MitigateParty")
+@onready var mitigate_single: HFlowContainer = find_child("MitigateSingle")
+@onready var partial_mitigate_party: HFlowContainer = find_child("PartialMitigateParty")
+@onready var partial_mitigate_single: HFlowContainer = find_child("PartialMitigateSingle")
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		hazard = Hazard.random()
+		hazard = Hazard.new()
+	mitigate_party.visible = false
+	mitigate_single.visible = false
+	partial_mitigate_party.visible = false
+	partial_mitigate_single.visible = false
 	for counter in hazard.counters:
 		var l = Label.new()
 		l.theme_type_variation = "FieldBig"
@@ -24,18 +28,30 @@ func _ready() -> void:
 				l.text = counter.countered_by
 			Hazard.CounterType.TRAIT:
 				l.text = str(counter.countered_by) + " trait"
-				
+		var attach_node: Control
 		match counter.counter_action:
 			Hazard.CounterAction.COUNTERS:
-				mitigate_party.add_child(l)
+				attach_node = mitigate_party
 			Hazard.CounterAction.REDUCES_PARTY:
-				partial_mitigate_party.add_child(l)
+				attach_node = partial_mitigate_party
 			Hazard.CounterAction.IGNORES:
-				mitigate_single.add_child(l)
+				attach_node = mitigate_single
 			Hazard.CounterAction.REDUCES:
-				partial_mitigate_single.add_child(l)
-	mitigate_party.visible = mitigate_party.get_child_count() > 1
-	mitigate_single.visible = mitigate_single.get_child_count() > 1
-	partial_mitigate_party.visible = partial_mitigate_party.get_child_count() > 1
-	partial_mitigate_single.visible = partial_mitigate_single.get_child_count() > 1
+				attach_node = partial_mitigate_single
+		attach_node.add_child(l)
+	_adjust_for_child_quantity(mitigate_party)
+	_adjust_for_child_quantity(mitigate_single)
+	_adjust_for_child_quantity(partial_mitigate_party)
+	_adjust_for_child_quantity(partial_mitigate_single)
 	watch_reactive_fields(hazard, self)
+
+func _adjust_for_child_quantity(container: Container):
+	var children = container.get_child_count()
+	#container.visible = children > 1
+	container.set_deferred("visible", children > 1)
+	if children <= 2:
+		return
+	for i in range(1, children - 1):
+		var child = container.get_child(i)
+		if child is Label:
+			child.text += ","

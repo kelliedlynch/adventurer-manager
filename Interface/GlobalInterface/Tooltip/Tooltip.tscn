@@ -3,18 +3,8 @@
 [ext_resource type="Theme" uid="uid://v5qspy7cth8p" path="res://Interface/GlobalInterface/Tooltip/TooltipTheme.tres" id="1_ia8vd"]
 [ext_resource type="Script" uid="uid://cu5c3wkv5wxx8" path="res://Interface/GlobalInterface/Tooltip/Tooltip.gd" id="1_on20s"]
 
-[node name="Control" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 200.0
-offset_bottom = 300.0
+[node name="Tooltip" type="PanelContainer"]
+offset_right = 64.0
+offset_bottom = 64.0
 theme = ExtResource("1_ia8vd")
 script = ExtResource("1_on20s")
-
-[node name="Tooltip" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2

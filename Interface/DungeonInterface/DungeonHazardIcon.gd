@@ -10,7 +10,7 @@ var dungeon: Dungeon
 		icon_size = value
 		icon_texture.custom_minimum_size = value
 
-@onready var icon_background: PanelContainer = find_child("IconBackground")
+@onready var icon_border: PanelContainer = find_child("IconBorder")
 @onready var icon_texture: TextureRect = find_child("IconTexture")
 
 func _ready():
@@ -36,8 +36,8 @@ func _process(delta: float) -> void:
 			_:
 				box = "panel"
 		remove_theme_stylebox_override("panel")
+		icon_border.add_theme_stylebox_override("panel", get_theme_stylebox(box, icon_border.theme_type_variation))
 		add_theme_stylebox_override("panel", get_theme_stylebox(box, theme_type_variation))
-		icon_background.add_theme_stylebox_override("panel", get_theme_stylebox(box, icon_background.theme_type_variation))
 
 static func instantiate(haz: Hazard, dun: Dungeon) -> DungeonHazardIcon:
 	var menu = load("res://Interface/DungeonInterface/DungeonHazardIcon.tscn").instantiate()

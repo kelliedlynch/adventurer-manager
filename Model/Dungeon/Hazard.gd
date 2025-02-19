@@ -3,7 +3,7 @@ extends Resource
 class_name Hazard
 
 var hazard_name: String = "Hazard"
-var hazard_description: String = "Makes stuff more dangerous."
+var hazard_description: String = "Makes stuff more dangerous. Here's some more text for tooltip size testing purposes."
 var icon: Texture2D = load("res://Graphics/Icons/White/warning.png")
 
 var counters: Array[Dictionary]:
@@ -13,21 +13,23 @@ var counters: Array[Dictionary]:
 func get_mitigated_state(dungeon: Dungeon):
 	var mit_state = MitigatedState.ACTIVE
 	var countering_party_members = []
+	var check_units = dungeon.staged
+	if dungeon.questing:
+		check_units = dungeon.party
 	for counter in counters:
-		
-		for unit in dungeon.party:
+		for unit in check_units:
 			var actions = unit_counter_actions(unit)
 			if actions.is_empty():
 				continue
 			if actions.has(CounterAction.COUNTERS):
 				return MitigatedState.INACTIVE
-			if actions.has(CounterAction.IGNORES):
+			if actions.has(CounterAction.IGNORES) or actions.has(CounterAction.REDUCES_PARTY) or actions.has(CounterAction.REDUCES):
 				if not countering_party_members.has(unit):
 					countering_party_members.append(unit)
 			mit_state = MitigatedState.PARTIAL
 		if mit_state == MitigatedState.ACTIVE:
 			continue
-		if countering_party_members.size() == dungeon.party.size():
+		if countering_party_members.size() == check_units.size():
 			return MitigatedState.INACTIVE
 	return mit_state
 	
@@ -39,7 +41,7 @@ func unit_counter_actions(unit: Adventurer) -> Array[CounterAction]:
 				if unit.adventurer_class != counter.countered_by:
 					continue
 			Hazard.CounterType.STAT:
-				if unit.get(counter.countered_by.prop_name < counter.countered_by_value):
+				if unit.get(counter.countered_by.property_name) <= counter.countered_by_value:
 					continue
 			Hazard.CounterType.SKILL:
 				pass
@@ -55,6 +57,16 @@ func _get_counters() -> Array[Dictionary]:
 		{
 			counter_type = CounterType.CLASS,
 			countered_by = AdventurerClass.Mage,
+			counter_action = CounterAction.REDUCES_PARTY
+		},
+		{
+			counter_type = CounterType.CLASS,
+			countered_by = AdventurerClass.Warrior,
+			counter_action = CounterAction.REDUCES_PARTY
+		},
+		{
+			counter_type = CounterType.CLASS,
+			countered_by = AdventurerClass.Healer,
 			counter_action = CounterAction.REDUCES_PARTY
 		},
 		{
@@ -97,7 +109,6 @@ static var RoughTerrain: HazardRoughTerrain = HazardRoughTerrain.new()
 
 static func random() -> Hazard:
 	var list = [Cold, Swarms, RoughTerrain]
-	print(list)
 	return list.pick_random()
 
 
