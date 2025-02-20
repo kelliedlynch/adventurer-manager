@@ -44,10 +44,11 @@ layout_mode = 2
 
 [node name="Name" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
-text = "Prai"
+text = "Xeegre"
 script = ExtResource("4_pb6xb")
-/linked_class = &"Adventurer"
-/linked_property = &"unit_name"
+__test_value = "Xeegre"
+__linked_class = &"Adventurer"
+__linked_property = &"unit_name"
 
 [node name="LevelAndClass" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
@@ -66,15 +67,17 @@ text = "Lv."
 layout_mode = 2
 text = "2"
 script = ExtResource("4_pb6xb")
-/linked_class = &"Adventurer"
-/linked_property = &"level"
+__test_value = "2"
+__linked_class = &"Adventurer"
+__linked_property = &"level"
 
 [node name="ClassValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
-text = "Healer"
+text = "Warrior"
 script = ExtResource("4_pb6xb")
-/linked_class = &"Adventurer"
-/linked_property = &"adventurer_class"
+__test_value = "Warrior"
+__linked_class = &"Adventurer"
+__linked_property = &"adventurer_class"
 
 [node name="StatsBlockBody" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer"]
 layout_mode = 2
@@ -101,9 +104,11 @@ text = "HP:"
 [node name="StatHpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
-/max_value_property = &"stat_hp"
-/linked_class = &"Adventurer"
-/linked_property = &"current_hp"
+__max_value_property = &"current_hp"
+__test_current_value = "29"
+__test_max_value = "29"
+__linked_class = &"Adventurer"
+__linked_property = &"stat_hp"
 
 [node name="StatMp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock"]
 layout_mode = 2
@@ -117,9 +122,11 @@ text = "MP:"
 [node name="StatMpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
-/max_value_property = &"stat_mp"
-/linked_class = &"Adventurer"
-/linked_property = &"current_mp"
+__max_value_property = &"current_mp"
+__test_current_value = "5"
+__test_max_value = "5"
+__linked_class = &"Adventurer"
+__linked_property = &"stat_mp"
 
 [node name="StatValuesBlock" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock" instance=ExtResource("5_3agds")]
 layout_mode = 2
@@ -133,9 +140,9 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
-/list_layout = 1
-/linked_class = &"Adventurer"
-/linked_property = &"traits"
+__test_value = ["Leader", "Tactician"]
+__linked_class = &"Adventurer"
+__linked_property = &"traits"
 
 [node name="EquipSlots" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody"]
 layout_mode = 2

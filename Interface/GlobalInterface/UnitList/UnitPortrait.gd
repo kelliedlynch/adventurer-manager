@@ -25,4 +25,3 @@ func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		var unit = Adventurer.generate_random_newbie()
 		texture_rect.linked_model = unit
-	#super()

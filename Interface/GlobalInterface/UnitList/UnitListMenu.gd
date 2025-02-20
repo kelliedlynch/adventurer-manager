@@ -4,11 +4,10 @@ class_name UnitListMenu
 
 var menu_item_type: MenuItemType = MenuItemType.PANEL_WIDE:
 	set(value):
-		if value != menu_item_type:
-			menu_item_type = value
-			if not is_inside_tree():
-				await ready
-			_on_menu_item_type_changed(value)
+		menu_item_type = value
+		if not is_inside_tree():
+			await ready
+		_on_menu_item_type_changed(value)
 			
 var layout_type: int = ContentLayout.VERTICAL:
 	set(value):
@@ -77,10 +76,9 @@ func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		for i in 10:
 			add_unit(Adventurer.generate_random_newbie())
-
 	super._ready()
 
-func _on_menu_item_type_changed(item_type: MenuItemType):
+func _on_menu_item_type_changed(_item_type: MenuItemType):
 	var menu_units = units
 	clear_units()
 	for unit in menu_units:

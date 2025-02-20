@@ -4,11 +4,20 @@ class_name ReactiveMultiField
 # A field that displays the contents of an array or dictionary
 
 
+var list_layout: int = ContentLayout.VERTICAL:
+	set(value):
+		list_layout = value
+		if not is_inside_tree():
+			await ready
+		_on_layout_changed(value)
+
 @onready var values_container: Container = find_child("ValuesContainer")
 
-var current_values: Array[Variant] = []
-
-signal layout_changed
+var current_values: Array:
+	get:
+		return values_container.get_children().map(func(x): return x.text)
+	set(_v):
+		return
 
 @export var grid_columns: int = 3:
 	set(value):
@@ -49,22 +58,9 @@ signal layout_changed
 		for child in values_container.get_children():
 			child.size_flags_vertical = Control.SIZE_EXPAND_FILL if value == true else Control.SIZE_SHRINK_CENTER
 		notify_property_list_changed()
-			
-var dummy_value = ["lorem", "ipsum", "dolor", "sit", "amet"]
-			
-func _init() -> void:
-	_internal_vars_list.append("/list_layout")
-		
+
 func _ready() -> void:
-	
-	grid_columns = grid_columns
-	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		for val in dummy_value:
-			var l = Label.new()
-			l.text = val
-			values_container.add_child(l)
-	layout_changed.connect(_on_layout_changed)
-	_on_layout_changed(get("/list_layout"))
+	_on_layout_changed(list_layout)
 	theme_changed.connect(_on_theme_changed)
 	_on_theme_changed()
 		
@@ -106,53 +102,69 @@ func _on_layout_changed(value: int) -> void:
 
 func watch_object(obj: Object):
 	linked_model = obj
-	var prop = obj.get(get("/linked_property"))
 	for child in values_container.get_children():
 		child.queue_free()
-	if prop and not prop.is_empty():
+	if linked_property in obj:
+		var prop = obj.get(linked_property)
 		var values_list = prop if prop is Array else prop.values()
 		for value in values_list:
 			_add_value_interface(value)
 			
 func _add_value_interface(value):
 	var label = Label.new()
-	label.text = value
+	label.text = value if value else ""
 	values_container.add_child(label)
+	theme_changed.emit()
 
-func _set(property, value):
-	if property == "/list_layout":
-		layout_changed.emit(value)
-	super(property, value)
-
-#func _reduce_prop_list(accum, val):
-	#if val.type & (TYPE_DICTIONARY | TYPE_ARRAY):
-		#return accum + val + ","
-	#return accum
 func _process(delta: float) -> void:
-	if linked_model and get("/linked_property"):
-		var new_vals = linked_model.get(get("/linked_property")).map(func(x): return str(x))
-		if new_vals != current_values:
-			for child in values_container.get_children():
-				child.queue_free()
-			for value in new_vals:
-				var label = Label.new()
-				label.text = str(value)
-				values_container.add_child(label)
-			current_values = new_vals
-			theme_changed.emit()
+	if linked_model and linked_property:
+		var model_val = linked_model.get(linked_property).map(func(x): return str(x)) 
+		if model_val != current_values:
+			_clear_values_container()
+			for value in model_val:
+				_add_value_interface(value)
 	
 func _get_property_list() -> Array:
 	var props = []
-	props.append({
-		name = "/list_layout",
+	props.append_array([{
+		name = "__list_layout",
 		type = TYPE_INT,
 		hint = PROPERTY_HINT_ENUM,
 		hint_string = Utility.dict_to_hint_string(ContentLayout.orientations)
-	})
+	},
+	{
+		name = "__test_value",
+		type = TYPE_ARRAY
+	}])
 	return props
 	
+func get_test_value(property: StringName):
+	if property == "__test_value":
+		return values_container.get_children().map(func(x): return x.text) if values_container else []
+
+func set_test_value(property: StringName, value: Variant):
+	if not is_inside_tree():
+		await ready
+	if property == "__test_value":
+		_clear_values_container()
+		for element in value:
+			_add_value_interface(element)
+
+func clear_test_value():
+	_clear_values_container()
+
+func _clear_values_container():
+	for child in values_container.get_children():
+		values_container.remove_child(child)
+		child.queue_free()
+
+func _property_get_revert(property: StringName) -> Variant:
+	if property == "__test_value":
+		return []
+	return super(property)
+	
 func get_property_hint_string() -> String:
-	var instance = Utility.instance_class_from_string_name(get("/linked_class"))
+	var instance = Utility.instance_class_from_string_name(linked_class)
 	var all_props = instance.get_property_list()
 	var multi_props = all_props.filter(func(x): return x.type == TYPE_ARRAY or x.type == TYPE_DICTIONARY)
 	return multi_props.reduce(func(accum, val): return accum + val.name + ",", "").left(-1)

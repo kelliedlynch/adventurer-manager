@@ -35,11 +35,10 @@ class_name UnitMenuItem
 var unit: Adventurer = null:
 	set(value):
 		unit = value
-		if unit:
-			if not is_inside_tree():
-				await ready
-			watch_reactive_fields(unit, self)
-			_on_unit_set(value)
+		if not is_inside_tree():
+			await ready
+		watch_reactive_fields(unit, self)
+		_on_unit_set(value)
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:

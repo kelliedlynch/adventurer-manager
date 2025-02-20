@@ -2,36 +2,17 @@
 extends ReactiveField
 class_name ReactiveProgressField
 
+var max_value_property: StringName = ""
+var show_max_value: bool = true
+var max_value_divider: String = "/"
+
 @onready var max_value_label: Label = find_child("MaxValue")
 @onready var divider_label: Label = find_child("ValueDivider")
 @onready var current_value_label: Label = find_child("CurrentValue")
 
-@export var show_max: bool = false:
-	set(value):
-		show_max = value
-		if not is_inside_tree():
-			await ready
-		max_value_label.visible = value
-		divider_label.visible = value
-
-@export var max_value_divider: String = "/":
-	set(value):
-		max_value_divider = value
-		if not is_inside_tree():
-			await ready
-		divider_label.text = value
-
-func _init() -> void:
-	_internal_vars_list.append("/max_value_property")
-
 func _ready() -> void:
 	theme_changed.connect(_on_theme_changed)
 	_on_theme_changed()
-	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		show_max = true
-		current_value_label.text = "50"
-		max_value_label.text = "100"
-		max_value_divider = "/"
 	
 func _on_theme_changed():
 	var variation = theme_type_variation
@@ -39,21 +20,66 @@ func _on_theme_changed():
 	divider_label.add_theme_font_size_override("font_size", font_size)
 	current_value_label.add_theme_font_size_override("font_size", font_size)
 	max_value_label.add_theme_font_size_override("font_size", font_size)
+	
+func get_test_value(property: StringName):
+	if property == "__test_current_value":
+		return current_value_label.text
+	elif property == "__test_max_value":
+		return max_value_label.text
+
+func set_test_value(property: StringName, value: Variant):
+	if not is_inside_tree():
+		await ready
+	if property == "__test_current_value":
+		current_value_label.text = value
+	elif property == "__test_max_value":
+		max_value_label.text = value
+
+func clear_test_value():
+	current_value_label.text = ""
+	max_value_label.text = ""
+
+func _property_get_revert(property: StringName) -> Variant:
+	if property == "__test_current_value":
+		return ""
+	if property == "__test_max_value":
+		return ""
+	return super(property)
 
 func _get_property_list() -> Array:
-	if get("/linked_class"):
-		var hint_str = Utility.array_to_hint_string(get_watchable_properties())
-		return [{
-			name = "/max_value_property",
+	var props = []
+	if linked_class:
+		props.append({
+			name = "__max_value_property",
 			type = TYPE_STRING_NAME,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = hint_str
-		}]
-	return[]
+			hint_string = get_property_hint_string()
+		})
+	props.append_array([{
+		name = "__show_max_value",
+		type = TYPE_BOOL
+	},
+	{
+		name = "__max_value_divider",
+		type = TYPE_STRING
+	},
+	{
+		name = "__test_current_value",
+		type = TYPE_STRING
+	},
+	{
+		name = "__test_max_value",
+		type = TYPE_STRING
+	},
+	])
+
+	return props
 
 func _process(delta: float) -> void:
+	divider_label.visible = show_max_value
+	max_value_label.visible = show_max_value
 	if linked_model:
-		if get("/max_value_property"):
-			max_value_label.text = str(linked_model.get(get("/max_value_property")))
-		if get("/linked_property"):
-			current_value_label.text = str(linked_model.get(get("/linked_property")))
+		if max_value_property:
+			max_value_label.text = str(linked_model.get(max_value_property))
+		if linked_property:
+			current_value_label.text = str(linked_model.get(linked_property))
