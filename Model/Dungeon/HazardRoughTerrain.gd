@@ -8,7 +8,7 @@ var terrain_damage: int = 1
 func _init() -> void:
 	hazard_name = "Rough Terrain"
 	hazard_description = "%s reduced in battle. Chance of taking damage each day." % [Stats.stat_dex.name]
-	icon = load("res://Graphics/Icons/White/warning.png")
+	icon = load("res://Graphics/Icons/White/falling_rocks.png")
 	
 func _get_counters() -> Array[Dictionary]:
 	return [

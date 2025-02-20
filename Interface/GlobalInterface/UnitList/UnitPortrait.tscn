@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4lr80l1py1nw"]
+
+[ext_resource type="Script" uid="uid://ea5fc2q58jgh" path="res://Interface/GlobalInterface/UnitList/UnitPortrait.gd" id="1_hvwqg"]
+[ext_resource type="Texture2D" uid="uid://c78pk4uwasbie" path="res://Graphics/Portraits/m_12.png" id="2_1oedn"]
+[ext_resource type="Script" uid="uid://b372t14de0aic" path="res://Interface/GlobalInterface/Field/ReactiveTextureField.gd" id="2_hvwqg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oedn"]
+bg_color = Color(0.0156863, 0.333333, 0.384314, 1)
+
+[node name="UnitPortrait" type="PanelContainer"]
+custom_minimum_size = Vector2(180, 180)
+offset_right = 20.0
+offset_bottom = 20.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_1oedn")
+script = ExtResource("1_hvwqg")
+frame_size = Vector2i(180, 180)
+
+[node name="PortraitTexture" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_1oedn")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("2_hvwqg")
+/linked_class = &"Adventurer"
+/linked_property = &"portrait"
+
+[node name="PortraitFrame" type="PanelContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"PortraitFrame"

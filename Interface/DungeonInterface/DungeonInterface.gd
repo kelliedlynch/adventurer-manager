@@ -10,7 +10,7 @@ var dungeon: Dungeon
 @onready var send_button: Button = find_child("SendParty")
 @onready var party_unit_count: Label = find_child("PartyUnitsField")
 @onready var dungeon_time: ReactiveTextField = find_child("DungeonTimeField")
-@onready var status_window: MarginContainer = find_child("DungeonStatusWindow")
+@onready var status_window: DungeonStatusWindow = find_child("DungeonStatusWindow")
 @onready var hazard_icons: HBoxContainer = find_child("HazardIcons")
 
 var staged_units: Array[Adventurer] = []
@@ -19,6 +19,10 @@ var staged_units: Array[Adventurer] = []
 func _ready() -> void:
 	if get_tree().current_scene == self or Engine.is_editor_hint():
 		dungeon = Dungeon.new()
+		for i in 4:
+			dungeon.party.append(Adventurer.generate_random_newbie())
+		status_window.party = dungeon.party
+		dungeon.questing = true
 	for unit in _get_idle_units():
 		idle_units_list.add_unit(unit)
 	if not is_inside_tree():
@@ -76,6 +80,7 @@ func _on_press_send_button():
 		staged_units.clear()
 		dungeon.staged.clear()
 		dungeon.begin_quest()
+		status_window.party = dungeon.party
 
 func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 	if dungeon.questing: return
@@ -94,8 +99,8 @@ func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 
 func _process(delta: float) -> void:
 	party_unit_count.text = "%d/%d" % [staged_units.size(), dungeon.max_party_size]
-	status_window.visible = dungeon.questing
-	dungeon_units_list.visible = !dungeon.questing
+	#status_window.visible = dungeon.questing
+	#dungeon_units_list.visible = !dungeon.questing
 
 func _find_fields_for_property(prop_name: String, node: Node):
 	var fields: Array[Control] = []

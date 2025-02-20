@@ -2,7 +2,7 @@
 extends Control
 class_name ReactiveField
 
-var linked_model: Object:
+var linked_model: Object = null:
 	set(value):
 		linked_model = value
 

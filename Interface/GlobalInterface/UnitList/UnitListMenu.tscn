@@ -11,6 +11,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_3c6nv")
+_menu_item_type = 2
+_layout_type = 2
+_grid_columns = 2
 
 [node name="TitleContainer" type="PanelContainer" parent="."]
 visible = false
@@ -23,10 +26,8 @@ horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MenuItems" type="VBoxContainer" parent="ScrollContainer"]
+[node name="MenuItems" type="GridContainer" parent="ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+columns = 2

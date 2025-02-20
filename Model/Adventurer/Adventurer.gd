@@ -107,6 +107,12 @@ static func generate_random_newbie() -> Adventurer:
 		if noob.traits.has(t): 
 			continue
 		noob.traits.append(t)
+	if randi() % 2 == 0:
+		var equip = Equipment.generate_random_equipment()
+		if equip is Weapon:
+			noob.weapon = equip
+		elif equip is Armor:
+			noob.armor = equip
 	noob.level_up()
 	rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]

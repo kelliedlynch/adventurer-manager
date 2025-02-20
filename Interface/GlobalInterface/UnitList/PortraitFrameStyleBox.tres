@@ -3,10 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dsqqlacey76bi" path="res://Graphics/LargeBorders/Border/panel-border-005.png" id="1_qtqpb"]
 
 [resource]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
 texture = ExtResource("1_qtqpb")
 texture_margin_left = 32.0
 texture_margin_top = 32.0

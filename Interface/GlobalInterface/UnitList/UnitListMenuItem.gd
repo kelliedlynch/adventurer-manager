@@ -1,13 +1,8 @@
 @tool
-extends MenuItemBase
+extends UnitMenuItem
 class_name UnitListMenuItem
 
-@onready var portrait_texture_rect: TextureRect = find_child("PortraitTexture")
-@onready var equip_slots: HBoxContainer = find_child("EquipSlots")
-@onready var weapon_slot: EquipmentSlot = find_child("WeaponSlot")
-@onready var armor_slot: EquipmentSlot = find_child("ArmorSlot")
-@onready var action_buttons: VBoxContainer = find_child("ActionButtons")
-@onready var traits: ReactiveMultiField = find_child("TraitsList")
+
 @onready var traits_parent_wide: MarginContainer = find_child("TraitsListWideLayout")
 @onready var traits_parent_narrow: MarginContainer = find_child("TraitsListNarrowLayout")
 
@@ -19,28 +14,8 @@ class_name UnitListMenuItem
 
 var inventory_submenu: InventoryInterface
 
-@export var portrait_size: Vector2:
-	set(value):
-		portrait_size = value
-		if not is_inside_tree():
-			await ready
-		portrait_texture_rect.custom_minimum_size = value
-		
-var unit: Adventurer = null:
-	set(value):
-		unit = value
-		if unit:
-			if not is_inside_tree():
-				await ready
-			if unit.weapon:
-				weapon_slot.item = unit.weapon
-			if unit.armor:
-				armor_slot.item = unit.armor
-			portrait_texture_rect.texture = unit.portrait
-			watch_reactive_fields(unit, self)
-
 func _ready() -> void:
-	_set_layout_variation(layout_variation)
+	#_set_layout_variation(layout_variation)
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		unit = Adventurer.generate_random_newbie()
 		for child in action_buttons.get_children():
@@ -54,17 +29,25 @@ func _ready() -> void:
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
 	super()
 	
+#func _on_unit_set(unit: Adventurer):
+	#super(unit)
+	#if unit.weapon:
+		#weapon_slot.item = unit.weapon
+	#if unit.armor:
+		#armor_slot.item = unit.armor
+	#portrait_texture_rect.texture = unit.portrait
+	
 func _set_layout_variation(variation: int):
 	if !is_inside_tree():
 		await ready
 	if variation == LayoutVariation.WIDE:
 		if traits.get_parent() != traits_parent_wide:
 			traits.reparent(traits_parent_wide)
-			traits.set("/list_layout", ReactiveMultiField.ContentLayout.VERTICAL)
+			traits.set("/list_layout", ContentLayout.VERTICAL)
 	if variation == LayoutVariation.NARROW_TRAITS_BELOW:
 		if traits.get_parent() != traits_parent_narrow:
 			traits.reparent(traits_parent_narrow)
-			traits.set("/list_layout", ReactiveMultiField.ContentLayout.HORIZONTAL)
+			traits.set("/list_layout", ContentLayout.HORIZONTAL)
 
 	
 func _on_slot_clicked(_val, slot: EquipmentSlot):

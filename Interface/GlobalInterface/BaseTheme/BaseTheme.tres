@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://cd2tkcya4cs64" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightHover.tres" id="1_c3lfg"]
 [ext_resource type="StyleBox" uid="uid://b673q8gufql0x" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightNormal.tres" id="2_ae3cl"]
 [ext_resource type="StyleBox" uid="uid://212enke06llj" path="res://Interface/GlobalInterface/BaseTheme/ButtonLightPressed.tres" id="3_2f0ad"]
-[ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://Interface/GlobalInterface/UnitList/UnitListPortraitStyleBox.tres" id="5_1u76n"]
+[ext_resource type="StyleBox" uid="uid://c5vukijcf2cag" path="res://Interface/GlobalInterface/UnitList/PortraitFrameStyleBox.tres" id="5_1u76n"]
 [ext_resource type="StyleBox" uid="uid://c8kg8j4t2mhuy" path="res://Interface/GlobalInterface/BaseTheme/DefaultPanelStyleBox.tres" id="5_2f0ad"]
 [ext_resource type="StyleBox" uid="uid://bck135yqyhe6k" path="res://Interface/GlobalInterface/Menu/MenuItemFocus.tres" id="5_2t38o"]
 [ext_resource type="StyleBox" uid="uid://c8ndrot0d2yow" path="res://Interface/GlobalInterface/Menu/MenuItemHover.tres" id="5_3r0tp"]
@@ -44,8 +44,10 @@ Button/styles/normal = ExtResource("2_ae3cl")
 Button/styles/pressed = ExtResource("3_2f0ad")
 FieldBig/base_type = &"LabeledField"
 FieldBig/font_sizes/font_size = 28
+FieldMed/base_type = &"Label"
+FieldMed/font_sizes/font_size = 22
 FieldSmall/base_type = &"LabeledField"
-FieldSmall/font_sizes/font_size = 24
+FieldSmall/font_sizes/font_size = 18
 HighlightedLabel/colors/font_color = Color(1, 1, 1, 1)
 HighlightedLabel/colors/font_outline_color = Color(0.231373, 0.231373, 0.231373, 1)
 HighlightedLabel/colors/font_shadow_color = Color(1, 1, 0, 0.423529)

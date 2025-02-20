@@ -147,7 +147,7 @@ func _get_property_list() -> Array:
 		name = "/list_layout",
 		type = TYPE_INT,
 		hint = PROPERTY_HINT_ENUM,
-		hint_string = contentlayout_hint_string
+		hint_string = Utility.dict_to_hint_string(ContentLayout.orientations)
 	})
 	return props
 	
@@ -157,9 +157,3 @@ func get_property_hint_string() -> String:
 	var multi_props = all_props.filter(func(x): return x.type == TYPE_ARRAY or x.type == TYPE_DICTIONARY)
 	return multi_props.reduce(func(accum, val): return accum + val.name + ",", "").left(-1)
 	
-var contentlayout_hint_string = Utility.dict_to_hint_string(ContentLayout)
-enum ContentLayout {
-	HORIZONTAL,
-	VERTICAL,
-	GRID
-}

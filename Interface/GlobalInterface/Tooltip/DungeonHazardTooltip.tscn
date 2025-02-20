@@ -63,9 +63,10 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("5_iapvf")
 
 [node name="TextureRect" type="TextureRect" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateParty/IconBackground" index="0"]
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 texture = ExtResource("4_7b6rs")
-expand_mode = 3
+expand_mode = 1
 
 [node name="IconBorder" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateParty/IconBackground/TextureRect" index="0"]
 layout_mode = 1
@@ -84,9 +85,10 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("5_iapvf")
 
 [node name="TextureRect" type="TextureRect" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateSingle/IconBackground" index="0"]
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 texture = ExtResource("7_iapvf")
-expand_mode = 3
+expand_mode = 1
 
 [node name="IconBorder" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateSingle/IconBackground" index="1"]
 layout_mode = 2
@@ -100,9 +102,10 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("9_jdxuo")
 
 [node name="TextureRect" type="TextureRect" parent="Tooltip#VBoxContainer/VBoxContainer/PartialMitigateParty/IconBackground" index="0"]
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 texture = ExtResource("4_7b6rs")
-expand_mode = 3
+expand_mode = 1
 
 [node name="IconBorder" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/PartialMitigateParty/IconBackground" index="1"]
 layout_mode = 2
@@ -116,9 +119,10 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("9_jdxuo")
 
 [node name="TextureRect" type="TextureRect" parent="Tooltip#VBoxContainer/VBoxContainer/PartialMitigateSingle/IconBackground" index="0"]
+custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 texture = ExtResource("7_iapvf")
-expand_mode = 3
+expand_mode = 1
 
 [node name="IconBorder" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/PartialMitigateSingle/IconBackground" index="1"]
 layout_mode = 2

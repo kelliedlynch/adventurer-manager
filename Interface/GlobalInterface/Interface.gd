@@ -13,8 +13,9 @@ func _refresh_interface():
 func watch_reactive_fields(watched, current_node) -> void:
 	for child in current_node.get_children():
 		if child.get("/linked_class"):
-			if child is ReactiveField and Utility.is_derived_from(watched.get_script().get_global_name(), child.get("/linked_class")):
-				child.linked_model = watched
+			if child is ReactiveField and (watched == null or Utility.is_derived_from(watched.get_script().get_global_name(), child.get("/linked_class"))):
+					child.linked_model = watched
+			
 		watch_reactive_fields(watched, child)
 
 func _input(event: InputEvent) -> void:

@@ -1,25 +1,30 @@
 [gd_scene load_steps=3 format=3 uid="uid://cc3uq6b0rbj7n"]
 
 [ext_resource type="Script" uid="uid://dr25rtdprsuvp" path="res://Interface/PlayerMenuInterface/EquipmentSlot.gd" id="1_2p5nb"]
-[ext_resource type="Script" uid="uid://coq3mcovpt4ll" path="res://Interface/GlobalInterface/Menu/MenuItemBase.gd" id="2_5u142"]
+[ext_resource type="Script" uid="uid://b372t14de0aic" path="res://Interface/GlobalInterface/Field/ReactiveTextureField.gd" id="2_2p5nb"]
 
 [node name="EquipmentSlot" type="PanelContainer"]
-custom_minimum_size = Vector2(86, 86)
+show_behind_parent = true
+custom_minimum_size = Vector2(100, 100)
+offset_right = 64.0
+offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_type_variation = &"SlotBorder"
-script = ExtResource("1_2p5nb")
-
-[node name="SlotBackground" type="PanelContainer" parent="."]
-show_behind_parent = true
-layout_mode = 2
-mouse_filter = 1
 theme_type_variation = &"SlotBackground"
-script = ExtResource("2_5u142")
+script = ExtResource("1_2p5nb")
+frame_size = Vector2i(100, 100)
 
 [node name="EquipmentTexture" type="TextureRect" parent="."]
-show_behind_parent = true
 light_mask = 16385
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
+stretch_mode = 4
+script = ExtResource("2_2p5nb")
+/linked_class = &"Equipment"
+/linked_property = &"texture"
+
+[node name="SlotBorder" type="PanelContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"SlotBorder"
