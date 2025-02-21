@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://qqw50a4kcypy"]
+
+[ext_resource type="Script" uid="uid://cxfkowy3k8qfs" path="res://Interface/PlayerMenuInterface/EquipmentMenuItem.gd" id="1_55qc3"]
+[ext_resource type="Texture2D" uid="uid://bjmefv5yam4cg" path="res://Graphics/Equipment/Weapons/sv_t_10.png" id="2_mpsml"]
+[ext_resource type="Script" uid="uid://b372t14de0aic" path="res://Interface/GlobalInterface/Field/ReactiveTextureField.gd" id="3_tj0xj"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_xbdmp"]
+
+[node name="EquipmentMenuItem" type="PanelContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MenuItem"
+script = ExtResource("1_55qc3")
+__linked_class = &"Equipment"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ItemTexture" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_mpsml")
+expand_mode = 2
+script = ExtResource("3_tj0xj")
+__linked_property = &"texture"
+__linked_class = &"Equipment"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+
+[node name="ItemName" type="Label" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+script = ExtResource("4_xbdmp")
+__test_value = ""
+__linked_property = &"item_name"
+__linked_class = &"Equipment"

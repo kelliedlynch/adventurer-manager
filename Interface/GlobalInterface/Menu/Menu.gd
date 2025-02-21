@@ -1,6 +1,8 @@
 @tool
-extends Interface
+extends Reactive
 class_name Menu
+
+@export var closeable: bool = false
 
 @export_placeholder("Menu Title") var menu_title: String = "":
 	set(value):
@@ -51,16 +53,16 @@ func _on_item_selected_changed(val: bool, item: MenuItemBase):
 
 signal menu_item_selected
 
-var _refresh_queued: bool = false
+#var _refresh_queued: bool = false
 
-func _ready() -> void:
-	if not Engine.is_editor_hint():
-		Game.game_tick_advanced.connect(set.bind("_refresh_queued", true))
+#func _ready() -> void:
+	#if not Engine.is_editor_hint():
+		#Game.game_tick_advanced.connect(set.bind("_refresh_queued", true))
 
-func _refresh_menu():
-	pass
-
-func _process(_delta: float) -> void:
-	if _refresh_queued:
-		_refresh_menu()
-		_refresh_queued = false
+#func _refresh_menu():
+	#pass
+#
+func _input(event: InputEvent) -> void:
+	if closeable and event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		queue_free()

@@ -52,6 +52,7 @@ func add_unit(unit: Adventurer):
 				#new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.WIDE
 		_unit_menuitem_map[unit] = new_menu_item
 		#item.layout_variation = layout_variation
+		new_menu_item.link_object(unit)
 		add_menu_item(new_menu_item)
 		for button in registered_buttons:
 			var butt = new_menu_item.add_action_button(button.text, button.action.bind(unit))
@@ -76,7 +77,6 @@ func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		for i in 10:
 			add_unit(Adventurer.generate_random_newbie())
-	super._ready()
 
 func _on_menu_item_type_changed(_item_type: MenuItemType):
 	var menu_units = units
@@ -84,13 +84,13 @@ func _on_menu_item_type_changed(_item_type: MenuItemType):
 	for unit in menu_units:
 		add_unit(unit)
 		
-func _on_layout_type_changed(layout_type: int):
+func _on_layout_type_changed(layout: int):
 	var items = menu_items_container.get_children()
 	items.map(menu_items_container.remove_child)
 	var container_parent = menu_items_container.get_parent()
 	menu_items_container.name = "fordeletion"
 	menu_items_container.queue_free()
-	match layout_type:
+	match layout:
 		ContentLayout.HORIZONTAL:
 			menu_items_container = HBoxContainer.new()
 		ContentLayout.VERTICAL:
@@ -107,10 +107,10 @@ func _on_layout_type_changed(layout_type: int):
 	for item in items:
 		menu_items_container.add_child(item)
 
-func _refresh_menu() -> void:
-	for item in menu_items:
-		if !_unit_menuitem_map.has(item.unit):
-			remove_menu_item(item)
+#func _refresh_menu() -> void:
+	#for item in menu_items:
+		#if !_unit_menuitem_map.has(item.unit):
+			#remove_menu_item(item)
 
 func register_action_button(text: String, action: Callable, active_if: Callable = func(): pass):
 	var dict = {
@@ -119,42 +119,39 @@ func register_action_button(text: String, action: Callable, active_if: Callable 
 		"active_if": active_if
 	}
 	registered_buttons.append(dict)
-	_refresh_queued = true
+	#_refresh_queued = true
 
-func _get(property):
-	if property.begins_with("_") and property.right(-1) in self:
-		return get(property.right(-1))
-
-func _set(property, value):
-	if property.begins_with("_") and property.right(-1) in self:
-		set(property.right(-1), value)
-		return true
-	return false
+func link_object(obj: Variant, node: Node = self):
+	if obj and obj is Array[Adventurer]:
+		clear_menu_items()
+		for item in obj:
+			add_unit(item)
+		return
+	super(obj, node)
 
 func _get_property_list() -> Array[Dictionary]:
 	var props: Array[Dictionary] = [{
-		name = "_menu_item_type",
+		name = "__menu_item_type",
 		type = TYPE_INT,
 		hint = PROPERTY_HINT_ENUM,
 		hint_string = Utility.dict_to_hint_string(MenuItemType)
 	},
 	{
-		name = "_layout_type",
+		name = "__layout_type",
 		type = TYPE_INT,
 		hint = PROPERTY_HINT_ENUM,
 		hint_string = Utility.dict_to_hint_string(ContentLayout.orientations)
 	}]
 	if layout_type == ContentLayout.GRID:
 		props.append({
-			name = "_grid_columns",
+			name = "__grid_columns",
 			type = TYPE_INT
 		})
 	return props
 
 static func instantiate(with_units: Array[Adventurer] = []) -> UnitListMenu:
 	var menu = preload("res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn").instantiate()
-	for unit in with_units:
-		menu.add_unit(unit)
+	menu.link_object(with_units)
 	return menu
 
 enum MenuItemType {

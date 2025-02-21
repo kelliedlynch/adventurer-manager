@@ -5,13 +5,13 @@ class_name TownInterface
 @onready var name_field: ReactiveField = find_child("TownName")
 @onready var building_grid: GridContainer = find_child("Buildings")
 
-var town: Town = null:
-	set(value):
-		town = value
-		if town:
-			if not is_inside_tree():
-				await ready
-			watch_reactive_fields(town, self)
+#var town: Town = null:
+	#set(value):
+		#town = value
+		#if town:
+			#if not is_inside_tree():
+				#await ready
+			#watch_reactive_fields(town, self)
 
 func _ready() -> void:
 	for child in building_grid.get_children():
@@ -19,9 +19,9 @@ func _ready() -> void:
 	if not is_inside_tree():
 		await ready
 	if Engine.is_editor_hint() or get_tree().current_scene == self:
-		town = Town.new()
-	if town:
-		for building in town.buildings:
+		link_object(Town.new())
+	if linked_object:
+		for building in linked_object.buildings:
 			var bldg = TownInterfaceBuilding.instantiate(building)
 			building_grid.add_child(bldg)
 			bldg.enter_button.pressed.connect(_open_building_menu.bind(building))
@@ -33,5 +33,5 @@ func _open_building_menu(building: Building):
 
 static func instantiate(for_town: Town) -> TownInterface:
 	var menu = load("res://Interface/TownInterface/TownInterface.tscn").instantiate()
-	menu.town = for_town
+	menu.link_object(for_town)
 	return menu

@@ -75,11 +75,11 @@ func _get_property_list() -> Array:
 
 	return props
 
-func _process(delta: float) -> void:
+func update_from_linked_object():
 	divider_label.visible = show_max_value
 	max_value_label.visible = show_max_value
-	if linked_model:
+	if linked_object:
 		if max_value_property:
-			max_value_label.text = str(linked_model.get(max_value_property))
+			max_value_label.text = str(linked_object.get(max_value_property))
 		if linked_property:
-			current_value_label.text = str(linked_model.get(linked_property))
+			current_value_label.text = str(linked_object.get(linked_property))

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4lr80l1py1nw"]
 
 [ext_resource type="Script" uid="uid://ea5fc2q58jgh" path="res://Interface/GlobalInterface/UnitList/UnitPortrait.gd" id="1_hvwqg"]
-[ext_resource type="Texture2D" uid="uid://dd02arc1eg72w" path="res://Graphics/Portraits/simplified cartoon noble adult Siberian husky dog looking up isolated white background 09-02-2025 at 13-26-19.jpeg" id="2_1oedn"]
+[ext_resource type="Texture2D" uid="uid://gxe2nyaam4o3" path="res://Graphics/Portraits/04.png" id="2_1oedn"]
 [ext_resource type="Script" uid="uid://b372t14de0aic" path="res://Interface/GlobalInterface/Field/ReactiveTextureField.gd" id="2_hvwqg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oedn"]
@@ -16,6 +16,7 @@ size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_1oedn")
 script = ExtResource("1_hvwqg")
 frame_size = Vector2i(180, 180)
+__linked_class = &"Adventurer"
 
 [node name="PortraitTexture" type="TextureRect" parent="."]
 layout_mode = 2
@@ -23,8 +24,8 @@ texture = ExtResource("2_1oedn")
 expand_mode = 1
 stretch_mode = 4
 script = ExtResource("2_hvwqg")
-__linked_class = &"Adventurer"
 __linked_property = &"portrait"
+__linked_class = &"Adventurer"
 
 [node name="PortraitFrame" type="PanelContainer" parent="."]
 layout_mode = 2

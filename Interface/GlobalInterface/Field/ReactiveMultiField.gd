@@ -100,15 +100,15 @@ func _on_layout_changed(value: int) -> void:
 		
 	notify_property_list_changed()
 
-func watch_object(obj: Object):
-	linked_model = obj
-	for child in values_container.get_children():
-		child.queue_free()
-	if linked_property in obj:
-		var prop = obj.get(linked_property)
-		var values_list = prop if prop is Array else prop.values()
-		for value in values_list:
-			_add_value_interface(value)
+#func watch_object(obj: Object):
+	#linked_object = obj
+	#for child in values_container.get_children():
+		#child.queue_free()
+	#if linked_property in obj:
+		#var prop = obj.get(linked_property)
+		#var values_list = prop if prop is Array else prop.values()
+		#for value in values_list:
+			#_add_value_interface(value)
 			
 func _add_value_interface(value):
 	var label = Label.new()
@@ -116,11 +116,12 @@ func _add_value_interface(value):
 	values_container.add_child(label)
 	theme_changed.emit()
 
-func _process(delta: float) -> void:
-	if linked_model and linked_property:
-		var model_val = linked_model.get(linked_property).map(func(x): return str(x)) 
-		if model_val != current_values:
-			_clear_values_container()
+func update_from_linked_object():
+	if not linked_property: return
+	var model_val = linked_object.get(linked_property).map(func(x): return str(x)) if linked_object else null
+	if model_val != current_values:
+		_clear_values_container()
+		if model_val:
 			for value in model_val:
 				_add_value_interface(value)
 	
@@ -138,9 +139,8 @@ func _get_property_list() -> Array:
 	}])
 	return props
 	
-func get_test_value(property: StringName):
-	if property == "__test_value":
-		return values_container.get_children().map(func(x): return x.text) if values_container else []
+func get_test_value(_property: StringName):
+	return values_container.get_children().map(func(x): return x.text) if values_container else []
 
 func set_test_value(property: StringName, value: Variant):
 	if not is_inside_tree():

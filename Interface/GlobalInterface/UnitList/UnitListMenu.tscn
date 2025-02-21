@@ -11,8 +11,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_3c6nv")
-_menu_item_type = 0
-_layout_type = 1
+__menu_item_type = 0
+__layout_type = 1
+__linked_class = &""
 
 [node name="TitleContainer" type="PanelContainer" parent="."]
 visible = false

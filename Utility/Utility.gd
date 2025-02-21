@@ -10,7 +10,7 @@ static func normalize_range(orig: Array):
 		normalized.append(a)
 	return normalized
 
-static func is_derived_from(this_class: String, base_class: String):
+static func is_derived_from(this_class: StringName, base_class: String):
 	var this_is_native = ClassDB.class_exists(this_class)
 	var base_is_native = ClassDB.class_exists(base_class)
 	if this_class == base_class: 

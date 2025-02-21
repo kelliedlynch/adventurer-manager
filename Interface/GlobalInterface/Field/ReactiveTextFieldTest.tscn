@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqosxr6swp7wn"]
+
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="1_2c0cp"]
+
+[node name="ReactiveTextField" type="Label"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2c0cp")
+__test_value = ""
+__linked_class = &""

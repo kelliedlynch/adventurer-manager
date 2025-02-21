@@ -19,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"MenuItemPanel"
 script = ExtResource("1_i6766")
+__linked_class = &"Adventurer"
 
 [node name="MainLayoutRows" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -42,13 +43,13 @@ alignment = 1
 [node name="Header" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer"]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
+[node name="UnitName" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
-text = "Xeegre"
+text = "Cla"
 script = ExtResource("4_pb6xb")
-__test_value = "Xeegre"
-__linked_class = &"Adventurer"
+__test_value = "Cla"
 __linked_property = &"unit_name"
+__linked_class = &"Adventurer"
 
 [node name="LevelAndClass" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
@@ -68,16 +69,16 @@ layout_mode = 2
 text = "2"
 script = ExtResource("4_pb6xb")
 __test_value = "2"
-__linked_class = &"Adventurer"
 __linked_property = &"level"
+__linked_class = &"Adventurer"
 
 [node name="ClassValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
 text = "Warrior"
 script = ExtResource("4_pb6xb")
 __test_value = "Warrior"
-__linked_class = &"Adventurer"
 __linked_property = &"adventurer_class"
+__linked_class = &"Adventurer"
 
 [node name="StatsBlockBody" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer"]
 layout_mode = 2
@@ -104,11 +105,11 @@ text = "HP:"
 [node name="StatHpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
-__max_value_property = &"current_hp"
-__test_current_value = "29"
-__test_max_value = "29"
+__max_value_property = &"stat_hp"
+__test_current_value = "31"
+__test_max_value = "31"
+__linked_property = &"current_hp"
 __linked_class = &"Adventurer"
-__linked_property = &"stat_hp"
 
 [node name="StatMp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock"]
 layout_mode = 2
@@ -122,11 +123,11 @@ text = "MP:"
 [node name="StatMpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
-__max_value_property = &"current_mp"
-__test_current_value = "5"
-__test_max_value = "5"
+__max_value_property = &"stat_mp"
+__test_current_value = "6"
+__test_max_value = "6"
+__linked_property = &"current_mp"
 __linked_class = &"Adventurer"
-__linked_property = &"stat_mp"
 
 [node name="StatValuesBlock" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock" instance=ExtResource("5_3agds")]
 layout_mode = 2
@@ -140,9 +141,9 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
-__test_value = ["Leader", "Tactician"]
-__linked_class = &"Adventurer"
+__test_value = ["Robust", "Eagle Eye"]
 __linked_property = &"traits"
+__linked_class = &"Adventurer"
 
 [node name="EquipSlots" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody"]
 layout_mode = 2
@@ -150,9 +151,11 @@ theme_override_constants/separation = 12
 
 [node name="WeaponSlot" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/EquipSlots" instance=ExtResource("7_wrwym")]
 layout_mode = 2
+__linked_class = &"Weapon"
 
 [node name="ArmorSlot" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/EquipSlots" instance=ExtResource("7_wrwym")]
 layout_mode = 2
+__linked_class = &"Armor"
 
 [node name="ActionButtons" type="VBoxContainer" parent="MainLayoutRows/MainLayoutCols"]
 layout_mode = 2

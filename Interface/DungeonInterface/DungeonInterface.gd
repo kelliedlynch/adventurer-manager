@@ -35,7 +35,6 @@ func _ready() -> void:
 	_refresh_interface()
 	idle_units_list.menu_item_selected.connect(_on_unit_selected)
 	dungeon_units_list.menu_item_selected.connect(_on_unit_selected)
-	watch_reactive_fields(dungeon, self)
 	send_button.pressed.connect(_on_press_send_button)
 	super()
 
@@ -97,7 +96,7 @@ func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 			idle_units_list.remove_unit(item.unit)
 		send_button.disabled = staged_units.is_empty()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	party_unit_count.text = "%d/%d" % [staged_units.size(), dungeon.max_party_size]
 	#status_window.visible = dungeon.questing
 	#dungeon_units_list.visible = !dungeon.questing
@@ -159,7 +158,6 @@ func _clear_highlights_for_property(item: UnitListMenuItem, prop_name: String):
 
 
 func _on_hazard_icon_hovered(haz: Hazard):
-	var prop_name = ""
 	for counter in haz.counters:
 		#match counter.counter_type:
 			#Hazard.CounterType.TRAIT:

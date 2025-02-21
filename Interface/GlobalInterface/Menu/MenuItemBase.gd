@@ -1,5 +1,5 @@
 @tool
-extends Interface
+extends Reactive
 class_name MenuItemBase
 
 var input_state: int = NORMAL:

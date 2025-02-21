@@ -12,21 +12,26 @@ class_name UnitListMenuItem
 			layout_variation = value
 			_set_layout_variation(value)
 
-var inventory_submenu: InventoryInterface
+var inventory_submenu: EquipmentMenu
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		unit = Adventurer.generate_random_newbie()
+		link_object(Adventurer.generate_random_newbie())
 		for child in action_buttons.get_children():
 			child.queue_free()
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
-	if unit:
-		weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
-		armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
+	weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
+	armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
+	super()
+	
+func link_object(obj: Variant, node: Node = self):
+	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
+		if not is_inside_tree():
+			await ready
 		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
-	super()
+	super(obj, node)
 	
 func _set_layout_variation(variation: int):
 	if !is_inside_tree():
@@ -41,18 +46,20 @@ func _set_layout_variation(variation: int):
 			traits.list_layout = ContentLayout.HORIZONTAL
 	
 func _on_slot_clicked(_val, slot: EquipmentSlot):
-	inventory_submenu = InventoryInterface.instantiate(Game.player.inventory.filter(slot.filter))
+	var a = Game.player.inventory.filter(slot.filter)
+	inventory_submenu = EquipmentMenu.instantiate(a)
+	inventory_submenu.closeable = true
 	inventory_submenu.menu_item_selected.connect(_on_equipment_selected)
-	inventory_submenu.is_root_interface = true
+	#inventory_submenu.is_root_interface = true
 	InterfaceManager.main_control_node.add_child(inventory_submenu)
 	
-func _on_equipment_selected(menu_item: InventoryMenuItem, _val):
-	if menu_item.item is Weapon:
-		unit.weapon = menu_item.item
-		weapon_slot.item = unit.weapon
-	elif menu_item.item is Armor:
-		unit.armor = menu_item.item
-		armor_slot.item = unit.armor
+func _on_equipment_selected(menu_item: EquipmentMenuItem, _val):
+	if menu_item.linked_object is Weapon:
+		linked_object.weapon = menu_item.linked_object
+		weapon_slot.link_object(linked_object.weapon)
+	elif menu_item.linked_object is Armor:
+		linked_object.armor = menu_item.linked_object
+		armor_slot.link_object(linked_object.armor)
 	inventory_submenu.queue_free()
 	
 func add_action_button(text: String, action: Callable) -> Button:
@@ -69,5 +76,5 @@ enum LayoutVariation {
 
 static func instantiate(adv: Adventurer) -> UnitListMenuItem:
 	var item = preload("res://Interface/GlobalInterface/UnitList/UnitListMenuItem.tscn").instantiate()
-	item.unit = adv
+	item.link_object(adv)
 	return item

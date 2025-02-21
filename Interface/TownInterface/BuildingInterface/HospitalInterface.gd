@@ -12,12 +12,12 @@ var heal_cost: int = 0:
 		heal_button.text = str(value)
 		heal_button.disabled = value == 0
 
-var model: Hospital:
-	set(value):
-		model = value
-		if not is_inside_tree():
-			await ready
-		_refresh_interface()
+#var model: Hospital:
+	#set(value):
+		#model = value
+		#if not is_inside_tree():
+			#await ready
+		#_refresh_interface()
 			
 func _ready() -> void:
 	heal_button.pressed.connect(_on_heal_button_pressed)
@@ -25,7 +25,6 @@ func _ready() -> void:
 	injured_units.menu_item_selected.connect(_add_to_hospital)
 	selected_unit.selected_changed.connect(_remove_from_hospital)
 	selected_unit.visible = false
-	watch_reactive_fields(model, self)
 	#super._ready()
 	
 func _add_to_hospital(item: UnitListMenuItem, val: bool):
