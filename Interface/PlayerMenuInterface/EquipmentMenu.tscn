@@ -3,8 +3,19 @@
 [ext_resource type="Script" uid="uid://dcrmgfl3qmmoc" path="res://Interface/PlayerMenuInterface/EquipmentMenu.gd" id="1_jrckp"]
 
 [node name="EquipmentMenu" type="VBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -75.0
+offset_right = 116.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_jrckp")
-closeable = null
+no_item_option = null
 __linked_class = &""
 
 [node name="TitleContainer" type="PanelContainer" parent="."]

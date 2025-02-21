@@ -29,15 +29,8 @@ var next_level_exp: int:
 
 var status: int = STATUS_IDLE
 
-var weapon: Weapon:
-	set(value):
-		weapon = value
-		value.status = Equipment.ITEM_EQUIPPED
-
-var armor: Armor:
-	set(value):
-		armor = value
-		value.status = Equipment.ITEM_EQUIPPED
+var weapon: Weapon
+var armor: Armor
 
 func _init() -> void:
 	unit_name = NameGenerator.new_name()
@@ -49,11 +42,30 @@ func _init() -> void:
 			set("current_mp", adventurer_class.stat_overrides[stat])
 	if !Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_on_game_tick_advanced)
-	
 
 func _on_game_tick_advanced():
 	if status & STATUS_IDLE and status & ~STATUS_INCAPACITATED and current_mp < stat_mp:
 		current_mp += 1
+
+func equip(item: Equipment):
+	if item is Weapon:
+		weapon = item
+	elif item is Armor:
+		armor = item
+	item.status = Equipment.ITEM_EQUIPPED
+
+func unequip(item: Equipment):
+	if item == weapon:
+		weapon = null
+	elif item == armor:
+		armor = null
+	item.status = Equipment.ITEM_NOT_EQUIPPED
+	
+func unequip_all():
+	if weapon:
+		unequip(weapon)
+	if armor:
+		unequip(armor)
 
 func level_up():
 	level += 1

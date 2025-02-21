@@ -30,6 +30,12 @@ func link_object(obj: Variant, node: Node = self):
 		node.linked_object = obj
 	for child in node.get_children():
 		link_object(obj, child)
+		
+func unlink_object(obj: Variant, node: Node = self):
+	if node is Reactive and node.linked_object == obj:
+		node.linked_object = null
+	for child in node.get_children():
+		unlink_object(obj, child)
 
 func get_linkable_object_classes():
 	return ProjectSettings.get_global_class_list()

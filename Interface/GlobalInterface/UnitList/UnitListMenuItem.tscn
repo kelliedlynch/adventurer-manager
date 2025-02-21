@@ -45,9 +45,8 @@ layout_mode = 2
 
 [node name="UnitName" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
-text = "Cla"
 script = ExtResource("4_pb6xb")
-__test_value = "Cla"
+__test_value = ""
 __linked_property = &"unit_name"
 __linked_class = &"Adventurer"
 
@@ -66,17 +65,15 @@ text = "Lv."
 
 [node name="LevelValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass/Level"]
 layout_mode = 2
-text = "2"
 script = ExtResource("4_pb6xb")
-__test_value = "2"
+__test_value = ""
 __linked_property = &"level"
 __linked_class = &"Adventurer"
 
 [node name="ClassValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
-text = "Warrior"
 script = ExtResource("4_pb6xb")
-__test_value = "Warrior"
+__test_value = ""
 __linked_property = &"adventurer_class"
 __linked_class = &"Adventurer"
 
@@ -106,8 +103,6 @@ text = "HP:"
 layout_mode = 2
 theme_type_variation = &"TextBig"
 __max_value_property = &"stat_hp"
-__test_current_value = "31"
-__test_max_value = "31"
 __linked_property = &"current_hp"
 __linked_class = &"Adventurer"
 
@@ -124,8 +119,6 @@ text = "MP:"
 layout_mode = 2
 theme_type_variation = &"TextBig"
 __max_value_property = &"stat_mp"
-__test_current_value = "6"
-__test_max_value = "6"
 __linked_property = &"current_mp"
 __linked_class = &"Adventurer"
 
@@ -141,7 +134,6 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
-__test_value = ["Robust", "Eagle Eye"]
 __linked_property = &"traits"
 __linked_class = &"Adventurer"
 

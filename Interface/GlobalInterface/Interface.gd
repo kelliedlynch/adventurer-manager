@@ -19,9 +19,3 @@ func _refresh_interface():
 					#child.linked_model = watched
 		#watch_reactive_fields(watched, child)
 		
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		get_viewport().set_input_as_handled()
-		queue_free()

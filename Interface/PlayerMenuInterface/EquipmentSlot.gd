@@ -37,6 +37,11 @@ func link_object(obj: Variant, node: Node = self):
 	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
 		texture_rect.link_object(obj)
 	super(obj, node)
+	
+func unlink_object(obj: Variant, node: Node = self):
+	if obj and obj is Equipment:
+		texture_rect.unlink_object(obj)
+	super(obj, node)
 
 func _ready() -> void:
 	texture_rect.linked_class = linked_class

@@ -20,23 +20,45 @@ var base_stats: Dictionary = {
 	stat_def = 0,
 	stat_mag = 0,
 	stat_res = 0,
+	stat_dex = 0,
 	stat_luk = 0,
 	stat_cha = 0
 }
 
-var stat_hp: int
+var stat_hp: int: 
+	get: return _get("stat_hp")
+	set(value): _set("stat_hp", value)
 var current_hp: int
-
-var stat_mp: int
+	#get: return _get("current_hp")
+	#set(value): _set("current_hp", value)
+var stat_mp: int:
+	get: return _get("stat_mp")
+	set(value): _set("stat_mp", value)
 var current_mp: int
+	#get: return _get("current_mp")
+	#set(value): _set("current_mp", value)
 
-var stat_atk: int
-var stat_def: int
-var stat_mag: int
-var stat_res: int
-var stat_dex: int
-var stat_luk: int
-var stat_cha: int
+var stat_atk: int:
+	get: return _get("stat_atk")
+	set(value): _set("stat_atk", value)
+var stat_def: int:
+	get: return _get("stat_def")
+	set(value): _set("stat_def", value)
+var stat_mag: int:
+	get: return _get("stat_mag")
+	set(value): _set("stat_mag", value)
+var stat_res: int:
+	get: return _get("stat_res")
+	set(value): _set("stat_res", value)
+var stat_dex: int:
+	get: return _get("stat_dex")
+	set(value): _set("stat_dex", value)
+var stat_luk: int:
+	get: return _get("stat_luk")
+	set(value): _set("stat_luk", value)
+var stat_cha: int:
+	get: return _get("stat_cha")
+	set(value): _set("stat_cha", value)
 
 signal died
 
@@ -57,17 +79,6 @@ func _set(property: StringName, value: Variant) -> bool:
 		base_stats[property] = value
 		return true
 	return false
-
-func _get_calculated_stat(stat: String) -> int:
-	var base = "stat" + stat.right(-4)
-	var calc = get(base)
-	if get("armor"):
-		calc += self.armor.get(base)
-	if get("weapon"):
-		calc += self.weapon.get(base)
-	for buff in buffs:
-		calc += buff.get(base)
-	return calc
 
 func combat_action():
 	pass

@@ -37,6 +37,7 @@ class_name UnitMenuItem
 @onready var class_value: ReactiveTextField = find_child("ClassValue")
 @onready var stat_hp_value: ReactiveProgressField = find_child("StatHpValue")
 @onready var stat_mp_value: ReactiveProgressField = find_child("StatMpValue")
+@onready var stat_values_block: GridContainer = find_child("StatValuesBlock")
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:

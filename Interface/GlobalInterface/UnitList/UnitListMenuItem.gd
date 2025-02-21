@@ -12,8 +12,6 @@ class_name UnitListMenuItem
 			layout_variation = value
 			_set_layout_variation(value)
 
-var inventory_submenu: EquipmentMenu
-
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		link_object(Adventurer.generate_random_newbie())
@@ -47,20 +45,28 @@ func _set_layout_variation(variation: int):
 	
 func _on_slot_clicked(_val, slot: EquipmentSlot):
 	var a = Game.player.inventory.filter(slot.filter)
-	inventory_submenu = EquipmentMenu.instantiate(a)
-	inventory_submenu.closeable = true
-	inventory_submenu.menu_item_selected.connect(_on_equipment_selected)
+	var inventory_submenu = EquipmentMenuInterface.instantiate(a)
+	_configure_equipment_select_menu(slot, inventory_submenu)
 	#inventory_submenu.is_root_interface = true
-	InterfaceManager.main_control_node.add_child(inventory_submenu)
+	InterfaceManager.display_interface(inventory_submenu)
 	
-func _on_equipment_selected(menu_item: EquipmentMenuItem, _val):
-	if menu_item.linked_object is Weapon:
-		linked_object.weapon = menu_item.linked_object
-		weapon_slot.link_object(linked_object.weapon)
+func _configure_equipment_select_menu(slot: EquipmentSlot, interface: EquipmentMenuInterface):
+	if not interface.is_inside_tree():
+		await interface.ready
+	interface.equipment_menu.menu_item_selected.connect(_on_equipment_selected.bind(slot))
+	interface.equipment_menu.menu_item_selected.connect(InterfaceManager.close_interface.bind(interface).unbind(2))
+	interface.equipment_menu.no_item_option = true
+	
+func _on_equipment_selected(menu_item: EquipmentMenuItem, _val, slot: EquipmentSlot):
+	if menu_item.linked_object == null and slot.linked_object:
+		linked_object.unequip(slot.linked_object)
+		slot.unlink_object(slot.linked_object)
+	elif menu_item.linked_object is Weapon:
+		linked_object.equip(menu_item.linked_object)
+		weapon_slot.link_object(menu_item.linked_object)
 	elif menu_item.linked_object is Armor:
-		linked_object.armor = menu_item.linked_object
-		armor_slot.link_object(linked_object.armor)
-	inventory_submenu.queue_free()
+		linked_object.equip(menu_item.linked_object)
+		armor_slot.link_object(menu_item.linked_object)
 	
 func add_action_button(text: String, action: Callable) -> Button:
 	var button = Button.new()

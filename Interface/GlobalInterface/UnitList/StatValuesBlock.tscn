@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://4gwdieeoqoyp"]
+[gd_scene load_steps=9 format=3 uid="uid://4gwdieeoqoyp"]
 
+[ext_resource type="Script" uid="uid://dt4ritvg76opq" path="res://Interface/GlobalInterface/UnitList/StatValuesBlock.gd" id="1_6ll1k"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="1_wsv51"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="2_ihbp3"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="3_sa5bt"]
@@ -12,6 +13,8 @@
 theme_override_constants/h_separation = 72
 theme_override_constants/v_separation = 12
 columns = 3
+script = ExtResource("1_6ll1k")
+__linked_class = &"Adventurer"
 
 [node name="StatAtk" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -26,11 +29,11 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "15"
 horizontal_alignment = 2
 script = ExtResource("2_ihbp3")
-/linked_class = &"Adventurer"
-/linked_property = &"stat_atk"
+__test_value = ""
+__linked_property = &"stat_atk"
+__linked_class = &"Adventurer"
 
 [node name="StatDef" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -45,11 +48,11 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "10"
 horizontal_alignment = 2
 script = ExtResource("2_ihbp3")
-/linked_class = &"Adventurer"
-/linked_property = &"stat_def"
+__test_value = ""
+__linked_property = &"stat_def"
+__linked_class = &"Adventurer"
 
 [node name="StatMag" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -64,11 +67,11 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "4"
 horizontal_alignment = 2
 script = ExtResource("2_ihbp3")
-/linked_class = &"Adventurer"
-/linked_property = &"stat_mag"
+__test_value = ""
+__linked_property = &"stat_mag"
+__linked_class = &"Adventurer"
 
 [node name="StatRes" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -83,11 +86,11 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "4"
 horizontal_alignment = 2
 script = ExtResource("2_ihbp3")
-/linked_class = &"Adventurer"
-/linked_property = &"stat_res"
+__test_value = ""
+__linked_property = &"stat_res"
+__linked_class = &"Adventurer"
 
 [node name="StatDex" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -102,11 +105,11 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "7"
 horizontal_alignment = 2
 script = ExtResource("2_ihbp3")
-/linked_class = &"Adventurer"
-/linked_property = &"stat_dex"
+__test_value = ""
+__linked_property = &"stat_dex"
+__linked_class = &"Adventurer"
 
 [node name="StatLuk" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -121,11 +124,11 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "0"
 horizontal_alignment = 2
 script = ExtResource("2_ihbp3")
-/linked_class = &"Adventurer"
-/linked_property = &"stat_luk"
+__test_value = ""
+__linked_property = &"stat_luk"
+__linked_class = &"Adventurer"
 
 [node name="StatCha" type="HBoxContainer" parent="."]
 visible = false
@@ -139,8 +142,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "4"
 horizontal_alignment = 2
 script = ExtResource("2_ihbp3")
-/linked_class = &"Adventurer"
-/linked_property = &"stat_cha"
+__test_value = ""
+__linked_property = &"stat_cha"
+__linked_class = &"Adventurer"

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b70i3r2p5tgqy"]
+
+[ext_resource type="Script" uid="uid://rsl1bnrb7awh" path="res://Interface/PlayerMenuInterface/EquipmentMenuInterface.gd" id="1_6g1td"]
+[ext_resource type="PackedScene" uid="uid://wb3l40iq0r2x" path="res://Interface/PlayerMenuInterface/EquipmentMenu.tscn" id="2_x3hos"]
+
+[node name="EquipmentMenuInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6g1td")
+__linked_class = &""
+
+[node name="EquipmentMenu" parent="." instance=ExtResource("2_x3hos")]
+layout_mode = 1
+no_item_option = false

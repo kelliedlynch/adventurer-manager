@@ -26,38 +26,38 @@ func _on_roster_button_pressed():
 	var nodes = main_control.get_children()
 	var index = nodes.find_custom(func (x): return x is RosterInterface)
 	if index != -1:
-		InterfaceManager.close_menu(nodes[index])
+		InterfaceManager.close_interface(nodes[index])
 	else:
 		var roster = RosterInterface.instantiate()
 		roster.tree_exited.connect(roster_button.set_pressed_no_signal.bind(false))
-		InterfaceManager.display_menu(roster, true)
+		InterfaceManager.display_interface(roster, true)
 		
 func _on_inventory_button_pressed():
 	var nodes = main_control.get_children()
 	var index = nodes.find_custom(func (x): return x is InventoryInterface)
 	if index != -1:
-		InterfaceManager.close_menu(nodes[index])
+		InterfaceManager.close_interface(nodes[index])
 	else:
 		var inventory = InventoryInterface.instantiate(Game.player.inventory)
 		inventory.tree_exited.connect(roster_button.set_pressed_no_signal.bind(false))
-		InterfaceManager.display_menu(inventory, true)
+		InterfaceManager.display_interface(inventory, true)
 
 func _on_dungeon_button_pressed():
 	var nodes = main_control.get_children()
 	var index = nodes.find_custom(func (x): return x is DungeonInterface)
 	if index != -1:
-		InterfaceManager.close_menu(nodes[index])
+		InterfaceManager.close_interface(nodes[index])
 	else:
 		var dungeon = DungeonInterface.instantiate(Game.dungeon)
 		dungeon.tree_exited.connect(dungeon_button.set_pressed_no_signal.bind(false))
-		InterfaceManager.display_menu(dungeon, true)
+		InterfaceManager.display_interface(dungeon, true)
 
 func _on_town_button_pressed():
 	var nodes = main_control.get_children()
 	var index = nodes.find_custom(func (x): return x is TownInterface)
 	if index != -1:
-		InterfaceManager.close_menu(nodes[index])
+		InterfaceManager.close_interface(nodes[index])
 	else:
 		var town = TownInterface.instantiate(Game.player.current_town)
 		town.tree_exited.connect(town_button.set_pressed_no_signal.bind(false))
-		InterfaceManager.display_menu(town, true)
+		InterfaceManager.display_interface(town, true)

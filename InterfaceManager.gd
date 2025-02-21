@@ -1,16 +1,31 @@
 extends Node
 
 var main_control_node: Control
+var interface_stack: Array[Interface] = []
 
-func display_menu(menu: Control, replace: bool = false):
+func display_interface(interface: Interface, replace: bool = false):
 	if replace:
 		close_all()
-	main_control_node.add_child(menu)
+	main_control_node.add_child(interface)
+	interface_stack.append(interface)
 	
-func close_menu(menu: Control):
-	menu.queue_free()
+func close_interface(interface: Interface):
+	var index = interface_stack.find(interface)
+	if index != -1:
+		for i in interface_stack.size() - index:
+			_close_top_interface()
+	
+func _close_top_interface():
+	var top = interface_stack.back()
+	if top:
+		top.queue_free()
+		interface_stack.erase(top)
 	
 func close_all():
-	for child in main_control_node.get_children():
-		if child is Interface:
-			child.queue_free()
+	while not interface_stack.is_empty():
+		_close_top_interface()
+
+func _input(event: InputEvent) -> void:
+	if not interface_stack.is_empty() and event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_close_top_interface()
