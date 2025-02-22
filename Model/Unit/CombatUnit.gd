@@ -65,9 +65,9 @@ signal died
 func _get(property: StringName):
 	if base_stats.has(property):
 		var calc = base_stats[property]
-		if self.weapon and self.weapon.stat_mods.has(property):
+		if "weapon" in self and self.weapon and self.weapon.stat_mods.has(property):
 			calc += self.weapon.stat_mods[property]
-		if self.armor and self.armor.stat_mods.has(property):
+		if "armor" in self and self.armor and self.armor.stat_mods.has(property):
 			calc += self.armor.stat_mods[property]
 		for buff in buffs:
 			if buff.stat_mods.has(property):

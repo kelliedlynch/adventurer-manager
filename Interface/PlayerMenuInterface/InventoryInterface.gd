@@ -12,7 +12,7 @@ func _ready() -> void:
 		link_object(inv)
 			
 func link_object(obj: Variant, node: Node = self):
-	if obj and obj is ObservableArray and obj.get_type() == Equipment:
+	if obj and obj is ObservableArray and obj.array_type == Equipment:
 		if not is_inside_tree():
 			await ready
 		inventory_menu.clear_menu_items()

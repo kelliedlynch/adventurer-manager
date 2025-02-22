@@ -125,13 +125,14 @@ func link_object(obj: Variant, node: Node = self):
 	if node == self and obj and obj is ObservableArray and obj.array_type == Adventurer:
 		#if not is_inside_tree():
 			#await ready
-		clear_menu_items()
+		clear_units()
 		for item in obj:
 			add_unit(item)
 	super(obj, node)
 	
 func _on_linked_observable_changed(obj: ObservableArray):
-	clear_menu_items()
+	clear_units()
+	await get_tree().process_frame
 	for item in obj:
 		add_unit(item)
 
