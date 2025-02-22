@@ -44,8 +44,8 @@ func _set_layout_variation(variation: int):
 			traits.list_layout = ContentLayout.HORIZONTAL
 	
 func _on_slot_clicked(_val, slot: EquipmentSlot):
-	var a = Game.player.inventory.filter(slot.filter)
-	var inventory_submenu = EquipmentMenuInterface.instantiate(a)
+	var valid_items = ObservableArray.new(Game.player.inventory.filter(slot.filter), Equipment)
+	var inventory_submenu = EquipmentMenuInterface.instantiate(valid_items)
 	_configure_equipment_select_menu(slot, inventory_submenu)
 	#inventory_submenu.is_root_interface = true
 	InterfaceManager.display_interface(inventory_submenu)

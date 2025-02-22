@@ -43,7 +43,8 @@ func _ready() -> void:
 	_adjust_for_child_quantity(mitigate_single)
 	_adjust_for_child_quantity(partial_mitigate_party)
 	_adjust_for_child_quantity(partial_mitigate_single)
-	watch_reactive_fields(hazard, self)
+	link_object(hazard)
+	#watch_reactive_fields(hazard, self)
 
 func _adjust_for_child_quantity(container: Container):
 	var children = container.get_child_count()

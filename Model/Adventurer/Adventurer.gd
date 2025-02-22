@@ -27,7 +27,12 @@ var next_level_exp: int:
 	set(value):
 		push_error("cannot set next_level_exp")
 
-var status: int = STATUS_IDLE
+var status: int = STATUS_IDLE:
+	set(value):
+		status = value
+		property_changed.emit()
+
+signal property_changed
 
 var weapon: Weapon
 var armor: Armor
@@ -120,11 +125,9 @@ static func generate_random_newbie() -> Adventurer:
 			continue
 		noob.traits.append(t)
 	if randi() % 2 == 0:
-		var equip = Equipment.generate_random_equipment()
-		if equip is Weapon:
-			noob.weapon = equip
-		elif equip is Armor:
-			noob.armor = equip
+		var equipment = Equipment.generate_random_equipment()
+		Game.ready.connect(func(): Game.player.inventory.append(equipment), CONNECT_ONE_SHOT)
+		noob.equip(equipment)
 	noob.level_up()
 	rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]

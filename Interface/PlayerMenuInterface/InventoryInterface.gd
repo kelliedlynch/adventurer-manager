@@ -12,7 +12,7 @@ func _ready() -> void:
 		link_object(inv)
 			
 func link_object(obj: Variant, node: Node = self):
-	if obj and obj is Array[Equipment]:
+	if obj and obj is ObservableArray and obj.get_type() == Equipment:
 		if not is_inside_tree():
 			await ready
 		inventory_menu.clear_menu_items()
@@ -21,7 +21,7 @@ func link_object(obj: Variant, node: Node = self):
 		return
 	super(obj, node)
 
-static func instantiate(items_list: Array[Equipment]):
+static func instantiate(items_list: ObservableArray):
 	var menu = load("res://Interface/PlayerMenuInterface/InventoryInterface.tscn").instantiate()
 	menu.link_object(items_list)
 	return menu

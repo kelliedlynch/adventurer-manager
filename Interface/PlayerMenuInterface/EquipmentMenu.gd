@@ -14,16 +14,15 @@ class_name EquipmentMenu
 				remove_menu_item(menu_items[index])
 
 func link_object(obj: Variant, node: Node = self):
-	if obj and obj is Array[Equipment]:
+	if node == self and obj and obj is ObservableArray and obj.array_type == Equipment:
 		clear_menu_items()
 		for item in obj:
 			add_menu_item(EquipmentMenuItem.instantiate(item))
 		if no_item_option:
 			add_menu_item(EquipmentMenuItem.instantiate(null))
-		return
 	super(obj, node)
 
-static func instantiate(items: Array[Equipment] = []) -> EquipmentMenu:
+static func instantiate(items: ObservableArray) -> EquipmentMenu:
 	var menu = preload("res://Interface/PlayerMenuInterface/EquipmentMenu.tscn").instantiate()
 	menu.link_object(items)
 	return menu

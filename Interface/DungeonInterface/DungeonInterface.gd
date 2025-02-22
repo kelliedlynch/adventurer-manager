@@ -5,24 +5,25 @@ class_name DungeonInterface
 @onready var idle_units_list: UnitListMenu = find_child("IdleUnits")
 @onready var dungeon_panel: VBoxContainer = find_child("DungeonInfoPanel")
 @onready var reward_amount: Label = find_child("RewardAmount")
-@onready var dungeon_units_list: UnitListMenu = find_child("DungeonParty")
+@onready var staged_units_list: UnitListMenu = find_child("DungeonParty")
 @onready var send_button: Button = find_child("SendParty")
 @onready var party_unit_count: Label = find_child("PartyUnitsField")
 @onready var dungeon_time: ReactiveTextField = find_child("DungeonTimeField")
 @onready var status_window: DungeonStatusWindow = find_child("DungeonStatusWindow")
 @onready var hazard_icons: HBoxContainer = find_child("HazardIcons")
 
-var staged_units: Array[Adventurer] = []
+#var staged_units: ObservableArray = ObservableArray.new([], Adventurer)
+var idle_units: ObservableArray = ObservableArray.new([], Adventurer)
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		linked_object = Dungeon.new()
+		var dun = Dungeon.new()
 		for i in 4:
-			linked_object.party.append(Adventurer.generate_random_newbie())
-		status_window.party = linked_object.party
-		linked_object.questing = true
-	for unit in _get_idle_units():
-		idle_units_list.add_unit(unit)
+			dun.party.append(Adventurer.generate_random_newbie())
+		link_object(dun)
+
+			
+	#idle_units_list.link_object(_get_idle_units())
 	if not is_inside_tree():
 		await ready
 	for hazard in linked_object.hazards:
@@ -32,70 +33,66 @@ func _ready() -> void:
 		icon.mouse_exited.connect(_on_hazard_icon_exited.bind(icon.hazard))
 	_refresh_interface()
 	idle_units_list.menu_item_selected.connect(_on_unit_selected)
-	dungeon_units_list.menu_item_selected.connect(_on_unit_selected)
+	staged_units_list.menu_item_selected.connect(_on_unit_selected)
 	send_button.pressed.connect(_on_press_send_button)
+	#status_window.link_object(linked_object.party)
 	super()
-
-func _get_idle_units() -> Array[Adventurer]:
-	if get_tree().current_scene == self or Engine.is_editor_hint():
-		var u: Array[Adventurer] = []
+	
+func _rebuild_idle_unit_list():
+	#var currently_staged = staged_units_list.linked_object
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		idle_units.clear()
 		for i in 6:
-			u.append(Adventurer.generate_random_newbie())
-		return u
-	var idle = Game.player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE and not staged_units.has(x))
-	return idle
+			idle_units.append(Adventurer.generate_random_newbie())
+		return
+	var idle = Game.player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE and not linked_object.staged.has(x))
+	if idle_units_list.linked_object == null:
+		idle_units_list.link_object(idle_units)
+	if not idle_units.is_equal(idle):
+		idle_units.clear()
+		idle_units.append_array(idle)
+
+func _rebuild_staged_unit_list():
+	if staged_units_list.linked_object == null:
+		staged_units_list.link_object(linked_object.staged)
+	#var staged_in_menu = staged_units_list.menu_items.map(func(x): return x.linked_object)
+	# this is a mess and probably wrong
+	#if not linked_object.staged.is_equal(staged_in_menu):
+		#staged_units_list.clear_units()
+		#for unit in linked_object.staged:
+			#staged_units_list.add_unit(unit)
 	
 func _refresh_interface():
 	var r = linked_object.estimate_reward()
 	reward_amount.text = str(r[0]) + "-" + str(r[-1])
-	var idle = _get_idle_units()
-	var existing = idle_units_list.units
-	if idle != existing:
-		for unit in existing:
-			if !idle.has(unit):
-				idle_units_list.remove_unit(unit)
-		for unit in idle:
-			if !existing.has(unit):
-				idle_units_list.add_unit(unit)
-	var staged = dungeon_units_list.units
-	if staged_units != staged:
-		for unit in staged:
-			if !staged_units.has(unit):
-				dungeon_units_list.remove_unit(unit)
-		for unit in staged_units:
-			if !staged.has(unit):
-				dungeon_units_list.add_unit(unit)
+	_rebuild_idle_unit_list()
+	_rebuild_staged_unit_list()
 	status_window.visible = linked_object.questing
-	dungeon_units_list.visible = !linked_object.questing
+	staged_units_list.visible = !linked_object.questing
 	send_button.disabled = linked_object.questing
 	
 func _on_press_send_button():
 	if linked_object.party.is_empty():
-		linked_object.party.append_array(dungeon_units_list.units)
-		for unit in linked_object.party:
-			dungeon_units_list.remove_unit(unit)
-		staged_units.clear()
+		linked_object.party.append_array(linked_object.staged)
 		linked_object.staged.clear()
 		linked_object.begin_quest()
-		status_window.party = linked_object.party
+		
 
 func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 	if linked_object.questing: return
+	var unit = item.linked_object
 	if selected:
-		if staged_units.has(item.linked_object):
-			linked_object.staged.erase(item.linked_object)
-			staged_units.erase(item.linked_object)
-			idle_units_list.add_unit(item.linked_object)
-			dungeon_units_list.remove_unit(item.linked_object)
-		elif staged_units.size() < linked_object.max_party_size:
-			linked_object.staged.append(item.linked_object)
-			staged_units.append(item.linked_object)
-			dungeon_units_list.add_unit(item.linked_object)
-			idle_units_list.remove_unit(item.linked_object)
-		send_button.disabled = staged_units.is_empty()
+		if linked_object.staged.has(unit):
+			linked_object.staged.erase(unit)
+			idle_units.append(unit)
+			#_rebuild_idle_unit_list()
+		elif linked_object.staged.size() < linked_object.max_party_size:
+			linked_object.staged.append(unit)
+			idle_units.erase(unit)
+		send_button.disabled = linked_object.staged.is_empty()
 
 func _process(_delta: float) -> void:
-	party_unit_count.text = "%d/%d" % [staged_units.size(), linked_object.max_party_size]
+	party_unit_count.text = "%d/%d" % [linked_object.staged.size(), linked_object.max_party_size]
 	#status_window.visible = dungeon.questing
 	#dungeon_units_list.visible = !dungeon.questing
 
@@ -168,7 +165,7 @@ func _on_hazard_icon_hovered(haz: Hazard):
 				#prop_name = "adventurer_class"
 		for item in idle_units_list.menu_items:
 			_highlight_props_that_counter(item, counter)
-		for item in dungeon_units_list.menu_items:
+		for item in staged_units_list.menu_items:
 			_highlight_props_that_counter(item, counter)
 	
 func _on_hazard_icon_exited(haz: Hazard):
@@ -185,7 +182,7 @@ func _on_hazard_icon_exited(haz: Hazard):
 				prop_name = "adventurer_class"
 		for item in idle_units_list.menu_items:
 			_clear_highlights_for_property(item, prop_name)
-		for item in dungeon_units_list.menu_items:
+		for item in staged_units_list.menu_items:
 			_clear_highlights_for_property(item, prop_name)
 #func _color_hazard_counter_stats(haz: Hazard):
 	#for counter in haz.counters:
@@ -220,6 +217,6 @@ func _on_hazard_icon_exited(haz: Hazard):
 				#label.modulate = get_theme_color("success_color", "Label")
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:
-	var menu = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()
-	menu.dungeon = dun
-	return menu
+	var interface = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()
+	interface.link_object(dun)
+	return interface

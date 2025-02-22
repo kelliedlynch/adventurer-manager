@@ -1,11 +1,11 @@
 extends Resource
 class_name PlayerData
 
-var roster: Array[Adventurer] = []
+var roster: ObservableArray = ObservableArray.new([], Adventurer)
 var money: int = 120
 var current_town: Town
 
-var inventory: Array[Equipment] = []
+var inventory: ObservableArray = ObservableArray.new([], Equipment)
 
 func _init() -> void:
 	for i in 12:

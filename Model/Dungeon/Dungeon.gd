@@ -2,8 +2,8 @@ extends Resource
 class_name Dungeon
 
 var dungeon_name: String = "Scary Dungeon"
-var party: Array[Adventurer] = []
-var staged: Array[Adventurer] = []
+var party: ObservableArray = ObservableArray.new([], Adventurer)
+var staged: ObservableArray = ObservableArray.new([], Adventurer)
 var max_party_size: int = 4
 var max_enemies_per_encounter: int = 4
 #TODO: this is a placeholder for reward estimation. Remove when reward estimation is dynamic based on

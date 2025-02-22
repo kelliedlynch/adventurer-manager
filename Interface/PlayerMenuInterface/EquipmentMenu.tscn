@@ -15,7 +15,6 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jrckp")
-no_item_option = null
 __linked_class = &""
 
 [node name="TitleContainer" type="PanelContainer" parent="."]

@@ -122,12 +122,18 @@ func register_action_button(text: String, action: Callable, active_if: Callable 
 	#_refresh_queued = true
 
 func link_object(obj: Variant, node: Node = self):
-	if obj and obj is Array[Adventurer]:
+	if node == self and obj and obj is ObservableArray and obj.array_type == Adventurer:
+		#if not is_inside_tree():
+			#await ready
 		clear_menu_items()
 		for item in obj:
 			add_unit(item)
-		return
 	super(obj, node)
+	
+func _on_linked_observable_changed(obj: ObservableArray):
+	clear_menu_items()
+	for item in obj:
+		add_unit(item)
 
 func _get_property_list() -> Array[Dictionary]:
 	var props: Array[Dictionary] = [{
@@ -149,7 +155,7 @@ func _get_property_list() -> Array[Dictionary]:
 		})
 	return props
 
-static func instantiate(with_units: Array[Adventurer] = []) -> UnitListMenu:
+static func instantiate(with_units: ObservableArray = ObservableArray.new()) -> UnitListMenu:
 	var menu = preload("res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn").instantiate()
 	menu.link_object(with_units)
 	return menu

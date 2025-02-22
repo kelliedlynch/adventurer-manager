@@ -28,8 +28,13 @@ func _get_property_list() -> Array:
 func link_object(obj: Variant, node: Node = self):
 	if node is Reactive and node.linked_class and (not obj or Utility.is_derived_from(obj.get_script().get_global_name(), node.linked_class)):
 		node.linked_object = obj
+	if node == self and node is Reactive and obj is ObservableArray:
+		obj.array_changed.connect(node._on_linked_observable_changed.bind(obj))
 	for child in node.get_children():
 		link_object(obj, child)
+		
+func _on_linked_observable_changed(obj: ObservableArray):
+	pass
 		
 func unlink_object(obj: Variant, node: Node = self):
 	if node is Reactive and node.linked_object == obj:
