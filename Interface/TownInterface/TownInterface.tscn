@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://pm6rhiq4laht"]
 
-[ext_resource type="Theme" uid="uid://d0bl6jabh3mof" path="res://Interface/TownInterface/TownInterfaceTheme.tres" id="1_2en7i"]
 [ext_resource type="Script" uid="uid://bchxhhcdbcwcn" path="res://Interface/TownInterface/TownInterface.gd" id="1_20l4v"]
 [ext_resource type="Texture2D" uid="uid://dfmg46bqwiryt" path="res://Graphics/Backgrounds/village_3.png" id="3_2en7i"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_2en7i"]
+[ext_resource type="PackedScene" uid="uid://hv2fmqwiaaqe" path="res://Interface/TownInterface/TownBuildingMenu.tscn" id="5_beug5"]
 
 [node name="TownInterface" type="MarginContainer"]
 anchors_preset = 15
@@ -11,9 +11,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_2en7i")
 script = ExtResource("1_20l4v")
-is_root_interface = true
+__linked_class = &"Town"
+__linked_property = &""
 
 [node name="Village3" type="TextureRect" parent="."]
 self_modulate = Color(0.94902, 0.94902, 0.94902, 1)
@@ -22,24 +22,18 @@ texture = ExtResource("3_2en7i")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="TownNameContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-theme_type_variation = &"TitleBar"
 
-[node name="TownName" type="Label" parent="VBoxContainer/PanelContainer"]
+[node name="TownName" type="Label" parent="VBoxContainer/TownNameContainer"]
 layout_mode = 2
-theme_type_variation = &"HeaderLarge"
-text = "Townsvillia"
+text = "Generic Town"
 horizontal_alignment = 1
 script = ExtResource("4_2en7i")
-/linked_class = &"Town"
-/linked_property = &"town_name"
+__test_value = "Generic Town"
+__linked_class = &"Town"
+__linked_property = &"town_name"
 
-[node name="Buildings" type="GridContainer" parent="VBoxContainer"]
+[node name="TownBuildingMenu" parent="VBoxContainer" instance=ExtResource("5_beug5")]
 layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"BuildingGrid"
-columns = 3

@@ -3,7 +3,7 @@ class_name Town
 
 var town_name: String = "Generic Town"
 		
-var buildings: Array[Building] = []
+var buildings: ObservableArray = ObservableArray.new([], Building)
 
 func _init() -> void:
 	var tav = Tavern.new()

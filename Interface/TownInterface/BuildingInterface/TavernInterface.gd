@@ -1,24 +1,15 @@
+@tool
 extends Reactive
 class_name TavernInterface
 
 @onready var for_hire_menu: UnitListMenu = find_child("ForHireMenu")
-@onready var name_label: ReactiveField = find_child("TavernName")
-
-var model: Tavern:
-	set(value):
-		model = value
-		if not is_inside_tree():
-			await ready
-		for unit in model.adventurers_for_hire:
-			for_hire_menu.add_unit(unit)
-		if not Engine.is_editor_hint():
-			value.adventurers_for_hire_changed.connect(_refresh_for_hire_list)
-			name_label.linked_model = model
+@onready var name_label: ReactiveTextField = find_child("TavernName")
 
 func _ready() -> void:
-	if get_tree().current_scene == self or Engine.is_editor_hint():
-		model = Tavern.new()
 	for_hire_menu.register_action_button("Hire", _on_hire_button_pressed, _can_hire_unit)
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		link_object(Tavern.new())
+	
 
 func _can_hire_unit(unit: Adventurer) -> bool:
 	if Engine.is_editor_hint():
@@ -33,20 +24,17 @@ func _on_hire_button_pressed(unit: Adventurer):
 	add_child(dialog)
 	
 func _confirm_hire(unit: Adventurer):
-	model.hire_adventurer(unit)
+	linked_object.hire_adventurer(unit)
 	
-func _on_player_money_changed():
-	pass
-
-func _refresh_for_hire_list():
-	for unit in for_hire_menu.units:
-		if !model.adventurers_for_hire.has(unit):
-			for_hire_menu.remove_unit(unit)
-	for unit in model.adventurers_for_hire:
-		if !for_hire_menu.units.has(unit):
-			for_hire_menu.add_unit(unit)
+func link_object(obj: Variant, node: Node = self, recursive = false):
+	super(obj, node, recursive)
+	if linked_object == obj and linked_object is Tavern:
+		if not is_inside_tree():
+			await ready
+		for_hire_menu.link_object(obj.adventurers_for_hire)
+		name_label.link_object(obj)
 
 static func instantiate(tav: Tavern) -> TavernInterface:
-	var menu = load("res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn").instantiate()
-	menu.model = tav
-	return menu
+	var interface = load("res://Interface/TownInterface/BuildingInterface/TavernInterface.tscn").instantiate()
+	interface.link_object(tav)
+	return interface

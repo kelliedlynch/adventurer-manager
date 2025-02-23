@@ -80,6 +80,7 @@ func unlink_object(obj: Variant, node: Node = self, recursive = false):
 func _get(property):
 	# This is solely to allow updating linked class and property in the editor
 	if property.begins_with("__test"):
+		#print("getting test value in base for ", property)
 		return get_test_value(property)
 	if property.begins_with("__") and property.right(-2) in self:
 		return get(property.right(-2))
@@ -96,9 +97,11 @@ func clear_test_value():
 func _set(property, value):
 	# This is solely to allow updating linked class and property in the editor
 	if property.begins_with("__test"):
+		("set test value in base")
 		set_test_value(property, value)
 		return true
 	if property.begins_with("__") and property.right(-2) in self:
+		("set called, but didn't catch test value")
 		set(property.right(-2), value)
 		notify_property_list_changed()
 		return true

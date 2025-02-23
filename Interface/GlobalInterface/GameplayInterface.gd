@@ -1,7 +1,7 @@
 extends Control
 
 @onready var main_control: Control = find_child("Main")
-@onready var money_label: ReactiveField = find_child("MoneyField")
+@onready var money_label: ReactiveTextField = find_child("MoneyField")
 @onready var roster_button: Button = find_child("RosterButton")
 @onready var inventory_button: Button = find_child("InventoryButton")
 @onready var town_button: Button = find_child("TownButton")

@@ -1,5 +1,5 @@
 @tool
-extends ReactiveField
+extends Reactive
 class_name ReactiveMultiField
 # A field that displays the contents of an array or dictionary
 

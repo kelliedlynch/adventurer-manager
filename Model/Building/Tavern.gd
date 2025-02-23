@@ -1,7 +1,7 @@
 extends Building
 class_name Tavern
 
-var adventurers_for_hire: Array[Adventurer] = []
+var adventurers_for_hire: ObservableArray = ObservableArray.new([], Adventurer)
 
 signal adventurers_for_hire_changed
 

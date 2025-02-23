@@ -99,7 +99,7 @@ func _process(_delta: float) -> void:
 func _find_fields_for_property(prop_name: String, node: Node):
 	var fields: Array[Control] = []
 	for child in node.get_children():
-		if child is ReactiveField and child.linked_property == prop_name:
+		if child is Reactive and child.linked_property == prop_name:
 			if child is ReactiveMultiField:
 				fields.append_array(child.values_container.get_children().filter(func(x): return x is Label))
 				continue

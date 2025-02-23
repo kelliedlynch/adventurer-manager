@@ -2,33 +2,21 @@
 extends Reactive
 class_name TownInterface
 
-@onready var name_field: ReactiveField = find_child("TownName")
-@onready var building_grid: GridContainer = find_child("Buildings")
-
-#var town: Town = null:
-	#set(value):
-		#town = value
-		#if town:
-			#if not is_inside_tree():
-				#await ready
-			#watch_reactive_fields(town, self)
+@onready var name_field: ReactiveTextField = find_child("TownName")
+@onready var building_menu: Menu = find_child("TownBuildingMenu")
 
 func _ready() -> void:
-	for child in building_grid.get_children():
-		child.queue_free()
-	if not is_inside_tree():
-		await ready
-	if Engine.is_editor_hint() or get_tree().current_scene == self:
+	if get_tree().edited_scene_root == self or get_tree().current_scene == self:
+		print("linking town")
 		link_object(Town.new())
-	if linked_object:
-		for building in linked_object.buildings:
-			var bldg = TownInterfaceBuilding.instantiate(building)
-			building_grid.add_child(bldg)
-			bldg.enter_button.pressed.connect(_open_building_menu.bind(building))
 
-func _open_building_menu(building: Building):
-	var menu = building.interface.instantiate(building)
-	add_child(menu)
+func link_object(obj: Variant, node: Node = self, recursive = false):
+	super(obj, node, obj is Town)
+	if node == self and obj is Town:
+		if not is_inside_tree():
+			await ready
+		name_field.link_object(obj)
+		building_menu.link_object(obj.buildings)
 
 static func instantiate(for_town: Town) -> TownInterface:
 	var menu = load("res://Interface/TownInterface/TownInterface.tscn").instantiate()

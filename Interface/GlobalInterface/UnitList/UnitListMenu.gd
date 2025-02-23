@@ -28,6 +28,8 @@ var grid_columns: int = 2:
 			if menu_items_container is GridContainer:
 				menu_items_container.columns = grid_columns
 
+## A button registry dict contains text, action, and active_if. action and active_if should be callables
+## that take the list item's linked_object as a parameter
 var registered_buttons: Array[Dictionary] = []
 
 #var _unit_menuitem_map: Dictionary[Adventurer, UnitMenuItem] = {}
@@ -49,16 +51,13 @@ func build_menu_item(unit: Variant) -> MenuItemBase:
 			new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.NARROW_TRAITS_BELOW
 		MenuItemType.TILE:
 			new_menu_item = UnitSummaryTile.instantiate(unit)
+	for butt in registered_buttons:
+		new_menu_item.registered_buttons.append({
+			"text": butt.text,
+			"action": butt.action.bind(unit),
+			"active_if": butt.active_if.bind(unit)
+		})
 	new_menu_item.link_object(unit)
-	for button in registered_buttons:
-		var butt = new_menu_item.add_action_button(button.text, button.action.bind(unit))
-		if not button.active_if.call(unit):
-			butt.disabled = true
-	if not Engine.is_editor_hint() and not Game.player.roster.has(unit):
-		if new_menu_item.weapon_slot:
-			new_menu_item.weapon_slot.select_disabled = true
-		if new_menu_item.armor_slot:
-			new_menu_item.armor_slot.select_disabled = true
 	return new_menu_item
 
 func _ready() -> void:

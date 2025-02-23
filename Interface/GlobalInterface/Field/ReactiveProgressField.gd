@@ -1,5 +1,5 @@
 @tool
-extends ReactiveField
+extends Reactive
 class_name ReactiveProgressField
 
 var max_value_property: StringName = ""

@@ -5,6 +5,9 @@ class_name UnitListMenuItem
 
 @onready var traits_parent_wide: MarginContainer = find_child("TraitsListWideLayout")
 @onready var traits_parent_narrow: MarginContainer = find_child("TraitsListNarrowLayout")
+#@onready var action_buttons: Container = find_child("ActionButtons")
+
+var registered_buttons: Array[Dictionary] = []
 
 @export var layout_variation: LayoutVariation = LayoutVariation.WIDE:
 	set(value):
@@ -19,8 +22,19 @@ func _ready() -> void:
 			child.queue_free()
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
-	weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
-	armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
+			
+	for button in registered_buttons:
+		var butt = add_action_button(button.text, button.action)
+		if not button.active_if.call():
+			butt.disabled = true
+	if not Engine.is_editor_hint() and not Game.player.roster.has(linked_object):
+		if weapon_slot:
+			weapon_slot.select_disabled = true
+		if armor_slot:
+			armor_slot.select_disabled = true
+	elif not Engine.is_editor_hint():
+		weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
+		armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
 	super()
 	
 func link_object(obj: Variant, node: Node = self, recursive = true):
@@ -69,6 +83,7 @@ func _on_equipment_selected(menu_item: EquipmentMenuItem, _val, slot: EquipmentS
 		armor_slot.link_object(menu_item.linked_object)
 	
 func add_action_button(text: String, action: Callable) -> Button:
+	#if not is_inside_tree(): await ready
 	var button = Button.new()
 	button.text = text
 	button.pressed.connect(action)

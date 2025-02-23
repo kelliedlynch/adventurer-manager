@@ -1,5 +1,5 @@
 @tool
-extends ReactiveField
+extends Reactive
 class_name ReactiveTextureField
 
 func update_from_linked_object():

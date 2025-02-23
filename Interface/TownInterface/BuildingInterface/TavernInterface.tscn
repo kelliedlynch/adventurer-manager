@@ -12,7 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_jl7te")
-is_root_interface = true
+__linked_class = &"Tavern"
+__linked_property = &""
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
@@ -28,10 +29,12 @@ theme_type_variation = &"TitleBar"
 
 [node name="TavernName" type="Label" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
+text = "Tavern"
 horizontal_alignment = 1
 script = ExtResource("3_llgr7")
-/linked_class = &"Tavern"
-/linked_property = &"building_name"
+__test_value = "Tavern"
+__linked_class = &"Tavern"
+__linked_property = &"building_name"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -44,4 +47,6 @@ size_flags_horizontal = 3
 
 [node name="ForHireMenu" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_llgr7")]
 layout_mode = 2
-layout_variation = 1
+size_flags_stretch_ratio = 1.5
+__menu_item_type = 1
+menu_title = "Adventurers For Hire"
