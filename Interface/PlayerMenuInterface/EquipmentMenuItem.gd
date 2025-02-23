@@ -16,6 +16,9 @@ func _ready() -> void:
 		item_name_label.set_script(null)
 		item_name_label.text = empty_item_label
 	super()
+	
+func link_object(obj: Variant, node: Node = self, recursive = true):
+	super(obj, node, recursive)
 
 static func instantiate(equip_item: Equipment) -> EquipmentMenuItem:
 	var menu_item = load("res://Interface/PlayerMenuInterface/EquipmentMenuItem.tscn").instantiate()

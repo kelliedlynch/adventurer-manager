@@ -7,6 +7,7 @@ class_name Reactive
 var linked_object: Variant = null
 var linked_class: StringName = ""
 var linked_property: StringName = ""
+var array_object_type: StringName = ""
 
 ## Override if this Reactive needs to react to any non-Observable properties changing
 func update_from_linked_object():
@@ -31,22 +32,32 @@ func _get_property_list() -> Array:
 			hint = PROPERTY_HINT_ENUM,
 			hint_string = _get_linkable_property_hint_string()
 		})
+		if linked_class == "ObservableArray":
+			props.append({
+			name = "__array_object_type",
+			type = TYPE_STRING_NAME,
+			hint = PROPERTY_HINT_ENUM,
+			hint_string = _get_linkable_class_hint_string()
+		})
 	return props
 
 ## Watches an object for changes. If recursive, tree will be searched downward and also connect Reactive children.
 ## Override if linking an object means Reactive children will need to react to different objects or properties than this Reactive does
-func link_object(obj: Variant, node: Node = self, recursive = true):
+## If you do not need to pass the linked object down to child objects, do not call super in the override
+## Maybe this shouldn't be recursive at all, and I should deal individually with Reactive objects with children
+func link_object(obj: Variant, node: Node = self, recursive = false):
 	if obj and node is Reactive:
 		if node.linked_class and Utility.is_derived_from(obj.get_script().get_global_name(), node.linked_class):
 			node.linked_object = obj
-		elif obj is ObservableArray and (linked_class == null or obj.array_type.get_global_name() == linked_class):
-			node.linked_object = obj
-			obj.array_changed.connect(node._on_linked_observable_object_changed.bind(obj))
-			node._on_linked_observable_object_changed(obj)
-		elif linked_property and linked_property in obj and obj.get(linked_property) is ObservableArray:
-			node.linked_object = obj
-			obj.get(linked_property).array_changed.connect(node._on_linked_observable_property_changed.bind(obj.get(linked_property)))
-			node._on_linked_observable_object_changed(obj.get(linked_property))
+			#if "array_type" in obj:
+				#var a = str(obj.array_type.get_global_name())
+				#var b = array_object_type
+			if obj is ObservableArray and (not array_object_type or array_object_type == str(obj.array_type.get_global_name())):
+				obj.array_changed.connect(node._on_linked_observable_object_changed.bind(obj))
+				node._on_linked_observable_object_changed(obj)
+			if linked_property and linked_property in obj and obj.get(linked_property) is ObservableArray:
+				obj.get(linked_property).array_changed.connect(node._on_linked_observable_property_changed.bind(obj.get(linked_property)))
+				node._on_linked_observable_object_changed(obj.get(linked_property))
 	if recursive:
 		for child in node.get_children():
 			link_object(obj, child, recursive)
@@ -59,11 +70,12 @@ func _on_linked_observable_object_changed(obj: ObservableArray):
 func _on_linked_observable_property_changed(obj: ObservableArray):
 	pass
 		
-func unlink_object(obj: Variant, node: Node = self, recursive = true):
+func unlink_object(obj: Variant, node: Node = self, recursive = false):
 	if node is Reactive and node.linked_object == obj:
 		node.linked_object = null
-	for child in node.get_children():
-		unlink_object(obj, child)
+	if recursive:
+		for child in node.get_children():
+			unlink_object(obj, child, recursive)
 	
 func _get(property):
 	# This is solely to allow updating linked class and property in the editor
@@ -83,8 +95,6 @@ func clear_test_value():
 
 func _set(property, value):
 	# This is solely to allow updating linked class and property in the editor
-	if property == "__linked_class" or property == "linked_class":
-		pass
 	if property.begins_with("__test"):
 		set_test_value(property, value)
 		return true
@@ -106,6 +116,7 @@ func _get_linkable_property_hint_string() -> String:
 	var props = instance.get_property_list().map(func(x): return x.name)
 	return Utility.array_to_hint_string(props)
 
+## Override if any double underscore properties are added that don't revert to empty strings
 func _property_get_revert(property: StringName) -> Variant:
 	if property.begins_with("__"):
 		return ""

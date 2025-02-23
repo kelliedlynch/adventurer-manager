@@ -15,7 +15,9 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jrckp")
-__linked_class = &""
+__linked_class = &"ObservableArray"
+__linked_property = &""
+__array_object_type = &"Equipment"
 
 [node name="TitleContainer" type="PanelContainer" parent="."]
 layout_mode = 2

@@ -175,13 +175,13 @@ func _on_hazard_icon_exited(haz: Hazard):
 		for item in staged_units_list.get_menu_items():
 			_clear_highlights_for_property(item, prop_name)
 			
-func link_object(obj: Variant, node: Node = self, recursive = true):
-	super(obj, node, recursive)
+func link_object(obj: Variant, node: Node = self, recursive = false):
+	super(obj, node, obj is Dungeon)
 	if node == self and obj is Dungeon:
 		if not is_inside_tree():
 			await ready
 		staged_units_list.link_object(obj.staged)
-		idle_units_list.link_object(idle_units)
+		#idle_units_list.link_object(idle_units)
 		_refresh_idle_unit_list()
 		
 		for hazard in obj.hazards:

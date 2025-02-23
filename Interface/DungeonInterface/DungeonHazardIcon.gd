@@ -16,10 +16,10 @@ func _ready():
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		link_object(Hazard.new())
 		
-func link_object(obj: Variant, node: Node = self, recursive = true):
+func link_object(obj: Variant, node: Node = self, recursive = false):
 	if obj is Dungeon:
 		dungeon = obj
-	super(obj, node, recursive)
+	super(obj, node, not obj is Dungeon)
 	
 func _make_custom_tooltip(_a) -> Object:
 	var tt = load("res://Interface/GlobalInterface/Tooltip/DungeonHazardTooltip.tscn").instantiate()
@@ -42,7 +42,7 @@ func update_from_linked_object():
 	super()
 
 static func instantiate(haz: Hazard, dun: Dungeon) -> DungeonHazardIcon:
-	var menu = load("res://Interface/DungeonInterface/DungeonHazardIcon.tscn").instantiate()
-	menu.link_object(haz)
-	menu.link_object(dun)
-	return menu
+	var icon = load("res://Interface/DungeonInterface/DungeonHazardIcon.tscn").instantiate()
+	icon.link_object(haz)
+	icon.link_object(dun)
+	return icon

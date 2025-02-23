@@ -45,13 +45,13 @@ func _ready() -> void:
 		set_reactive_defaults()
 	super()
 	
-func link_object(obj: Variant, node: Node = self, recursive = true):
+func link_object(obj: Variant, node: Node = self, recursive = false):
 	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
 		if not is_inside_tree():
 			await ready
 		weapon_slot.link_object(obj.weapon)
 		armor_slot.link_object(obj.armor)
-	super(obj, node)
+	super(obj, node, recursive)
 	
 func set_reactive_defaults():
 	linked_class = "Adventurer"

@@ -47,10 +47,10 @@ func _build_mitigation_list():
 	_adjust_for_child_quantity(partial_mitigate_party)
 	_adjust_for_child_quantity(partial_mitigate_single)
 
-func link_object(obj: Variant, node: Node = self, recursive = true):
+func link_object(obj: Variant, node: Node = self, recursive = false):
 	if node == self and obj is Hazard:
 		_build_mitigation_list()
-	super(obj, node, recursive)
+	super(obj, node, obj is Hazard)
 
 func _adjust_for_child_quantity(container: Container):
 	var children = container.get_child_count()

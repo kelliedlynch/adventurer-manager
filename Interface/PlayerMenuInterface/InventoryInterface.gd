@@ -14,7 +14,7 @@ func _ready() -> void:
 			inv.append(Equipment.generate_random_equipment())
 		link_object(inv)
 			
-func link_object(obj: Variant, node: Node = self, recursive = true):
+func link_object(obj: Variant, node: Node = self, recursive = false):
 	if obj and obj is ObservableArray and obj.array_type == Equipment:
 		if not is_inside_tree():
 			await ready

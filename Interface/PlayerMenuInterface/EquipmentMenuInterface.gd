@@ -7,13 +7,13 @@ class_name EquipmentMenuInterface
 func _init() -> void:
 	linked_class = "Equipment"
 
-func link_object(obj: Variant, node: Node = self, recursive = true):
+func link_object(obj: Variant, node: Node = self, recursive = false):
 	if node == self and obj and obj is ObservableArray and obj.array_type == Equipment:
 		if not is_inside_tree():
 			await ready
 		equipment_menu.link_object(obj)
 		#return
-	super(obj, node)
+	super(obj, node, recursive)
 
 static func instantiate(items: ObservableArray) -> EquipmentMenuInterface:
 	var interface = preload("res://Interface/PlayerMenuInterface/EquipmentMenuInterface.tscn").instantiate()

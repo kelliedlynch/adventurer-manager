@@ -29,7 +29,7 @@ func link_object(obj: Variant, node: Node = self, recursive = true):
 			await ready
 		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
-	super(obj, node)
+	super(obj, node, recursive)
 	
 func _set_layout_variation(variation: int):
 	if !is_inside_tree():

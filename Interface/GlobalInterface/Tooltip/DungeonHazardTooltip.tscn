@@ -30,7 +30,6 @@ layout_mode = 2
 theme_type_variation = &"TitleBig"
 script = ExtResource("2_7r4q7")
 __test_value = ""
-__linked_property = &"hazard_name"
 __linked_class = &"Hazard"
 __linked_property = &"hazard_name"
 
@@ -49,7 +48,6 @@ theme_type_variation = &"FieldBig"
 autowrap_mode = 3
 script = ExtResource("2_7r4q7")
 __test_value = ""
-__linked_property = &"hazard_description"
 __linked_class = &"Hazard"
 __linked_property = &"hazard_description"
 

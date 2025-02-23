@@ -61,10 +61,6 @@ func build_menu_item(unit: Variant) -> MenuItemBase:
 			new_menu_item.armor_slot.select_disabled = true
 	return new_menu_item
 
-func _init() -> void:
-	#linked_class = "Adventurer"
-	pass
-
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		for i in 10:

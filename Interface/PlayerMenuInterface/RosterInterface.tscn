@@ -10,8 +10,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k460v")
-__linked_class = &""
+__linked_class = &"PlayerData"
+__linked_property = &""
 
 [node name="UnitListMenu" parent="." instance=ExtResource("2_k460v")]
 layout_mode = 2
-closeable = null
