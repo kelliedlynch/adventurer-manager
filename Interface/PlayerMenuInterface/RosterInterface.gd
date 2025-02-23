@@ -1,5 +1,5 @@
 @tool
-extends Interface
+extends Reactive
 class_name RosterInterface
 
 @onready var unit_list: UnitListMenu = $UnitListMenu
@@ -10,16 +10,13 @@ func _ready() -> void:
 		for i in 10:
 			unit_list.add_unit(Adventurer.generate_random_newbie())
 
-func link_object(obj: Variant, node: Node = self):
+func link_object(obj: Variant, node: Node = self, recursive: bool = true):
 	if obj and obj is PlayerData:
 		if not is_inside_tree():
 			await ready
-		#unit_list.clear_menu_items()
-		#for item in obj.roster:
-			#unit_list.add_unit(item)
 		unit_list.link_object(obj.roster)
 		return
-	super(obj, node)
+	super(obj, node, recursive)
 
 static func instantiate() -> RosterInterface:
 	var menu = load("res://Interface/PlayerMenuInterface/RosterInterface.tscn").instantiate()

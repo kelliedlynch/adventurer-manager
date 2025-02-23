@@ -1,3 +1,3 @@
 @tool
-extends Interface
+extends Reactive
 class_name Tooltip

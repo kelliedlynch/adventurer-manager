@@ -4,23 +4,8 @@ extends Menu
 # Note: filters not implemented yet
 class_name EquipmentMenu
 
-@export var no_item_option: bool = false:
-	set(value):
-		if value:
-			add_menu_item(EquipmentMenuItem.instantiate(null))
-		else:
-			var index = menu_items.find_custom(func(x): return x.linked_object == null)
-			if index != -1:
-				remove_menu_item(menu_items[index])
-
-func link_object(obj: Variant, node: Node = self):
-	if node == self and obj and obj is ObservableArray and obj.array_type == Equipment:
-		clear_menu_items()
-		for item in obj:
-			add_menu_item(EquipmentMenuItem.instantiate(item))
-		if no_item_option:
-			add_menu_item(EquipmentMenuItem.instantiate(null))
-	super(obj, node)
+func build_menu_item(obj: Variant) -> MenuItemBase:
+	return EquipmentMenuItem.instantiate(obj)
 
 static func instantiate(items: ObservableArray) -> EquipmentMenu:
 	var menu = preload("res://Interface/PlayerMenuInterface/EquipmentMenu.tscn").instantiate()

@@ -1,5 +1,6 @@
 @tool
 extends Menu
+## Displays a list of adventurers from an ObservableArray, and updates menu items as array changes
 class_name UnitListMenu
 
 var menu_item_type: MenuItemType = MenuItemType.PANEL_WIDE:
@@ -29,60 +30,49 @@ var grid_columns: int = 2:
 
 var registered_buttons: Array[Dictionary] = []
 
-var _unit_menuitem_map: Dictionary[Adventurer, UnitMenuItem] = {}
-var units: Array[Adventurer]:
-	get:
-		return _unit_menuitem_map.keys()
-	set(value):
-		push_error("can't set units directly; use add/remove functions")
+#var _unit_menuitem_map: Dictionary[Adventurer, UnitMenuItem] = {}
+#var units: Array[Adventurer]:
+	#get:
+		#return _unit_menuitem_map.keys()
+	#set(value):
+		#push_error("can't set units directly; use add/remove functions")
 
-func add_unit(unit: Adventurer):
-	if !_unit_menuitem_map.has(unit):
-		var menu_item_class = UnitListMenuItem
-		var new_menu_item
-		match menu_item_type:
-			MenuItemType.PANEL_WIDE:
-				new_menu_item = UnitListMenuItem.instantiate(unit)
-				new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.WIDE
-			MenuItemType.PANEL_NARROW:
-				new_menu_item = UnitListMenuItem.instantiate(unit)
-				new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.NARROW_TRAITS_BELOW
-			MenuItemType.TILE:
-				new_menu_item = UnitSummaryTile.instantiate(unit)
-				#new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.WIDE
-		_unit_menuitem_map[unit] = new_menu_item
-		#item.layout_variation = layout_variation
-		new_menu_item.link_object(unit)
-		add_menu_item(new_menu_item)
-		for button in registered_buttons:
-			var butt = new_menu_item.add_action_button(button.text, button.action.bind(unit))
-			if not button.active_if.call(unit):
-				butt.disabled = true
-		if not Engine.is_editor_hint() and not Game.player.roster.has(unit):
-			if new_menu_item.weapon_slot:
-				new_menu_item.weapon_slot.select_disabled = true
-			if new_menu_item.armor_slot:
-				new_menu_item.armor_slot.select_disabled = true
+func build_menu_item(unit: Variant) -> MenuItemBase:
+	var menu_item_class = UnitListMenuItem
+	var new_menu_item: MenuItemBase
+	match menu_item_type:
+		MenuItemType.PANEL_WIDE:
+			new_menu_item = UnitListMenuItem.instantiate(unit)
+			new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.WIDE
+		MenuItemType.PANEL_NARROW:
+			new_menu_item = UnitListMenuItem.instantiate(unit)
+			new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.NARROW_TRAITS_BELOW
+		MenuItemType.TILE:
+			new_menu_item = UnitSummaryTile.instantiate(unit)
+	new_menu_item.link_object(unit)
+	for button in registered_buttons:
+		var butt = new_menu_item.add_action_button(button.text, button.action.bind(unit))
+		if not button.active_if.call(unit):
+			butt.disabled = true
+	if not Engine.is_editor_hint() and not Game.player.roster.has(unit):
+		if new_menu_item.weapon_slot:
+			new_menu_item.weapon_slot.select_disabled = true
+		if new_menu_item.armor_slot:
+			new_menu_item.armor_slot.select_disabled = true
+	return new_menu_item
 
-func remove_unit(unit: Adventurer):
-	if _unit_menuitem_map.has(unit):
-		remove_menu_item(_unit_menuitem_map[unit])
-		_unit_menuitem_map.erase(unit)
-		
-func clear_units():
-	for unit in units:
-		remove_unit(unit)
+func _init() -> void:
+	#linked_class = "Adventurer"
+	pass
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		for i in 10:
-			add_unit(Adventurer.generate_random_newbie())
+			add_menu_item(build_menu_item(Adventurer.generate_random_newbie()))
 
 func _on_menu_item_type_changed(_item_type: MenuItemType):
-	var menu_units = units
-	clear_units()
-	for unit in menu_units:
-		add_unit(unit)
+	if not linked_object: return
+	build_menu_items()
 		
 func _on_layout_type_changed(layout: int):
 	var items = menu_items_container.get_children()
@@ -119,22 +109,6 @@ func register_action_button(text: String, action: Callable, active_if: Callable 
 		"active_if": active_if
 	}
 	registered_buttons.append(dict)
-	#_refresh_queued = true
-
-func link_object(obj: Variant, node: Node = self):
-	if node == self and obj and obj is ObservableArray and obj.array_type == Adventurer:
-		#if not is_inside_tree():
-			#await ready
-		clear_units()
-		for item in obj:
-			add_unit(item)
-	super(obj, node)
-	
-func _on_linked_observable_changed(obj: ObservableArray):
-	clear_units()
-	await get_tree().process_frame
-	for item in obj:
-		add_unit(item)
 
 func _get_property_list() -> Array[Dictionary]:
 	var props: Array[Dictionary] = [{

@@ -45,7 +45,7 @@ func _ready() -> void:
 		set_reactive_defaults()
 	super()
 	
-func link_object(obj: Variant, node: Node = self):
+func link_object(obj: Variant, node: Node = self, recursive = true):
 	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
 		if not is_inside_tree():
 			await ready

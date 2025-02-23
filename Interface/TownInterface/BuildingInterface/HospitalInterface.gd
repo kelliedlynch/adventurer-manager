@@ -1,4 +1,4 @@
-extends Interface
+extends Reactive
 class_name HospitalInterface
 
 @onready var injured_units: UnitListMenu = $VBoxContainer/HBoxContainer/InjuredUnits

@@ -1,15 +1,15 @@
 extends Node
 
 var main_control_node: Control
-var interface_stack: Array[Interface] = []
+var interface_stack: Array[Reactive] = []
 
-func display_interface(interface: Interface, replace: bool = false):
+func display_interface(interface: Reactive, replace: bool = false):
 	if replace:
 		close_all()
 	main_control_node.add_child(interface)
 	interface_stack.append(interface)
 	
-func close_interface(interface: Interface):
+func close_interface(interface: Reactive):
 	var index = interface_stack.find(interface)
 	if index != -1:
 		for i in interface_stack.size() - index:

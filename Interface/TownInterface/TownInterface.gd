@@ -1,5 +1,5 @@
 @tool
-extends Interface
+extends Reactive
 class_name TownInterface
 
 @onready var name_field: ReactiveField = find_child("TownName")
@@ -25,7 +25,6 @@ func _ready() -> void:
 			var bldg = TownInterfaceBuilding.instantiate(building)
 			building_grid.add_child(bldg)
 			bldg.enter_button.pressed.connect(_open_building_menu.bind(building))
-	super()
 
 func _open_building_menu(building: Building):
 	var menu = building.interface.instantiate(building)

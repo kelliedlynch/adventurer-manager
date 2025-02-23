@@ -1,4 +1,4 @@
-extends Interface
+extends Reactive
 class_name ActivityLogInterface
 
 @onready var log_messages: VBoxContainer = find_child("LogMessages")

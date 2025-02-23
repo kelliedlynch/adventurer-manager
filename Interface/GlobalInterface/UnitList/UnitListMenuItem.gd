@@ -23,7 +23,7 @@ func _ready() -> void:
 	armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
 	super()
 	
-func link_object(obj: Variant, node: Node = self):
+func link_object(obj: Variant, node: Node = self, recursive = true):
 	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
 		if not is_inside_tree():
 			await ready
@@ -55,7 +55,7 @@ func _configure_equipment_select_menu(slot: EquipmentSlot, interface: EquipmentM
 		await interface.ready
 	interface.equipment_menu.menu_item_selected.connect(_on_equipment_selected.bind(slot))
 	interface.equipment_menu.menu_item_selected.connect(InterfaceManager.close_interface.bind(interface).unbind(2))
-	interface.equipment_menu.no_item_option = true
+	interface.equipment_menu.empty_item_option = true
 	
 func _on_equipment_selected(menu_item: EquipmentMenuItem, _val, slot: EquipmentSlot):
 	if menu_item.linked_object == null and slot.linked_object:

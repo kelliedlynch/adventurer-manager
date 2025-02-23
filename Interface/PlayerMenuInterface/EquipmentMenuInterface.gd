@@ -1,10 +1,13 @@
 @tool
-extends Interface
+extends Reactive
 class_name EquipmentMenuInterface
 
 @onready var equipment_menu: EquipmentMenu = find_child("EquipmentMenu")
 
-func link_object(obj: Variant, node: Node = self):
+func _init() -> void:
+	linked_class = "Equipment"
+
+func link_object(obj: Variant, node: Node = self, recursive = true):
 	if node == self and obj and obj is ObservableArray and obj.array_type == Equipment:
 		if not is_inside_tree():
 			await ready

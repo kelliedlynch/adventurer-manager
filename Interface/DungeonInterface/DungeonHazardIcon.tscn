@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4sljqnaaytet"]
+[gd_scene load_steps=5 format=3 uid="uid://b4sljqnaaytet"]
 
 [ext_resource type="Script" uid="uid://d2jaubd37jjwx" path="res://Interface/DungeonInterface/DungeonHazardIcon.gd" id="1_af0f3"]
 [ext_resource type="Texture2D" uid="uid://b3i5wc73o6lgm" path="res://Graphics/Icons/White/warning.png" id="1_ufo07"]
 [ext_resource type="Theme" uid="uid://dsehsh1y3fg78" path="res://Interface/DungeonInterface/HazardIconTheme.tres" id="1_yb5j4"]
+[ext_resource type="Script" uid="uid://b372t14de0aic" path="res://Interface/GlobalInterface/Field/ReactiveTextureField.gd" id="4_vpetm"]
 
 [node name="IconBackground" type="PanelContainer"]
 show_behind_parent = true
@@ -15,6 +16,8 @@ mouse_filter = 1
 theme = ExtResource("1_yb5j4")
 theme_type_variation = &"Background"
 script = ExtResource("1_af0f3")
+__linked_class = &"Hazard"
+__linked_property = &""
 
 [node name="IconTexture" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(72, 72)
@@ -23,6 +26,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("1_ufo07")
 expand_mode = 1
+script = ExtResource("4_vpetm")
+__linked_property = &"icon"
+__linked_class = &"Hazard"
+__linked_property = &"icon"
 
 [node name="IconBorder" type="PanelContainer" parent="."]
 layout_mode = 2

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmw33111ctcop"]
+[gd_scene load_steps=3 format=3 uid="uid://dmw33111ctcop"]
 
 [ext_resource type="Script" uid="uid://crvbasovgvrcx" path="res://Interface/DungeonInterface/DungeonStatusWindow.gd" id="1_eufuf"]
+[ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn" id="2_52xsa"]
 
 [node name="DungeonStatusWindow" type="PanelContainer"]
 anchors_preset = 15
@@ -11,6 +12,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_eufuf")
+__linked_class = &""
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -20,10 +22,8 @@ layout_mode = 2
 text = "Quest In Progress"
 horizontal_alignment = 1
 
-[node name="UnitTiles" type="GridContainer" parent="VBoxContainer"]
+[node name="UnitListMenu" parent="VBoxContainer" instance=ExtResource("2_52xsa")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_constants/h_separation = 32
-theme_override_constants/v_separation = 32
-columns = 2
+__menu_item_type = 2
+__layout_type = 2
+__grid_columns = 2

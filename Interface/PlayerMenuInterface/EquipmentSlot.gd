@@ -33,12 +33,12 @@ func _set(property, value):
 	#if linked_object != texture_rect.linked_object:
 		#texture_rect.link_object(linked_object)
 
-func link_object(obj: Variant, node: Node = self):
+func link_object(obj: Variant, node: Node = self, recursive = true):
 	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
 		texture_rect.link_object(obj)
 	super(obj, node)
 	
-func unlink_object(obj: Variant, node: Node = self):
+func unlink_object(obj: Variant, node: Node = self, recursive = true):
 	if obj and obj is Equipment:
 		texture_rect.unlink_object(obj)
 	super(obj, node)

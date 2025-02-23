@@ -1,5 +1,5 @@
 @tool
-extends Interface
+extends Reactive
 class_name DungeonInterface
 
 @onready var idle_units_list: UnitListMenu = find_child("IdleUnits")
@@ -15,30 +15,29 @@ class_name DungeonInterface
 #var staged_units: ObservableArray = ObservableArray.new([], Adventurer)
 var idle_units: ObservableArray = ObservableArray.new([], Adventurer)
 
+func _init() -> void:
+	pass
+
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		var dun = Dungeon.new()
 		for i in 4:
 			dun.party.append(Adventurer.generate_random_newbie())
 		link_object(dun)
-
+	if not Engine.is_editor_hint():
+		Game.game_tick_advanced.connect(_refresh_idle_unit_list)
 			
 	#idle_units_list.link_object(_get_idle_units())
-	if not is_inside_tree():
-		await ready
-	for hazard in linked_object.hazards:
-		var icon = DungeonHazardIcon.instantiate(hazard, linked_object)
-		hazard_icons.add_child(icon)
-		icon.mouse_entered.connect(_on_hazard_icon_hovered.bind(icon.hazard))
-		icon.mouse_exited.connect(_on_hazard_icon_exited.bind(icon.hazard))
-	_refresh_interface()
+	#if not is_inside_tree():
+		#await ready
+#
+	#_refresh_interface()
 	idle_units_list.menu_item_selected.connect(_on_unit_selected)
 	staged_units_list.menu_item_selected.connect(_on_unit_selected)
 	send_button.pressed.connect(_on_press_send_button)
 	#status_window.link_object(linked_object.party)
-	super()
 	
-func _rebuild_idle_unit_list():
+func _refresh_idle_unit_list():
 	#var currently_staged = staged_units_list.linked_object
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		idle_units.clear()
@@ -52,9 +51,9 @@ func _rebuild_idle_unit_list():
 		idle_units.clear()
 		idle_units.append_array(idle)
 
-func _rebuild_staged_unit_list():
-	if staged_units_list.linked_object == null:
-		staged_units_list.link_object(linked_object.staged)
+#func _rebuild_staged_unit_list():
+	#if staged_units_list.linked_object == null:
+		#staged_units_list.link_object(linked_object.staged)
 	#var staged_in_menu = staged_units_list.menu_items.map(func(x): return x.linked_object)
 	# this is a mess and probably wrong
 	#if not linked_object.staged.is_equal(staged_in_menu):
@@ -62,14 +61,14 @@ func _rebuild_staged_unit_list():
 		#for unit in linked_object.staged:
 			#staged_units_list.add_unit(unit)
 	
-func _refresh_interface():
-	var r = linked_object.estimate_reward()
-	reward_amount.text = str(r[0]) + "-" + str(r[-1])
-	_rebuild_idle_unit_list()
-	_rebuild_staged_unit_list()
-	status_window.visible = linked_object.questing
-	staged_units_list.visible = !linked_object.questing
-	send_button.disabled = linked_object.questing
+#func _refresh_interface():
+	#var r = linked_object.estimate_reward()
+	#reward_amount.text = str(r[0]) + "-" + str(r[-1])
+	#_refresh_idle_unit_list()
+	##_rebuild_staged_unit_list()
+	#status_window.visible = linked_object.questing
+	#staged_units_list.visible = !linked_object.questing
+	#send_button.disabled = linked_object.questing
 	
 func _on_press_send_button():
 	if linked_object.party.is_empty():
@@ -84,11 +83,12 @@ func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 	if selected:
 		if linked_object.staged.has(unit):
 			linked_object.staged.erase(unit)
-			idle_units.append(unit)
-			#_rebuild_idle_unit_list()
+			#idle_units.append(unit)
+			_refresh_idle_unit_list()
 		elif linked_object.staged.size() < linked_object.max_party_size:
 			linked_object.staged.append(unit)
-			idle_units.erase(unit)
+			#idle_units.erase(unit)
+			_refresh_idle_unit_list()
 		send_button.disabled = linked_object.staged.is_empty()
 
 func _process(_delta: float) -> void:
@@ -99,7 +99,7 @@ func _process(_delta: float) -> void:
 func _find_fields_for_property(prop_name: String, node: Node):
 	var fields: Array[Control] = []
 	for child in node.get_children():
-		if child is ReactiveField and child.get("/linked_property") == prop_name:
+		if child is ReactiveField and child.linked_property == prop_name:
 			if child is ReactiveMultiField:
 				fields.append_array(child.values_container.get_children().filter(func(x): return x is Label))
 				continue
@@ -151,21 +151,11 @@ func _clear_highlights_for_property(item: UnitListMenuItem, prop_name: String):
 		elif not field is Label and field.modulate != Color.WHITE:
 			field.modulate = Color.WHITE
 
-
 func _on_hazard_icon_hovered(haz: Hazard):
 	for counter in haz.counters:
-		#match counter.counter_type:
-			#Hazard.CounterType.TRAIT:
-				#prop_name = "traits"
-			#Hazard.CounterType.STAT:
-				#prop_name = str(counter.countered_by)
-			#Hazard.CounterType.SKILL:
-				#pass
-			#Hazard.CounterType.CLASS:
-				#prop_name = "adventurer_class"
-		for item in idle_units_list.menu_items:
+		for item in idle_units_list.get_menu_items():
 			_highlight_props_that_counter(item, counter)
-		for item in staged_units_list.menu_items:
+		for item in staged_units_list.get_menu_items():
 			_highlight_props_that_counter(item, counter)
 	
 func _on_hazard_icon_exited(haz: Hazard):
@@ -180,41 +170,26 @@ func _on_hazard_icon_exited(haz: Hazard):
 				pass
 			Hazard.CounterType.CLASS:
 				prop_name = "adventurer_class"
-		for item in idle_units_list.menu_items:
+		for item in idle_units_list.get_menu_items():
 			_clear_highlights_for_property(item, prop_name)
-		for item in staged_units_list.menu_items:
+		for item in staged_units_list.get_menu_items():
 			_clear_highlights_for_property(item, prop_name)
-#func _color_hazard_counter_stats(haz: Hazard):
-	#for counter in haz.counters:
-		#match counter.counter_type:
-			#Hazard.CounterType.CLASS:
-				#for item in idle_units_list.menu_items:
-					#if item.linked_object.adventurer_class == counter.countered_by:
-						#_highlight_counter_properties(item, "adventurer_class", counter)
-			#Hazard.CounterType.STAT:
-				#for item in idle_units_list.menu_items:
-					#if item.linked_object.get(counter.countered_by.name) >= counter.countered_by_value:
-						#_highlight_counter_properties(item, counter.countered_by.name, counter)
-			#Hazard.CounterType.TRAIT:
-				#for item in idle_units_list.menu_items:
-					#if item.linked_object.traits.has(counter.countered_by):
-						#_highlight_counter_properties(item, "traits", counter)
+			
+func link_object(obj: Variant, node: Node = self, recursive = true):
+	super(obj, node, recursive)
+	if node == self and obj is Dungeon:
+		if not is_inside_tree():
+			await ready
+		staged_units_list.link_object(obj.staged)
+		idle_units_list.link_object(idle_units)
+		_refresh_idle_unit_list()
+		
+		for hazard in obj.hazards:
+			var icon = DungeonHazardIcon.instantiate(hazard, obj)
+			hazard_icons.add_child(icon)
+			icon.mouse_entered.connect(_on_hazard_icon_hovered.bind(hazard))
+			icon.mouse_exited.connect(_on_hazard_icon_exited.bind(hazard))
 	
-	
-	
-	#for label in _find_labels_for_property(prop_name, item):
-		#if prop_name == "traits" and label.text != str(counter.countered_by):
-			#continue
-		#if counter.counter_action == Hazard.CounterAction.COUNTERS or counter.counter_action == Hazard.CounterAction.IGNORES:
-			#if label is Label:
-				#label.add_theme_color_override("font_color", get_theme_color("success_color", "Label"))
-			#else:
-				#label.modulate = get_theme_color("success_color", "Label")
-		#elif counter.counter_action == Hazard.CounterAction.REDUCES_PARTY or counter.counter_action == Hazard.CounterAction.REDUCES_PARTY:
-			#if label is Label:
-				#label.add_theme_color_override("font_color", get_theme_color("partial_success_color", "Label"))
-			#else:
-				#label.modulate = get_theme_color("success_color", "Label")
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:
 	var interface = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()

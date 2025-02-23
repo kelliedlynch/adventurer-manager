@@ -1,7 +1,7 @@
 extends CombatUnit
 class_name Enemy
 
-var reward_xp: int = 10
+var reward_xp: int = 100
 var reward_money: int = 3
 
 func combat_action():

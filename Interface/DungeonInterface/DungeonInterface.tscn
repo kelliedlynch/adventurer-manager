@@ -17,6 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nv7fk")
 __linked_class = &"Dungeon"
+__linked_property = &""
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
@@ -29,7 +30,6 @@ layout_mode = 2
 layout_mode = 2
 __menu_item_type = 1
 menu_title = "Idle Units"
-__linked_class = &"ObservableArray"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -47,7 +47,8 @@ layout_mode = 2
 horizontal_alignment = 1
 script = ExtResource("5_6wovn")
 __test_value = ""
-__linked_class = &""
+__linked_class = &"Dungeon"
+__linked_property = &"dungeon_name"
 
 [node name="DungeonStats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
@@ -66,7 +67,8 @@ layout_mode = 2
 theme_type_variation = &"FieldBig"
 script = ExtResource("5_6wovn")
 __test_value = ""
-__linked_class = &""
+__linked_class = &"Dungeon"
+__linked_property = &"level_range"
 
 [node name="Reward" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats"]
 layout_mode = 2
@@ -103,7 +105,8 @@ layout_mode = 2
 theme_type_variation = &"FieldBig"
 script = ExtResource("5_6wovn")
 __test_value = ""
-__linked_class = &""
+__linked_class = &"Dungeon"
+__linked_property = &"quest_time"
 
 [node name="QuestTimeUnitsLabel" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/QuestTime"]
 layout_mode = 2
@@ -167,7 +170,8 @@ expand_mode = 1
 layout_mode = 2
 script = ExtResource("5_6wovn")
 __test_value = ""
-__linked_class = &""
+__linked_class = &"Dungeon"
+__linked_property = &"quest_time"
 
 [node name="DaysLabel" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/DungeonTime"]
 layout_mode = 2
@@ -180,8 +184,9 @@ text = "Send Party"
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
 __menu_item_type = 1
-__linked_class = &"ObservableArray"
 
 [node name="DungeonStatusWindow" parent="HBoxContainer/VBoxContainer" instance=ExtResource("8_n3pxv")]
 visible = false
 layout_mode = 2
+__linked_class = &"Dungeon"
+__linked_property = &""

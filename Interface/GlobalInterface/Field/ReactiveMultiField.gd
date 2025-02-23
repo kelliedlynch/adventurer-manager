@@ -117,7 +117,7 @@ func _add_value_interface(value):
 	theme_changed.emit()
 
 func update_from_linked_object():
-	if not linked_property: return
+	if not linked_object or not linked_property: return
 	var model_val = linked_object.get(linked_property).map(func(x): return str(x)) if linked_object else null
 	if model_val != current_values:
 		_clear_values_container()

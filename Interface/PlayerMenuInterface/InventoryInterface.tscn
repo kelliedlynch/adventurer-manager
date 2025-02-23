@@ -14,3 +14,4 @@ __linked_class = &""
 
 [node name="EquipmentMenu" parent="." instance=ExtResource("2_ruox5")]
 layout_mode = 2
+empty_item_option = false

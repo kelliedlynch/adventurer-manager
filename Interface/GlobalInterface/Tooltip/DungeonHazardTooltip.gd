@@ -2,8 +2,6 @@
 extends Tooltip
 class_name DungeonHazardTooltip
 
-var hazard: Hazard
-
 @onready var mitigate_party: HFlowContainer = find_child("MitigateParty")
 @onready var mitigate_single: HFlowContainer = find_child("MitigateSingle")
 @onready var partial_mitigate_party: HFlowContainer = find_child("PartialMitigateParty")
@@ -11,12 +9,17 @@ var hazard: Hazard
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		hazard = Hazard.new()
+		link_object(Hazard.new())
+		
+func _build_mitigation_list():
+	if not is_inside_tree():
+		await ready
+	if not linked_object: return
 	mitigate_party.visible = false
 	mitigate_single.visible = false
 	partial_mitigate_party.visible = false
 	partial_mitigate_single.visible = false
-	for counter in hazard.counters:
+	for counter in linked_object.counters:
 		var l = Label.new()
 		l.theme_type_variation = "FieldBig"
 		match counter.counter_type:
@@ -43,8 +46,11 @@ func _ready() -> void:
 	_adjust_for_child_quantity(mitigate_single)
 	_adjust_for_child_quantity(partial_mitigate_party)
 	_adjust_for_child_quantity(partial_mitigate_single)
-	link_object(hazard)
-	#watch_reactive_fields(hazard, self)
+
+func link_object(obj: Variant, node: Node = self, recursive = true):
+	if node == self and obj is Hazard:
+		_build_mitigation_list()
+	super(obj, node, recursive)
 
 func _adjust_for_child_quantity(container: Container):
 	var children = container.get_child_count()

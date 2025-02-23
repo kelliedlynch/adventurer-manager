@@ -39,12 +39,12 @@ func clear_test_value():
 	current_value_label.text = ""
 	max_value_label.text = ""
 
-func _property_get_revert(property: StringName) -> Variant:
-	if property == "__test_current_value":
-		return ""
-	if property == "__test_max_value":
-		return ""
-	return super(property)
+#func _property_get_revert(property: StringName) -> Variant:
+	#if property == "__test_current_value":
+		#return ""
+	#if property == "__test_max_value":
+		#return ""
+	#return super(property)
 
 func _get_property_list() -> Array:
 	var props = []
@@ -53,7 +53,7 @@ func _get_property_list() -> Array:
 			name = "__max_value_property",
 			type = TYPE_STRING_NAME,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = get_property_hint_string()
+			hint_string = _get_linkable_property_hint_string()
 		})
 	props.append_array([{
 		name = "__show_max_value",

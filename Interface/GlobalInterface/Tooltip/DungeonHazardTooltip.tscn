@@ -17,7 +17,8 @@ offset_bottom = 472.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 script = ExtResource("2_eep71")
-is_root_interface = true
+__linked_class = &"Hazard"
+__linked_property = &""
 
 [node name="Tooltip#VBoxContainer" type="VBoxContainer" parent="." index="0"]
 layout_mode = 2
@@ -27,10 +28,11 @@ theme_override_constants/separation = 4
 [node name="HazardName" type="Label" parent="Tooltip#VBoxContainer" index="0"]
 layout_mode = 2
 theme_type_variation = &"TitleBig"
-text = "Hazard"
 script = ExtResource("2_7r4q7")
-/linked_class = &"Hazard"
-/linked_property = &"hazard_name"
+__test_value = ""
+__linked_property = &"hazard_name"
+__linked_class = &"Hazard"
+__linked_property = &"hazard_name"
 
 [node name="MarginContainer" type="MarginContainer" parent="Tooltip#VBoxContainer" index="1"]
 layout_mode = 2
@@ -44,11 +46,12 @@ theme_override_constants/margin_bottom = 16
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_type_variation = &"FieldBig"
-text = "Makes stuff more dangerous. Here's some more text for tooltip size testing purposes."
 autowrap_mode = 3
 script = ExtResource("2_7r4q7")
-/linked_class = &"Hazard"
-/linked_property = &"hazard_description"
+__test_value = ""
+__linked_property = &"hazard_description"
+__linked_class = &"Hazard"
+__linked_property = &"hazard_description"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Tooltip#VBoxContainer" index="2"]
 layout_mode = 2
@@ -56,6 +59,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 12
 
 [node name="MitigateParty" type="HFlowContainer" parent="Tooltip#VBoxContainer/VBoxContainer" index="0"]
+visible = false
 layout_mode = 2
 
 [node name="IconBackground" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateParty" index="0"]
@@ -78,6 +82,7 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("4_fr2uo")
 
 [node name="MitigateSingle" type="HFlowContainer" parent="Tooltip#VBoxContainer/VBoxContainer" index="1"]
+visible = false
 layout_mode = 2
 
 [node name="IconBackground" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateSingle" index="0"]
@@ -95,6 +100,7 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("4_fr2uo")
 
 [node name="PartialMitigateParty" type="HFlowContainer" parent="Tooltip#VBoxContainer/VBoxContainer" index="2"]
+visible = false
 layout_mode = 2
 
 [node name="IconBackground" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/PartialMitigateParty" index="0"]
@@ -112,6 +118,7 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("8_ratya")
 
 [node name="PartialMitigateSingle" type="HFlowContainer" parent="Tooltip#VBoxContainer/VBoxContainer" index="3"]
+visible = false
 layout_mode = 2
 
 [node name="IconBackground" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/PartialMitigateSingle" index="0"]

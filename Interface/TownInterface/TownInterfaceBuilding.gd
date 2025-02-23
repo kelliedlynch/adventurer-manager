@@ -1,5 +1,5 @@
 @tool
-extends Interface
+extends Reactive
 class_name TownInterfaceBuilding
 
 @onready var name_label: ReactiveField = find_child("BuildingName")

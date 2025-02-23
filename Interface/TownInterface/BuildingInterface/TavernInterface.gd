@@ -1,4 +1,4 @@
-extends Interface
+extends Reactive
 class_name TavernInterface
 
 @onready var for_hire_menu: UnitListMenu = find_child("ForHireMenu")
