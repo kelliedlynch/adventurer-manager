@@ -23,27 +23,30 @@ func _ready() -> void:
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
 			
-	for button in registered_buttons:
-		var butt = add_action_button(button.text, button.action)
-		if not button.active_if.call():
-			butt.disabled = true
-	if not Engine.is_editor_hint() and not Game.player.roster.has(linked_object):
-		if weapon_slot:
-			weapon_slot.select_disabled = true
-		if armor_slot:
-			armor_slot.select_disabled = true
-	elif not Engine.is_editor_hint():
-		weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
-		armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
+
 	super()
 	
-func link_object(obj: Variant, node: Node = self, recursive = true):
-	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
+func link_object(obj: Variant, node: Node = self, recursive = false):
+	super(obj, node, obj is Adventurer)
+	if obj and obj is Adventurer and linked_object == obj:
 		if not is_inside_tree():
 			await ready
 		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
-	super(obj, node, recursive)
+		for button in registered_buttons:
+			var butt = add_action_button(button.text, button.action)
+			if not button.active_if.call():
+				butt.disabled = true
+		if not Engine.is_editor_hint() and not Game.player.roster.has(obj):
+			if weapon_slot:
+				weapon_slot.select_disabled = true
+			if armor_slot:
+				armor_slot.select_disabled = true
+		elif not Engine.is_editor_hint():
+			weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
+			armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
+	
+		
 	
 func _set_layout_variation(variation: int):
 	if !is_inside_tree():

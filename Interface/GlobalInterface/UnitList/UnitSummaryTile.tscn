@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ls4ygrdlmjye"]
 
-[ext_resource type="Script" uid="uid://cbev5buyhwi71" path="res://Interface/GlobalInterface/UnitList/UnitSummaryTile.gd" id="1_pu7wi"]
+[ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitList/UnitListMenuItem.gd" id="1_tq7ef"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="3_oj8qk"]
 [ext_resource type="PackedScene" uid="uid://c4lr80l1py1nw" path="res://Interface/GlobalInterface/UnitList/UnitPortrait.tscn" id="3_tq7ef"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/Field/ReactiveProgressField.tscn" id="4_vo7yl"]
@@ -14,16 +14,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -224.0
-offset_top = -163.0
-offset_right = 140.0
-offset_bottom = 105.0
+offset_left = -146.0
+offset_top = -107.0
+offset_right = 146.0
+offset_bottom = 107.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_type_variation = &"MenuItemPanel"
-script = ExtResource("1_pu7wi")
+script = ExtResource("1_tq7ef")
+__linked_class = &"Adventurer"
+__linked_property = &""
 
 [node name="MainLayoutRows" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -32,14 +34,14 @@ theme_override_constants/separation = 12
 [node name="Header" type="HBoxContainer" parent="MainLayoutRows"]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="MainLayoutRows/Header"]
+[node name="UnitName" type="Label" parent="MainLayoutRows/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
-text = "Ce"
 script = ExtResource("3_oj8qk")
-/linked_class = &"Adventurer"
-/linked_property = &"unit_name"
+__test_value = ""
+__linked_class = &"Adventurer"
+__linked_property = &"unit_name"
 
 [node name="LevelAndClass" type="HBoxContainer" parent="MainLayoutRows/Header"]
 layout_mode = 2
@@ -61,20 +63,20 @@ text = "Lv."
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
-text = "2"
 script = ExtResource("3_oj8qk")
-/linked_class = &"Adventurer"
-/linked_property = &"level"
+__test_value = ""
+__linked_class = &"Adventurer"
+__linked_property = &"level"
 
 [node name="ClassValue" type="Label" parent="MainLayoutRows/Header/LevelAndClass"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
-text = "Warrior"
 horizontal_alignment = 2
 script = ExtResource("3_oj8qk")
-/linked_class = &"Adventurer"
-/linked_property = &"adventurer_class"
+__test_value = ""
+__linked_class = &"Adventurer"
+__linked_property = &"adventurer_class"
 
 [node name="MainLayoutCols" type="HBoxContainer" parent="MainLayoutRows"]
 layout_mode = 2
@@ -82,9 +84,10 @@ theme_override_constants/separation = 18
 alignment = 1
 
 [node name="UnitPortrait" parent="MainLayoutRows/MainLayoutCols" instance=ExtResource("3_tq7ef")]
-custom_minimum_size = Vector2(140, 140)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-frame_size = Vector2i(140, 140)
+frame_size = Vector2i(100, 100)
+__linked_property = &"portrait"
 
 [node name="UnitDetails" type="MarginContainer" parent="MainLayoutRows/MainLayoutCols"]
 layout_mode = 2
@@ -109,9 +112,9 @@ text = "HP:"
 [node name="StatHpValue" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatHp" instance=ExtResource("4_vo7yl")]
 layout_mode = 2
 theme_type_variation = &"FieldSmall"
-/max_value_property = &"stat_hp"
-/linked_class = &"Adventurer"
-/linked_property = &"current_hp"
+__max_value_property = &"stat_hp"
+__linked_class = &"Adventurer"
+__linked_property = &"current_hp"
 
 [node name="StatMp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock"]
 layout_mode = 2
@@ -125,23 +128,25 @@ text = "MP:"
 [node name="StatMpValue" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("4_vo7yl")]
 layout_mode = 2
 theme_type_variation = &"FieldSmall"
-/max_value_property = &"stat_mp"
-/linked_class = &"Adventurer"
-/linked_property = &"current_mp"
+__max_value_property = &"stat_mp"
+__linked_class = &"Adventurer"
+__linked_property = &"current_mp"
 
 [node name="EquipSlots" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="WeaponSlot" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/EquipSlots" instance=ExtResource("12_gyjer")]
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-frame_size = Vector2i(72, 72)
+frame_size = Vector2i(48, 48)
+__linked_property = &""
 
 [node name="ArmorSlot" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/EquipSlots" instance=ExtResource("12_gyjer")]
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-frame_size = Vector2i(72, 72)
+frame_size = Vector2i(48, 48)
+__linked_property = &""
 
 [node name="TraitsList" parent="MainLayoutRows" instance=ExtResource("11_p5pub")]
 visible = false
@@ -150,9 +155,8 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
-/list_layout = 2
-/linked_class = &"Adventurer"
-/linked_property = &"traits"
+__linked_class = &"Adventurer"
+__linked_property = &"traits"
 
 [node name="ActionButtons" type="HBoxContainer" parent="MainLayoutRows"]
 visible = false
@@ -161,3 +165,4 @@ layout_mode = 2
 [node name="StatValuesBlock" parent="MainLayoutRows" instance=ExtResource("7_tq7ef")]
 visible = false
 layout_mode = 2
+__linked_property = &""

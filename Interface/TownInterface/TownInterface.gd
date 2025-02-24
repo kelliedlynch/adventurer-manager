@@ -7,7 +7,6 @@ class_name TownInterface
 
 func _ready() -> void:
 	if get_tree().edited_scene_root == self or get_tree().current_scene == self:
-		print("linking town")
 		link_object(Town.new())
 
 func link_object(obj: Variant, node: Node = self, recursive = false):

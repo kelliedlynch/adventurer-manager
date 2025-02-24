@@ -8,7 +8,7 @@ var current_town: Town
 var inventory: ObservableArray = ObservableArray.new([], Equipment)
 
 func _init() -> void:
-	for i in 12:
+	for i in 3:
 		var adv = Adventurer.generate_random_newbie()
 		roster.append(adv)
 	for i in 7:

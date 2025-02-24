@@ -41,17 +41,18 @@ class_name UnitMenuItem
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		link_object(Adventurer.generate_random_newbie())
 		set_reactive_defaults()
+		link_object(Adventurer.generate_random_newbie())
 	super()
 	
 func link_object(obj: Variant, node: Node = self, recursive = false):
-	if obj and Utility.is_derived_from(obj.get_script().get_global_name(), linked_class):
+	super(obj, node, recursive)
+	if obj and obj is Adventurer:
 		if not is_inside_tree():
 			await ready
 		weapon_slot.link_object(obj.weapon)
 		armor_slot.link_object(obj.armor)
-	super(obj, node, recursive)
+	
 	
 func set_reactive_defaults():
 	linked_class = "Adventurer"

@@ -75,6 +75,7 @@ func _on_press_send_button():
 		linked_object.party.append_array(linked_object.staged)
 		linked_object.staged.clear()
 		linked_object.begin_quest()
+		status_window.visible = true
 		
 
 func _on_unit_selected(item: UnitListMenuItem, selected: bool):
@@ -189,6 +190,7 @@ func link_object(obj: Variant, node: Node = self, recursive = false):
 			hazard_icons.add_child(icon)
 			icon.mouse_entered.connect(_on_hazard_icon_hovered.bind(hazard))
 			icon.mouse_exited.connect(_on_hazard_icon_exited.bind(hazard))
+		status_window.link_object(obj)
 	
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:

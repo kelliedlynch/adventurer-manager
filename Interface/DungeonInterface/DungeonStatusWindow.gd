@@ -9,10 +9,14 @@ func _ready() -> void:
 		var units: Array[Adventurer] = []
 		for i in 4:
 			units.append(Adventurer.generate_random_newbie())
-		link_object(ObservableArray.new(units, Adventurer))
+		unit_list.link_object(ObservableArray.new(units, Adventurer))
 
-func update_from_linked_object():
-	pass
+func link_object(obj: Variant, node: Node = self, recursive = false):
+	var linking_list = obj is Dungeon
+	#super(obj, node, linking_list)
+	if linking_list:
+		if not is_inside_tree(): await ready
+		unit_list.link_object(obj.party)
 
 #func layout_party():
 	#for child in unit_tiles.get_children():

@@ -46,6 +46,9 @@ func _get_property_list() -> Array:
 ## If you do not need to pass the linked object down to child objects, do not call super in the override
 ## Maybe this shouldn't be recursive at all, and I should deal individually with Reactive objects with children
 func link_object(obj: Variant, node: Node = self, recursive = false):
+	if recursive:
+		for child in node.get_children():
+			link_object(obj, child, recursive)
 	if obj and node is Reactive:
 		if node.linked_class and Utility.is_derived_from(obj.get_script().get_global_name(), node.linked_class):
 			node.linked_object = obj
@@ -54,13 +57,11 @@ func link_object(obj: Variant, node: Node = self, recursive = false):
 				#var b = array_object_type
 			if obj is ObservableArray and (not array_object_type or array_object_type == str(obj.array_type.get_global_name())):
 				obj.array_changed.connect(node._on_linked_observable_object_changed.bind(obj))
-				node._on_linked_observable_object_changed(obj)
+				#node._on_linked_observable_object_changed(obj)
 			if linked_property and linked_property in obj and obj.get(linked_property) is ObservableArray:
 				obj.get(linked_property).array_changed.connect(node._on_linked_observable_property_changed.bind(obj.get(linked_property)))
-				node._on_linked_observable_object_changed(obj.get(linked_property))
-	if recursive:
-		for child in node.get_children():
-			link_object(obj, child, recursive)
+				#node._on_linked_observable_object_changed(obj.get(linked_property))
+
 		
 ## Override to react to contents of a linked_object ObservableArray changing. 
 func _on_linked_observable_object_changed(obj: ObservableArray):
@@ -97,11 +98,9 @@ func clear_test_value():
 func _set(property, value):
 	# This is solely to allow updating linked class and property in the editor
 	if property.begins_with("__test"):
-		("set test value in base")
 		set_test_value(property, value)
 		return true
 	if property.begins_with("__") and property.right(-2) in self:
-		("set called, but didn't catch test value")
 		set(property.right(-2), value)
 		notify_property_list_changed()
 		return true

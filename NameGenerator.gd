@@ -6,7 +6,7 @@ static var rng: RandomNumberGenerator
 static func new_name() -> String:
 	if not rng:
 		rng = RandomNumberGenerator.new()
-	var syllables = rng.rand_weighted([.6, 2.4, 2, .4, .2]) + 1
+	var syllables = rng.rand_weighted([.6, 2.4, 2, .4]) + 1
 	var name = ""
 	var prev_end = ""
 	for s in syllables:

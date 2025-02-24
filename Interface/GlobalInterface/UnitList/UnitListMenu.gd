@@ -57,13 +57,15 @@ func build_menu_item(unit: Variant) -> MenuItemBase:
 			"action": butt.action.bind(unit),
 			"active_if": butt.active_if.bind(unit)
 		})
-	new_menu_item.link_object(unit)
+	#new_menu_item.link_object(unit)
 	return new_menu_item
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		var units = ObservableArray.new([], Adventurer)
 		for i in 10:
-			add_menu_item(build_menu_item(Adventurer.generate_random_newbie()))
+			units.append(Adventurer.generate_random_newbie())
+		link_object(units)
 
 func _on_menu_item_type_changed(_item_type: MenuItemType):
 	if not linked_object: return
@@ -85,6 +87,7 @@ func _on_layout_type_changed(layout: int):
 			menu_items_container.columns = grid_columns
 	menu_items_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	menu_items_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	#menu_items_container.alignment = VERTICAL_ALIGNMENT_CENTER
 	menu_items_container.name = "MenuItems"
 	container_parent.add_child(menu_items_container)
 	if get_tree().edited_scene_root == self:
@@ -92,10 +95,11 @@ func _on_layout_type_changed(layout: int):
 	for item in items:
 		menu_items_container.add_child(item)
 
-#func _refresh_menu() -> void:
-	#for item in menu_items:
-		#if !_unit_menuitem_map.has(item.unit):
-			#remove_menu_item(item)
+## Override if any double underscore properties are added that don't revert to empty strings
+func _property_get_revert(property: StringName) -> Variant:
+	if property == "__grid_columns":
+		return 2
+	return super(property)
 
 func register_action_button(text: String, action: Callable, active_if: Callable = func(): pass):
 	var dict = {
