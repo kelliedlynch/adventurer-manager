@@ -41,7 +41,7 @@ func _init():
 
 func combat_action(unit: Adventurer, combat: Combat):
 	if unit.current_mp >= heal_mp_cost:
-		var heal_target = combat.party.find_custom(func(x): return x.stat_hp - x.current_hp >= unit.stat_mag)
+		var heal_target = combat.party.find_custom(func(x): return x.stat_hp - x.current_hp >= unit.stat_mag and x.status & ~Adventurer.STATUS_INCAPACITATED)
 		if heal_target != -1:
 			combat.party[heal_target].current_hp += unit.stat_mag
 			unit.current_mp -= heal_mp_cost

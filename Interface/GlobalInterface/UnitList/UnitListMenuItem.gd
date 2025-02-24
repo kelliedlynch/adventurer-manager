@@ -46,7 +46,9 @@ func link_object(obj: Variant, node: Node = self, recursive = false):
 			weapon_slot.selected_changed.connect(_on_slot_clicked.bind(weapon_slot))
 			armor_slot.selected_changed.connect(_on_slot_clicked.bind(armor_slot))
 	
-		
+func unlink_object(obj: Variant, node: Node = self, recursive = false):
+	# TODO: ACTUALLY UNLINK EVERYTHING
+	pass
 	
 func _set_layout_variation(variation: int):
 	if !is_inside_tree():

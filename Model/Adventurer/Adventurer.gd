@@ -116,6 +116,13 @@ func take_damage(dmg: int):
 	super(dmg)
 	if current_hp == 0:
 		status |= STATUS_INCAPACITATED
+
+func heal_damage(dmg: int = stat_hp):
+	#if current_hp <= 0 and dmg > 0 and dmg > 0 - current_hp:
+		#status &= ~STATUS_INCAPACITATED
+	super(dmg)
+	if status & STATUS_INCAPACITATED and current_hp > 0:
+		status &= ~STATUS_INCAPACITATED
 		
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()

@@ -53,7 +53,8 @@ func _on_advance_tick():
 		enemy.stat_atk = 3 + randi_range(_min_level, _max_level)
 		combat.add_unit(enemy)
 	for unit in party:
-		combat.add_unit(unit)
+		if unit.status & ~Adventurer.STATUS_INCAPACITATED:
+			combat.add_unit(unit)
 	var result = combat.run_combat()
 	if result == Combat.RESULT_WIN:
 		dungeon_reward_money += combat.reward_money
