@@ -83,7 +83,7 @@ func _set(property: StringName, value: Variant) -> bool:
 func combat_action():
 	pass
 
-func heal_damage(dmg: int):
+func heal_damage(dmg: int = stat_hp):
 	current_hp += dmg
 	if current_hp > stat_hp:
 		current_hp = stat_hp

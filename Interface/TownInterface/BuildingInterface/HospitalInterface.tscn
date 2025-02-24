@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bd1nthpv4xopa" path="res://Interface/TownInterface/BuildingInterface/HospitalInterface.gd" id="1_v1xpe"]
 [ext_resource type="Texture2D" uid="uid://dwpixdg6m71fm" path="res://Graphics/Backgrounds/hospital_1.png" id="2_lo5q1"]
-[ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/Field/ReactiveProgressField.tscn" id="3_ictwp"]
+[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="3_emvv3"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn" id="4_emvv3"]
 [ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/Icons/coin_01.png" id="5_6aoh6"]
 [ext_resource type="PackedScene" uid="uid://cexrovdxbxapb" path="res://Interface/GlobalInterface/UnitList/UnitListMenuItem.tscn" id="6_emvv3"]
@@ -14,6 +14,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v1xpe")
+__linked_class = &"Hospital"
+__linked_property = &""
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
@@ -27,11 +29,13 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_type_variation = &"TitleBar"
 
-[node name="BuildingName" parent="VBoxContainer/PanelContainer" instance=ExtResource("3_ictwp")]
+[node name="BuildingNameLabel" type="Label" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-theme_type_variation = &"TitleBig"
-alignment = 1
+horizontal_alignment = 1
+script = ExtResource("3_emvv3")
+__test_value = ""
+__linked_class = &"Hospital"
+__linked_property = &"building_name"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -39,6 +43,7 @@ size_flags_vertical = 3
 
 [node name="InjuredUnits" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_emvv3")]
 layout_mode = 2
+__menu_item_type = 1
 menu_title = "Injured Units"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
@@ -59,6 +64,7 @@ text = "Select a unit to heal"
 [node name="HealButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+disabled = true
 text = "0"
 icon = ExtResource("5_6aoh6")
 expand_icon = true
