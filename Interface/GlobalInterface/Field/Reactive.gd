@@ -81,7 +81,9 @@ func unlink_object(obj: Variant, node: Node = self, recursive = false):
 func _get(property):
 	# This is solely to allow updating linked class and property in the editor
 	if property.begins_with("__test"):
+		#print(property, " begins with __test ", property.begins_with("__test"))
 		#print("getting test value in base for ", property)
+		#print(typeof(property))
 		return get_test_value(property)
 	if property.begins_with("__") and property.right(-2) in self:
 		return get(property.right(-2))
@@ -107,15 +109,20 @@ func _set(property, value):
 	return false
 	
 ## Override to filter the list of classes that can be linked to this Reactive in the editor
-func _get_linkable_class_hint_string():
-	return Utility.array_to_hint_string(ProjectSettings.get_global_class_list().map(func(x): return x.class))
+func _get_linkable_class_hint_string() -> String:
+	var classes = ProjectSettings.get_global_class_list().filter(func(x): return not Utility.is_derived_from(x.class, "Control")).map(func(x): return x.class)
+	var hint_str = Utility.array_to_hint_string(classes)
+	return hint_str
 
 ## Override to filter the list of properties that can be linked to this Reactive in the editor
 func _get_linkable_property_hint_string() -> String:
 	if not linked_class:
 		return ""
+	var exclusions = ["RefCounted", "Resource", "resource_local_to_scene", "resource_path", "resource_name", "resource_scene_unique_id", "script"]
 	var instance = Utility.instance_class_from_string_name(linked_class)
-	var props = instance.get_property_list().map(func(x): return x.name)
+	if not instance:
+		print("couldn't instance ", linked_class)
+	var props = instance.get_property_list().filter(func(x): return not exclusions.has(x.name)).map(func(x): return x.name)
 	return Utility.array_to_hint_string(props)
 
 ## Override if any double underscore properties are added that don't revert to empty strings

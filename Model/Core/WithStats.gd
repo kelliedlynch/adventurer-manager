@@ -1,17 +1,8 @@
 extends Resource
-class_name CombatUnit
+## Base class for anything with stats, like Adventurers, Enemies, Equipment, or Buffs
+class_name WithStats
 
-var combat: Combat
-
-var buffs = []
-
-var unit_name: String = "":
-	set(value):
-		unit_name = value
-
-var level: int = 0:
-	set(value):
-		level = value
+static var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var base_stats: Dictionary = {
 	stat_hp = 0,
@@ -28,15 +19,10 @@ var base_stats: Dictionary = {
 var stat_hp: int: 
 	get: return _get("stat_hp")
 	set(value): _set("stat_hp", value)
-var current_hp: int
-	#get: return _get("current_hp")
-	#set(value): _set("current_hp", value)
+
 var stat_mp: int:
 	get: return _get("stat_mp")
 	set(value): _set("stat_mp", value)
-var current_mp: int
-	#get: return _get("current_mp")
-	#set(value): _set("current_mp", value)
 
 var stat_atk: int:
 	get: return _get("stat_atk")
@@ -60,38 +46,16 @@ var stat_cha: int:
 	get: return _get("stat_cha")
 	set(value): _set("stat_cha", value)
 
-signal died
+func _init() -> void:
+	if not rng:
+		rng = RandomNumberGenerator.new()
 
 func _get(property: StringName):
 	if base_stats.has(property):
-		var calc = base_stats[property]
-		if "weapon" in self and self.weapon and self.weapon.stat_mods.has(property):
-			calc += self.weapon.stat_mods[property]
-		if "armor" in self and self.armor and self.armor.stat_mods.has(property):
-			calc += self.armor.stat_mods[property]
-		for buff in buffs:
-			if buff.stat_mods.has(property):
-				calc += buff.stat_mods[property]
-		return calc
-		
+		return base_stats[property]
+
 func _set(property: StringName, value: Variant) -> bool:
 	if base_stats.has(property):
 		base_stats[property] = value
 		return true
 	return false
-
-func combat_action():
-	pass
-
-func heal_damage(dmg: int = stat_hp):
-	current_hp += dmg
-	if current_hp > stat_hp:
-		current_hp = stat_hp
-
-func take_damage(dmg: int):
-	current_hp -= dmg
-	if current_hp <= 0:
-		current_hp = 0
-		if combat:
-			combat.remove_unit(self)
-		died.emit()

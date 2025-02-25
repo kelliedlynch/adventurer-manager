@@ -26,7 +26,7 @@ func _ready() -> void:
 
 	super()
 	
-func link_object(obj: Variant, node: Node = self, recursive = false):
+func link_object(obj: Variant, node: Node = self, _recursive = false):
 	super(obj, node, obj is Adventurer)
 	if obj and obj is Adventurer and linked_object == obj:
 		if not is_inside_tree():

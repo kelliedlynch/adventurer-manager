@@ -1,4 +1,3 @@
-@tool
 extends Resource
 class_name AdventurerClass
 
@@ -61,7 +60,9 @@ func _init() -> void:
 func combat_action(unit: Adventurer, combat: Combat):
 	var target = combat.enemies.pick_random()
 	target.take_damage(unit.stat_atk)
-
+	var msg = ActivityLogMessage.new("%s dealt %d damage to %s" % [unit.unit_name, unit.stat_atk, target.unit_name])
+	Game.activity_log.push_message(msg, false)
+	
 func _to_string() -> String:
 	return adventurer_class_name
 

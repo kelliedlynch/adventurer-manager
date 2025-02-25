@@ -83,6 +83,11 @@ func complete_quest(success: bool):
 		Game.player.money += dungeon_reward_money
 	else:
 		log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
-	Game.activity_log.push_message(log_msg)
+	Game.activity_log.push_message(log_msg, true)
+	if success:
+		var loot = Equipment.generate_random_equipment()
+		loot.item_name = "Awesome Dungeon Loot"
+		Game.player.inventory.append(loot)
+		Game.activity_log.push_message(ActivityLogMessage.new("Received loot: %s" % loot.item_name))
 	questing = false
 	remaining_quest_time = quest_time

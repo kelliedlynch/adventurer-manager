@@ -17,7 +17,9 @@ func _ready() -> void:
 		item_name_label.text = empty_item_label
 	super()
 	
-func link_object(obj: Variant, node: Node = self, recursive = true):
+func link_object(obj: Variant, node: Node = self, recursive = false):
+	if obj and obj is Equipment:
+		recursive = true
 	super(obj, node, recursive)
 
 static func instantiate(equip_item: Equipment) -> EquipmentMenuItem:

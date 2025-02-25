@@ -1,8 +1,6 @@
 extends CombatUnit
 class_name Adventurer
 
-static var rng: RandomNumberGenerator
-		
 var adventurer_class: AdventurerClass = AdventurerClass.random()
 		
 var portrait: Texture2D = get_random_portrait()
@@ -38,6 +36,7 @@ var weapon: Weapon
 var armor: Armor
 
 func _init() -> void:
+	super()
 	unit_name = NameGenerator.new_name()
 	for stat in adventurer_class.stat_overrides:
 		set(stat, adventurer_class.stat_overrides[stat])
@@ -47,6 +46,7 @@ func _init() -> void:
 			set("current_mp", adventurer_class.stat_overrides[stat])
 	if !Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_on_game_tick_advanced)
+
 
 func _on_game_tick_advanced():
 	if status & STATUS_IDLE and status & ~STATUS_INCAPACITATED and current_mp < stat_mp:

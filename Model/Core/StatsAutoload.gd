@@ -60,6 +60,6 @@ const stat_luk = {
 const stat_cha = {
 	"name": "Charisma",
 	"abbreviation": "CHA",
-	"icon": "",
+	"icon": "medal.png",
 	"property_name": "stat_cha"
 }

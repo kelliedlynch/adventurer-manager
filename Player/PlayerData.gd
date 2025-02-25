@@ -11,7 +11,7 @@ func _init() -> void:
 	for i in 10:
 		var adv = Adventurer.generate_random_newbie()
 		roster.append(adv)
-	for i in 7:
+	for i in 3:
 		var item = Armor.new() if randi() % 2 == 0 else Weapon.new()
 		inventory.append(item)
 
