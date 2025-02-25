@@ -112,8 +112,8 @@ func add_experience(add_xp: int):
 func combat_action():
 	adventurer_class.combat_action(self, combat)
 
-func take_damage(dmg: int):
-	super(dmg)
+func take_damage(dmg: int, dmg_type: DamageType = DamageType.TRUE):
+	super(dmg, dmg_type)
 	if current_hp == 0:
 		status |= STATUS_INCAPACITATED
 

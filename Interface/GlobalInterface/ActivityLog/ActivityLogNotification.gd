@@ -42,3 +42,10 @@ func _fade_out():
 	fade_tween = create_tween()
 	fade_tween.tween_property(self, "modulate:a", 0, .6)
 	fade_tween.tween_callback(queue_free)
+
+func cancel():
+	if fade_tween:
+		fade_tween.kill()
+	if display_tween:
+		display_tween.kill()
+	queue_free()

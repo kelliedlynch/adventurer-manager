@@ -1,4 +1,4 @@
-extends Reactive
+extends MarginContainer
 class_name ActivityLogInterface
 
 @onready var log_messages: VBoxContainer = find_child("LogMessages")
@@ -35,7 +35,7 @@ func _append_log_message(msg: ActivityLogMessage):
 	log_messages.add_child(ActivityLogTextLabel.new(msg))
 	if log_window.visible:
 		#await get_tree().process_frame
-		_scroll_to_bottom()
+		call_deferred("_scroll_to_bottom")
 	
 func _notify_log_message(msg: ActivityLogMessage):
 	if msg:
@@ -47,4 +47,10 @@ func _notify_log_message(msg: ActivityLogMessage):
 func toggle_window():
 	log_window.visible = !log_window.visible
 	if log_window.visible:
+		for child in notification_window.get_children():
+			child.cancel()
 		call_deferred("_scroll_to_bottom")
+		
+func _process(_delta: float) -> void:
+	if not Engine.is_editor_hint() and Input.is_action_just_pressed("ui_open_log"):
+		toggle_window()

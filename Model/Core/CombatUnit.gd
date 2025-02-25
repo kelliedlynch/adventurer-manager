@@ -39,13 +39,33 @@ func heal_damage(dmg: int = stat_hp):
 	if current_hp > stat_hp:
 		current_hp = stat_hp
 
-func take_damage(dmg: int):
-	current_hp -= dmg
+func take_damage(dmg: int, dmg_type = DamageType.TRUE):
+	var resistances = []
+	if dmg_type & DamageType.PHYSICAL:
+		resistances.append(stat_def)
+	if dmg_type & DamageType.MAGIC:
+		resistances.append(stat_res)
+	var mitigated = resistances.reduce(func(accum, val): return val + accum, 0) / resistances.size() if not resistances.is_empty() else 0
+	var total_dmg = max(0, dmg - int(mitigated))
+	current_hp -= total_dmg
+	var msg = ActivityLogMessage.new("%s took %d %s damage" % [unit_name, total_dmg, DamageType.find_key(dmg_type).capitalize()])
+	if mitigated > 0:
+		msg.text += " (%d mitigated)" % mitigated
+	Game.activity_log.push_message(msg, false)
 	if current_hp <= 0:
-		current_hp = 0
-		if combat:
-			combat.remove_unit(self)
-		died.emit()
-		var msg = ActivityLogMessage.new()
-		msg.text = unit_name + " died."
-		Game.activity_log.push_message(msg, self is Adventurer)
+		die()
+
+func die():
+	current_hp = 0
+	if combat:
+		combat.remove_unit(self)
+	var msg = ActivityLogMessage.new(unit_name + " died.")
+	Game.activity_log.push_message(msg, self is Adventurer)
+
+enum DamageType {
+	TRUE = 0,
+	PHYSICAL = 1,
+	MAGIC = 2,
+	FIRE = 4,
+	ICE = 8
+}
