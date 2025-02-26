@@ -94,8 +94,8 @@ func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 
 func _process(_delta: float) -> void:
 	party_unit_count.text = "%d/%d" % [linked_object.staged.size(), linked_object.max_party_size]
-	#status_window.visible = dungeon.questing
-	#dungeon_units_list.visible = !dungeon.questing
+	status_window.visible = linked_object.questing
+	staged_units_list.visible = !linked_object.questing
 
 func _find_fields_for_property(prop_name: String, node: Node):
 	var fields: Array[Control] = []
@@ -176,7 +176,7 @@ func _on_hazard_icon_exited(haz: Hazard):
 		for item in staged_units_list.get_menu_items():
 			_clear_highlights_for_property(item, prop_name)
 			
-func link_object(obj: Variant, node: Node = self, recursive = false):
+func link_object(obj: Variant, node: Node = self, _recursive = false):
 	super(obj, node, obj is Dungeon)
 	if node == self and obj is Dungeon:
 		if not is_inside_tree():

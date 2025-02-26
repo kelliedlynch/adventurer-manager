@@ -9,7 +9,7 @@ func _ready() -> void:
 	if get_tree().edited_scene_root == self or get_tree().current_scene == self:
 		link_object(Town.new())
 
-func link_object(obj: Variant, node: Node = self, recursive = false):
+func link_object(obj: Variant, node: Node = self, _recursive = false):
 	super(obj, node, obj is Town)
 	if node == self and obj is Town:
 		if not is_inside_tree():

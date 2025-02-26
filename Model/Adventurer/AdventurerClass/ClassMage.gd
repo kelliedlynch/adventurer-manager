@@ -1,4 +1,3 @@
-@tool
 extends AdventurerClass
 class_name ClassMage
 
@@ -38,12 +37,13 @@ func _init():
 			"range": range(3, 6),
 		}
 	}
-	super._init()
+	super()
 
 func combat_action(unit: Adventurer, combat: Combat):
 	if unit.current_mp >= spell_mp_cost:
 		var target = combat.enemies.pick_random()
-		target.take_damage(unit.stat_mag)
+		Game.activity_log.push_message(ActivityLogMessage.new("%s cast a spell on %s for %d damage." % [unit.unit_name, target.unit_name, unit.stat_mag]))
+		target.take_damage(unit.stat_mag, Adventurer.DamageType.MAGIC)
 		unit.current_mp -= spell_mp_cost
 		return
 	super(unit, combat)

@@ -28,7 +28,7 @@ var currently_selected: Array[MenuItemBase] = []
 signal menu_item_selected
 
 ## Override. Build a menu item from the given object.
-func build_menu_item(obj: Variant) -> MenuItemBase:
+func build_menu_item(_obj: Variant) -> MenuItemBase:
 	return null
 
 func add_menu_item(item: MenuItemBase):
@@ -75,7 +75,7 @@ func build_menu_items(from_list = linked_object):
 		add_menu_item(build_menu_item(null))
 	
 ## Override this if a change in the array should do something other than rebuild the visible list
-func _on_linked_observable_object_changed(obj: ObservableArray):
+func _on_linked_observable_object_changed(_obj: ObservableArray):
 	build_menu_items()
 
 func _on_item_selected_changed(val: bool, item: MenuItemBase):

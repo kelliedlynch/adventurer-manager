@@ -41,9 +41,11 @@ func _init():
 
 func combat_action(unit: Adventurer, combat: Combat):
 	if unit.current_mp >= heal_mp_cost:
-		var heal_target = combat.party.find_custom(func(x): return x.stat_hp - x.current_hp >= unit.stat_mag and x.status & ~Adventurer.STATUS_INCAPACITATED)
+		var heal_target = combat.party.find_custom(func(x): return x.stat_hp - x.current_hp >= unit.stat_mag and x.status & ~Adventurer.STATUS_DEAD)
 		if heal_target != -1:
-			combat.party[heal_target].current_hp += unit.stat_mag
+			var msg = ActivityLogMessage.new("%s cast heal on %s" % [unit.unit_name, combat.party[heal_target].unit_name])
+			Game.activity_log.push_message(msg)
+			combat.party[heal_target].heal_damage(unit.stat_mag)
 			unit.current_mp -= heal_mp_cost
 			return
 	super(unit, combat)

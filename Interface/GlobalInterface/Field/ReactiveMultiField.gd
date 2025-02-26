@@ -161,6 +161,8 @@ func _clear_values_container():
 func _property_get_revert(property: StringName) -> Variant:
 	if property == "__test_value":
 		return []
+	if property == "__list_layout":
+		return ContentLayout.VERTICAL
 	return super(property)
 	
 func get_property_hint_string() -> String:

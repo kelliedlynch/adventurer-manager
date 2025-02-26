@@ -1,4 +1,3 @@
-@tool
 extends Hazard
 class_name HazardCold
 
@@ -44,4 +43,4 @@ func per_tick_action(dungeon: Dungeon):
 		dmg -= dmg * mage_reduction
 	for adv in dungeon.party:
 		if !adv.traits.has(Trait.Robust):
-			adv.take_damage(dmg)
+			adv.take_damage(dmg, Adventurer.DamageType.TRUE)

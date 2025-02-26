@@ -27,15 +27,15 @@ func _init(from_array: Array = [], of_type: Variant = null):
 func should_continue():
 	return current < end
 
-func _iter_init(arg):
+func _iter_init(_arg):
 	current = start
 	return should_continue()
 
-func _iter_next(arg):
+func _iter_next(_arg):
 	current += 1
 	return should_continue()
 
-func _iter_get(arg):
+func _iter_get(_arg):
 	return _array[current]
 	
 func is_equal(array: Array):
@@ -70,7 +70,8 @@ func clear() -> void:
 	array_changed.emit()
 func count(value: Variant) -> int:
 	return _array.count(value)
-func duplicate(deep: bool = false) -> ObservableArray:
+func duplicate(_deep: bool = false) -> ObservableArray:
+	#TODO: Do I need a deep copy? Probably not.
 	return ObservableArray.new(_array, array_type)
 func erase(value: Variant) -> void:
 	_array.erase(value)
@@ -148,8 +149,8 @@ func reduce(method: Callable, accum: Variant = null) -> Variant:
 func remove_at(position: int) -> void:
 	_array.remove_at(position)
 	array_changed.emit()
-func resize(size: int) -> int:
-	var r_value = _array.resize(size)
+func resize(array_size: int) -> int:
+	var r_value = _array.resize(array_size)
 	array_changed.emit()
 	return r_value
 func reverse() -> void:
@@ -166,8 +167,8 @@ func shuffle() -> void:
 	array_changed.emit()
 func size() -> int:
 	return _array.size()
-func slice(begin: int, end: int = 0x7FFFFFFF, step: int = 1, deep: bool = false) -> Array:
-	return _array.slice(begin, end, step, deep)
+func slice(begin: int, end_pos: int = 0x7FFFFFFF, step: int = 1, deep: bool = false) -> Array:
+	return _array.slice(begin, end_pos, step, deep)
 func sort() -> void:
 	_array.sort()
 	array_changed.emit()

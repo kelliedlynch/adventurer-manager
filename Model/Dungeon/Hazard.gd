@@ -1,4 +1,3 @@
-@tool
 extends Resource
 class_name Hazard
 
@@ -88,7 +87,10 @@ func _get_counters() -> Array[Dictionary]:
 		}
 ]
 
-func per_quest_action(_dungeon: Dungeon):
+func before_quest_action(_dungeon: Dungeon):
+	pass
+	
+func after_quest_action(_dungeon: Dungeon):
 	pass
 	
 func per_tick_action(_dungeon: Dungeon):
@@ -97,18 +99,27 @@ func per_tick_action(_dungeon: Dungeon):
 func before_combat_action(_dungeon: Dungeon):
 	pass
 
-func after_combat_action(_dungeon: Dungeon):
-	pass
+func after_combat_action(dungeon: Dungeon):
+	# TODO: currently no way to distinguish between combat- and dungeon-duration buffs. Fix that.
+	# TODO: I think combat.party might not include people who have died and still need buffs removed
+	remove_own_buffs(dungeon.party)
 
 func per_combat_round_action(_dungeon: Dungeon):
 	pass
 
+func remove_own_buffs(party):
+	for unit in party:
+		var to_remove = unit.buffs.filter(func(x): return x.source == self)
+		for b in to_remove:
+			unit.buffs.erase(b)
+
 static var Cold: HazardCold = HazardCold.new()
 static var Swarms: HazardSwarms = HazardSwarms.new()
 static var RoughTerrain: HazardRoughTerrain = HazardRoughTerrain.new()
+static var Traps: HazardTraps = HazardTraps.new()
 
 static func random() -> Hazard:
-	var list = [Cold, Swarms, RoughTerrain]
+	var list = [Cold, Swarms, RoughTerrain, Traps]
 	return list.pick_random()
 
 

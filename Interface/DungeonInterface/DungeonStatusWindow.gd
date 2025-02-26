@@ -11,7 +11,7 @@ func _ready() -> void:
 			units.append(Adventurer.generate_random_newbie())
 		unit_list.link_object(ObservableArray.new(units, Adventurer))
 
-func link_object(obj: Variant, node: Node = self, recursive = false):
+func link_object(obj: Variant, _node: Node = self, _recursive = false):
 	var linking_list = obj is Dungeon
 	#super(obj, node, linking_list)
 	if linking_list:

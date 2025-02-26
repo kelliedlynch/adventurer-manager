@@ -18,7 +18,7 @@ var level: int = 0:
 var current_hp: int
 var current_mp: int
 
-signal died
+#signal died
 
 func _get(property: StringName):
 	if base_stats.has(property):
@@ -35,32 +35,49 @@ func combat_action():
 	pass
 
 func heal_damage(dmg: int = stat_hp):
-	current_hp += dmg
-	if current_hp > stat_hp:
-		current_hp = stat_hp
+	var new_hp = current_hp + dmg
+	var overheal = max(new_hp - stat_hp, 0)
+	push_heal_msg(dmg, overheal)
+	current_hp = min(new_hp, stat_hp)
+	
+func push_heal_msg(dmg: int, overheal: int = 0):
+	var msg = "%s healed %d damage." % [unit_name, dmg]
+	if overheal > 0:
+		msg += " (%d overheal)" % overheal
+	Game.activity_log.push_message(ActivityLogMessage.new(msg))
 
 func take_damage(dmg: int, dmg_type = DamageType.TRUE):
+	if dmg == 0 or current_hp <= 0: return
 	var resistances = []
 	if dmg_type & DamageType.PHYSICAL:
 		resistances.append(stat_def)
 	if dmg_type & DamageType.MAGIC:
 		resistances.append(stat_res)
 	var mitigated = resistances.reduce(func(accum, val): return val + accum, 0) / resistances.size() if not resistances.is_empty() else 0
+	mitigated = min(mitigated, dmg)
 	var total_dmg = max(0, dmg - int(mitigated))
 	current_hp -= total_dmg
-	var msg = ActivityLogMessage.new("%s took %d %s damage" % [unit_name, total_dmg, DamageType.find_key(dmg_type).capitalize()])
-	if mitigated > 0:
-		msg.text += " (%d mitigated)" % mitigated
-	Game.activity_log.push_message(msg, false)
+	push_damage_msg(total_dmg, dmg_type, mitigated)
 	if current_hp <= 0:
 		die()
 
 func die():
 	current_hp = 0
+	# TODO: I'm not happy with having combat stored on this object. See if it can be event-based again.
 	if combat:
 		combat.remove_unit(self)
 	var msg = ActivityLogMessage.new(unit_name + " died.")
 	Game.activity_log.push_message(msg, self is Adventurer)
+	
+func push_damage_msg(dmg, dmg_type, mitigated):
+	var msg = ActivityLogMessage.new("%s took %d %s damage" % [unit_name, dmg, DamageType.find_key(dmg_type).capitalize()])
+	if mitigated > 0:
+		msg.text += " (%d mitigated)" % mitigated
+	Game.activity_log.push_message(msg, false)
+
+func push_attack_msg(target: CombatUnit, dmg: int):
+	var msg = ActivityLogMessage.new("%s attacked %s for %d damage" % [unit_name, target.unit_name, dmg])
+	Game.activity_log.push_message(msg, false)
 
 enum DamageType {
 	TRUE = 0,

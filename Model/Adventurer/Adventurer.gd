@@ -1,7 +1,7 @@
 extends CombatUnit
 class_name Adventurer
 
-var adventurer_class: AdventurerClass = AdventurerClass.random()
+var adventurer_class: AdventurerClass
 		
 var portrait: Texture2D = get_random_portrait()
 
@@ -37,6 +37,7 @@ var armor: Armor
 
 func _init() -> void:
 	super()
+	adventurer_class = AdventurerClass.random()
 	unit_name = NameGenerator.new_name()
 	for stat in adventurer_class.stat_overrides:
 		set(stat, adventurer_class.stat_overrides[stat])
@@ -49,7 +50,7 @@ func _init() -> void:
 
 
 func _on_game_tick_advanced():
-	if status & STATUS_IDLE and status & ~STATUS_INCAPACITATED and current_mp < stat_mp:
+	if status & STATUS_IDLE and status & ~STATUS_DEAD and current_mp < stat_mp:
 		current_mp += 1
 
 func equip(item: Equipment):
@@ -113,16 +114,17 @@ func combat_action():
 	adventurer_class.combat_action(self, combat)
 
 func take_damage(dmg: int, dmg_type: DamageType = DamageType.TRUE):
+	if status & STATUS_DEAD: return
 	super(dmg, dmg_type)
 	if current_hp == 0:
-		status |= STATUS_INCAPACITATED
+		status |= STATUS_DEAD
 
 func heal_damage(dmg: int = stat_hp):
 	#if current_hp <= 0 and dmg > 0 and dmg > 0 - current_hp:
-		#status &= ~STATUS_INCAPACITATED
+		#status &= ~STATUS_DEAD
 	super(dmg)
-	if status & STATUS_INCAPACITATED and current_hp > 0:
-		status &= ~STATUS_INCAPACITATED
+	if status & STATUS_DEAD and current_hp > 0:
+		status &= ~STATUS_DEAD
 		
 static func generate_random_newbie() -> Adventurer:
 	var noob = Adventurer.new()
@@ -151,5 +153,5 @@ enum {
 	STATUS_IDLE = 1,
 	STATUS_IN_BUILDING = 2,
 	STATUS_IN_DUNGEON = 4,
-	STATUS_INCAPACITATED = 8
+	STATUS_DEAD = 8
 }

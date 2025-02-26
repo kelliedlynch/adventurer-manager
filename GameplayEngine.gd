@@ -25,4 +25,5 @@ func begin_game() -> void:
 	PhysicsServer2D.set_active(false)
 	PhysicsServer3D.set_active(false)
 	dungeon = Dungeon.new()
+	dungeon.generate_dungeon()
 	advance_tick()

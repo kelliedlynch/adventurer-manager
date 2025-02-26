@@ -9,7 +9,7 @@ func _ready() -> void:
 		for i in 10:
 			unit_list.build_menu_item(Adventurer.generate_random_newbie())
 
-func link_object(obj: Variant, node: Node = self, recursive: bool = true):
+func link_object(obj: Variant, _node: Node = self, _recursive: bool = true):
 	if obj and obj is PlayerData:
 		if not is_inside_tree():
 			await ready

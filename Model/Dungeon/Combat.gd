@@ -42,6 +42,7 @@ func _end_combat():
 		combat_ended.disconnect(conn.callable)
 
 func run_combat() -> int:
+	participants.sort_custom(func(a, b): return a.stat_dex > b.stat_dex)
 	for i in 100:
 		_perform_combat_round()
 		if party.is_empty():

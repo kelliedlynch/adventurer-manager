@@ -40,7 +40,6 @@ var registered_buttons: Array[Dictionary] = []
 		#push_error("can't set units directly; use add/remove functions")
 
 func build_menu_item(unit: Variant) -> MenuItemBase:
-	var menu_item_class = UnitListMenuItem
 	var new_menu_item: MenuItemBase
 	match menu_item_type:
 		MenuItemType.PANEL_WIDE:

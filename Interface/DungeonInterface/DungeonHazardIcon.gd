@@ -16,7 +16,7 @@ func _ready():
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		link_object(Hazard.new())
 		
-func link_object(obj: Variant, node: Node = self, recursive = false):
+func link_object(obj: Variant, node: Node = self, _recursive = false):
 	super(obj, node, not obj is Dungeon)
 	if obj is Dungeon:
 		dungeon = obj

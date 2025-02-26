@@ -59,19 +59,23 @@ func _init() -> void:
 
 func combat_action(unit: Adventurer, combat: Combat):
 	var target = combat.enemies.pick_random()
-	target.take_damage(unit.stat_atk)
-	var msg = ActivityLogMessage.new("%s dealt %d damage to %s" % [unit.unit_name, unit.stat_atk, target.unit_name])
-	Game.activity_log.push_message(msg, false)
+	unit.push_attack_msg(target, unit.stat_atk)
+	target.take_damage(unit.stat_atk, Adventurer.DamageType.PHYSICAL)
 	
 func _to_string() -> String:
 	return adventurer_class_name
 
-static var Mage = ClassMage.new()
-static var Warrior = ClassWarrior.new()
-static var Healer = ClassHealer.new()
+static var Mage: ClassMage
+static var Warrior: ClassWarrior
+static var Healer: ClassHealer
+static var Rogue: ClassRogue
+static var all_classes: Array[AdventurerClass] = []
 
 static func random() -> Variant:
-	var classes = [
-		Warrior, Mage, Healer
-	]
-	return classes.pick_random()
+	if all_classes.is_empty():
+		Mage = ClassMage.new()
+		Warrior = ClassWarrior.new()
+		Healer = ClassHealer.new()
+		Rogue = ClassRogue.new()
+		all_classes.append_array([Mage, Warrior, Healer, Rogue])
+	return all_classes.pick_random()

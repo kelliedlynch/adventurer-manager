@@ -102,7 +102,8 @@ expand_mode = 1
 layout_mode = 2
 script = ExtResource("5_mpu5g")
 __test_value = ""
-__linked_class = &""
+__linked_class = &"PlayerData"
+__linked_property = &"money"
 
 [node name="ActivityLogButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 custom_minimum_size = Vector2(72, 72)

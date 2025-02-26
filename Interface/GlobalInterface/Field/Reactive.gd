@@ -64,11 +64,11 @@ func link_object(obj: Variant, node: Node = self, recursive = false):
 
 		
 ## Override to react to contents of a linked_object ObservableArray changing. 
-func _on_linked_observable_object_changed(obj: ObservableArray):
+func _on_linked_observable_object_changed(_obj: ObservableArray):
 	pass
 	
 ## Override to react to contents of an ObservableArray property of linked_object changing
-func _on_linked_observable_property_changed(obj: ObservableArray):
+func _on_linked_observable_property_changed(_obj: ObservableArray):
 	pass
 		
 func unlink_object(obj: Variant, node: Node = self, recursive = false):
@@ -91,7 +91,7 @@ func _get(property):
 func get_test_value(_property: StringName):
 	pass
 	
-func set_test_value(_property: StringName, value: Variant):
+func set_test_value(_property: StringName, _value: Variant):
 	pass
 	
 func clear_test_value():
@@ -133,6 +133,8 @@ func _property_get_revert(property: StringName) -> Variant:
 
 func _property_can_revert(property: StringName) -> bool:
 	if property.begins_with("__"):
+		if get(property.right(-2)) is int and _property_get_revert(property) is String:
+			print(property)
 		return get(property.right(-2)) != _property_get_revert(property)
 	return false
 
