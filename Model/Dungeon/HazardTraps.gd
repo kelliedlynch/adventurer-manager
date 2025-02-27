@@ -6,7 +6,7 @@ var trap_damage: int = 5
 func _init() -> void:
 	hazard_name = "Traps"
 	hazard_description = "Chance of taking serious damage between combats."
-	#icon = load("res://Graphics/Icons/White/swarm.png")
+	icon = load("res://Graphics/Icons/White/tripwire.png")
 	
 func _get_counters() -> Array[Dictionary]:
 	return [

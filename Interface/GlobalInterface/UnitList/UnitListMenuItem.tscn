@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cexrovdxbxapb"]
+[gd_scene load_steps=10 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitList/UnitListMenuItem.gd" id="1_i6766"]
 [ext_resource type="PackedScene" uid="uid://c4lr80l1py1nw" path="res://Interface/GlobalInterface/UnitList/UnitPortrait.tscn" id="2_3agds"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/Field/ReactiveProgressField.tscn" id="3_bele2"]
+[ext_resource type="Texture2D" uid="uid://dgt1ts2du3wnm" path="res://Graphics/Icons/White/heart.png" id="4_6vuo7"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_pb6xb"]
 [ext_resource type="PackedScene" uid="uid://4gwdieeoqoyp" path="res://Interface/GlobalInterface/UnitList/StatValuesBlock.tscn" id="5_3agds"]
+[ext_resource type="Texture2D" uid="uid://b8bhlgxpkd508" path="res://Graphics/Icons/White/magic_swirl.png" id="6_kvydu"]
 [ext_resource type="PackedScene" uid="uid://cc3uq6b0rbj7n" path="res://Interface/PlayerMenuInterface/EquipmentSlot.tscn" id="7_wrwym"]
 [ext_resource type="PackedScene" uid="uid://b3gllupgt2pit" path="res://Interface/GlobalInterface/Field/ReactiveMultiField.tscn" id="9_je2iw"]
 
@@ -47,8 +49,9 @@ layout_mode = 2
 
 [node name="UnitName" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
+text = "Ourniwn"
 script = ExtResource("4_pb6xb")
-__test_value = ""
+__test_value = "Ourniwn"
 __linked_class = &"Adventurer"
 __linked_property = &"unit_name"
 
@@ -67,15 +70,17 @@ text = "Lv."
 
 [node name="LevelValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass/Level"]
 layout_mode = 2
+text = "2"
 script = ExtResource("4_pb6xb")
-__test_value = ""
+__test_value = "2"
 __linked_class = &"Adventurer"
 __linked_property = &"level"
 
 [node name="ClassValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
+text = "Rogue"
 script = ExtResource("4_pb6xb")
-__test_value = ""
+__test_value = "Rogue"
 __linked_class = &"Adventurer"
 __linked_property = &"adventurer_class"
 
@@ -96,15 +101,23 @@ theme_override_constants/separation = 24
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatHpLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp"]
+[node name="StatHpLabelText" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"TextBig"
 text = "HP:"
+
+[node name="StatHpLabelIcon" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp"]
+layout_mode = 2
+texture = ExtResource("4_6vuo7")
+expand_mode = 2
 
 [node name="StatHpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
 __max_value_property = &"stat_hp"
+__test_current_value = "10"
+__test_max_value = "10"
 __linked_class = &"Adventurer"
 __linked_property = &"current_hp"
 
@@ -112,22 +125,29 @@ __linked_property = &"current_hp"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatMpLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp"]
+[node name="StatMpLabelText" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"TextBig"
 text = "MP:"
+
+[node name="StatMpLabelIcon" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp"]
+layout_mode = 2
+texture = ExtResource("6_kvydu")
+expand_mode = 2
 
 [node name="StatMpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("3_bele2")]
 layout_mode = 2
 theme_type_variation = &"TextBig"
 __max_value_property = &"stat_mp"
+__test_current_value = "0"
+__test_max_value = "0"
 __linked_class = &"Adventurer"
 __linked_property = &"current_mp"
 
 [node name="StatValuesBlock" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock" instance=ExtResource("5_3agds")]
 layout_mode = 2
 size_flags_vertical = 0
-__linked_property = &""
 
 [node name="TraitsListWideLayout" type="MarginContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody"]
 layout_mode = 2
@@ -137,6 +157,7 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
+__test_value = ["Leader", "Trailblazer"]
 __linked_class = &"Adventurer"
 __linked_property = &"traits"
 

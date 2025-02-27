@@ -2,7 +2,6 @@ extends Equipment
 class_name Weapon
 
 func _init() -> void:
-	super()
 	item_name = "Weapon"
 	var number_of_mods = rng.rand_weighted([3, 1, .5, .2, .04, .01]) + 1
 	var stats_list = base_stats.keys()

@@ -5,8 +5,10 @@ class_name WithStats
 static var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var base_stats: Dictionary = {
-	stat_hp = 0,
+	stat_hp = 1,
+	#current_hp = 1,
 	stat_mp = 0,
+	#current_mp = 0,
 	stat_atk = 0,
 	stat_def = 0,
 	stat_mag = 0,
@@ -19,10 +21,19 @@ var base_stats: Dictionary = {
 var stat_hp: int: 
 	get: return _get("stat_hp")
 	set(value): _set("stat_hp", value)
+	#get: return _get("current_hp")
+	#set(value): current_hp = value
+#var current_hp: int: 
+	#get: return _current_hp
+	#set(value): _current_hp = value
 
 var stat_mp: int:
 	get: return _get("stat_mp")
 	set(value): _set("stat_mp", value)
+
+#var current_mp: int: 
+	#get: return _current_mp
+	#set(value): _current_mp = value
 
 var stat_atk: int:
 	get: return _get("stat_atk")
@@ -46,9 +57,10 @@ var stat_cha: int:
 	get: return _get("stat_cha")
 	set(value): _set("stat_cha", value)
 
-func _init() -> void:
-	if not rng:
-		rng = RandomNumberGenerator.new()
+#func _init() -> void:
+	#print("init")
+	#if not rng:
+		#rng = RandomNumberGenerator.new()
 
 func _get(property: StringName):
 	if base_stats.has(property):
@@ -58,4 +70,6 @@ func _set(property: StringName, value: Variant) -> bool:
 	if base_stats.has(property):
 		base_stats[property] = value
 		return true
+	#elif property == "current_hp" or property == "current_mp":
+		#pass
 	return false

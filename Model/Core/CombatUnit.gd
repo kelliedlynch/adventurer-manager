@@ -14,10 +14,21 @@ var unit_name: String = "":
 var level: int = 0:
 	set(value):
 		level = value
+var current_hp: int = base_stats.stat_hp
+var current_mp: int = base_stats.stat_mp
 
-var current_hp: int
-var current_mp: int
-
+var stat_level_up_points: int = 10
+var stat_weights: Dictionary[String, float] = {
+	stat_hp = 3,
+	stat_mp = 1,
+	stat_atk = 1,
+	stat_def = 1,
+	stat_mag = 1,
+	stat_res = 1,
+	stat_dex = 1,
+	stat_luk = .1,
+	stat_cha = 1
+}
 #signal died
 
 func _get(property: StringName):
@@ -33,6 +44,21 @@ func _get(property: StringName):
 
 func combat_action():
 	pass
+	
+func _assign_level_up_points():
+	var weights = stat_weights.values()
+	for i in stat_level_up_points:
+		var index = rng.rand_weighted(weights)
+		var stat_name = stat_weights.keys()[index]
+		set(stat_name, base_stats[stat_name] + 1)
+		if stat_name == "stat_hp":
+			current_hp += 1
+		elif stat_name == "stat_mp":
+			current_mp += 1
+
+func level_up():
+	level += 1
+	_assign_level_up_points()
 
 func heal_damage(dmg: int = stat_hp):
 	var new_hp = current_hp + dmg

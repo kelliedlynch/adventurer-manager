@@ -10,52 +10,14 @@ const CURVE_WEIGHTED_LOW = preload("res://Utility/WeightedLow.tres")
 var adventurer_class_name: String = "Commoner"
 var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCurve.tres")
 
-var stat_level_up_values: Dictionary = {
-	"stat_hp": {
-		"range": range(3, 10),
-		"curve": CURVE_BELL
-	},
-	"stat_mp": {
-		"range": range(2, 5),
-		"curve": CURVE_BELL
-	},
-	"stat_atk": {
-		"range": range(1, 4),
-		"curve": CURVE_BELL
-	},
-	"stat_def": {
-		"range": range(1, 4),
-		"curve": CURVE_BELL
-	},
-	"stat_mag": {
-		"range": range(1, 4),
-		"curve": CURVE_BELL
-	},
-	"stat_res": {
-		"range": range(1, 4),
-		"curve": CURVE_BELL
-	},
-	"stat_dex": {
-		"range": range(1, 4),
-		"curve": CURVE_BELL
-	},
-	"stat_cha": {
-		"range": range(1, 4),
-		"curve": CURVE_BELL
-	},
-	"stat_luk": {
-		"range": range(0, 1),
-		"curve": CURVE_WEIGHTED_LOW
-	}
-}
 
-var stat_overrides: Dictionary
-var stat_level_up_overrides: Dictionary
+
+var stat_weight_overrides: Dictionary[String, float]
 
 func _init() -> void:
-	for stat in stat_level_up_overrides:
-		for key in stat_level_up_overrides[stat]:
-			stat_level_up_values[stat][key] = stat_level_up_overrides[stat][key]
+	pass
+	#for stat in stat_weight_overrides:
+		#stat_weights[stat] = stat_weight_overrides[stat]
 
 func combat_action(unit: Adventurer, combat: Combat):
 	var target = combat.enemies.pick_random()

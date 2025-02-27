@@ -24,7 +24,7 @@ var level_range: String:
 var combat: Combat
 var dungeon_reward_money: int = 0
 
-var dungeon_tier: int = 3
+var dungeon_tier: int = 1
 var dungeon_traits: Array[DungeonTrait] = []
 
 func _init() -> void:
@@ -95,6 +95,8 @@ func _initialize_combat():
 			last_mage += 1
 		else:
 			last_phys += 1
+		for j in randi_range(_min_level, _max_level + 1):
+			enemy.level_up()
 		combat.add_unit(enemy)
 	for unit in party:
 		if unit.status & ~Adventurer.STATUS_DEAD:

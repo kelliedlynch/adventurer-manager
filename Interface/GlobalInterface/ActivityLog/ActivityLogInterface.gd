@@ -6,7 +6,11 @@ class_name ActivityLogInterface
 @onready var notification_window: VBoxContainer = find_child("NotificationWindow")
 @onready var scroll_container: ScrollContainer = find_child("ScrollContainer")
 
+#func _init() -> void:
+	#Game.game_begin.connect(_on_game_begin, CONNECT_ONE_SHOT)
+
 func _ready() -> void:
+#func _on_game_begin():
 	Game.activity_log.log_changed.connect(_append_log_message)
 	Game.activity_log.log_notify.connect(_notify_log_message)
 	log_window.visible = false
