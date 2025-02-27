@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ls4ygrdlmjye"]
+[gd_scene load_steps=10 format=3 uid="uid://ls4ygrdlmjye"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitList/UnitListMenuItem.gd" id="1_tq7ef"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="3_oj8qk"]
 [ext_resource type="PackedScene" uid="uid://c4lr80l1py1nw" path="res://Interface/GlobalInterface/UnitList/UnitPortrait.tscn" id="3_tq7ef"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/Field/ReactiveProgressField.tscn" id="4_vo7yl"]
+[ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="5_5vpbl"]
+[ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="6_f14w6"]
 [ext_resource type="PackedScene" uid="uid://4gwdieeoqoyp" path="res://Interface/GlobalInterface/UnitList/StatValuesBlock.tscn" id="7_tq7ef"]
 [ext_resource type="PackedScene" uid="uid://b3gllupgt2pit" path="res://Interface/GlobalInterface/Field/ReactiveMultiField.tscn" id="11_p5pub"]
 [ext_resource type="PackedScene" uid="uid://cc3uq6b0rbj7n" path="res://Interface/PlayerMenuInterface/EquipmentSlot.tscn" id="12_gyjer"]
@@ -38,8 +40,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
+text = "Bricli"
 script = ExtResource("3_oj8qk")
-__test_value = ""
+__test_value = "Bricli"
 __linked_class = &"Adventurer"
 __linked_property = &"unit_name"
 
@@ -63,8 +66,9 @@ text = "Lv."
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
+text = "1"
 script = ExtResource("3_oj8qk")
-__test_value = ""
+__test_value = "1"
 __linked_class = &"Adventurer"
 __linked_property = &"level"
 
@@ -72,9 +76,10 @@ __linked_property = &"level"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
+text = "Warrior"
 horizontal_alignment = 2
 script = ExtResource("3_oj8qk")
-__test_value = ""
+__test_value = "Warrior"
 __linked_class = &"Adventurer"
 __linked_property = &"adventurer_class"
 
@@ -103,6 +108,7 @@ layout_mode = 2
 [node name="StatHp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "HP: Hit Points"
 
 [node name="StatHpLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatHp"]
 layout_mode = 2
@@ -113,24 +119,55 @@ text = "HP:"
 layout_mode = 2
 theme_type_variation = &"FieldSmall"
 __max_value_property = &"stat_hp"
+__test_current_value = "12"
+__test_max_value = "12"
 __linked_class = &"Adventurer"
 __linked_property = &"current_hp"
 
-[node name="StatMp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock"]
+layout_mode = 2
+
+[node name="StatAtk" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "ATK: Physical attack power"
+theme_override_constants/separation = 10
+
+[node name="StatAtkLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer/StatAtk"]
+layout_mode = 2
+texture = ExtResource("5_5vpbl")
+expand_mode = 3
+
+[node name="StatAtkValue" type="Label" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer/StatAtk"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="StatMpLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatMp"]
-layout_mode = 2
 theme_type_variation = &"FieldSmall"
-text = "MP:"
-
-[node name="StatMpValue" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("4_vo7yl")]
-layout_mode = 2
-theme_type_variation = &"FieldSmall"
-__max_value_property = &"stat_mp"
+text = "8"
+horizontal_alignment = 2
+script = ExtResource("3_oj8qk")
+__test_value = "8"
 __linked_class = &"Adventurer"
-__linked_property = &"current_mp"
+__linked_property = &"stat_atk"
+
+[node name="StatDef" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "DEF: Physical defense"
+theme_override_constants/separation = 10
+
+[node name="StatDefLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer/StatDef"]
+layout_mode = 2
+texture = ExtResource("6_f14w6")
+expand_mode = 2
+
+[node name="StatDefValue" type="Label" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer/StatDef"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"FieldSmall"
+text = "5"
+horizontal_alignment = 2
+script = ExtResource("3_oj8qk")
+__test_value = "5"
+__linked_class = &"Adventurer"
+__linked_property = &"stat_def"
 
 [node name="EquipSlots" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock"]
 layout_mode = 2
@@ -155,6 +192,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
+__test_value = ["Tactician"]
 __linked_class = &"Adventurer"
 __linked_property = &"traits"
 
@@ -165,4 +203,3 @@ layout_mode = 2
 [node name="StatValuesBlock" parent="MainLayoutRows" instance=ExtResource("7_tq7ef")]
 visible = false
 layout_mode = 2
-__linked_property = &""

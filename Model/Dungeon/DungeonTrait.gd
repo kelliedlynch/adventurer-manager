@@ -29,9 +29,8 @@ func _to_string() -> String:
 static func random():
 	if all_traits.is_empty():
 		all_traits.append_array([DungeonTraitHighStat.new("stat_hp"), DungeonTraitHighStat.new("stat_atk"),\
-			DungeonTraitHighStat.new("stat_def"), DungeonTraitHighStat.new("stat_mag"), \
-			DungeonTraitHighStat.new("stat_res"), DungeonTraitHighStat.new("stat_dex"), \
-			DungeonTraitClassCommon.new(Enemy.EnemyClass.PHYSICAL), DungeonTraitClassCommon.new(Enemy.EnemyClass.MAGIC)])
+			DungeonTraitHighStat.new("stat_def"), DungeonTraitClassCommon.new(Enemy.EnemyClass.PHYSICAL), \
+			DungeonTraitClassCommon.new(Enemy.EnemyClass.MAGIC)])
 	return all_traits.pick_random()
 
 class DungeonTraitHighStat extends DungeonTrait:
@@ -62,6 +61,5 @@ class DungeonTraitClassCommon extends DungeonTrait:
 					var enemy_number = enemy.unit_name.rsplit(" ", false, 1)[-1]
 					var new_enemy = Enemy.new(enemy_class)
 					new_enemy.unit_name += " " + enemy_number
-					new_enemy.combat = dungeon.combat
 					dungeon.combat.enemies[i] = new_enemy
 					

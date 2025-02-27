@@ -1,13 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://4gwdieeoqoyp"]
+[gd_scene load_steps=7 format=3 uid="uid://4gwdieeoqoyp"]
 
 [ext_resource type="Script" uid="uid://duemcfhuteav5" path="res://Interface/GlobalInterface/UnitList/StatValuesBlock.gd" id="1_scu3e"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="1_wsv51"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="2_ihbp3"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="3_sa5bt"]
-[ext_resource type="Texture2D" uid="uid://cw7pp4uidrpwy" path="res://Graphics/Icons/White/magic_staff.png" id="4_p4o45"]
-[ext_resource type="Texture2D" uid="uid://b51d0ju8bdmou" path="res://Graphics/Icons/White/magic_shield.png" id="5_mdkd6"]
-[ext_resource type="Texture2D" uid="uid://b0wdeco2raq4u" path="res://Graphics/Icons/White/wing_boot.png" id="6_j71xa"]
-[ext_resource type="Texture2D" uid="uid://ybhr3ql1syou" path="res://Graphics/Icons/White/shamrock.png" id="7_d6mms"]
+[ext_resource type="Texture2D" uid="uid://f53k2ah6ln5c" path="res://Graphics/Icons/White/crown.png" id="5_i4w04"]
 [ext_resource type="Texture2D" uid="uid://i2lcgovyiwix" path="res://Graphics/Icons/White/medal.png" id="8_6ll1k"]
 
 [node name="StatValuesBlock" type="GridContainer"]
@@ -56,92 +53,13 @@ __test_value = ""
 __linked_class = &"Adventurer"
 __linked_property = &"stat_def"
 
-[node name="StatMag" type="HBoxContainer" parent="."]
-layout_mode = 2
-tooltip_text = "MAG: Magic power"
-theme_override_constants/separation = 10
-
-[node name="StatMagLabel" type="TextureRect" parent="StatMag"]
-layout_mode = 2
-texture = ExtResource("4_p4o45")
-expand_mode = 2
-
-[node name="StatMagValue" type="Label" parent="StatMag"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-horizontal_alignment = 2
-script = ExtResource("2_ihbp3")
-__test_value = ""
-__linked_class = &"Adventurer"
-__linked_property = &"stat_mag"
-
-[node name="StatRes" type="HBoxContainer" parent="."]
-layout_mode = 2
-tooltip_text = "RES: "
-theme_override_constants/separation = 10
-
-[node name="StatResLabel" type="TextureRect" parent="StatRes"]
-layout_mode = 2
-texture = ExtResource("5_mdkd6")
-expand_mode = 2
-
-[node name="StatResValue" type="Label" parent="StatRes"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-horizontal_alignment = 2
-script = ExtResource("2_ihbp3")
-__test_value = ""
-__linked_class = &"Adventurer"
-__linked_property = &"stat_res"
-
-[node name="StatDex" type="HBoxContainer" parent="."]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatDexLabel" type="TextureRect" parent="StatDex"]
-layout_mode = 2
-texture = ExtResource("6_j71xa")
-expand_mode = 2
-
-[node name="StatDexValue" type="Label" parent="StatDex"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-horizontal_alignment = 2
-script = ExtResource("2_ihbp3")
-__test_value = ""
-__linked_class = &"Adventurer"
-__linked_property = &"stat_dex"
-
-[node name="StatLuk" type="HBoxContainer" parent="."]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatLukLabel" type="TextureRect" parent="StatLuk"]
-layout_mode = 2
-texture = ExtResource("7_d6mms")
-expand_mode = 2
-
-[node name="StatLukValue" type="Label" parent="StatLuk"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-horizontal_alignment = 2
-script = ExtResource("2_ihbp3")
-__test_value = ""
-__linked_class = &"Adventurer"
-__linked_property = &"stat_luk"
-
 [node name="StatCha" type="HBoxContainer" parent="."]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="StatChaLabel" type="TextureRect" parent="StatCha"]
 layout_mode = 2
-texture = ExtResource("8_6ll1k")
+texture = ExtResource("5_i4w04")
 expand_mode = 2
 
 [node name="StatChaValue" type="Label" parent="StatCha"]
@@ -153,3 +71,22 @@ script = ExtResource("2_ihbp3")
 __test_value = ""
 __linked_class = &"Adventurer"
 __linked_property = &"stat_cha"
+
+[node name="StatBrv" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatBrvLabel" type="TextureRect" parent="StatBrv"]
+layout_mode = 2
+texture = ExtResource("8_6ll1k")
+expand_mode = 2
+
+[node name="StatBrvValue" type="Label" parent="StatBrv"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"FieldBig"
+horizontal_alignment = 2
+script = ExtResource("2_ihbp3")
+__test_value = ""
+__linked_class = &"Adventurer"
+__linked_property = &"stat_brv"

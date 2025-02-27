@@ -36,7 +36,6 @@ class_name UnitMenuItem
 @onready var level_value: ReactiveTextField = find_child("LevelValue")
 @onready var class_value: ReactiveTextField = find_child("ClassValue")
 @onready var stat_hp_value: ReactiveProgressField = find_child("StatHpValue")
-@onready var stat_mp_value: ReactiveProgressField = find_child("StatMpValue")
 @onready var stat_values_block: GridContainer = find_child("StatValuesBlock")
 
 func _ready() -> void:
@@ -65,9 +64,6 @@ func set_reactive_defaults():
 	stat_hp_value.linked_class = "Adventurer"
 	stat_hp_value.linked_property = "current_hp"
 	stat_hp_value.max_value_property = "stat_hp"
-	stat_mp_value.linked_class = "Adventurer"
-	stat_mp_value.linked_property = "current_mp"
-	stat_mp_value.max_value_property = "stat_mp"
 	traits.linked_class = "Adventurer"
 	traits.linked_property = "traits"
 	

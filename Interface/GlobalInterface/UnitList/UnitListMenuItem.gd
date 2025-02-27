@@ -25,7 +25,6 @@ func _ready() -> void:
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
 	stat_hp_container.tooltip_text = Stats.stat_hp.abbreviation + ": " + Stats.stat_hp.description
-	stat_mp_container.tooltip_text = Stats.stat_mp.abbreviation + ": " + Stats.stat_mp.description
 	super()
 	
 func link_object(obj: Variant, node: Node = self, _recursive = false):

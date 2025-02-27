@@ -36,22 +36,14 @@ var weapon: Weapon
 var armor: Armor
 
 func _init() -> void:
-	super()
+	
 	adventurer_class = AdventurerClass.random()
+	for stat in adventurer_class.base_stats:
+		base_stats[stat] = adventurer_class.base_stats[stat]
+	damage_type = adventurer_class.damage_type
 	unit_name = NameGenerator.new_name()
-	for stat in adventurer_class.stat_weight_overrides:
-		stat_weights[stat] = adventurer_class.stat_weight_overrides[stat]
-	for stat in adventurer_class.level_up_stat_bonuses:
-		base_level_up_stats[stat] += adventurer_class.level_up_stat_bonuses[stat]
-	stat_level_up_points = 10
-	_assign_level_up_points()
-	if !Engine.is_editor_hint():
-		Game.game_tick_advanced.connect(_on_game_tick_advanced)
-
-
-func _on_game_tick_advanced():
-	if status & STATUS_IDLE and status & ~STATUS_DEAD and current_mp < stat_mp:
-		current_mp += 1
+	#_assign_level_up_points()
+	super()
 
 func equip(item: Equipment):
 	if item is Weapon:
@@ -60,8 +52,6 @@ func equip(item: Equipment):
 		armor = item
 	if item.stat_hp != 0:
 		current_hp = clamp(current_hp + item.stat_hp, 1, stat_hp)
-	if item.stat_mp != 0:
-		current_mp = clamp(current_mp + item.stat_mp, 1, stat_mp)
 	item.status = Equipment.ITEM_EQUIPPED
 
 func unequip(item: Equipment):
@@ -71,8 +61,6 @@ func unequip(item: Equipment):
 		armor = null
 	if item.stat_hp != 0:
 		current_hp = clamp(current_hp - item.stat_hp, 1, stat_hp)
-	if item.stat_mp != 0:
-		current_mp = clamp(current_mp - item.stat_mp, 1, stat_mp)
 	item.status = Equipment.ITEM_NOT_EQUIPPED
 	
 func unequip_all():
@@ -100,7 +88,7 @@ func add_experience(add_xp: int):
 			remaining = 0
 	_experience += add_xp
 		
-func combat_action():
+func combat_action(combat: Combat):
 	adventurer_class.combat_action(self, combat)
 
 func take_damage(dmg: int, dmg_type: DamageType = DamageType.TRUE):
@@ -126,14 +114,14 @@ static func generate_random_newbie() -> Adventurer:
 			#continue
 		#noob.traits.append(t)
 	noob.traits.append(Trait.TraitList.pick_random())
-	noob.level_up()
+	#noob.level_up()
 	if randi() % 2 == 0:
 		var equipment = Equipment.generate_random_equipment()
 		noob.equip(equipment)
 	#rng = RandomNumberGenerator.new()
-	var base_xp = range(50)[rng.rand_weighted(range(50))]
-	var add_xp = range(0, 300, 15)[rng.rand_weighted(range(21, 1, -1))]
-	noob.add_experience(base_xp + add_xp)
+	#var base_xp = range(50)[rng.rand_weighted(range(50))]
+	#var add_xp = range(0, 300, 15)[rng.rand_weighted(range(21, 1, -1))]
+	#noob.add_experience(base_xp + add_xp)
 	return noob
 
 static func get_random_portrait():

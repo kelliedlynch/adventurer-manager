@@ -28,12 +28,12 @@ func _get_counters() -> Array[Dictionary]:
 			#countered_by_value = 3,
 			#counter_action = CounterAction.IGNORES
 		#},
-		{
-			counter_type = CounterType.STAT,
-			countered_by = Stats.stat_dex,
-			countered_by_value = 8,
-			counter_action = CounterAction.REDUCES
-		}
+		#{
+			#counter_type = CounterType.STAT,
+			#countered_by = Stats.stat_dex,
+			#countered_by_value = 8,
+			#counter_action = CounterAction.REDUCES
+		#}
 ]
 
 func per_tick_action(dungeon: Dungeon):

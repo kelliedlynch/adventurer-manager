@@ -8,67 +8,34 @@ static var rng: RandomNumberGenerator:
 			rng = RandomNumberGenerator.new()
 		return rng
 
-var base_stats: Dictionary = {
+## base_stats are floats for leveling up purposes, but in-game calculations only use them as ints
+var base_stats: Dictionary[String, float] = {
 	stat_hp = 0,
-	#current_hp = 1,
-	stat_mp = 0,
-	#current_mp = 0,
 	stat_atk = 0,
 	stat_def = 0,
-	stat_mag = 0,
-	stat_res = 0,
-	stat_dex = 0,
-	stat_luk = 0,
-	stat_cha = 0
+	stat_cha = 0,
+	stat_brv = 0
 }
 
 var stat_hp: int: 
 	get: return _get("stat_hp")
 	set(value): _set("stat_hp", value)
-	#get: return _get("current_hp")
-	#set(value): current_hp = value
-#var current_hp: int: 
-	#get: return _current_hp
-	#set(value): _current_hp = value
-
-var stat_mp: int:
-	get: return _get("stat_mp")
-	set(value): _set("stat_mp", value)
-
-#var current_mp: int: 
-	#get: return _current_mp
-	#set(value): _current_mp = value
-
 var stat_atk: int:
 	get: return _get("stat_atk")
 	set(value): _set("stat_atk", value)
 var stat_def: int:
 	get: return _get("stat_def")
 	set(value): _set("stat_def", value)
-var stat_mag: int:
-	get: return _get("stat_mag")
-	set(value): _set("stat_mag", value)
-var stat_res: int:
-	get: return _get("stat_res")
-	set(value): _set("stat_res", value)
-var stat_dex: int:
-	get: return _get("stat_dex")
-	set(value): _set("stat_dex", value)
-var stat_luk: int:
-	get: return _get("stat_luk")
-	set(value): _set("stat_luk", value)
 var stat_cha: int:
 	get: return _get("stat_cha")
 	set(value): _set("stat_cha", value)
-
-#func _init() -> void:
-	#print("init")
-	#if not rng:
-		#rng = RandomNumberGenerator.new()
+var stat_brv: int:
+	get: return _get("stat_brv")
+	set(value): _set("stat_brv", value)
 
 func _get(property: StringName):
 	if base_stats.has(property):
-		return base_stats[property]
+		return int(base_stats[property])
 
 func _set(property: StringName, value: Variant) -> bool:
 	if base_stats.has(property):

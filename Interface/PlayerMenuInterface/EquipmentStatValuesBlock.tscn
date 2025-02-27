@@ -113,6 +113,7 @@ __linked_class = &"Equipment"
 __linked_property = &"stat_def"
 
 [node name="StatMag" type="HBoxContainer" parent="ValuesContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -125,10 +126,10 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "1"
+text = "0"
 horizontal_alignment = 2
 script = ExtResource("3_w7tip")
-__test_value = "1"
+__test_value = "0"
 __linked_class = &"Equipment"
 __linked_property = &"stat_mag"
 

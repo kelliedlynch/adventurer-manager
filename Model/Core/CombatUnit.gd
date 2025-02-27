@@ -3,48 +3,30 @@ extends WithStats
 ## Also calculates stat current values including equipment and buffs.
 class_name CombatUnit
 
-var combat: Combat
-
 var buffs = []
 
 var unit_name: String = "":
 	set(value):
 		unit_name = value
 
-var level: int = 0:
-	set(value):
-		level = value
-var current_hp: int = base_stats.stat_hp
-var current_mp: int = base_stats.stat_mp
+var level: int = 1
+var current_hp: int
 
-var stat_level_up_points: int = 7
-var stat_weights: Dictionary[String, float] = {
-	stat_hp = 3,
-	stat_mp = 1,
-	stat_atk = 1,
-	stat_def = 1,
-	stat_mag = 1,
-	stat_res = 1,
-	stat_dex = 1,
-	stat_luk = .1,
-	stat_cha = 1
+var level_up_stats: Dictionary[String, float] = {
+	stat_hp = 0,
+	stat_atk = 0,
+	stat_def = 0,
+	stat_cha = 0,
+	stat_brv = 0,
 }
-var base_level_up_stats: Dictionary[String, int] = {
-	stat_hp = 1,
-	stat_mp = 1,
-	stat_atk = 1,
-	stat_def = 1,
-	stat_mag = 1,
-	stat_res = 1,
-	stat_dex = 1,
-	stat_luk = 0,
-	stat_cha = 1
-}
-#signal died
+signal died
+
+var damage_type: DamageType
 
 func _init() -> void:
-	base_stats.stat_hp = 5
-	current_hp = base_stats.stat_hp
+	pass
+	#base_stats.stat_hp = 5
+	current_hp = stat_hp
 
 func _get(property: StringName):
 	if base_stats.has(property):
@@ -55,27 +37,17 @@ func _get(property: StringName):
 			calc += self.armor.get(property)
 		for buff in buffs:
 			calc += buff.get(property)
-		return calc
+		return calc if calc > 0 else 0
 
-func combat_action():
+func combat_action(combat: Combat):
 	pass
 	
 func _assign_level_up_points():
-	for stat in base_level_up_stats:
-		base_stats[stat] += base_level_up_stats[stat]
+	for stat in level_up_stats:
+		var before_levelup = _get(stat)
+		base_stats[stat] += level_up_stats[stat]
 		if stat == "stat_hp":
-			current_hp += base_level_up_stats[stat]
-		elif stat == "stat_mp":
-			current_mp += base_level_up_stats[stat]
-	var weights = stat_weights.values()
-	for i in stat_level_up_points:
-		var index = rng.rand_weighted(weights)
-		var stat_name = stat_weights.keys()[index]
-		set(stat_name, base_stats[stat_name] + 1)
-		if stat_name == "stat_hp":
-			current_hp += 1
-		elif stat_name == "stat_mp":
-			current_mp += 1
+			current_hp += stat_hp - before_levelup
 
 func level_up():
 	level += 1
@@ -95,13 +67,7 @@ func push_heal_msg(dmg: int, overheal: int = 0):
 
 func take_damage(dmg: int, dmg_type = DamageType.TRUE):
 	if dmg == 0 or current_hp <= 0: return
-	var resistances = []
-	if dmg_type & DamageType.PHYSICAL:
-		resistances.append(stat_def)
-	if dmg_type & DamageType.MAGIC:
-		resistances.append(stat_res)
-	var mitigated = resistances.reduce(func(accum, val): return val + accum, 0) / resistances.size() if not resistances.is_empty() else 0
-	mitigated = min(mitigated, dmg)
+	var mitigated = stat_def if dmg_type & DamageType.PHYSICAL else 0
 	var total_dmg = max(0, dmg - int(mitigated))
 	current_hp -= total_dmg
 	push_damage_msg(total_dmg, dmg_type, mitigated)
@@ -110,9 +76,7 @@ func take_damage(dmg: int, dmg_type = DamageType.TRUE):
 
 func die():
 	current_hp = 0
-	# TODO: I'm not happy with having combat stored on this object. See if it can be event-based again.
-	if combat:
-		combat.remove_unit(self)
+	
 	var msg = ActivityLogMessage.new(unit_name + " died.")
 	Game.activity_log.push_message(msg, self is Adventurer)
 	

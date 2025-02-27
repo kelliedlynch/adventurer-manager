@@ -10,9 +10,21 @@ const CURVE_WEIGHTED_LOW = preload("res://Utility/WeightedLow.tres")
 var adventurer_class_name: String = "Commoner"
 var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCurve.tres")
 
-
-var level_up_stat_bonuses: Dictionary[String, int]
-var stat_weight_overrides: Dictionary[String, float]
+var base_stats: Dictionary[String, float] = {
+	stat_hp = 0,
+	stat_atk = 0,
+	stat_def = 0,
+	stat_cha = 0,
+	stat_brv = 0
+}
+var level_up_stats: Dictionary[String, float] = {
+	stat_hp = 0,
+	stat_atk = 0,
+	stat_def = 0,
+	stat_cha = 0,
+	stat_brv = 0,
+}
+var damage_type: CombatUnit.DamageType
 
 func _init() -> void:
 	pass
@@ -22,7 +34,7 @@ func _init() -> void:
 func combat_action(unit: Adventurer, combat: Combat):
 	var target = combat.enemies.pick_random()
 	unit.push_attack_msg(target, unit.stat_atk)
-	target.take_damage(unit.stat_atk, Adventurer.DamageType.PHYSICAL)
+	target.take_damage(unit.stat_atk, damage_type)
 	
 func _to_string() -> String:
 	return adventurer_class_name

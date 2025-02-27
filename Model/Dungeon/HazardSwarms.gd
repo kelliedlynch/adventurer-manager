@@ -2,13 +2,11 @@ extends Hazard
 class_name HazardSwarms
 
 var def_penalty: int = 3
-var dex_penalty: int = 2
 var def_penalty_mitigated: int = 1
-var dex_penalty_mitigated: int = 1
 
 func _init() -> void:
 	hazard_name = "Swarms"
-	hazard_description = "%s and %s are reduced in combat." % [Stats.stat_def.name, Stats.stat_dex.name]
+	hazard_description = "%s is reduced in combat." % [Stats.stat_def.name]
 	icon = load("res://Graphics/Icons/White/swarm.png")
 	
 func _get_counters() -> Array[Dictionary]:
@@ -34,7 +32,6 @@ func before_combat_action(dungeon: Dungeon):
 		var buff = Buff.new()
 		buff.source = self
 		buff.stat_def = -def_penalty_mitigated if actions.has(CounterAction.REDUCES) else -def_penalty
-		buff.stat_dex = -dex_penalty_mitigated if actions.has(CounterAction.REDUCES) else -dex_penalty
 		unit.buffs.append(buff)
 
 #func after_combat_action(dungeon: Dungeon):

@@ -19,10 +19,11 @@ func add_unit(unit: CombatUnit):
 		party.append(unit)
 	elif unit is Enemy:
 		enemies.append(unit)
-	unit.combat = self
+	#unit.died.connect(remove_unit)
+	#unit.combat = self
 
 func remove_unit(unit: CombatUnit):
-	combat_ended.connect(unit.set.bind("combat", null), CONNECT_ONE_SHOT)
+	#combat_ended.connect(unit.set.bind("combat", null), CONNECT_ONE_SHOT)
 	if unit is Adventurer:
 		party.erase(unit)
 	elif unit is Enemy:
@@ -32,19 +33,22 @@ func remove_unit(unit: CombatUnit):
 
 func _perform_combat_round():
 	for unit in participants:
-		if participants.has(unit):
-			unit.combat_action()
-		if party.is_empty() or enemies.is_empty():
-			return
+		unit.combat_action(self)
+		#if participants.has(unit):
+			#unit.combat_action(self)
+		#if party.is_empty() or enemies.is_empty():
+			#return
 
 func _end_combat():
 	for conn in combat_ended.get_connections():
 		combat_ended.disconnect(conn.callable)
 
 func run_combat() -> int:
-	participants.sort_custom(func(a, b): return a.stat_dex > b.stat_dex)
 	for i in 100:
 		_perform_combat_round()
+		for unit in participants:
+			if unit.current_hp <= 0:
+				remove_unit(unit)
 		if party.is_empty():
 			_end_combat()
 			return RESULT_LOSS

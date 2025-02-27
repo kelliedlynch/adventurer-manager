@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cexrovdxbxapb"]
+[gd_scene load_steps=9 format=3 uid="uid://cexrovdxbxapb"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitList/UnitListMenuItem.gd" id="1_i6766"]
 [ext_resource type="PackedScene" uid="uid://c4lr80l1py1nw" path="res://Interface/GlobalInterface/UnitList/UnitPortrait.tscn" id="2_3agds"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dgt1ts2du3wnm" path="res://Graphics/Icons/White/heart.png" id="4_6vuo7"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_pb6xb"]
 [ext_resource type="PackedScene" uid="uid://4gwdieeoqoyp" path="res://Interface/GlobalInterface/UnitList/StatValuesBlock.tscn" id="5_3agds"]
-[ext_resource type="Texture2D" uid="uid://b8bhlgxpkd508" path="res://Graphics/Icons/White/magic_swirl.png" id="6_kvydu"]
 [ext_resource type="PackedScene" uid="uid://cc3uq6b0rbj7n" path="res://Interface/PlayerMenuInterface/EquipmentSlot.tscn" id="7_wrwym"]
 [ext_resource type="PackedScene" uid="uid://b3gllupgt2pit" path="res://Interface/GlobalInterface/Field/ReactiveMultiField.tscn" id="9_je2iw"]
 
@@ -116,29 +115,6 @@ theme_type_variation = &"TextBig"
 __max_value_property = &"stat_hp"
 __linked_class = &"Adventurer"
 __linked_property = &"current_hp"
-
-[node name="StatMp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "MP: Used to cast spells"
-
-[node name="StatMpLabelText" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp"]
-visible = false
-layout_mode = 2
-theme_type_variation = &"TextBig"
-text = "MP:"
-
-[node name="StatMpLabelIcon" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp"]
-layout_mode = 2
-texture = ExtResource("6_kvydu")
-expand_mode = 2
-
-[node name="StatMpValue" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp" instance=ExtResource("3_bele2")]
-layout_mode = 2
-theme_type_variation = &"TextBig"
-__max_value_property = &"stat_mp"
-__linked_class = &"Adventurer"
-__linked_property = &"current_mp"
 
 [node name="StatValuesBlock" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock" instance=ExtResource("5_3agds")]
 layout_mode = 2

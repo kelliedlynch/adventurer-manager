@@ -35,7 +35,7 @@ func generate_dungeon():
 	#var boosts = range(dungeon_tier + 1, dungeon_tier + 3).pick_random()
 	var boosts = 6
 	for i in boosts:
-		if randf() < .5:
+		if randi() & 1:
 			var haz = Hazard.random()
 			if not hazards.has(haz):
 				hazards.append(haz)
@@ -50,7 +50,7 @@ func generate_dungeon():
 				i -= 1
 				continue
 	_min_level = dungeon_tier
-	_max_level = range(dungeon_tier + 2, dungeon_tier + 4).pick_random()
+	_max_level = _min_level + round(dungeon_tier * .6)
 
 func begin_quest():
 	if party.size() > 0:
@@ -96,7 +96,7 @@ func _initialize_combat():
 			last_mage += 1
 		else:
 			last_phys += 1
-		for j in randi_range(_min_level, _max_level + 1):
+		for j in randi_range(0, _max_level - _min_level):
 			enemy.level_up()
 		combat.add_unit(enemy)
 	for unit in party:

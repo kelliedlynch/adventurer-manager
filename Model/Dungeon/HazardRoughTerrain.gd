@@ -3,12 +3,12 @@ class_name HazardRoughTerrain
 
 var percent_damage_chance: float = .6
 var terrain_damage: int = 1
-var dex_penalty: int = 2
-var dex_penalty_reduction: float = .5
+var def_penalty: int = 2
+var def_penalty_reduction: float = .5
 
 func _init() -> void:
 	hazard_name = "Rough Terrain"
-	hazard_description = "%s reduced in battle. Chance of taking damage each day." % [Stats.stat_dex.name]
+	hazard_description = "%s reduced in battle. Chance of taking damage each day." % [Stats.stat_def.name]
 	icon = load("res://Graphics/Icons/White/falling_rocks.png")
 	
 func _get_counters() -> Array[Dictionary]:
@@ -17,18 +17,6 @@ func _get_counters() -> Array[Dictionary]:
 			counter_type = CounterType.TRAIT,
 			countered_by = Trait.Trailblazer,
 			counter_action = CounterAction.IGNORES
-		},
-		{
-			counter_type = CounterType.STAT,
-			countered_by = Stats.stat_dex,
-			countered_by_value = 6,
-			counter_action = CounterAction.IGNORES
-		},
-		{
-			counter_type = CounterType.STAT,
-			countered_by = Stats.stat_luk,
-			countered_by_value = 1,
-			counter_action = CounterAction.REDUCES
 		}
 	]
 
@@ -52,9 +40,9 @@ func before_combat_action(dungeon: Dungeon):
 			continue
 		var buff = Buff.new()
 		buff.source = self
-		buff.stat_dex = -dex_penalty
+		buff.stat_def = -def_penalty
 		if actions.has(CounterAction.REDUCES):
-			buff.stat_dex = int(buff.stat_dex * dex_penalty_reduction)
+			buff.stat_def = int(buff.stat_def * def_penalty_reduction)
 		unit.buffs.append(buff)
 
 #func after_combat_action(dungeon: Dungeon):

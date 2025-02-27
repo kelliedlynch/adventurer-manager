@@ -15,8 +15,7 @@ func initialize_player() -> void:
 		var adv = Adventurer.generate_random_newbie()
 		add_adventurer_to_roster(adv)
 	for i in 5:
-		
-		var item: Equipment = Equipment.generate_random_equipment(Equipment.Rarity.EPIC)
+		var item: Equipment = Equipment.generate_random_equipment()
 		inventory.append(item)
 
 	var town = Town.new()
