@@ -49,9 +49,8 @@ layout_mode = 2
 
 [node name="UnitName" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
-text = "Ourniwn"
 script = ExtResource("4_pb6xb")
-__test_value = "Ourniwn"
+__test_value = ""
 __linked_class = &"Adventurer"
 __linked_property = &"unit_name"
 
@@ -70,17 +69,15 @@ text = "Lv."
 
 [node name="LevelValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass/Level"]
 layout_mode = 2
-text = "2"
 script = ExtResource("4_pb6xb")
-__test_value = "2"
+__test_value = ""
 __linked_class = &"Adventurer"
 __linked_property = &"level"
 
 [node name="ClassValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
-text = "Rogue"
 script = ExtResource("4_pb6xb")
-__test_value = "Rogue"
+__test_value = ""
 __linked_class = &"Adventurer"
 __linked_property = &"adventurer_class"
 
@@ -100,6 +97,7 @@ theme_override_constants/separation = 24
 [node name="StatHp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "HP: Hit Points"
 
 [node name="StatHpLabelText" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatHp"]
 visible = false
@@ -116,14 +114,13 @@ expand_mode = 2
 layout_mode = 2
 theme_type_variation = &"TextBig"
 __max_value_property = &"stat_hp"
-__test_current_value = "10"
-__test_max_value = "10"
 __linked_class = &"Adventurer"
 __linked_property = &"current_hp"
 
 [node name="StatMp" type="HBoxContainer" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "MP: Used to cast spells"
 
 [node name="StatMpLabelText" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/StatsBlockBody/StatsBlock/HpMpBlock/StatMp"]
 visible = false
@@ -140,8 +137,6 @@ expand_mode = 2
 layout_mode = 2
 theme_type_variation = &"TextBig"
 __max_value_property = &"stat_mp"
-__test_current_value = "0"
-__test_max_value = "0"
 __linked_class = &"Adventurer"
 __linked_property = &"current_mp"
 
@@ -157,7 +152,6 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
-__test_value = ["Leader", "Trailblazer"]
 __linked_class = &"Adventurer"
 __linked_property = &"traits"
 

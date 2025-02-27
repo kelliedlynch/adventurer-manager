@@ -30,19 +30,20 @@ var status: int = STATUS_IDLE:
 		status = value
 		property_changed.emit()
 
-
-
 signal property_changed
 
 var weapon: Weapon
 var armor: Armor
 
 func _init() -> void:
-	#super()
+	super()
 	adventurer_class = AdventurerClass.random()
 	unit_name = NameGenerator.new_name()
 	for stat in adventurer_class.stat_weight_overrides:
 		stat_weights[stat] = adventurer_class.stat_weight_overrides[stat]
+	for stat in adventurer_class.level_up_stat_bonuses:
+		base_level_up_stats[stat] += adventurer_class.level_up_stat_bonuses[stat]
+	stat_level_up_points = 10
 	_assign_level_up_points()
 	if !Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_on_game_tick_advanced)
@@ -116,18 +117,18 @@ func heal_damage(dmg: int = stat_hp):
 		status &= ~STATUS_DEAD
 		
 static func generate_random_newbie() -> Adventurer:
-	if not rng:
-		rng = RandomNumberGenerator.new()
+	#if not rng:
+		#rng = RandomNumberGenerator.new()
 	var noob = Adventurer.new()
-	for i in randi_range(1, 3):
-		var t = Trait.TraitList.pick_random()
-		if noob.traits.has(t): 
-			continue
-		noob.traits.append(t)
+	#for i in randi_range(1, 3):
+		#var t = Trait.TraitList.pick_random()
+		#if noob.traits.has(t): 
+			#continue
+		#noob.traits.append(t)
+	noob.traits.append(Trait.TraitList.pick_random())
 	noob.level_up()
 	if randi() % 2 == 0:
 		var equipment = Equipment.generate_random_equipment()
-		Game.player.inventory.append(equipment)
 		noob.equip(equipment)
 	#rng = RandomNumberGenerator.new()
 	var base_xp = range(50)[rng.rand_weighted(range(50))]

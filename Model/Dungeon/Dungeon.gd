@@ -17,7 +17,7 @@ var quest_time: int = 3
 var remaining_quest_time: int = quest_time
 
 var _min_level: int = 1
-var _max_level: int = 5
+var _max_level: int = 3
 var level_range: String:
 	get: return str(_min_level) + "-" + str(_max_level)
 
@@ -32,7 +32,8 @@ func _init() -> void:
 		Game.game_tick_advanced.connect(_on_advance_tick)
 
 func generate_dungeon():
-	var boosts = range(dungeon_tier + 1, dungeon_tier + 3).pick_random()
+	#var boosts = range(dungeon_tier + 1, dungeon_tier + 3).pick_random()
+	var boosts = 6
 	for i in boosts:
 		if randf() < .5:
 			var haz = Hazard.random()
@@ -49,7 +50,7 @@ func generate_dungeon():
 				i -= 1
 				continue
 	_min_level = dungeon_tier
-	_max_level = range(dungeon_tier + 2, dungeon_tier + 5).pick_random()
+	_max_level = range(dungeon_tier + 2, dungeon_tier + 4).pick_random()
 
 func begin_quest():
 	if party.size() > 0:

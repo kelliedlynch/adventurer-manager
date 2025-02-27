@@ -11,7 +11,7 @@ var adventurer_class_name: String = "Commoner"
 var xp_curve: Curve = load("res://Model/Adventurer/AdventurerClass/BaseLevelUpCurve.tres")
 
 
-
+var level_up_stat_bonuses: Dictionary[String, int]
 var stat_weight_overrides: Dictionary[String, float]
 
 func _init() -> void:

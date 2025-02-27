@@ -2,10 +2,14 @@ extends Resource
 ## Base class for anything with stats, like Adventurers, Enemies, Equipment, or Buffs
 class_name WithStats
 
-static var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+static var rng: RandomNumberGenerator:
+	get: 
+		if not rng: 
+			rng = RandomNumberGenerator.new()
+		return rng
 
 var base_stats: Dictionary = {
-	stat_hp = 1,
+	stat_hp = 0,
 	#current_hp = 1,
 	stat_mp = 0,
 	#current_mp = 0,

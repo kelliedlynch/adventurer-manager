@@ -1,22 +1,21 @@
 extends Equipment
 class_name Armor
 
-func _init() -> void:
+func _init(rare: Rarity = Rarity.COMMON) -> void:
 	#super()
 	item_name = "Armor"
-	var number_of_mods = rng.rand_weighted([3, 1, .5, .2, .04, .01]) + 1
-	var stats_list = base_stats.keys()
-	stats_list.erase(&"stat_hp")
-	stats_list.erase(&"stat_mp")
-	for i in number_of_mods:
-		var stat = stats_list.pick_random()
-		stats_list.erase(stat)
-		var mod_value = rng.rand_weighted([2, 1, .5, .1, .01]) + 1
-		set(stat, mod_value)
-	texture = get_random_texture()
+	super(rare)
 
-
-static func get_random_texture():
-	var portraits = ResourceLoader.list_directory("res://Graphics/Equipment/Armor")
-	var filename = portraits[randi_range(0, portraits.size() - 1)]
-	return load("res://Graphics/Equipment/Armor/" + filename)
+func assign_stat_mods() -> void:
+	match stat_focus_type:
+		FocusType.PHYSICAL:
+			stat_weights.stat_hp += 2
+			stat_weights.stat_def += 3
+			stat_weights.stat_dex += 1
+			stat_weights.stat_res += 1
+		FocusType.MAGIC:
+			stat_weights.stat_mag += 1
+			stat_weights.stat_mp += 2
+			stat_weights.stat_res += 3
+			stat_weights.stat_def += 1
+	super()

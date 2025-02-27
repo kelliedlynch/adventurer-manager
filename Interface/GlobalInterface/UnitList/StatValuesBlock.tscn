@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://4gwdieeoqoyp"]
+[gd_scene load_steps=10 format=3 uid="uid://4gwdieeoqoyp"]
 
+[ext_resource type="Script" uid="uid://duemcfhuteav5" path="res://Interface/GlobalInterface/UnitList/StatValuesBlock.gd" id="1_scu3e"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="1_wsv51"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="2_ihbp3"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="3_sa5bt"]
@@ -13,9 +14,11 @@
 theme_override_constants/h_separation = 72
 theme_override_constants/v_separation = 12
 columns = 3
+script = ExtResource("1_scu3e")
 
 [node name="StatAtk" type="HBoxContainer" parent="."]
 layout_mode = 2
+tooltip_text = "ATK: Physical attack power"
 theme_override_constants/separation = 10
 
 [node name="StatAtkLabel" type="TextureRect" parent="StatAtk"]
@@ -35,6 +38,7 @@ __linked_property = &"stat_atk"
 
 [node name="StatDef" type="HBoxContainer" parent="."]
 layout_mode = 2
+tooltip_text = "DEF: Physical defense"
 theme_override_constants/separation = 10
 
 [node name="StatDefLabel" type="TextureRect" parent="StatDef"]
@@ -54,6 +58,7 @@ __linked_property = &"stat_def"
 
 [node name="StatMag" type="HBoxContainer" parent="."]
 layout_mode = 2
+tooltip_text = "MAG: Magic power"
 theme_override_constants/separation = 10
 
 [node name="StatMagLabel" type="TextureRect" parent="StatMag"]
@@ -73,6 +78,7 @@ __linked_property = &"stat_mag"
 
 [node name="StatRes" type="HBoxContainer" parent="."]
 layout_mode = 2
+tooltip_text = "RES: "
 theme_override_constants/separation = 10
 
 [node name="StatResLabel" type="TextureRect" parent="StatRes"]

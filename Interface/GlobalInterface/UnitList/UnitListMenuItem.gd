@@ -5,6 +5,8 @@ class_name UnitListMenuItem
 
 @onready var traits_parent_wide: MarginContainer = find_child("TraitsListWideLayout")
 @onready var traits_parent_narrow: MarginContainer = find_child("TraitsListNarrowLayout")
+@onready var stat_hp_container: Container = find_child("StatHp")
+@onready var stat_mp_container: Container = find_child("StatMp")
 #@onready var action_buttons: Container = find_child("ActionButtons")
 
 var registered_buttons: Array[Dictionary] = []
@@ -22,8 +24,8 @@ func _ready() -> void:
 			child.queue_free()
 		for i in 3:
 			add_action_button("Button " + str(i + 1), func(): pass)
-			
-
+	stat_hp_container.tooltip_text = Stats.stat_hp.abbreviation + ": " + Stats.stat_hp.description
+	stat_mp_container.tooltip_text = Stats.stat_mp.abbreviation + ": " + Stats.stat_mp.description
 	super()
 	
 func link_object(obj: Variant, node: Node = self, _recursive = false):

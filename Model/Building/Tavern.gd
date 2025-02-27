@@ -19,7 +19,7 @@ func hire_adventurer(unit: Adventurer):
 	if index != -1:
 		if Game.player.money >= unit.hire_cost:
 			Game.player.money -= unit.hire_cost
-			Game.player.roster.append(unit)
+			Game.player.add_adventurer_to_roster(unit)
 			adventurers_for_hire.remove_at(index)
 			adventurers_for_hire_changed.emit()
 

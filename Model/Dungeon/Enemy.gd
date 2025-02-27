@@ -7,6 +7,7 @@ var reward_money: int = 3
 var enemy_class: EnemyClass
 
 func _init(e_class: Variant = null) -> void:
+	super()
 	if e_class == null:
 		e_class = EnemyClass.values().pick_random()
 	enemy_class = e_class
@@ -17,9 +18,12 @@ func _init(e_class: Variant = null) -> void:
 		stat_weights.stat_def += 1
 		stat_weights.stat_dex += 1
 	elif enemy_class == EnemyClass.MAGIC:
-		stat_weights.stat_mp += 1
-		stat_weights.stat_mag += 1
+		stat_weights.stat_mp += 2
+		stat_weights.stat_mag += 2
 		stat_weights.stat_res += 1
+	
+	#for i in level:
+		#level_up()
 	#for stat in base_stats:
 		#set(stat, base_stats[stat])
 	#current_hp = stat_hp

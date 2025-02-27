@@ -17,7 +17,7 @@ var level: int = 0:
 var current_hp: int = base_stats.stat_hp
 var current_mp: int = base_stats.stat_mp
 
-var stat_level_up_points: int = 10
+var stat_level_up_points: int = 7
 var stat_weights: Dictionary[String, float] = {
 	stat_hp = 3,
 	stat_mp = 1,
@@ -29,7 +29,22 @@ var stat_weights: Dictionary[String, float] = {
 	stat_luk = .1,
 	stat_cha = 1
 }
+var base_level_up_stats: Dictionary[String, int] = {
+	stat_hp = 1,
+	stat_mp = 1,
+	stat_atk = 1,
+	stat_def = 1,
+	stat_mag = 1,
+	stat_res = 1,
+	stat_dex = 1,
+	stat_luk = 0,
+	stat_cha = 1
+}
 #signal died
+
+func _init() -> void:
+	base_stats.stat_hp = 5
+	current_hp = base_stats.stat_hp
 
 func _get(property: StringName):
 	if base_stats.has(property):
@@ -46,6 +61,12 @@ func combat_action():
 	pass
 	
 func _assign_level_up_points():
+	for stat in base_level_up_stats:
+		base_stats[stat] += base_level_up_stats[stat]
+		if stat == "stat_hp":
+			current_hp += base_level_up_stats[stat]
+		elif stat == "stat_mp":
+			current_mp += base_level_up_stats[stat]
 	var weights = stat_weights.values()
 	for i in stat_level_up_points:
 		var index = rng.rand_weighted(weights)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdgh7l4qho4rm"]
+[gd_scene load_steps=12 format=3 uid="uid://cdgh7l4qho4rm"]
 
 [ext_resource type="Script" uid="uid://c4oy456ul5si6" path="res://Interface/PlayerMenuInterface/EquipmentStatValuesBlock.gd" id="1_0f7g3"]
+[ext_resource type="Texture2D" uid="uid://dgt1ts2du3wnm" path="res://Graphics/Icons/White/heart.png" id="2_0vtv1"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="2_kqvv8"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="3_w7tip"]
+[ext_resource type="Texture2D" uid="uid://b8bhlgxpkd508" path="res://Graphics/Icons/White/magic_swirl.png" id="4_6chwi"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="4_j2gt6"]
 [ext_resource type="Texture2D" uid="uid://cw7pp4uidrpwy" path="res://Graphics/Icons/White/magic_staff.png" id="5_l2lq8"]
 [ext_resource type="Texture2D" uid="uid://b51d0ju8bdmou" path="res://Graphics/Icons/White/magic_shield.png" id="6_78vma"]
@@ -25,6 +27,48 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 6
+
+[node name="StatHp" type="HBoxContainer" parent="ValuesContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatHpLabel" type="TextureRect" parent="ValuesContainer/StatHp"]
+layout_mode = 2
+texture = ExtResource("2_0vtv1")
+expand_mode = 3
+
+[node name="StatHpValue" type="Label" parent="ValuesContainer/StatHp"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"FieldBig"
+text = "0"
+horizontal_alignment = 2
+script = ExtResource("3_w7tip")
+__test_value = "0"
+__linked_class = &"Equipment"
+__linked_property = &"stat_hp"
+
+[node name="StatMp" type="HBoxContainer" parent="ValuesContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatMpLabel" type="TextureRect" parent="ValuesContainer/StatMp"]
+layout_mode = 2
+texture = ExtResource("4_6chwi")
+expand_mode = 3
+
+[node name="StatMpValue" type="Label" parent="ValuesContainer/StatMp"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"FieldBig"
+text = "0"
+horizontal_alignment = 2
+script = ExtResource("3_w7tip")
+__test_value = "0"
+__linked_class = &"Equipment"
+__linked_property = &"stat_mp"
 
 [node name="StatAtk" type="HBoxContainer" parent="ValuesContainer"]
 visible = false
@@ -69,7 +113,6 @@ __linked_class = &"Equipment"
 __linked_property = &"stat_def"
 
 [node name="StatMag" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -82,10 +125,10 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "0"
+text = "1"
 horizontal_alignment = 2
 script = ExtResource("3_w7tip")
-__test_value = "0"
+__test_value = "1"
 __linked_class = &"Equipment"
 __linked_property = &"stat_mag"
 
@@ -153,6 +196,7 @@ __linked_class = &"Equipment"
 __linked_property = &"stat_luk"
 
 [node name="StatCha" type="HBoxContainer" parent="ValuesContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -165,9 +209,9 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "1"
+text = "0"
 horizontal_alignment = 2
 script = ExtResource("3_w7tip")
-__test_value = "1"
+__test_value = "0"
 __linked_class = &"Equipment"
 __linked_property = &"stat_cha"

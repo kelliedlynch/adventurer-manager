@@ -36,7 +36,7 @@ static func random():
 
 class DungeonTraitHighStat extends DungeonTrait:
 	var stat: String
-	var increase: int = 4
+	var increase: int = 3
 	
 	func _init(stat_name: String):
 		stat = stat_name

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://qqw50a4kcypy"]
 
 [ext_resource type="Script" uid="uid://cxfkowy3k8qfs" path="res://Interface/PlayerMenuInterface/EquipmentMenuItem.gd" id="1_55qc3"]
-[ext_resource type="Texture2D" uid="uid://bfknn6mylci7f" path="res://Graphics/Equipment/Weapons/sv_t_07.png" id="2_mpsml"]
+[ext_resource type="Texture2D" uid="uid://sqaugoduh7s1" path="res://Graphics/Equipment/Armor/armor_5.PNG" id="2_mpsml"]
 [ext_resource type="Script" uid="uid://b372t14de0aic" path="res://Interface/GlobalInterface/Field/ReactiveTextureField.gd" id="3_tj0xj"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_xbdmp"]
 [ext_resource type="PackedScene" uid="uid://cdgh7l4qho4rm" path="res://Interface/PlayerMenuInterface/EquipmentStatValuesBlock.tscn" id="5_tj0xj"]
@@ -38,9 +38,8 @@ theme_override_constants/margin_left = 16
 
 [node name="ItemName" type="Label" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "Armor"
 script = ExtResource("4_xbdmp")
-__test_value = "Armor"
+__test_value = ""
 __linked_class = &"Equipment"
 __linked_property = &"item_name"
 

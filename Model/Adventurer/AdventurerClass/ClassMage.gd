@@ -6,13 +6,18 @@ var spell_mp_cost: int = 3
 func _init():
 	adventurer_class_name = "Mage"
 	stat_weight_overrides = {
-		stat_hp = 1,
+		#stat_hp = 1,
 		stat_mp = 3,
 		stat_atk = .5,
 		stat_def = .7,
 		stat_mag = 3,
 		stat_res = 2,
 	}
+	#level_up_stat_bonuses = {
+		#stat_mp = 2,
+		#stat_mag = 2,
+		#stat_res = 1,
+	#}
 	super()
 
 func combat_action(unit: Adventurer, combat: Combat):

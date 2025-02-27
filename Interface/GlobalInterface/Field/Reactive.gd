@@ -133,7 +133,7 @@ func _property_get_revert(property: StringName) -> Variant:
 
 func _property_can_revert(property: StringName) -> bool:
 	if property.begins_with("__"):
-		if get(property.right(-2)) is int and _property_get_revert(property) is String:
+		if get(property.right(-2)) is bool and _property_get_revert(property) is String:
 			print(property)
 		return get(property.right(-2)) != _property_get_revert(property)
 	return false

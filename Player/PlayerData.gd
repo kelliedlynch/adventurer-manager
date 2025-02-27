@@ -13,10 +13,18 @@ var inventory: ObservableArray = ObservableArray.new([], Equipment)
 func initialize_player() -> void:
 	for i in 10:
 		var adv = Adventurer.generate_random_newbie()
-		roster.append(adv)
-	for i in 3:
-		var item: Equipment = Armor.new() if randi() % 2 == 0 else Weapon.new()
+		add_adventurer_to_roster(adv)
+	for i in 5:
+		
+		var item: Equipment = Equipment.generate_random_equipment(Equipment.Rarity.EPIC)
 		inventory.append(item)
 
 	var town = Town.new()
 	current_town = town
+
+func add_adventurer_to_roster(adv: Adventurer):
+	roster.append(adv)
+	if adv.weapon:
+		inventory.append(adv.weapon)
+	if adv.armor:
+		inventory.append(adv.armor)
