@@ -2,15 +2,39 @@ extends Resource
 class_name Combat
 
 var party: Array[Adventurer] = []
+var alive_party: Array[Adventurer] = []:
+	get: return party.filter(func(x): return x.status & CombatUnit.STATUS_DEAD)
+		
 var enemies: Array[Enemy] = []
+var alive_enemies: Array[Enemy] = []:
+	get: return enemies.filter(func(x): return x.status & CombatUnit.STATUS_DEAD)
+	
 var participants: Array[CombatUnit]:
 	get:
-		var p: Array[CombatUnit] = []
-		p.append_array(party)
-		p.append_array(enemies)
+		var p = alive_party + alive_enemies
+		p.shuffle()
 		return p
+		
 var reward_xp: int = 0
 var reward_money: int = 0
+
+var hooks = {
+	begin_quest = [],
+	begin_tick = [],
+	begin_combat = [],
+	begin_round = [],
+	before_combat_action = [],
+	after_combat_action = [],
+	before_take_damage = [],
+	after_take_damage = [],
+	adventurer_died = [],
+	enemy_died = [],
+	end_round = [],
+	end_combat = [],
+	end_tick = [],
+	end_quest = []
+}
+
 
 signal combat_ended
 
@@ -34,10 +58,6 @@ func remove_unit(unit: CombatUnit):
 func _perform_combat_round():
 	for unit in participants:
 		unit.combat_action(self)
-		#if participants.has(unit):
-			#unit.combat_action(self)
-		#if party.is_empty() or enemies.is_empty():
-			#return
 
 func _end_combat():
 	for conn in combat_ended.get_connections():
@@ -46,15 +66,12 @@ func _end_combat():
 func run_combat() -> int:
 	for i in 100:
 		_perform_combat_round()
-		for unit in participants:
-			if unit.current_hp <= 0:
-				remove_unit(unit)
-		if party.is_empty():
+		if alive_party.is_empty():
 			_end_combat()
 			return RESULT_LOSS
-		if enemies.is_empty():
-			var xp = floor(reward_xp / float(party.size()))
-			party.all(func(x): x.add_experience(xp))
+		if alive_enemies.is_empty():
+			var xp = floor(reward_xp / float(alive_party.size()))
+			alive_party.map(func(x): x.add_experience(xp))
 			_end_combat()
 			return RESULT_WIN
 	reward_xp = 0

@@ -25,12 +25,7 @@ var next_level_exp: int:
 	set(value):
 		push_error("cannot set next_level_exp")
 
-var status: int = STATUS_IDLE:
-	set(value):
-		status = value
-		property_changed.emit()
 
-signal property_changed
 
 var weapon: Weapon
 var armor: Armor
@@ -42,6 +37,7 @@ func _init() -> void:
 		base_stats[stat] = adventurer_class.base_stats[stat]
 	damage_type = adventurer_class.damage_type
 	unit_name = NameGenerator.new_name()
+	status |= STATUS_IDLE
 	#_assign_level_up_points()
 	super()
 
@@ -133,5 +129,4 @@ enum {
 	STATUS_IDLE = 1,
 	STATUS_IN_BUILDING = 2,
 	STATUS_IN_DUNGEON = 4,
-	STATUS_DEAD = 8
 }

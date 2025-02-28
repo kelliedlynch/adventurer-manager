@@ -32,7 +32,7 @@ func _init() -> void:
 		#stat_weights[stat] = stat_weight_overrides[stat]
 
 func combat_action(unit: Adventurer, combat: Combat):
-	var target = combat.enemies.pick_random()
+	var target = combat.alive_enemies.pick_random()
 	unit.push_attack_msg(target, unit.stat_atk)
 	target.take_damage(unit.stat_atk, damage_type)
 	

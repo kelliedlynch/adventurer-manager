@@ -33,7 +33,7 @@ func _set_base_stats():
 		level_up_stats.stat_def = .7
 
 func combat_action(combat: Combat):
-	var target = combat.party.pick_random()
+	var target = combat.alive_party.pick_random()
 	push_attack_msg(target, stat_atk)
 	target.take_damage(stat_atk, damage_type)
 

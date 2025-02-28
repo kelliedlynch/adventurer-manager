@@ -21,6 +21,13 @@ var level_up_stats: Dictionary[String, float] = {
 }
 signal died
 
+var status: int = 0:
+	set(value):
+		status = value
+		property_changed.emit()
+
+signal property_changed
+
 var damage_type: DamageType
 
 func _init() -> void:
@@ -54,19 +61,18 @@ func level_up():
 	_assign_level_up_points()
 
 func heal_damage(dmg: int = stat_hp):
-	var new_hp = current_hp + dmg
-	var overheal = max(new_hp - stat_hp, 0)
-	push_heal_msg(dmg, overheal)
-	current_hp = min(new_hp, stat_hp)
+	var new_hp = clamp(current_hp + dmg, 0, stat_hp)
+	if status & STATUS_DEAD and new_hp > 0:
+		status &= ~STATUS_DEAD
+	push_heal_msg(new_hp - current_hp)
+	current_hp = new_hp
 	
-func push_heal_msg(dmg: int, overheal: int = 0):
+func push_heal_msg(dmg: int):
 	var msg = "%s healed %d damage." % [unit_name, dmg]
-	if overheal > 0:
-		msg += " (%d overheal)" % overheal
 	Game.activity_log.push_message(ActivityLogMessage.new(msg))
 
 func take_damage(dmg: int, dmg_type = DamageType.TRUE):
-	if dmg == 0 or current_hp <= 0: return
+	if dmg == 0 or status & STATUS_DEAD: return
 	var mitigated = stat_def if dmg_type & DamageType.PHYSICAL else 0
 	var total_dmg = max(0, dmg - int(mitigated))
 	current_hp -= total_dmg
@@ -76,7 +82,8 @@ func take_damage(dmg: int, dmg_type = DamageType.TRUE):
 
 func die():
 	current_hp = 0
-	
+	status |= STATUS_DEAD
+	died.emit()
 	var msg = ActivityLogMessage.new(unit_name + " died.")
 	Game.activity_log.push_message(msg, self is Adventurer)
 	
@@ -96,4 +103,8 @@ enum DamageType {
 	MAGIC = 2,
 	FIRE = 4,
 	ICE = 8
+}
+
+enum {
+	STATUS_DEAD = 8,
 }

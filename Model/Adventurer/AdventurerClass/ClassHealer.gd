@@ -2,6 +2,8 @@ extends AdventurerClass
 class_name ClassHealer
 
 var heal_mp_cost: int = 3
+var max_revive_charges: int = 1
+var revive_charges: int
 
 func _init():
 	adventurer_class_name = "Healer"
@@ -22,13 +24,12 @@ func _init():
 	}
 	super()
 
-func combat_action(unit: Adventurer, combat: Combat):
-	#if unit.current_mp >= heal_mp_cost:
-		#var heal_target = combat.party.find_custom(func(x): return x.stat_hp - x.current_hp >= unit.stat_mag and x.status & ~Adventurer.STATUS_DEAD)
-		#if heal_target != -1:
-			#var msg = ActivityLogMessage.new("%s cast heal on %s" % [unit.unit_name, combat.party[heal_target].unit_name])
-			#Game.activity_log.push_message(msg)
-			#combat.party[heal_target].heal_damage(unit.stat_mag)
-			#unit.current_mp -= heal_mp_cost
-			#return
-	super(unit, combat)
+
+func _on_hook_adventurer_died(healer: Adventurer, target: Adventurer):
+	if revive_charges > 0 and target.current_hp <= 0:
+		target.heal_damage()
+		var msg = "%s revived %s with a spell." % [healer.unit_name, target.unit_name]
+		revive_charges -= 1
+
+func _on_hook_begin_combat():
+	revive_charges = max_revive_charges
