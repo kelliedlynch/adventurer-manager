@@ -3,6 +3,11 @@ class_name Dungeon
 
 var dungeon_name: String = "Scary Dungeon"
 var party: ObservableArray = ObservableArray.new([], Adventurer)
+var alive_party: Array[Adventurer] = []:
+	get: 
+		var p: Array[Adventurer] = []
+		p.append_array(party.filter(func(x): return not x.status & CombatUnit.STATUS_DEAD))
+		return p
 var staged: ObservableArray = ObservableArray.new([], Adventurer)
 var max_party_size: int = 4
 var max_enemies_per_encounter: int = 4
@@ -33,7 +38,7 @@ func _init() -> void:
 
 func generate_dungeon():
 	#var boosts = range(dungeon_tier + 1, dungeon_tier + 3).pick_random()
-	var boosts = 6
+	var boosts = dungeon_tier + 2
 	for i in boosts:
 		if randi() & 1:
 			var haz = Hazard.random()
@@ -77,7 +82,7 @@ func _on_advance_tick():
 		complete_quest(false)
 		return
 	_per_tick_actions()
-	if party.is_empty():
+	if alive_party.is_empty():
 		complete_quest(false)
 		return
 	remaining_quest_time -= 1

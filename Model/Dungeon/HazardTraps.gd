@@ -14,7 +14,7 @@ func _get_counters() -> Array[Dictionary]:
 	return [
 		{
 			counter_type = CounterType.CLASS,
-			countered_by = AdventurerClass.Rogue,
+			countered_by = Rogue,
 			counter_action = CounterAction.COUNTERS
 		},
 		{
@@ -43,7 +43,7 @@ func per_tick_action(dungeon: Dungeon):
 	for unit in dungeon.party:
 		if unit.status & Adventurer.STATUS_DEAD:
 			continue
-		var actions = unit_counter_actions(unit)
+		var actions = _get_unit_counter_actions(unit)
 		if actions.has(CounterAction.IGNORES):
 			continue
 		if actions.has(CounterAction.REDUCES):

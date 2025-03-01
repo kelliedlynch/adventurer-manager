@@ -31,6 +31,6 @@ func _on_game_tick_advanced():
 		adventurers_for_hire_changed.emit()
 
 func _add_new_adventurer_for_hire():
-	var adv = Adventurer.generate_random_newbie()
+	var adv = AdventurerFactory.generate_random_newbie()
 	adventurers_for_hire.append(adv)
 	

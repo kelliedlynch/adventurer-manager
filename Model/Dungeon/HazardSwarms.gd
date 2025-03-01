@@ -13,7 +13,7 @@ func _get_counters() -> Array[Dictionary]:
 	return [
 		{
 			counter_type = CounterType.CLASS,
-			countered_by = AdventurerClass.Mage,
+			countered_by = Mage,
 			counter_action = CounterAction.COUNTERS
 		},
 		{
@@ -26,7 +26,7 @@ func _get_counters() -> Array[Dictionary]:
 func before_combat_action(dungeon: Dungeon):
 	if get_mitigated_state(dungeon) == MitigatedState.INACTIVE: return
 	for unit in dungeon.party:
-		var actions = unit_counter_actions(unit)
+		var actions = _get_unit_counter_actions(unit)
 		if actions.has(CounterAction.IGNORES):
 			continue
 		var buff = Buff.new()

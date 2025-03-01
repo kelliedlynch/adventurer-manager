@@ -29,7 +29,6 @@ layout_mode = 2
 
 [node name="IdleUnits" parent="HBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-__menu_item_type = 1
 menu_title = "Idle Units"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -67,9 +66,9 @@ text = "Enemy Level:"
 [node name="LevelRangeValue" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/LevelRange"]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
-text = "1-5"
+text = "1-3"
 script = ExtResource("5_6wovn")
-__test_value = "1-5"
+__test_value = "1-3"
 __linked_class = &"Dungeon"
 __linked_property = &"level_range"
 
@@ -208,7 +207,6 @@ text = "Send Party"
 
 [node name="DungeonParty" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_yjc0f")]
 layout_mode = 2
-__menu_item_type = 1
 
 [node name="DungeonStatusWindow" parent="HBoxContainer/VBoxContainer" instance=ExtResource("8_n3pxv")]
 visible = false

@@ -12,7 +12,7 @@ var inventory: ObservableArray = ObservableArray.new([], Equipment)
 
 func initialize_player() -> void:
 	for i in 10:
-		var adv = Adventurer.generate_random_newbie()
+		var adv = AdventurerFactory.generate_random_newbie()
 		add_adventurer_to_roster(adv)
 	for i in 5:
 		var item: Equipment = Equipment.generate_random_equipment()

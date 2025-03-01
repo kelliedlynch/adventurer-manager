@@ -10,7 +10,7 @@
 [node name="StatValuesBlock" type="GridContainer"]
 theme_override_constants/h_separation = 72
 theme_override_constants/v_separation = 12
-columns = 3
+columns = 2
 script = ExtResource("1_scu3e")
 
 [node name="StatAtk" type="HBoxContainer" parent="."]

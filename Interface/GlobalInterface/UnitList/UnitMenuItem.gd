@@ -3,6 +3,9 @@ extends MenuItemBase
 class_name UnitMenuItem
 # Base class for menu items that display an adventurer
 
+static var phys_atk_icon: Texture2D = load("res://Graphics/Icons/White/basic_sword.png")
+static var mag_atk_icon: Texture2D = load("res://Graphics/Icons/White/magic_staff.png")
+
 @export var show_equipment: bool = true:
 	set(value):
 		show_equipment = value
@@ -41,7 +44,7 @@ class_name UnitMenuItem
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		set_reactive_defaults()
-		link_object(Adventurer.generate_random_newbie())
+		link_object(AdventurerFactory.generate_random_newbie())
 	super()
 	
 func link_object(obj: Variant, node: Node = self, recursive = false):

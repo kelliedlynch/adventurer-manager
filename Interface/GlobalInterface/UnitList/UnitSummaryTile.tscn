@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://ls4ygrdlmjye"]
+[gd_scene load_steps=11 format=3 uid="uid://ls4ygrdlmjye"]
 
 [ext_resource type="Script" uid="uid://dmr2nnkuvgtqr" path="res://Interface/GlobalInterface/UnitList/UnitListMenuItem.gd" id="1_tq7ef"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="3_oj8qk"]
 [ext_resource type="PackedScene" uid="uid://c4lr80l1py1nw" path="res://Interface/GlobalInterface/UnitList/UnitPortrait.tscn" id="3_tq7ef"]
+[ext_resource type="Texture2D" uid="uid://dgt1ts2du3wnm" path="res://Graphics/Icons/White/heart.png" id="4_f14w6"]
 [ext_resource type="PackedScene" uid="uid://bnwh3ltkopbuh" path="res://Interface/GlobalInterface/Field/ReactiveProgressField.tscn" id="4_vo7yl"]
-[ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="5_5vpbl"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="6_f14w6"]
+[ext_resource type="Texture2D" uid="uid://cw7pp4uidrpwy" path="res://Graphics/Icons/White/magic_staff.png" id="6_rld7s"]
 [ext_resource type="PackedScene" uid="uid://4gwdieeoqoyp" path="res://Interface/GlobalInterface/UnitList/StatValuesBlock.tscn" id="7_tq7ef"]
 [ext_resource type="PackedScene" uid="uid://b3gllupgt2pit" path="res://Interface/GlobalInterface/Field/ReactiveMultiField.tscn" id="11_p5pub"]
 [ext_resource type="PackedScene" uid="uid://cc3uq6b0rbj7n" path="res://Interface/PlayerMenuInterface/EquipmentSlot.tscn" id="12_gyjer"]
@@ -18,8 +19,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -146.0
 offset_top = -107.0
-offset_right = 146.0
-offset_bottom = 107.0
+offset_right = 128.0
+offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -40,9 +41,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
-text = "Bricli"
+text = "Fustri"
 script = ExtResource("3_oj8qk")
-__test_value = "Bricli"
+__test_value = "Fustri"
 __linked_class = &"Adventurer"
 __linked_property = &"unit_name"
 
@@ -76,10 +77,10 @@ __linked_property = &"level"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldMed"
-text = "Warrior"
+text = "Healer"
 horizontal_alignment = 2
 script = ExtResource("3_oj8qk")
-__test_value = "Warrior"
+__test_value = "Healer"
 __linked_class = &"Adventurer"
 __linked_property = &"adventurer_class"
 
@@ -110,7 +111,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "HP: Hit Points"
 
-[node name="StatHpLabel" type="Label" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatHp"]
+[node name="StatHpLabelIcon" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatHp"]
+layout_mode = 2
+texture = ExtResource("4_f14w6")
+expand_mode = 3
+
+[node name="StatHpLabelText" type="Label" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/StatHp"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"FieldSmall"
 text = "HP:"
@@ -134,17 +141,17 @@ theme_override_constants/separation = 10
 
 [node name="StatAtkLabel" type="TextureRect" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer/StatAtk"]
 layout_mode = 2
-texture = ExtResource("5_5vpbl")
+texture = ExtResource("6_rld7s")
 expand_mode = 3
 
 [node name="StatAtkValue" type="Label" parent="MainLayoutRows/MainLayoutCols/UnitDetails/StatsBlock/HpMpBlock/HBoxContainer/StatAtk"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
-text = "8"
+text = "6"
 horizontal_alignment = 2
 script = ExtResource("3_oj8qk")
-__test_value = "8"
+__test_value = "6"
 __linked_class = &"Adventurer"
 __linked_property = &"stat_atk"
 
@@ -162,10 +169,10 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldSmall"
-text = "5"
+text = "2"
 horizontal_alignment = 2
 script = ExtResource("3_oj8qk")
-__test_value = "5"
+__test_value = "2"
 __linked_class = &"Adventurer"
 __linked_property = &"stat_def"
 
@@ -190,9 +197,9 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme_type_variation = &"FieldBig"
+theme_type_variation = &"FieldSmall"
 h_separation = 24
-__test_value = ["Tactician"]
+__test_value = ["Leader"]
 __linked_class = &"Adventurer"
 __linked_property = &"traits"
 

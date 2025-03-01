@@ -2,11 +2,11 @@
 extends UnitMenuItem
 class_name UnitListMenuItem
 
-
 @onready var traits_parent_wide: MarginContainer = find_child("TraitsListWideLayout")
 @onready var traits_parent_narrow: MarginContainer = find_child("TraitsListNarrowLayout")
 @onready var stat_hp_container: Container = find_child("StatHp")
 @onready var stat_mp_container: Container = find_child("StatMp")
+@onready var stat_atk_label: TextureRect = find_child("StatAtkLabel")
 #@onready var action_buttons: Container = find_child("ActionButtons")
 
 var registered_buttons: Array[Dictionary] = []
@@ -19,7 +19,7 @@ var registered_buttons: Array[Dictionary] = []
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		link_object(Adventurer.generate_random_newbie())
+		link_object(AdventurerFactory.generate_random_newbie())
 		for child in action_buttons.get_children():
 			child.queue_free()
 		for i in 3:
@@ -32,6 +32,7 @@ func link_object(obj: Variant, node: Node = self, _recursive = false):
 	if obj and obj is Adventurer and linked_object == obj:
 		if not is_inside_tree():
 			await ready
+		stat_atk_label.texture = phys_atk_icon if obj.damage_type == CombatUnit.DamageType.PHYSICAL else mag_atk_icon
 		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
 		for button in registered_buttons:

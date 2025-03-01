@@ -63,7 +63,7 @@ func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		var units = ObservableArray.new([], Adventurer)
 		for i in 10:
-			units.append(Adventurer.generate_random_newbie())
+			units.append(AdventurerFactory.generate_random_newbie())
 		link_object(units)
 
 func _on_menu_item_type_changed(_item_type: MenuItemType):

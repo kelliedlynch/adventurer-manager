@@ -3,15 +3,16 @@ class_name Combat
 
 var party: Array[Adventurer] = []
 var alive_party: Array[Adventurer] = []:
-	get: return party.filter(func(x): return x.status & CombatUnit.STATUS_DEAD)
+	get: return party.filter(func(x): return not x.status & CombatUnit.STATUS_DEAD)
 		
 var enemies: Array[Enemy] = []
 var alive_enemies: Array[Enemy] = []:
-	get: return enemies.filter(func(x): return x.status & CombatUnit.STATUS_DEAD)
+	get: return enemies.filter(func(x): return not x.status & CombatUnit.STATUS_DEAD)
 	
 var participants: Array[CombatUnit]:
 	get:
-		var p = alive_party + alive_enemies
+		var p: Array[CombatUnit] = []
+		p.append_array(alive_party + alive_enemies)
 		p.shuffle()
 		return p
 		
@@ -43,17 +44,17 @@ func add_unit(unit: CombatUnit):
 		party.append(unit)
 	elif unit is Enemy:
 		enemies.append(unit)
-	#unit.died.connect(remove_unit)
-	#unit.combat = self
+		reward_xp += unit.reward_xp
+		reward_money += unit.reward_money
 
 func remove_unit(unit: CombatUnit):
 	#combat_ended.connect(unit.set.bind("combat", null), CONNECT_ONE_SHOT)
 	if unit is Adventurer:
 		party.erase(unit)
 	elif unit is Enemy:
-		reward_xp += unit.reward_xp
-		reward_money += unit.reward_money
 		enemies.erase(unit)
+	reward_xp += unit.reward_xp
+	reward_money += unit.reward_money
 
 func _perform_combat_round():
 	for unit in participants:
@@ -62,8 +63,14 @@ func _perform_combat_round():
 func _end_combat():
 	for conn in combat_ended.get_connections():
 		combat_ended.disconnect(conn.callable)
+	for unit in participants:
+		if "_hook_on_end_combat" in unit:
+			unit._hook_on_end_combat(self)
 
 func run_combat() -> int:
+	for unit in participants:
+		if "_hook_on_begin_combat" in unit:
+			unit._hook_on_begin_combat(self)
 	for i in 100:
 		_perform_combat_round()
 		if alive_party.is_empty():
@@ -74,8 +81,6 @@ func run_combat() -> int:
 			alive_party.map(func(x): x.add_experience(xp))
 			_end_combat()
 			return RESULT_WIN
-	reward_xp = 0
-	reward_money = 0
 	_end_combat()
 	return RESULT_STALEMATE
 

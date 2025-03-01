@@ -10,34 +10,35 @@ var counters: Array[Dictionary]:
 		return _get_counters()
 
 func get_mitigated_state(dungeon: Dungeon):
-	var mit_state = MitigatedState.ACTIVE
-	var countering_party_members = []
+	var immune_party_members = []
+	var partially_mitigated = false
 	var check_units = dungeon.staged
 	if dungeon.questing:
 		check_units = dungeon.party
+	if check_units.is_empty(): return MitigatedState.ACTIVE
 	for counter in counters:
 		for unit in check_units:
-			var actions = unit_counter_actions(unit)
+			var actions = _get_unit_counter_actions(unit)
 			if actions.is_empty():
 				continue
 			if actions.has(CounterAction.COUNTERS):
 				return MitigatedState.INACTIVE
-			if actions.has(CounterAction.IGNORES) or actions.has(CounterAction.REDUCES_PARTY) or actions.has(CounterAction.REDUCES):
-				if not countering_party_members.has(unit):
-					countering_party_members.append(unit)
-			mit_state = MitigatedState.PARTIAL
-		if mit_state == MitigatedState.ACTIVE:
-			continue
-		if countering_party_members.size() == check_units.size():
+			if actions.has(CounterAction.IGNORES):
+				if not immune_party_members.has(unit):
+					immune_party_members.append(unit)
+				partially_mitigated = true
+			if actions.has(CounterAction.REDUCES_PARTY) or actions.has(CounterAction.REDUCES):
+				partially_mitigated = true
+		if immune_party_members.size() == check_units.size():
 			return MitigatedState.INACTIVE
-	return mit_state
+	return MitigatedState.PARTIAL if partially_mitigated else MitigatedState.ACTIVE
 	
-func unit_counter_actions(unit: Adventurer) -> Array[CounterAction]:
+func _get_unit_counter_actions(unit: Adventurer) -> Array[CounterAction]:
 	var counter_actions: Array[CounterAction] = []
 	for counter in counters:
 		match counter.counter_type:
 			Hazard.CounterType.CLASS:
-				if unit.adventurer_class != counter.countered_by:
+				if not is_instance_of(unit, counter.countered_by):
 					continue
 			Hazard.CounterType.STAT:
 				if unit.get(counter.countered_by.property_name) <= counter.countered_by_value:
@@ -55,17 +56,7 @@ func _get_counters() -> Array[Dictionary]:
 	return [
 		{
 			counter_type = CounterType.CLASS,
-			countered_by = AdventurerClass.Mage,
-			counter_action = CounterAction.REDUCES_PARTY
-		},
-		{
-			counter_type = CounterType.CLASS,
-			countered_by = AdventurerClass.Warrior,
-			counter_action = CounterAction.REDUCES_PARTY
-		},
-		{
-			counter_type = CounterType.CLASS,
-			countered_by = AdventurerClass.Healer,
+			countered_by = Mage,
 			counter_action = CounterAction.REDUCES_PARTY
 		},
 		{
@@ -78,12 +69,6 @@ func _get_counters() -> Array[Dictionary]:
 			countered_by = Stats.stat_atk,
 			countered_by_value = 10,
 			counter_action = CounterAction.COUNTERS
-		},
-		{
-			counter_type = CounterType.STAT,
-			countered_by = Stats.stat_luk,
-			countered_by_value = 1,
-			counter_action = CounterAction.REDUCES
 		}
 ]
 

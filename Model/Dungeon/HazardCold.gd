@@ -13,7 +13,7 @@ func _get_counters() -> Array[Dictionary]:
 	return [
 		{
 			counter_type = CounterType.CLASS,
-			countered_by = AdventurerClass.Mage,
+			countered_by = Mage,
 			counter_action = CounterAction.REDUCES_PARTY
 		},
 		{
@@ -39,7 +39,7 @@ func _get_counters() -> Array[Dictionary]:
 
 func per_tick_action(dungeon: Dungeon):
 	var dmg = cold_damage
-	if dungeon.party.find_custom(func(x): return x.adventurer_class is ClassMage) != -1:
+	if dungeon.party.find_custom(func(x): return x is Mage) != -1:
 		dmg -= dmg * mage_reduction
 	for adv in dungeon.party:
 		if !adv.traits.has(Trait.Robust):

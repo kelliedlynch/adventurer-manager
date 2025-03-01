@@ -24,7 +24,7 @@ func _build_mitigation_list():
 		l.theme_type_variation = "FieldBig"
 		match counter.counter_type:
 			Hazard.CounterType.CLASS:
-				l.text = str(counter.countered_by) + " class"
+				l.text = counter.countered_by.get_global_name() + " class"
 			Hazard.CounterType.STAT:
 				l.text = counter.countered_by.name + " > " + str(counter.countered_by_value)
 			Hazard.CounterType.SKILL:

@@ -1,8 +1,8 @@
-extends AdventurerClass
-class_name ClassRogue
+extends Adventurer
+class_name Rogue
 
 func _init() -> void:
-	adventurer_class_name = "Rogue"
+	adventurer_class = "Rogue"
 	damage_type = CombatUnit.DamageType.PHYSICAL
 	base_stats = {
 		stat_hp = 10,

@@ -23,4 +23,4 @@ class_name UnitPortrait
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
-		link_object(Adventurer.generate_random_newbie())
+		link_object(AdventurerFactory.generate_random_newbie())

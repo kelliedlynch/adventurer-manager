@@ -1,12 +1,12 @@
 extends CombatUnit
 class_name Adventurer
 
-var adventurer_class: AdventurerClass
-		
-var portrait: Texture2D = get_random_portrait()
+var adventurer_class: String
+var xp_curve: Curve = load("res://Model/Adventurer/BaseLevelUpCurve.tres")
+var portrait: Texture2D
 
 var hire_cost: int = 0
-		
+
 var traits: Array[Trait] = []
 
 var _experience: int = 0
@@ -20,25 +20,17 @@ var next_level_exp: int:
 	get:
 		var total = 0
 		for i in range(1, level + 1):
-			total += adventurer_class.xp_curve.sample(i)
+			total += xp_curve.sample(i)
 		return total - experience
 	set(value):
 		push_error("cannot set next_level_exp")
-
-
 
 var weapon: Weapon
 var armor: Armor
 
 func _init() -> void:
-	
-	adventurer_class = AdventurerClass.random()
-	for stat in adventurer_class.base_stats:
-		base_stats[stat] = adventurer_class.base_stats[stat]
-	damage_type = adventurer_class.damage_type
 	unit_name = NameGenerator.new_name()
 	status |= STATUS_IDLE
-	#_assign_level_up_points()
 	super()
 
 func equip(item: Equipment):
@@ -83,47 +75,14 @@ func add_experience(add_xp: int):
 		else:
 			remaining = 0
 	_experience += add_xp
-		
-func combat_action(combat: Combat):
-	adventurer_class.combat_action(self, combat)
-
-func take_damage(dmg: int, dmg_type: DamageType = DamageType.TRUE):
-	if status & STATUS_DEAD: return
-	super(dmg, dmg_type)
-	if current_hp == 0:
-		status |= STATUS_DEAD
-
-func heal_damage(dmg: int = stat_hp):
-	#if current_hp <= 0 and dmg > 0 and dmg > 0 - current_hp:
-		#status &= ~STATUS_DEAD
-	super(dmg)
-	if status & STATUS_DEAD and current_hp > 0:
-		status &= ~STATUS_DEAD
-		
-static func generate_random_newbie() -> Adventurer:
-	#if not rng:
-		#rng = RandomNumberGenerator.new()
-	var noob = Adventurer.new()
-	#for i in randi_range(1, 3):
-		#var t = Trait.TraitList.pick_random()
-		#if noob.traits.has(t): 
-			#continue
-		#noob.traits.append(t)
-	noob.traits.append(Trait.TraitList.pick_random())
-	#noob.level_up()
-	if randi() % 2 == 0:
-		var equipment = Equipment.generate_random_equipment()
-		noob.equip(equipment)
-	#rng = RandomNumberGenerator.new()
-	#var base_xp = range(50)[rng.rand_weighted(range(50))]
-	#var add_xp = range(0, 300, 15)[rng.rand_weighted(range(21, 1, -1))]
-	#noob.add_experience(base_xp + add_xp)
-	return noob
-
-static func get_random_portrait():
-	var portraits = ResourceLoader.list_directory("res://Graphics/Portraits")
-	var filename = portraits[randi_range(0, portraits.size() - 1)]
-	return load("res://Graphics/Portraits/" + filename)
+	
+## Called after all units enter combat, and before rounds start
+func _hook_on_begin_combat(combat: Combat):
+	pass
+	
+## Called after combat result has been determined, and after xp rewards are assigned (if applicable)
+func _hook_on_end_combat(combat: Combat):
+	pass
 
 enum {
 	STATUS_IDLE = 1,

@@ -8,7 +8,7 @@ func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		var units: Array[Adventurer] = []
 		for i in 4:
-			units.append(Adventurer.generate_random_newbie())
+			units.append(AdventurerFactory.generate_random_newbie())
 		unit_list.link_object(ObservableArray.new(units, Adventurer))
 
 func link_object(obj: Variant, _node: Node = self, _recursive = false):

@@ -29,4 +29,4 @@ class_name LabelWithIcon
 		icon_rect.visible = icon != null
 		
 func _ready() -> void:
-	var unit = Adventurer.generate_random_newbie()
+	var unit = AdventurerFactory.generate_random_newbie()

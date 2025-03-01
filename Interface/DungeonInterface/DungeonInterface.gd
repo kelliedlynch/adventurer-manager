@@ -22,7 +22,7 @@ func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		var dun = Dungeon.new()
 		for i in 4:
-			dun.party.append(Adventurer.generate_random_newbie())
+			dun.party.append(AdventurerFactory.generate_random_newbie())
 		link_object(dun)
 	if not Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_refresh_idle_unit_list)
@@ -42,7 +42,7 @@ func _refresh_idle_unit_list():
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		idle_units.clear()
 		for i in 6:
-			idle_units.append(Adventurer.generate_random_newbie())
+			idle_units.append(AdventurerFactory.generate_random_newbie())
 		return
 	var idle = Game.player.roster.filter(func (x): return x.status == Adventurer.STATUS_IDLE and not linked_object.staged.has(x))
 	if idle_units_list.linked_object == null:
@@ -124,7 +124,7 @@ func _highlight_props_that_counter(item: UnitListMenuItem, counter: Dictionary):
 		Hazard.CounterType.SKILL:
 			pass
 		Hazard.CounterType.CLASS:
-			if item.linked_object.adventurer_class == counter.countered_by:
+			if is_instance_of(item.linked_object, counter.countered_by):
 				prop_name = "adventurer_class"
 	if prop_name == "":
 		return

@@ -45,6 +45,7 @@ func _remove_from_hospital(selected: bool, item: UnitListMenuItem = selected_uni
 func _on_heal_button_pressed():
 	selected_unit.linked_object.heal_damage()
 	Game.player.money -= heal_cost
+	selected_unit.linked_object.status &= ~Adventurer.STATUS_IN_BUILDING
 	heal_cost = 0
 	selected_unit.unlink_object(selected_unit.linked_object, selected_unit, true)
 	selected_unit.visible = false

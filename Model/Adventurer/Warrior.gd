@@ -1,8 +1,8 @@
-extends AdventurerClass
-class_name ClassWarrior
+extends Adventurer
+class_name Warrior
 
 func _init():
-	adventurer_class_name = "Warrior"
+	adventurer_class = "Warrior"
 	damage_type = CombatUnit.DamageType.PHYSICAL
 	base_stats = {
 		stat_hp = 14,
@@ -19,6 +19,3 @@ func _init():
 		stat_brv = 0,
 	}
 	super()
-
-func combat_action(unit: Adventurer, combat: Combat):
-	super(unit, combat)

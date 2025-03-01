@@ -24,7 +24,7 @@ func per_tick_action(dungeon: Dungeon):
 	for unit in dungeon.party:
 		if unit.status & Adventurer.STATUS_DEAD:
 			continue
-		var actions = unit_counter_actions(unit)
+		var actions = _get_unit_counter_actions(unit)
 		var chance = percent_damage_chance
 		if actions.has(CounterAction.IGNORES):
 			continue
@@ -35,7 +35,7 @@ func per_tick_action(dungeon: Dungeon):
 
 func before_combat_action(dungeon: Dungeon):
 	for unit in dungeon.party:
-		var actions = unit_counter_actions(unit)
+		var actions = _get_unit_counter_actions(unit)
 		if actions.has(CounterAction.IGNORES):
 			continue
 		var buff = Buff.new()

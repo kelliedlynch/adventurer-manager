@@ -35,7 +35,7 @@ static func random():
 
 class DungeonTraitHighStat extends DungeonTrait:
 	var stat: String
-	var increase: int = 3
+	var increase_factor: float = 1.3
 	
 	func _init(stat_name: String):
 		stat = stat_name
@@ -43,11 +43,11 @@ class DungeonTraitHighStat extends DungeonTrait:
 	
 	func before_combat_action(dungeon: Dungeon):
 		for enemy in dungeon.combat.enemies:
-			enemy.set(stat, enemy.get(stat) + increase)
+			enemy.set(stat, ceil(enemy.get(stat) * increase_factor))
 
 class DungeonTraitClassCommon extends DungeonTrait:
 	var enemy_class: Enemy.EnemyClass
-	var increase: float = .4
+	var increase_factor: float = .4
 	
 	func _init(e_class: Enemy.EnemyClass):
 		enemy_class = e_class
@@ -57,7 +57,7 @@ class DungeonTraitClassCommon extends DungeonTrait:
 		for i in dungeon.combat.enemies.size():
 			var enemy = dungeon.combat.enemies[i]
 			if enemy_class != enemy.enemy_class:
-				if randf() < increase:
+				if randf() < increase_factor:
 					var enemy_number = enemy.unit_name.rsplit(" ", false, 1)[-1]
 					var new_enemy = Enemy.new(enemy_class)
 					new_enemy.unit_name += " " + enemy_number

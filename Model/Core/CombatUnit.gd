@@ -31,8 +31,6 @@ signal property_changed
 var damage_type: DamageType
 
 func _init() -> void:
-	pass
-	#base_stats.stat_hp = 5
 	current_hp = stat_hp
 
 func _get(property: StringName):
@@ -46,8 +44,16 @@ func _get(property: StringName):
 			calc += buff.get(property)
 		return calc if calc > 0 else 0
 
+## Override in subclass if unit should do something besides perform basic attack on random opponent
 func combat_action(combat: Combat):
-	pass
+	var enemies = combat.alive_enemies
+	if enemies.is_empty(): return
+	var party = combat.alive_party
+	if party.is_empty(): return
+	var targets = party if self is Enemy else enemies
+	var target = targets.pick_random()
+	push_attack_msg(target, stat_atk)
+	target.take_damage(stat_atk, damage_type)
 	
 func _assign_level_up_points():
 	for stat in level_up_stats:
@@ -83,9 +89,9 @@ func take_damage(dmg: int, dmg_type = DamageType.TRUE):
 func die():
 	current_hp = 0
 	status |= STATUS_DEAD
-	died.emit()
 	var msg = ActivityLogMessage.new(unit_name + " died.")
 	Game.activity_log.push_message(msg, self is Adventurer)
+	died.emit()
 	
 func push_damage_msg(dmg, dmg_type, mitigated):
 	var msg = ActivityLogMessage.new("%s took %d %s damage" % [unit_name, dmg, DamageType.find_key(dmg_type).capitalize()])
