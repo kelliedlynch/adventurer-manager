@@ -20,7 +20,7 @@ func _get_counters() -> Array[Dictionary]:
 		}
 	]
 
-func per_tick_action(dungeon: Dungeon):
+func _hook_on_end_tick(dungeon: Dungeon):
 	for unit in dungeon.party:
 		if unit.status & Adventurer.STATUS_DEAD:
 			continue
@@ -33,7 +33,7 @@ func per_tick_action(dungeon: Dungeon):
 		if randf() < chance:
 			unit.take_damage(int(terrain_damage), Adventurer.DamageType.TRUE)
 
-func before_combat_action(dungeon: Dungeon):
+func _hook_on_begin_combat(dungeon: Dungeon):
 	for unit in dungeon.party:
 		var actions = _get_unit_counter_actions(unit)
 		if actions.has(CounterAction.IGNORES):

@@ -26,19 +26,11 @@ func _ready() -> void:
 		link_object(dun)
 	if not Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_refresh_idle_unit_list)
-			
-	#idle_units_list.link_object(_get_idle_units())
-	#if not is_inside_tree():
-		#await ready
-#
-	#_refresh_interface()
 	idle_units_list.menu_item_selected.connect(_on_unit_selected)
 	staged_units_list.menu_item_selected.connect(_on_unit_selected)
 	send_button.pressed.connect(_on_press_send_button)
-	#status_window.link_object(linked_object.party)
 	
 func _refresh_idle_unit_list():
-	#var currently_staged = staged_units_list.linked_object
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		idle_units.clear()
 		for i in 6:
@@ -50,25 +42,6 @@ func _refresh_idle_unit_list():
 	if not idle_units.is_equal(idle):
 		idle_units.clear()
 		idle_units.append_array(idle)
-
-#func _rebuild_staged_unit_list():
-	#if staged_units_list.linked_object == null:
-		#staged_units_list.link_object(linked_object.staged)
-	#var staged_in_menu = staged_units_list.menu_items.map(func(x): return x.linked_object)
-	# this is a mess and probably wrong
-	#if not linked_object.staged.is_equal(staged_in_menu):
-		#staged_units_list.clear_units()
-		#for unit in linked_object.staged:
-			#staged_units_list.add_unit(unit)
-	
-#func _refresh_interface():
-	#var r = linked_object.estimate_reward()
-	#reward_amount.text = str(r[0]) + "-" + str(r[-1])
-	#_refresh_idle_unit_list()
-	##_rebuild_staged_unit_list()
-	#status_window.visible = linked_object.questing
-	#staged_units_list.visible = !linked_object.questing
-	#send_button.disabled = linked_object.questing
 	
 func _on_press_send_button():
 	if linked_object.party.is_empty():
@@ -76,7 +49,6 @@ func _on_press_send_button():
 		linked_object.staged.clear()
 		linked_object.begin_quest()
 		status_window.visible = true
-		
 
 func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 	if linked_object.questing: return

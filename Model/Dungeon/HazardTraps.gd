@@ -21,23 +21,17 @@ func _get_counters() -> Array[Dictionary]:
 			counter_type = CounterType.TRAIT,
 			countered_by = Trait.EagleEye,
 			counter_action = CounterAction.REDUCES_PARTY
-		},
-		#{
-			#counter_type = CounterType.STAT,
-			#countered_by = Stats.stat_luk,
-			#countered_by_value = 3,
-			#counter_action = CounterAction.IGNORES
-		#},
-		#{
-			#counter_type = CounterType.STAT,
-			#countered_by = Stats.stat_dex,
-			#countered_by_value = 8,
-			#counter_action = CounterAction.REDUCES
-		#}
+		}
 ]
 
-func per_tick_action(dungeon: Dungeon):
+func _hook_on_end_tick(dungeon: Dungeon):
 	var chance = trap_chance
+	var index = dungeon.party.find_custom(func(x): return x is Rogue and not x.status & CombatUnit.STATUS_DEAD)
+	if index != -1:
+		if randf() < chance:
+			var msg = "%s disarmed a trap in %s." % [dungeon.party.get_at_index(index).unit_name, dungeon.dungeon_name]
+			Game.activity_log.push_message(ActivityLogMessage.new(msg))
+		return
 	if dungeon.party.find_custom(func(x): return x.traits.has(Trait.EagleEye)) != -1:
 		chance -= mitigated_reduction
 	for unit in dungeon.party:

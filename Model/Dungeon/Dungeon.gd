@@ -17,6 +17,8 @@ var per_enemy: int = 3
 
 var hazards: Array[Hazard] = []
 
+var encounters = []
+
 var questing: bool = false
 var quest_time: int = 3
 var remaining_quest_time: int = quest_time
@@ -30,7 +32,8 @@ var combat: Combat
 var dungeon_reward_money: int = 0
 
 var dungeon_tier: int = 1
-var dungeon_traits: Array[DungeonTrait] = []
+
+var party_morale: int
 
 func _init() -> void:
 	if not Engine.is_editor_hint():
@@ -40,29 +43,42 @@ func generate_dungeon():
 	#var boosts = range(dungeon_tier + 1, dungeon_tier + 3).pick_random()
 	var boosts = dungeon_tier + 2
 	for i in boosts:
-		if randi() & 1:
-			var haz = Hazard.random()
-			if not hazards.has(haz):
-				hazards.append(haz)
-			else: 
-				i -= 1
-				continue
-		else:
-			var dt = DungeonTrait.random()
-			if not dungeon_traits.has(dt):
-				dungeon_traits.append(dt)
-			else: 
-				i -= 1
-				continue
+		var haz = Hazard.random()
+		if not hazards.has(haz):
+			hazards.append(haz)
+		else: 
+			i -= 1
+			continue
 	_min_level = dungeon_tier
 	_max_level = _min_level + round(dungeon_tier * .6)
+	for day in quest_time:
+		var encounter: Array[Enemy] = []
+		for i in randi_range(1, max_enemies_per_encounter):
+			var last_mage = 1
+			var last_phys = 1
+			var enemy = Enemy.new()
+			var enemy_number = last_mage if enemy.enemy_class == Enemy.EnemyClass.MAGIC else last_phys
+			enemy.unit_name += " " + (str(enemy_number))
+			if enemy.enemy_class == Enemy.EnemyClass.MAGIC:
+				last_mage += 1
+			else:
+				last_phys += 1
+			for j in randi_range(0, _max_level - _min_level):
+				enemy.level_up()
+			encounter.append(enemy)
+		encounters.append(encounter)
 
 func begin_quest():
 	if party.size() > 0:
 		for adv in party:
 			adv.status |= Adventurer.STATUS_IN_DUNGEON
+			adv.died.connect(_on_party_member_died.bind(adv))
 		questing = true
 		remaining_quest_time = quest_time
+		party_morale = party.reduce(func(accum, val): return accum + val.stat_brv, 0)
+		
+func _on_party_member_died(unit: Adventurer):
+	party_morale -= unit.stat_cha
 		
 func estimate_reward() -> Array:
 	var min_reward = _min_level * per_enemy * quest_time
@@ -72,37 +88,36 @@ func estimate_reward() -> Array:
 func _on_advance_tick():
 	if !questing:
 		return
-	_initialize_combat()
+	_initialize_combat(encounters[quest_time - remaining_quest_time])
 	_before_combat_actions()
 	var result = combat.run_combat()
 	_after_combat_actions()
+	# TODO: morale checks should probably be event-based, but I don't want to figure out the timing right now
+	if party_morale < dungeon_tier + 2:
+		var msg = "Your adventurers were not brave enough to complete %s. No rewards received." % dungeon_name
+		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
+		complete_quest(false)
+		return
 	if result == Combat.RESULT_WIN:
 		dungeon_reward_money += combat.reward_money
 	elif result == Combat.RESULT_LOSS:
+		var msg = "All adventurers fell in combat in %s. No rewards received." % dungeon_name
+		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
 		complete_quest(false)
 		return
 	_per_tick_actions()
 	if alive_party.is_empty():
+		var msg = "Hazards in %s took out your adventuring party. No rewards received." % dungeon_name
+		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
 		complete_quest(false)
 		return
 	remaining_quest_time -= 1
 	if remaining_quest_time <= 0:
 		complete_quest(true)
 		
-func _initialize_combat():
+func _initialize_combat(enemies: Array[Enemy]):
 	combat = Combat.new()
-	var last_mage = 1
-	var last_phys = 1
-	for i in randi_range(1, max_enemies_per_encounter):
-		var enemy = Enemy.new()
-		var enemy_number = last_mage if enemy.enemy_class == Enemy.EnemyClass.MAGIC else last_phys
-		enemy.unit_name += " " + (str(enemy_number))
-		if enemy.enemy_class == Enemy.EnemyClass.MAGIC:
-			last_mage += 1
-		else:
-			last_phys += 1
-		for j in randi_range(0, _max_level - _min_level):
-			enemy.level_up()
+	for enemy in enemies:
 		combat.add_unit(enemy)
 	for unit in party:
 		if unit.status & ~Adventurer.STATUS_DEAD:
@@ -110,24 +125,16 @@ func _initialize_combat():
 			
 func _before_combat_actions():
 	for hazard in hazards:
-		hazard.before_combat_action(self)
-	for dun_trait in dungeon_traits:
-		dun_trait.before_combat_action(self)
-		
+		hazard._hook_on_begin_combat(self)
+
 func _after_combat_actions():
 	for hazard in hazards:
-		hazard.after_combat_action(self)
-	for dun_trait in dungeon_traits:
-		dun_trait.after_combat_action(self)
-	
+		hazard._hook_on_end_combat(self)
+
 func _per_tick_actions():
 	for haz in hazards:
-		haz.per_tick_action(self)
-		if party.is_empty():
-			return
-	for dun_trait in dungeon_traits:
-		dun_trait.per_tick_action(self)
-		if party.is_empty():
+		haz._hook_on_end_tick(self)
+		if alive_party.is_empty():
 			return
 
 func complete_quest(success: bool):
@@ -140,9 +147,9 @@ func complete_quest(success: bool):
 	if success:
 		log_msg.text = "Party finished quest in %s. Received %d money." % [dungeon_name, dungeon_reward_money]
 		Game.player.money += dungeon_reward_money
-	else:
-		log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
-	Game.activity_log.push_message(log_msg, true)
+	#else:
+		#log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
+		Game.activity_log.push_message(log_msg, true)
 	if success:
 		var loot = Equipment.generate_random_equipment()
 		loot.item_name = "Awesome Dungeon Loot"

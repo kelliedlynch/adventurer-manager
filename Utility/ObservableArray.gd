@@ -41,6 +41,9 @@ func _iter_get(_arg):
 func is_equal(array: Array):
 	return array == _array
 	
+func get_at_index(index: int) -> Variant:
+	return _array[index]
+	
 func all(method: Callable) -> bool:
 	return _array.all(method)
 func any(method: Callable) -> bool:
@@ -87,6 +90,10 @@ func find_custom(method: Callable, from: int = 0) -> int:
 	return _array.find_custom(method, from)
 func front() -> Variant:
 	return _array.front()
+#func _get(property) -> Variant:
+	#if property is int:
+		#return _array[property]
+	#return false
 #func get(index: int) -> Variant:
 	#return _array.get(index)
 func get_typed_builtin() -> int:

@@ -23,7 +23,7 @@ func _get_counters() -> Array[Dictionary]:
 		}
 	]
 
-func before_combat_action(dungeon: Dungeon):
+func _hook_on_begin_combat(dungeon: Dungeon):
 	if get_mitigated_state(dungeon) == MitigatedState.INACTIVE: return
 	for unit in dungeon.party:
 		var actions = _get_unit_counter_actions(unit)

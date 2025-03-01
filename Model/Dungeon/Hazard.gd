@@ -72,25 +72,22 @@ func _get_counters() -> Array[Dictionary]:
 		}
 ]
 
-func before_quest_action(_dungeon: Dungeon):
+func _hook_on_begin_quest(_dungeon: Dungeon):
 	pass
 	
-func after_quest_action(_dungeon: Dungeon):
+func _hook_on_end_quest(_dungeon: Dungeon):
 	pass
 	
-func per_tick_action(_dungeon: Dungeon):
+func _hook_on_end_tick(_dungeon: Dungeon):
 	pass
 
-func before_combat_action(_dungeon: Dungeon):
+func _hook_on_begin_combat(_dungeon: Dungeon):
 	pass
 
-func after_combat_action(dungeon: Dungeon):
+func _hook_on_end_combat(dungeon: Dungeon):
 	# TODO: currently no way to distinguish between combat- and dungeon-duration buffs. Fix that.
 	# TODO: I think combat.party might not include people who have died and still need buffs removed
 	remove_own_buffs(dungeon.party)
-
-func per_combat_round_action(_dungeon: Dungeon):
-	pass
 
 func remove_own_buffs(party):
 	for unit in party:

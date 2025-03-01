@@ -103,6 +103,8 @@ func push_attack_msg(target: CombatUnit, dmg: int):
 	var msg = ActivityLogMessage.new("%s attacked %s for %d damage" % [unit_name, target.unit_name, dmg])
 	Game.activity_log.push_message(msg, false)
 
+	
+
 enum DamageType {
 	TRUE = 0,
 	PHYSICAL = 1,

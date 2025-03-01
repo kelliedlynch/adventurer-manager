@@ -37,7 +37,7 @@ func _get_counters() -> Array[Dictionary]:
 		#return MitigatedState.PARTIAL
 	#return MitigatedState.ACTIVE
 
-func per_tick_action(dungeon: Dungeon):
+func _hook_on_end_tick(dungeon: Dungeon):
 	var dmg = cold_damage
 	if dungeon.party.find_custom(func(x): return x is Mage) != -1:
 		dmg -= dmg * mage_reduction
