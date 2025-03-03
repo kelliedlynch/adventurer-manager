@@ -63,7 +63,7 @@ func generate_dungeon():
 				last_mage += 1
 			else:
 				last_phys += 1
-			for j in randi_range(0, _max_level - _min_level):
+			for j in randi_range(_min_level, _max_level):
 				enemy.level_up()
 			encounter.append(enemy)
 		encounters.append(encounter)
@@ -88,16 +88,10 @@ func estimate_reward() -> Array:
 func _on_advance_tick():
 	if !questing:
 		return
-	_initialize_combat(encounters[quest_time - remaining_quest_time])
-	_before_combat_actions()
+	_initialize_combat(encounters.pop_back())
+	_call_hooks(hooks.begin_combat)
 	var result = combat.run_combat()
-	_after_combat_actions()
-	# TODO: morale checks should probably be event-based, but I don't want to figure out the timing right now
-	if party_morale < dungeon_tier + 2:
-		var msg = "Your adventurers were not brave enough to complete %s. No rewards received." % dungeon_name
-		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
-		complete_quest(false)
-		return
+	_call_hooks(hooks.end_combat)
 	if result == Combat.RESULT_WIN:
 		dungeon_reward_money += combat.reward_money
 	elif result == Combat.RESULT_LOSS:
@@ -105,12 +99,21 @@ func _on_advance_tick():
 		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
 		complete_quest(false)
 		return
-	_per_tick_actions()
+	_call_hooks(hooks.end_tick)
 	if alive_party.is_empty():
 		var msg = "Hazards in %s took out your adventuring party. No rewards received." % dungeon_name
 		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
 		complete_quest(false)
 		return
+	# TODO: morale checks should probably be event-based, but I don't want to figure out the timing right now
+	print("morale ", party_morale, " check val ", (party_morale / float(dungeon_tier) + 2))
+	if randf() > (party_morale / float(dungeon_tier) + 2):
+		var msg = "Your adventurers were not brave enough to complete %s. No rewards received." % dungeon_name
+		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
+		complete_quest(false)
+		return
+	party_morale -= dungeon_tier
+	
 	remaining_quest_time -= 1
 	if remaining_quest_time <= 0:
 		complete_quest(true)
@@ -122,18 +125,16 @@ func _initialize_combat(enemies: Array[Enemy]):
 	for unit in party:
 		if unit.status & ~Adventurer.STATUS_DEAD:
 			combat.add_unit(unit)
-			
-func _before_combat_actions():
-	for hazard in hazards:
-		hazard._hook_on_begin_combat(self)
 
-func _after_combat_actions():
-	for hazard in hazards:
-		hazard._hook_on_end_combat(self)
-
-func _per_tick_actions():
+func _call_hooks(hook: String):
+	for unit in alive_party:
+		if unit.has_method(hook):
+			unit.call(hook, self)
+		if alive_party.is_empty():
+			return
 	for haz in hazards:
-		haz._hook_on_end_tick(self)
+		if haz.has_method(hook):
+			haz.call(hook, self)
 		if alive_party.is_empty():
 			return
 
@@ -141,6 +142,7 @@ func complete_quest(success: bool):
 	remaining_quest_time = quest_time
 	for adv in party:
 		adv.status &= ~Adventurer.STATUS_IN_DUNGEON
+		adv.died.disconnect(_on_party_member_died)
 	party.clear()
 	var log_msg = ActivityLogMessage.new()
 	log_msg.menu = DungeonInterface.instantiate.bind(self)
@@ -157,3 +159,20 @@ func complete_quest(success: bool):
 		Game.activity_log.push_message(ActivityLogMessage.new("Received loot: %s" % loot.item_name))
 	questing = false
 	remaining_quest_time = quest_time
+
+var hooks = {
+	begin_quest = "_hook_on_begin_quest",
+	begin_tick = "_hook_on_begin_tick",
+	begin_combat = "_hook_on_begin_combat",
+	begin_round = "_hook_on_begin_round",
+	before_combat_action = "_hook_on_before_combat_action",
+	after_combat_action = "_hook_on_after_combat_action",
+	before_take_damage = "_hook_on_before_take_damage",
+	after_take_damage = "_hook_on_after_take_damage",
+	adventurer_died = "_hook_on_adventurer_died",
+	enemy_died = "_hook_on_enemy_died",
+	end_round = "_hook_on_end_round",
+	end_combat = "_hook_on_end_combat",
+	end_tick = "_hook_on_end_tick",
+	end_quest = "_hook_on_end_quest"
+}

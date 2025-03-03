@@ -50,7 +50,7 @@ func _build_mitigation_list():
 func link_object(obj: Variant, node: Node = self, recursive = false):
 	if node == self and obj is Hazard:
 		_build_mitigation_list()
-	super(obj, node, obj is Hazard)
+	super(obj, node, true if obj is Hazard else recursive)
 
 func _adjust_for_child_quantity(container: Container):
 	var children = container.get_child_count()

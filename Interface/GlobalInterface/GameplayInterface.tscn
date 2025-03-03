@@ -79,12 +79,20 @@ size_flags_vertical = 4
 toggle_mode = true
 text = "Town"
 
-[node name="DungeonButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
+[node name="BeginnerDungeonButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 toggle_mode = true
-text = "Dungeon"
+text = "Dungeon 1
+"
+
+[node name="MediumDungeonButton" type="Button" parent="VBoxContainer/ActionBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+text = "Dungeon 2"
 
 [node name="Control" type="Control" parent="VBoxContainer/ActionBar/HBoxContainer"]
 layout_mode = 2

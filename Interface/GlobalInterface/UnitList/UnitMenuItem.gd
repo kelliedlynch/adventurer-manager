@@ -3,9 +3,6 @@ extends MenuItemBase
 class_name UnitMenuItem
 # Base class for menu items that display an adventurer
 
-static var phys_atk_icon: Texture2D = load("res://Graphics/Icons/White/basic_sword.png")
-static var mag_atk_icon: Texture2D = load("res://Graphics/Icons/White/magic_staff.png")
-
 @export var show_equipment: bool = true:
 	set(value):
 		show_equipment = value
@@ -39,7 +36,7 @@ static var mag_atk_icon: Texture2D = load("res://Graphics/Icons/White/magic_staf
 @onready var level_value: ReactiveTextField = find_child("LevelValue")
 @onready var class_value: ReactiveTextField = find_child("ClassValue")
 @onready var stat_hp_value: ReactiveProgressField = find_child("StatHpValue")
-@onready var stat_values_block: GridContainer = find_child("StatValuesBlock")
+@onready var stat_values_block: Container = find_child("StatValuesBlock")
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:

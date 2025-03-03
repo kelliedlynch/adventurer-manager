@@ -3,7 +3,8 @@ extends Node
 var player: PlayerData
 var activity_log: ActivityLog
 
-var dungeon: Dungeon
+var beginner_dungeon: Dungeon
+var medium_dungeon: Dungeon
 
 var _tick: int = 0
 var tick: int:
@@ -31,6 +32,12 @@ func begin_game() -> void:
 	PhysicsServer3D.set_active(false)
 	player.initialize_player()
 	
-	dungeon = Dungeon.new()
-	dungeon.generate_dungeon()
+	beginner_dungeon = Dungeon.new()
+	beginner_dungeon.dungeon_name = "Mildly Scary Dungeon"
+	beginner_dungeon.generate_dungeon()
+	medium_dungeon = Dungeon.new()
+	medium_dungeon.dungeon_name = "Super Scary Dungeon"
+	medium_dungeon.dungeon_tier = 3
+	medium_dungeon.generate_dungeon()
+	
 	advance_tick()

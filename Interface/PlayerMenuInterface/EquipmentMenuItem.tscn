@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://qqw50a4kcypy"]
 
 [ext_resource type="Script" uid="uid://cxfkowy3k8qfs" path="res://Interface/PlayerMenuInterface/EquipmentMenuItem.gd" id="1_55qc3"]
-[ext_resource type="Texture2D" uid="uid://sqaugoduh7s1" path="res://Graphics/Equipment/Armor/armor_5.PNG" id="2_mpsml"]
+[ext_resource type="Texture2D" uid="uid://bjmefv5yam4cg" path="res://Graphics/Equipment/Weapons/sv_t_10.png" id="2_mpsml"]
 [ext_resource type="Script" uid="uid://b372t14de0aic" path="res://Interface/GlobalInterface/Field/ReactiveTextureField.gd" id="3_tj0xj"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="4_xbdmp"]
 [ext_resource type="PackedScene" uid="uid://cdgh7l4qho4rm" path="res://Interface/PlayerMenuInterface/EquipmentStatValuesBlock.tscn" id="5_tj0xj"]
@@ -45,4 +45,7 @@ __linked_property = &"item_name"
 
 [node name="EquipmentStatValuesBlock" parent="HBoxContainer" instance=ExtResource("5_tj0xj")]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
+size_flags_vertical = 4
+show_zeros = false
+__layout_type = 0

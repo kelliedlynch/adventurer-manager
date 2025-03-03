@@ -43,9 +43,10 @@ theme_override_constants/separation = 16
 
 [node name="DungeonName" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel"]
 layout_mode = 2
+text = "Scary Dungeon"
 horizontal_alignment = 1
 script = ExtResource("5_6wovn")
-__test_value = ""
+__test_value = "Scary Dungeon"
 __linked_class = &"Dungeon"
 __linked_property = &"dungeon_name"
 
@@ -64,8 +65,9 @@ text = "Enemy Level:"
 [node name="LevelRangeValue" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/LevelRange"]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
+text = "1-3"
 script = ExtResource("5_6wovn")
-__test_value = ""
+__test_value = "1-3"
 __linked_class = &"Dungeon"
 __linked_property = &"level_range"
 
@@ -102,8 +104,9 @@ text = "Quest Time:"
 [node name="QuestTimeField" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/DungeonInfoPanel/DungeonStats/QuestTime"]
 layout_mode = 2
 theme_type_variation = &"FieldBig"
+text = "3"
 script = ExtResource("5_6wovn")
-__test_value = ""
+__test_value = "3"
 __linked_class = &"Dungeon"
 __linked_property = &"quest_time"
 
@@ -171,8 +174,9 @@ expand_mode = 1
 
 [node name="DungeonTimeField" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/DungeonTime"]
 layout_mode = 2
+text = "3"
 script = ExtResource("5_6wovn")
-__test_value = ""
+__test_value = "3"
 __linked_class = &"Dungeon"
 __linked_property = &"quest_time"
 

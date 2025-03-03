@@ -19,22 +19,7 @@ var participants: Array[CombatUnit]:
 var reward_xp: int = 0
 var reward_money: int = 0
 
-var hooks = {
-	begin_quest = [],
-	begin_tick = [],
-	begin_combat = [],
-	begin_round = [],
-	before_combat_action = [],
-	after_combat_action = [],
-	before_take_damage = [],
-	after_take_damage = [],
-	adventurer_died = [],
-	enemy_died = [],
-	end_round = [],
-	end_combat = [],
-	end_tick = [],
-	end_quest = []
-}
+
 
 
 signal combat_ended
@@ -63,14 +48,14 @@ func _perform_combat_round():
 func _end_combat():
 	for conn in combat_ended.get_connections():
 		combat_ended.disconnect(conn.callable)
-	for unit in participants:
-		if "_hook_on_end_combat" in unit:
-			unit._hook_on_end_combat(self)
+	#for unit in participants:
+		#if "_hook_on_end_combat" in unit:
+			#unit._hook_on_end_combat(self)
 
 func run_combat() -> int:
-	for unit in participants:
-		if "_hook_on_begin_combat" in unit:
-			unit._hook_on_begin_combat(self)
+	#for unit in participants:
+		#if "_hook_on_begin_combat" in unit:
+			#unit._hook_on_begin_combat(self)
 	for i in 100:
 		_perform_combat_round()
 		if alive_party.is_empty():

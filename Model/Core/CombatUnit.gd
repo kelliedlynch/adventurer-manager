@@ -28,7 +28,7 @@ var status: int = 0:
 
 signal property_changed
 
-var damage_type: DamageType
+
 
 func _init() -> void:
 	current_hp = stat_hp
@@ -105,13 +105,7 @@ func push_attack_msg(target: CombatUnit, dmg: int):
 
 	
 
-enum DamageType {
-	TRUE = 0,
-	PHYSICAL = 1,
-	MAGIC = 2,
-	FIRE = 4,
-	ICE = 8
-}
+
 
 enum {
 	STATUS_DEAD = 8,

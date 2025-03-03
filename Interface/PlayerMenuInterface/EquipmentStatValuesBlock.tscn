@@ -1,35 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdgh7l4qho4rm"]
+[gd_scene load_steps=8 format=3 uid="uid://cdgh7l4qho4rm"]
 
 [ext_resource type="Script" uid="uid://c4oy456ul5si6" path="res://Interface/PlayerMenuInterface/EquipmentStatValuesBlock.gd" id="1_0f7g3"]
 [ext_resource type="Texture2D" uid="uid://dgt1ts2du3wnm" path="res://Graphics/Icons/White/heart.png" id="2_0vtv1"]
 [ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="2_kqvv8"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="3_w7tip"]
-[ext_resource type="Texture2D" uid="uid://b8bhlgxpkd508" path="res://Graphics/Icons/White/magic_swirl.png" id="4_6chwi"]
 [ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="4_j2gt6"]
-[ext_resource type="Texture2D" uid="uid://cw7pp4uidrpwy" path="res://Graphics/Icons/White/magic_staff.png" id="5_l2lq8"]
-[ext_resource type="Texture2D" uid="uid://b51d0ju8bdmou" path="res://Graphics/Icons/White/magic_shield.png" id="6_78vma"]
-[ext_resource type="Texture2D" uid="uid://b0wdeco2raq4u" path="res://Graphics/Icons/White/wing_boot.png" id="7_k5tss"]
-[ext_resource type="Texture2D" uid="uid://ybhr3ql1syou" path="res://Graphics/Icons/White/shamrock.png" id="8_ng13d"]
+[ext_resource type="Texture2D" uid="uid://f53k2ah6ln5c" path="res://Graphics/Icons/White/crown.png" id="6_76x1c"]
 [ext_resource type="Texture2D" uid="uid://i2lcgovyiwix" path="res://Graphics/Icons/White/medal.png" id="9_vncok"]
 
-[node name="EquipmentStatValuesBlock" type="MarginContainer"]
+[node name="StatValuesBlock" type="MarginContainer"]
 offset_top = 102.0
 offset_right = 50.0
 offset_bottom = 102.0
 script = ExtResource("1_0f7g3")
+v_separation = 26
+h_separation = 24
 __layout_type = 2
-__grid_columns = 6
-__linked_class = &"Equipment"
+__grid_columns = 3
+__linked_class = &"WithStats"
 __linked_property = &""
 
 [node name="ValuesContainer" type="GridContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 6
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 26
+columns = 3
 
 [node name="StatHp" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -42,36 +41,13 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "0"
 horizontal_alignment = 2
 script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
+__test_value = ""
+__linked_class = &"WithStats"
 __linked_property = &"stat_hp"
 
-[node name="StatMp" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatMpLabel" type="TextureRect" parent="ValuesContainer/StatMp"]
-layout_mode = 2
-texture = ExtResource("4_6chwi")
-expand_mode = 3
-
-[node name="StatMpValue" type="Label" parent="ValuesContainer/StatMp"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-text = "0"
-horizontal_alignment = 2
-script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
-__linked_property = &"stat_mp"
-
 [node name="StatAtk" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -84,15 +60,13 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "0"
 horizontal_alignment = 2
 script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
+__test_value = ""
+__linked_class = &"WithStats"
 __linked_property = &"stat_atk"
 
 [node name="StatDef" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -105,114 +79,46 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "0"
 horizontal_alignment = 2
 script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
+__test_value = ""
+__linked_class = &"WithStats"
 __linked_property = &"stat_def"
 
-[node name="StatMag" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatMagLabel" type="TextureRect" parent="ValuesContainer/StatMag"]
-layout_mode = 2
-texture = ExtResource("5_l2lq8")
-expand_mode = 2
-
-[node name="StatMagValue" type="Label" parent="ValuesContainer/StatMag"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-text = "0"
-horizontal_alignment = 2
-script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
-__linked_property = &"stat_mag"
-
-[node name="StatRes" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatResLabel" type="TextureRect" parent="ValuesContainer/StatRes"]
-layout_mode = 2
-texture = ExtResource("6_78vma")
-expand_mode = 2
-
-[node name="StatResValue" type="Label" parent="ValuesContainer/StatRes"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-text = "0"
-horizontal_alignment = 2
-script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
-__linked_property = &"stat_res"
-
-[node name="StatDex" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatDexLabel" type="TextureRect" parent="ValuesContainer/StatDex"]
-layout_mode = 2
-texture = ExtResource("7_k5tss")
-expand_mode = 2
-
-[node name="StatDexValue" type="Label" parent="ValuesContainer/StatDex"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-text = "0"
-horizontal_alignment = 2
-script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
-__linked_property = &"stat_dex"
-
-[node name="StatLuk" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatLukLabel" type="TextureRect" parent="ValuesContainer/StatLuk"]
-layout_mode = 2
-texture = ExtResource("8_ng13d")
-expand_mode = 2
-
-[node name="StatLukValue" type="Label" parent="ValuesContainer/StatLuk"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"FieldBig"
-text = "0"
-horizontal_alignment = 2
-script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
-__linked_property = &"stat_luk"
-
 [node name="StatCha" type="HBoxContainer" parent="ValuesContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="StatChaLabel" type="TextureRect" parent="ValuesContainer/StatCha"]
 layout_mode = 2
-texture = ExtResource("9_vncok")
+texture = ExtResource("6_76x1c")
 expand_mode = 2
 
 [node name="StatChaValue" type="Label" parent="ValuesContainer/StatCha"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"FieldBig"
-text = "0"
 horizontal_alignment = 2
 script = ExtResource("3_w7tip")
-__test_value = "0"
-__linked_class = &"Equipment"
+__test_value = ""
+__linked_class = &"WithStats"
 __linked_property = &"stat_cha"
+
+[node name="StatBrv" type="HBoxContainer" parent="ValuesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatBrvLabel" type="TextureRect" parent="ValuesContainer/StatBrv"]
+layout_mode = 2
+texture = ExtResource("9_vncok")
+expand_mode = 2
+
+[node name="StatBrvValue" type="Label" parent="ValuesContainer/StatBrv"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"FieldBig"
+horizontal_alignment = 2
+script = ExtResource("3_w7tip")
+__test_value = ""
+__linked_class = &"WithStats"
+__linked_property = &"stat_brv"

@@ -33,6 +33,8 @@ var stat_brv: int:
 	get: return _get("stat_brv")
 	set(value): _set("stat_brv", value)
 
+var damage_type: DamageType
+
 func _get(property: StringName):
 	if base_stats.has(property):
 		return int(base_stats[property])
@@ -44,3 +46,11 @@ func _set(property: StringName, value: Variant) -> bool:
 	#elif property == "current_hp" or property == "current_mp":
 		#pass
 	return false
+
+enum DamageType {
+	TRUE = 0,
+	PHYSICAL = 1,
+	MAGIC = 2,
+	FIRE = 4,
+	ICE = 8
+}

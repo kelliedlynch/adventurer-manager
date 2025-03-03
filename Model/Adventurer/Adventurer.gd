@@ -5,7 +5,7 @@ var adventurer_class: String
 var xp_curve: Curve = load("res://Model/Adventurer/BaseLevelUpCurve.tres")
 var portrait: Texture2D
 
-var hire_cost: int = 0
+var hire_cost: int = 10
 
 var traits: Array[Trait] = []
 
@@ -77,11 +77,11 @@ func add_experience(add_xp: int):
 	_experience += add_xp
 	
 ## Called after all units enter combat, and before rounds start
-func _hook_on_begin_combat(combat: Combat):
+func _hook_on_begin_combat(_dungeon: Dungeon):
 	pass
 	
 ## Called after combat result has been determined, and after xp rewards are assigned (if applicable)
-func _hook_on_end_combat(combat: Combat):
+func _hook_on_end_combat(_dungeon: Dungeon):
 	pass
 
 enum {
