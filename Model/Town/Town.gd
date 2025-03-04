@@ -12,3 +12,6 @@ func _init() -> void:
 	var hosp = Hospital.new()
 	hosp.building_name = "Sawbones Express"
 	buildings.append(hosp)
+	var train = TrainingGround.new()
+	train.building_name = "Adventurer School"
+	buildings.append(train)

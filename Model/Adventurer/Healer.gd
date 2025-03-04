@@ -30,11 +30,14 @@ func _on_adventurer_died(target: Adventurer):
 		target.heal_damage()
 		revive_charges -= 1
 
-func _hook_on_begin_combat(dungeon: Dungeon):
+func _hook_on_begin_quest(dungeon: Dungeon):
 	revive_charges = max_revive_charges
 	for unit in dungeon.combat.party:
 		unit.died.connect(_on_adventurer_died.bind(unit))
 		
-func _hook_on_end_combat(dungeon: Dungeon):
+func _hook_on_begin_tick(dungeon: Dungeon):
+	revive_charges = max_revive_charges
+		
+func _hook_on_end_quest(dungeon: Dungeon):
 	for unit in dungeon.combat.party:
 		unit.died.disconnect(_on_adventurer_died)

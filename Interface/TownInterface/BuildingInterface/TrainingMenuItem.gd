@@ -1,0 +1,2 @@
+extends MenuItemBase
+class_name TrainingMenuItem

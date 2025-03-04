@@ -1,12 +1,12 @@
 extends Hazard
 class_name HazardCold
 
-var cold_damage: int = 2
+var cold_damage: int = 4
 var mage_reduction: float = .5
 
 func _init() -> void:
 	hazard_name = "Cold"
-	hazard_description = "All party members take cold damage each day"
+	hazard_description = "All party members take %d cold damage each day." % [cold_damage]
 	icon = load("res://Graphics/Icons/White/snowman.png")
 	
 func _get_counters() -> Array[Dictionary]:

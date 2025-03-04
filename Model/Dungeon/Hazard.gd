@@ -101,9 +101,11 @@ static var RoughTerrain: HazardRoughTerrain = HazardRoughTerrain.new()
 static var Traps: HazardTraps = HazardTraps.new()
 static var Spooky: HazardSpooky = HazardSpooky.new()
 
+static var all_hazards: Array[Hazard] = [Cold, Swarms, RoughTerrain, Traps, Spooky]
+
 static func random() -> Hazard:
-	var list = [Cold, Swarms, RoughTerrain, Traps, Spooky]
-	return list.pick_random()
+	
+	return all_hazards.pick_random()
 
 
 

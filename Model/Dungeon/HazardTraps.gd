@@ -7,7 +7,7 @@ var mitigated_reduction: float = .2
 
 func _init() -> void:
 	hazard_name = "Traps"
-	hazard_description = "Chance of taking serious damage between combats."
+	hazard_description = "Chance of taking %d damage each day." % [trap_damage]
 	icon = load("res://Graphics/Icons/White/tripwire.png")
 	
 func _get_counters() -> Array[Dictionary]:

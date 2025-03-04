@@ -11,6 +11,7 @@ class_name DungeonInterface
 @onready var dungeon_time: ReactiveTextField = find_child("DungeonTimeField")
 @onready var status_window: DungeonStatusWindow = find_child("DungeonStatusWindow")
 @onready var hazard_icons: HBoxContainer = find_child("HazardIcons")
+#@onready var dungeon_time_field: ReactiveTextField = find_child("DungeonTimeField")
 
 #var staged_units: ObservableArray = ObservableArray.new([], Adventurer)
 var idle_units: ObservableArray = ObservableArray.new([], Adventurer)
@@ -64,7 +65,7 @@ func _on_unit_selected(item: UnitListMenuItem, selected: bool):
 			_refresh_idle_unit_list()
 		send_button.disabled = linked_object.staged.is_empty()
 
-func _process(_delta: float) -> void:
+func update_from_linked_object():
 	party_unit_count.text = "%d/%d" % [linked_object.staged.size(), linked_object.max_party_size]
 	status_window.visible = linked_object.questing
 	staged_units_list.visible = !linked_object.questing

@@ -6,7 +6,7 @@ var mitigated_penalty: int = 1
 
 func _init() -> void:
 	hazard_name = "Extra Spooky"
-	hazard_description = "Party loses morale each day."
+	hazard_description = "Party loses %d morale each day." % [morale_penalty]
 	icon = load("res://Graphics/Icons/White/ghost.png")
 
 func _get_counters() -> Array[Dictionary]:

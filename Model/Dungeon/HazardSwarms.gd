@@ -6,7 +6,7 @@ var def_penalty_mitigated: int = 1
 
 func _init() -> void:
 	hazard_name = "Swarms"
-	hazard_description = "%s is reduced in combat." % [Stats.stat_def.name]
+	hazard_description = "%s is reduced by %d in combat." % [Stats.stat_def.name, def_penalty]
 	icon = load("res://Graphics/Icons/White/swarm.png")
 	
 func _get_counters() -> Array[Dictionary]:

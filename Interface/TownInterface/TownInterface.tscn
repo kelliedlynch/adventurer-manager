@@ -28,10 +28,9 @@ layout_mode = 2
 
 [node name="TownName" type="Label" parent="VBoxContainer/TownNameContainer"]
 layout_mode = 2
-text = "Generic Town"
 horizontal_alignment = 1
 script = ExtResource("4_2en7i")
-__test_value = "Generic Town"
+__test_value = ""
 __linked_class = &"Town"
 __linked_property = &"town_name"
 

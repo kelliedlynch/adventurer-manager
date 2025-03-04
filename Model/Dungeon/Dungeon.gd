@@ -20,7 +20,22 @@ var hazards: Array[Hazard] = []
 var encounters = []
 
 var questing: bool = false
-var quest_time: int = 3
+var _quest_time: int = 3
+var quest_time: int:
+	get:
+		var add = 0
+		# TODO: This is a special case for one Hazard. If I need more of these, I should have a better solution.
+		if hazards.has(Hazard.RoughTerrain):
+			var mit = Hazard.RoughTerrain.get_mitigated_state(self)
+			match mit:
+				Hazard.MitigatedState.ACTIVE:
+					add = Hazard.RoughTerrain.time_penalty
+				Hazard.MitigatedState.PARTIAL:
+					add = Hazard.RoughTerrain.mitigated_penalty
+		return _quest_time + add
+	set(value):
+		_quest_time = value
+					
 var remaining_quest_time: int = quest_time
 
 var _min_level: int = 1
@@ -42,15 +57,15 @@ func _init() -> void:
 func generate_dungeon():
 	#var boosts = range(dungeon_tier + 1, dungeon_tier + 3).pick_random()
 	var boosts = dungeon_tier + 2
+	var available_hazards = Hazard.all_hazards.filter(func(x): return not hazards.has(x))
 	for i in boosts:
-		var haz = Hazard.random()
-		if not hazards.has(haz):
-			hazards.append(haz)
-		else: 
-			i -= 1
-			continue
+		available_hazards.shuffle()
+		if not available_hazards.is_empty():
+			hazards.append(available_hazards.pop_back())
 	_min_level = dungeon_tier
 	_max_level = _min_level + round(dungeon_tier * .6)
+	
+func _generate_encounters():
 	for day in quest_time:
 		var encounter: Array[Enemy] = []
 		for i in randi_range(1, max_enemies_per_encounter):
@@ -76,6 +91,7 @@ func begin_quest():
 		questing = true
 		remaining_quest_time = quest_time
 		party_morale = party.reduce(func(accum, val): return accum + val.stat_brv, 0)
+		_generate_encounters()
 		
 func _on_party_member_died(unit: Adventurer):
 	party_morale -= unit.stat_cha
@@ -88,6 +104,7 @@ func estimate_reward() -> Array:
 func _on_advance_tick():
 	if !questing:
 		return
+	_call_hooks(hooks.begin_tick)
 	_initialize_combat(encounters.pop_back())
 	_call_hooks(hooks.begin_combat)
 	var result = combat.run_combat()
@@ -106,7 +123,6 @@ func _on_advance_tick():
 		complete_quest(false)
 		return
 	# TODO: morale checks should probably be event-based, but I don't want to figure out the timing right now
-	print("morale ", party_morale, " check val ", (party_morale / float(dungeon_tier) + 2))
 	if randf() > (party_morale / float(dungeon_tier) + 2):
 		var msg = "Your adventurers were not brave enough to complete %s. No rewards received." % dungeon_name
 		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
@@ -139,7 +155,6 @@ func _call_hooks(hook: String):
 			return
 
 func complete_quest(success: bool):
-	remaining_quest_time = quest_time
 	for adv in party:
 		adv.status &= ~Adventurer.STATUS_IN_DUNGEON
 		adv.died.disconnect(_on_party_member_died)
@@ -159,8 +174,10 @@ func complete_quest(success: bool):
 		Game.activity_log.push_message(ActivityLogMessage.new("Received loot: %s" % loot.item_name))
 	questing = false
 	remaining_quest_time = quest_time
+	_call_hooks(hooks.end_quest)
 
 var hooks = {
+	staging = "_hook_on_staging",
 	begin_quest = "_hook_on_begin_quest",
 	begin_tick = "_hook_on_begin_tick",
 	begin_combat = "_hook_on_begin_combat",
