@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4erew11m3r4y"]
+[gd_scene load_steps=5 format=3 uid="uid://b4erew11m3r4y"]
 
 [ext_resource type="Script" uid="uid://cp58wucaqqt4u" path="res://Interface/TownInterface/BuildingInterface/TrainingGroundInterface.gd" id="1_e4vds"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="2_ptiw0"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn" id="3_mnd3a"]
+[ext_resource type="Script" uid="uid://bwh2k5jap6uam" path="res://Interface/TownInterface/BuildingInterface/TrainingMenu.gd" id="4_rw550"]
 
 [node name="TrainingGroundInterface" type="MarginContainer"]
 anchors_preset = 15
@@ -23,15 +24,24 @@ theme_type_variation = &"TitleBar"
 
 [node name="BuildingNameLabel" type="Label" parent="VBoxContainer/BuildingNameContainer"]
 layout_mode = 2
-text = "Training Ground"
 horizontal_alignment = 1
 script = ExtResource("2_ptiw0")
-__test_value = "Training Ground"
+__test_value = ""
 __linked_class = &"TrainingGround"
 __linked_property = &"building_name"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="TrainableUnits" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_mnd3a")]
+layout_mode = 2
+
+[node name="TrainingMenu" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_rw550")
+__linked_class = &""
+
+[node name="MenuItems" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/TrainingMenu"]
 layout_mode = 2

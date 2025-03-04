@@ -28,7 +28,7 @@ class_name UnitMenuItem
 @onready var equip_slots: Container = find_child("EquipSlots")
 @onready var weapon_slot: EquipmentSlot = find_child("WeaponSlot")
 @onready var armor_slot: EquipmentSlot = find_child("ArmorSlot")
-@onready var action_buttons: Container = find_child("ActionButtons")
+
 @onready var portrait: UnitPortrait = find_child("Portrait")
 @onready var traits: ReactiveMultiField = find_child("TraitsList")
 @onready var stats: Container = find_child("StatValuesBlock")
@@ -51,7 +51,6 @@ func link_object(obj: Variant, node: Node = self, recursive = false):
 			await ready
 		weapon_slot.link_object(obj.weapon)
 		armor_slot.link_object(obj.armor)
-	
 	
 func set_reactive_defaults():
 	linked_class = "Adventurer"

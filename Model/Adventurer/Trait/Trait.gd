@@ -4,7 +4,7 @@ class_name Trait
 
 var trait_name: String
 
-func _init(called: String):
+func _init(called: String = "Trait"):
 	trait_name = called
 	
 func _to_string() -> String:

@@ -18,6 +18,9 @@ signal selected_changed
 
 var select_disabled: bool = false
 
+var buttons: Dictionary[Button, Callable] = {}
+@onready var action_buttons: Container = find_child("ActionButtons")
+
 func _ready() -> void:
 	input_state_changed.connect(_on_input_state_changed)
 	mouse_entered.connect(_on_mouse_entered)
@@ -51,6 +54,29 @@ func _on_focus_entered():
 
 func _on_focus_exited():
 	input_state &= ~FOCUSED
+	
+func link_object(obj: Variant, node: Node = self, recursive = false):
+	super(obj, node, recursive)
+	if not is_inside_tree(): await ready
+	for button in buttons:
+		action_buttons.add_child(button)
+		#add_action_button(button.text, button.action.bind(obj))
+
+func create_action_button(text: String, action: Callable, active_if: Callable = func(): return true):
+	#registered_buttons.append({
+		#"text": text,
+		#"action": action.bind(linked_object),
+		#"active_if": active_if.bind(linked_object)
+	#})
+	if not is_inside_tree(): await ready
+	var button = Button.new()
+	button.text = text
+	button.pressed.connect(action.bind(linked_object))
+	action_buttons.add_child(button)
+	buttons[button] = active_if.bind(linked_object)
+	if not active_if.call(linked_object):
+		button.disabled = true
+	
 
 enum {
 	NORMAL = 0,

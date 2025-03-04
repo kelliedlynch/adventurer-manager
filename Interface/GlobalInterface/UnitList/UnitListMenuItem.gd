@@ -9,7 +9,7 @@ class_name UnitListMenuItem
 
 #@onready var action_buttons: Container = find_child("ActionButtons")
 
-var registered_buttons: Array[Dictionary] = []
+
 
 @export var layout_variation: LayoutVariation = LayoutVariation.WIDE:
 	set(value):
@@ -23,7 +23,7 @@ func _ready() -> void:
 		for child in action_buttons.get_children():
 			child.queue_free()
 		for i in 3:
-			add_action_button("Button " + str(i + 1), func(): pass)
+			create_action_button("Button " + str(i + 1), func(): pass)
 	stat_hp_container.tooltip_text = Stats.stat_hp.abbreviation + ": " + Stats.stat_hp.description
 	super()
 	
@@ -34,10 +34,7 @@ func link_object(obj: Variant, node: Node = self, _recursive = false):
 			await ready
 		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
-		for button in registered_buttons:
-			var butt = add_action_button(button.text, button.action)
-			if not button.active_if.call():
-				butt.disabled = true
+
 		if not Engine.is_editor_hint() and not Game.player.roster.has(obj):
 			if weapon_slot:
 				weapon_slot.select_disabled = true
@@ -93,13 +90,7 @@ func _on_equipment_selected(menu_item: EquipmentMenuItem, _val, slot: EquipmentS
 		linked_object.equip(menu_item.linked_object)
 		armor_slot.link_object(menu_item.linked_object)
 	
-func add_action_button(text: String, action: Callable) -> Button:
-	#if not is_inside_tree(): await ready
-	var button = Button.new()
-	button.text = text
-	button.pressed.connect(action)
-	action_buttons.add_child(button)
-	return button
+
 	
 enum LayoutVariation {
 	WIDE,

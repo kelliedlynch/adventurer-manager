@@ -28,9 +28,7 @@ var grid_columns: int = 2:
 			if menu_items_container is GridContainer:
 				menu_items_container.columns = grid_columns
 
-## A button registry dict contains text, action, and active_if. action and active_if should be callables
-## that take the list item's linked_object as a parameter
-var registered_buttons: Array[Dictionary] = []
+
 
 #var _unit_menuitem_map: Dictionary[Adventurer, UnitMenuItem] = {}
 #var units: Array[Adventurer]:
@@ -40,23 +38,14 @@ var registered_buttons: Array[Dictionary] = []
 		#push_error("can't set units directly; use add/remove functions")
 
 func build_menu_item(unit: Variant) -> MenuItemBase:
-	var new_menu_item: MenuItemBase
+	var new_menu_item = super(unit)
 	match menu_item_type:
 		MenuItemType.PANEL_WIDE:
-			new_menu_item = UnitListMenuItem.instantiate(unit)
 			new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.WIDE
 		MenuItemType.PANEL_NARROW:
-			new_menu_item = UnitListMenuItem.instantiate(unit)
 			new_menu_item.layout_variation = UnitListMenuItem.LayoutVariation.NARROW_TRAITS_BELOW
 		MenuItemType.TILE:
-			new_menu_item = UnitSummaryTile.instantiate(unit)
-	for butt in registered_buttons:
-		new_menu_item.registered_buttons.append({
-			"text": butt.text,
-			"action": butt.action.bind(unit),
-			"active_if": butt.active_if.bind(unit)
-		})
-	#new_menu_item.link_object(unit)
+			pass
 	return new_menu_item
 
 func _ready() -> void:
@@ -65,6 +54,7 @@ func _ready() -> void:
 		for i in 10:
 			units.append(AdventurerFactory.generate_random_newbie())
 		link_object(units)
+	menu_item_class = UnitSummaryTile if menu_item_type == MenuItemType.TILE else UnitListMenuItem
 
 func _on_menu_item_type_changed(_item_type: MenuItemType):
 	if not linked_object: return
@@ -99,14 +89,6 @@ func _property_get_revert(property: StringName) -> Variant:
 	if property == "__grid_columns":
 		return 2
 	return super(property)
-
-func register_action_button(text: String, action: Callable, active_if: Callable = func(): pass):
-	var dict = {
-		"text": text,
-		"action": action,
-		"active_if": active_if
-	}
-	registered_buttons.append(dict)
 
 func _get_property_list() -> Array[Dictionary]:
 	var props: Array[Dictionary] = [{

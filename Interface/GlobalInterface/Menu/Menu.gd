@@ -27,9 +27,28 @@ var currently_selected: Array[MenuItemBase] = []
 
 signal menu_item_selected
 
+var menu_item_class: Variant = MenuItemBase
+
+## A button registry dict contains text, action, and active_if. action and active_if should be callables
+## that take the list item's linked_object as a parameter
+var registered_buttons: Array[Dictionary] = []
+
 ## Override. Build a menu item from the given object.
-func build_menu_item(_obj: Variant) -> MenuItemBase:
-	return null
+func build_menu_item(obj: Variant) -> MenuItemBase:
+	var new_menu_item = menu_item_class.instantiate(obj)
+	for butt in registered_buttons:
+		new_menu_item.create_action_button(butt.text, butt.action, butt.active_if)
+	return new_menu_item
+
+## Registers details for a button to be added to every menu item in this menu. action and active_if
+## will be called with menu item's linked_object as a parameter; bind any additional parameters.
+func register_action_button(text: String, action: Callable, active_if: Callable = func(): pass):
+	var dict = {
+		"text": text,
+		"action": action,
+		"active_if": active_if
+	}
+	registered_buttons.append(dict)
 
 func add_menu_item(item: MenuItemBase):
 	if not is_inside_tree():
