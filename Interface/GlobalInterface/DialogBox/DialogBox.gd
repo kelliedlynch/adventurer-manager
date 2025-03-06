@@ -1,10 +1,10 @@
-extends PanelContainer
+extends Reactive
 class_name DialogBox
 
 @export var message: String = "Confirmation message"
 
-@onready var message_label: Label = $VBoxContainer/Message
-@onready var action_buttons: HBoxContainer = $VBoxContainer/ActionButtons
+@onready var message_label: Label = find_child("Message")
+@onready var action_buttons: HBoxContainer = find_child("ActionButtons")
 
 func _ready() -> void:
 	message_label.text = message
@@ -26,9 +26,10 @@ func add_cancel_button(text: String = "Cancel"):
 func close_dialog():
 	queue_free()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+func _gui_input(event: InputEvent) -> void:
+	if InterfaceManager.interface_stack[-1] == self:
 		get_viewport().set_input_as_handled()
+	if event.is_action_pressed("ui_cancel"):
 		close_dialog()
 
 static func instantiate() -> DialogBox:

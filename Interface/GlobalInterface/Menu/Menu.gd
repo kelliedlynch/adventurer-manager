@@ -42,7 +42,7 @@ func build_menu_item(obj: Variant) -> MenuItemBase:
 
 ## Registers details for a button to be added to every menu item in this menu. action and active_if
 ## will be called with menu item's linked_object as a parameter; bind any additional parameters.
-func register_action_button(text: String, action: Callable, active_if: Callable = func(): pass):
+func register_action_button(text: String, action: Callable, active_if: Callable = func(x): pass):
 	var dict = {
 		"text": text,
 		"action": action,
@@ -76,10 +76,10 @@ func get_menu_item_for_object(obj: Variant) -> MenuItemBase:
 	return null
 
 func link_object(obj: Variant, node: Node = self, recursive = false):
-	if node == self and obj:
-		if obj is Array and ((obj.is_typed() and obj.get_typed_class_name() == linked_class)\
-						or (!obj.is_empty() and Utility.is_derived_from(obj[0].get_script().get_global_name(), linked_class))):
-			linked_object = obj
+	#if node == self and obj:
+		## TODO: I removed array type-checking from this. Was that a bad idea?
+		#if obj is Array and linked_class and linked_class == "Array":
+			#linked_object = obj
 	super(obj, node, recursive)
 	if linked_object:
 		build_menu_items()
@@ -92,6 +92,11 @@ func build_menu_items(from_list = linked_object):
 		add_menu_item(build_menu_item(item))
 	if empty_item_option:
 		add_menu_item(build_menu_item(null))
+	
+## Override to filter the list of classes that can be linked to this Reactive in the editor
+func _get_linkable_class_hint_string() -> String:
+	var hint_str = "Array,"
+	return hint_str + super()
 	
 ## Override this if a change in the array should do something other than rebuild the visible list
 func _on_linked_observable_object_changed(_obj: ObservableArray):

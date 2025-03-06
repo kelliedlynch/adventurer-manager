@@ -49,8 +49,11 @@ func link_object(obj: Variant, node: Node = self, recursive = false):
 	if recursive:
 		for child in node.get_children():
 			link_object(obj, child, recursive)
+	
 	if obj and node is Reactive:
-		if node.linked_class and Utility.is_derived_from(obj.get_script().get_global_name(), node.linked_class):
+		if node.linked_class and ((obj is Array and node.linked_class == "Array") or Utility.is_derived_from(obj.get_script().get_global_name(), node.linked_class)):
+		#var a = Utility.get_script_from_string_name(node.linked_class)
+		#if node.linked_class and is_instance_of(obj, Utility.get_script_from_string_name(node.linked_class)):
 			node.linked_object = obj
 			#if "array_type" in obj:
 				#var a = str(obj.array_type.get_global_name())
@@ -80,11 +83,8 @@ func unlink_object(obj: Variant, node: Node = self, recursive = false):
 	
 func _get(property):
 	# This is solely to allow updating linked class and property in the editor
-	if property.begins_with("__test"):
-		#print(property, " begins with __test ", property.begins_with("__test"))
-		#print("getting test value in base for ", property)
-		#print(typeof(property))
-		return get_test_value(property)
+	#if property.begins_with("__test") and Engine.is_editor_hint():
+		#return get_test_value(property)
 	if property.begins_with("__") and property.right(-2) in self:
 		return get(property.right(-2))
 		
@@ -99,9 +99,9 @@ func clear_test_value():
 
 func _set(property, value):
 	# This is solely to allow updating linked class and property in the editor
-	if property.begins_with("__test"):
-		set_test_value(property, value)
-		return true
+	#if property.begins_with("__test") and Engine.is_editor_hint():
+		#set_test_value(property, value)
+		#return true
 	if property.begins_with("__") and property.right(-2) in self:
 		set(property.right(-2), value)
 		notify_property_list_changed()
@@ -133,8 +133,8 @@ func _property_get_revert(property: StringName) -> Variant:
 
 func _property_can_revert(property: StringName) -> bool:
 	if property.begins_with("__"):
-		if get(property.right(-2)) is bool and _property_get_revert(property) is String:
-			print(property)
+		#if get(property.right(-2)) is bool and _property_get_revert(property) is String:
+			#print(property)
 		return get(property.right(-2)) != _property_get_revert(property)
 	return false
 

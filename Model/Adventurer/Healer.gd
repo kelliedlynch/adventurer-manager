@@ -24,7 +24,7 @@ func _init():
 	super()
 
 func _on_adventurer_died(target: Adventurer):
-	if revive_charges > 0 and target.current_hp <= 0:
+	if status & ~STATUS_DEAD and revive_charges > 0 and target.current_hp <= 0:
 		var msg = "%s revived %s with a spell." % [unit_name, target.unit_name]
 		Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
 		target.heal_damage()
@@ -32,12 +32,12 @@ func _on_adventurer_died(target: Adventurer):
 
 func _hook_on_begin_quest(dungeon: Dungeon):
 	revive_charges = max_revive_charges
-	for unit in dungeon.combat.party:
+	for unit in dungeon.party:
 		unit.died.connect(_on_adventurer_died.bind(unit))
 		
 func _hook_on_begin_tick(dungeon: Dungeon):
 	revive_charges = max_revive_charges
 		
 func _hook_on_end_quest(dungeon: Dungeon):
-	for unit in dungeon.combat.party:
+	for unit in dungeon.party:
 		unit.died.disconnect(_on_adventurer_died)

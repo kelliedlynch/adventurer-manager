@@ -33,7 +33,6 @@ theme_type_variation = &"TitleBar"
 layout_mode = 2
 horizontal_alignment = 1
 script = ExtResource("3_emvv3")
-__test_value = ""
 __linked_class = &"Hospital"
 __linked_property = &"building_name"
 

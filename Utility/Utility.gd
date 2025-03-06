@@ -11,17 +11,9 @@ static func normalize_range(orig: Array):
 	return normalized
 
 static func is_derived_from(this_class: StringName, base_class: String):
-	#var this_is_native = ClassDB.class_exists(this_class)
 	var base_is_native = ClassDB.class_exists(base_class)
 	if this_class == base_class: 
-		#print(this_class, " is derived from ", base_class)
 		return true
-	#if this_is_native and not base_is_native:
-		##print(this_class, " is native class, and cannot be derived from ", base_class)
-		#return false
-	#if this_is_native and base_is_native: 
-		##print("base class ", base_class, " is native, checking class db")
-		#return ClassDB.is_parent_class(this_class, base_class)
 	var db = ProjectSettings.get_global_class_list()
 	var current_class = this_class
 	while true:
@@ -30,8 +22,6 @@ static func is_derived_from(this_class: StringName, base_class: String):
 			return ClassDB.is_parent_class(current_class, base_class)
 		if current_is_native and not base_is_native:
 			return false
-		#elif base_is_native:
-			#return is_derived_from(current_class, base_class)
 		if not current_is_native:
 			var index = db.find_custom(func(x): return x.class == current_class)
 			if index == -1: 
@@ -58,8 +48,10 @@ static func get_properties_of_custom_class(custom: String) -> Dictionary:
 	return instance.get_property_list()
 
 static func instance_class_from_string_name(cl_name: String) -> Variant:
+	return get_script_from_string_name(cl_name).new()
+
+static func get_script_from_string_name(cl_name: String) -> Variant:
 	var class_list = ProjectSettings.get_global_class_list()
 	var index = class_list.find_custom(func (x): return x.class == cl_name)
 	var found_class = class_list[index]
-	var instance = load(found_class.path).new()
-	return instance
+	return load(found_class.path)

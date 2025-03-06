@@ -1,0 +1,136 @@
+[gd_scene load_steps=2 format=3 uid="uid://wysb1s3cfr2p"]
+
+[ext_resource type="Texture2D" uid="uid://1a71xsrthn4k" path="res://Graphics/Icons/White/arrowDown.png" id="1_spksg"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TownTut" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 312.0
+offset_right = 1077.0
+offset_bottom = 479.0
+
+[node name="Label" type="Label" parent="TownTut"]
+layout_mode = 2
+text = "Town: Hire new adventurers, heal your
+adventurers, and train new traits"
+
+[node name="ArrowDown3" type="Sprite2D" parent="TownTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(-233, 631)
+texture = ExtResource("1_spksg")
+
+[node name="Line2D2" type="Line2D" parent="TownTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(237, -7)
+points = PackedVector2Array(102, 174, 102, 508, -205, 508, -205, 616)
+width = 24.0
+
+[node name="MenusTut" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 616.0
+offset_right = 634.0
+offset_bottom = 783.0
+
+[node name="Label" type="Label" parent="MenusTut"]
+layout_mode = 2
+text = "Roster: View your adventurers
+Inventory: Weapons and armor"
+
+[node name="ArrowDown" type="Sprite2D" parent="MenusTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(364, 327)
+texture = ExtResource("1_spksg")
+
+[node name="ArrowDown2" type="Sprite2D" parent="MenusTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(228, 328)
+texture = ExtResource("1_spksg")
+
+[node name="Line2D" type="Line2D" parent="MenusTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(-3, -7)
+points = PackedVector2Array(102, 174, 102, 303)
+width = 24.0
+
+[node name="Line2D3" type="Line2D" parent="MenusTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(126, -7)
+points = PackedVector2Array(102, 174, 102, 303)
+width = 24.0
+
+[node name="DungeonsTut" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 876.0
+offset_top = 512.0
+offset_right = 1585.0
+offset_bottom = 679.0
+
+[node name="Label" type="Label" parent="DungeonsTut"]
+layout_mode = 2
+text = "Dungeons: Send your adventurers on
+quests for loot"
+
+[node name="ArrowDown4" type="Sprite2D" parent="DungeonsTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(-368, 431)
+texture = ExtResource("1_spksg")
+
+[node name="ArrowDown5" type="Sprite2D" parent="DungeonsTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(-222, 431)
+texture = ExtResource("1_spksg")
+
+[node name="Line2D" type="Line2D" parent="DungeonsTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+points = PackedVector2Array(141, 169, 141, 398, -380, 398)
+width = 24.0
+
+[node name="TimeTut" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 99.0
+offset_right = 1741.0
+offset_bottom = 266.0
+
+[node name="Label" type="Label" parent="TimeTut"]
+layout_mode = 2
+text = "Advance Time: Advance dungeon
+quests by one day"
+
+[node name="ArrowDown6" type="Sprite2D" parent="TimeTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(867, 20)
+rotation = 3.14159
+texture = ExtResource("1_spksg")
+
+[node name="Line2D" type="Line2D" parent="TimeTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(-69, 0)
+points = PackedVector2Array(808, 85, 936, 85, 936, 21)
+width = 24.0
+
+[node name="LogTut" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 1158.0
+offset_top = 744.0
+offset_right = 1897.0
+offset_bottom = 911.0
+
+[node name="Label" type="Label" parent="LogTut"]
+layout_mode = 2
+text = "Activity Log (L): Notifications of game
+events"
+
+[node name="ArrowDown6" type="Sprite2D" parent="LogTut"]
+modulate = Color(0.145098, 0.145098, 0.176471, 1)
+position = Vector2(698, 199)
+texture = ExtResource("1_spksg")

@@ -14,6 +14,8 @@ var heal_cost: int = 0:
 		heal_button.disabled = value == 0
 
 func _ready() -> void:
+	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		link_object(Hospital.new())
 	linked_object.refresh_injured_units()
 	heal_button.pressed.connect(_on_heal_button_pressed)
 	heal_button.disabled = heal_cost == 0 or heal_cost > Game.player.money
@@ -32,6 +34,7 @@ func _add_to_hospital(item: UnitListMenuItem, val: bool):
 	linked_object.injured_units.erase(selected_unit.linked_object)
 	#injured_units.remove_unit(item.linked_object)
 	heal_cost = item.linked_object.stat_hp - item.linked_object.current_hp
+	heal_button.disabled = heal_cost == 0 or heal_cost > Game.player.money
 
 func _remove_from_hospital(selected: bool, item: UnitListMenuItem = selected_unit):
 	if selected:
@@ -41,6 +44,7 @@ func _remove_from_hospital(selected: bool, item: UnitListMenuItem = selected_uni
 		selected_unit.unlink_object(item.linked_object)
 		selected_unit.visible = false
 		heal_cost = 0
+		heal_button.disabled = heal_cost == 0 or heal_cost > Game.player.money
 	
 func _on_heal_button_pressed():
 	selected_unit.linked_object.heal_damage()

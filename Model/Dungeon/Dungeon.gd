@@ -92,6 +92,7 @@ func begin_quest():
 		remaining_quest_time = quest_time
 		party_morale = party.reduce(func(accum, val): return accum + val.stat_brv, 0)
 		_generate_encounters()
+		_call_hooks(hooks.begin_quest)
 		
 func _on_party_member_died(unit: Adventurer):
 	party_morale -= unit.stat_cha
@@ -143,7 +144,7 @@ func _initialize_combat(enemies: Array[Enemy]):
 			combat.add_unit(unit)
 
 func _call_hooks(hook: String):
-	for unit in alive_party:
+	for unit in party:
 		if unit.has_method(hook):
 			unit.call(hook, self)
 		if alive_party.is_empty():
@@ -155,10 +156,6 @@ func _call_hooks(hook: String):
 			return
 
 func complete_quest(success: bool):
-	for adv in party:
-		adv.status &= ~Adventurer.STATUS_IN_DUNGEON
-		adv.died.disconnect(_on_party_member_died)
-	party.clear()
 	var log_msg = ActivityLogMessage.new()
 	log_msg.menu = DungeonInterface.instantiate.bind(self)
 	if success:
@@ -172,9 +169,19 @@ func complete_quest(success: bool):
 		loot.item_name = "Awesome Dungeon Loot"
 		Game.player.inventory.append(loot)
 		Game.activity_log.push_message(ActivityLogMessage.new("Received loot: %s" % loot.item_name))
+		for adv in alive_party:
+			var before = floor(adv.base_stats.stat_brv)
+			adv.base_stats.stat_brv += dungeon_tier / before
+			if floor(adv.base_stats.stat_brv) > before:
+				var msg = "%s grew braver after a successful quest in %s." % [adv.unit_name, dungeon_name]
+				Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
+	_call_hooks(hooks.end_quest)
+	for adv in party:
+		adv.status &= ~Adventurer.STATUS_IN_DUNGEON
+		adv.died.disconnect(_on_party_member_died)
+	party.clear()
 	questing = false
 	remaining_quest_time = quest_time
-	_call_hooks(hooks.end_quest)
 
 var hooks = {
 	staging = "_hook_on_staging",

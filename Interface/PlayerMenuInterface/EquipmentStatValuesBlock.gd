@@ -25,10 +25,6 @@ static var mag_atk_icon: Texture2D = load("res://Graphics/Icons/White/magic_staf
 				else:
 					child.visible = true
 				continue
-			#print("children on  ", child.name)
-			#for sub in child.get_children():
-				#print(child.find_child(child.name + "Value"))
-				#print(sub.name)
 			var field = child.get_node(child.name + "Value")
 			if field.linked_object and field.linked_object.get(child.name.to_snake_case()) == 0:
 				child.visible = false

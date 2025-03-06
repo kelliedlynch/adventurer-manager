@@ -16,11 +16,16 @@ func _is_trainable(unit: Adventurer) -> bool:
 		return true
 	return false
 	
+func is_valid_training_for_unit(training: Trait, unit: Adventurer) -> bool:
+	return unit.traits.size() < unit.max_traits and not unit.traits.has(training)
+	
 func give_trait_to_unit(trained: Trait, unit: Adventurer) -> void:
 	if not unit.traits.has(trained) and Game.player.money >= training_cost:
 		unit.traits.append(trained)
 		Game.player.money -= training_cost
 
 func refresh_trainable_units():
+	if Engine.is_editor_hint(): return
+	trainable_units.clear()
 	var trainable = Game.player.roster.filter(_is_trainable)
 	trainable_units.append_array(trainable)

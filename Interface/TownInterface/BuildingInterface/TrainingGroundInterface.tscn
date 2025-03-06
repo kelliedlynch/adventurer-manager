@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4erew11m3r4y"]
+[gd_scene load_steps=7 format=3 uid="uid://b4erew11m3r4y"]
 
 [ext_resource type="Script" uid="uid://cp58wucaqqt4u" path="res://Interface/TownInterface/BuildingInterface/TrainingGroundInterface.gd" id="1_e4vds"]
 [ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="2_ptiw0"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn" id="3_mnd3a"]
-[ext_resource type="Script" uid="uid://bwh2k5jap6uam" path="res://Interface/TownInterface/BuildingInterface/TrainingMenu.gd" id="4_rw550"]
+[ext_resource type="PackedScene" uid="uid://bew8f6imfdrsf" path="res://Interface/TownInterface/BuildingInterface/TrainingMenu.tscn" id="4_rw550"]
+
+[sub_resource type="Gradient" id="Gradient_rw550"]
+colors = PackedColorArray(0, 0, 0, 1, 0.617455, 0.617455, 0.617455, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p1wve"]
+gradient = SubResource("Gradient_rw550")
 
 [node name="TrainingGroundInterface" type="MarginContainer"]
 anchors_preset = 15
@@ -15,6 +21,10 @@ script = ExtResource("1_e4vds")
 __linked_class = &"TrainingGround"
 __linked_property = &""
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("GradientTexture1D_p1wve")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
@@ -24,9 +34,9 @@ theme_type_variation = &"TitleBar"
 
 [node name="BuildingNameLabel" type="Label" parent="VBoxContainer/BuildingNameContainer"]
 layout_mode = 2
+text = "Training Ground"
 horizontal_alignment = 1
 script = ExtResource("2_ptiw0")
-__test_value = ""
 __linked_class = &"TrainingGround"
 __linked_property = &"building_name"
 
@@ -37,11 +47,37 @@ size_flags_vertical = 3
 [node name="TrainableUnits" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_mnd3a")]
 layout_mode = 2
 
-[node name="TrainingMenu" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("4_rw550")
-__linked_class = &""
 
-[node name="MenuItems" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/TrainingMenu"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"TitleBar"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+text = "Adventurer to Train"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="SelectedUnit" parent="VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer" instance=ExtResource("3_mnd3a")]
+layout_mode = 2
+
+[node name="TrainingMenu" parent="VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4_rw550")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.4
+theme_override_constants/margin_left = 72
+theme_override_constants/margin_top = 72
+theme_override_constants/margin_right = 72
+theme_override_constants/margin_bottom = 72
+menu_title = "Add Traits"

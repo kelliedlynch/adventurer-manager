@@ -48,9 +48,8 @@ layout_mode = 2
 
 [node name="UnitName" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header"]
 layout_mode = 2
-text = "Glescriecai"
+text = "Grecra"
 script = ExtResource("4_pb6xb")
-__test_value = "Glescriecai"
 __linked_class = &"Adventurer"
 __linked_property = &"unit_name"
 
@@ -71,15 +70,13 @@ text = "Lv."
 layout_mode = 2
 text = "1"
 script = ExtResource("4_pb6xb")
-__test_value = "1"
 __linked_class = &"Adventurer"
 __linked_property = &"level"
 
 [node name="ClassValue" type="Label" parent="MainLayoutRows/MainLayoutCols/StatsBlock/VBoxContainer/Header/LevelAndClass"]
 layout_mode = 2
-text = "Mage"
+text = "Healer"
 script = ExtResource("4_pb6xb")
-__test_value = "Mage"
 __linked_class = &"Adventurer"
 __linked_property = &"adventurer_class"
 
@@ -116,8 +113,8 @@ expand_mode = 2
 layout_mode = 2
 theme_type_variation = &"TextBig"
 __max_value_property = &"stat_hp"
-__test_current_value = "10"
-__test_max_value = "10"
+__test_current_value = null
+__test_max_value = null
 __linked_class = &"Adventurer"
 __linked_property = &"current_hp"
 
@@ -135,7 +132,7 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_type_variation = &"FieldBig"
 h_separation = 24
-__test_value = ["Leader"]
+__test_value = null
 __linked_class = &"Adventurer"
 __linked_property = &"traits"
 

@@ -28,8 +28,8 @@ theme_override_constants/separation = 4
 [node name="HazardName" type="Label" parent="Tooltip#VBoxContainer" index="0"]
 layout_mode = 2
 theme_type_variation = &"TitleBig"
+text = "Hazard"
 script = ExtResource("2_7r4q7")
-__test_value = ""
 __linked_class = &"Hazard"
 __linked_property = &"hazard_name"
 
@@ -45,9 +45,9 @@ theme_override_constants/margin_bottom = 16
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_type_variation = &"FieldBig"
+text = "Makes stuff more dangerous. Here's some more text for tooltip size testing purposes."
 autowrap_mode = 3
 script = ExtResource("2_7r4q7")
-__test_value = ""
 __linked_class = &"Hazard"
 __linked_property = &"hazard_description"
 

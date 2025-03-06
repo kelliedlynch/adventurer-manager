@@ -8,6 +8,7 @@ var portrait: Texture2D
 var hire_cost: int = 10
 
 var traits: Array[Trait] = []
+var max_traits: int = 5
 
 var _experience: int = 0
 var experience: int:
@@ -64,7 +65,7 @@ func level_up():
 		var msg = ActivityLogMessage.new()
 		msg.menu = RosterInterface.instantiate
 		msg.text = "%s is now level %d" % [unit_name, level]
-		Game.activity_log.push_message(msg)
+		Game.activity_log.push_message(msg, true)
 	
 func add_experience(add_xp: int):
 	var remaining = add_xp
@@ -76,12 +77,19 @@ func add_experience(add_xp: int):
 			remaining = 0
 	_experience += add_xp
 	
+#func gain_bravery():
+	#pass
+	
 ## Called after all units enter combat, and before rounds start
 func _hook_on_begin_combat(_dungeon: Dungeon):
 	pass
 	
 ## Called after combat result has been determined, and after xp rewards are assigned (if applicable)
 func _hook_on_end_combat(_dungeon: Dungeon):
+	pass
+
+## Called at very end of dungeon quest, after awards assigned
+func _hook_on_complete_quest(_dungeon: Dungeon):
 	pass
 
 enum {

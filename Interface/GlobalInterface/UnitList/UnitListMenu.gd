@@ -49,12 +49,12 @@ func build_menu_item(unit: Variant) -> MenuItemBase:
 	return new_menu_item
 
 func _ready() -> void:
+	menu_item_class = UnitSummaryTile if menu_item_type == MenuItemType.TILE else UnitListMenuItem
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
 		var units = ObservableArray.new([], Adventurer)
 		for i in 10:
 			units.append(AdventurerFactory.generate_random_newbie())
 		link_object(units)
-	menu_item_class = UnitSummaryTile if menu_item_type == MenuItemType.TILE else UnitListMenuItem
 
 func _on_menu_item_type_changed(_item_type: MenuItemType):
 	if not linked_object: return

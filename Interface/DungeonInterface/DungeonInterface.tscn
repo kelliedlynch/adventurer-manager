@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cg6erugp8u2cn"]
+[gd_scene load_steps=20 format=3 uid="uid://cg6erugp8u2cn"]
 
 [ext_resource type="Script" uid="uid://bfxp2f1vguwg6" path="res://Interface/DungeonInterface/DungeonInterface.gd" id="1_nv7fk"]
 [ext_resource type="Texture2D" uid="uid://dkdgccxy2yk4v" path="res://Graphics/Backgrounds/dungeon_3.png" id="2_yjc0f"]
@@ -8,6 +8,17 @@
 [ext_resource type="Texture2D" uid="uid://bkfkvv05d7nat" path="res://Graphics/Icons/coin_01.png" id="5_fnsff"]
 [ext_resource type="Texture2D" uid="uid://ckh0tcgt27o8n" path="res://Graphics/Icons/White/hourglass.png" id="6_7w4en"]
 [ext_resource type="PackedScene" uid="uid://dmw33111ctcop" path="res://Interface/DungeonInterface/DungeonStatusWindow.tscn" id="8_n3pxv"]
+[ext_resource type="Theme" uid="uid://b7r8lfk0nrmjk" path="res://Interface/GlobalInterface/DialogBox/DialogBoxTheme.tres" id="9_auf5m"]
+[ext_resource type="Texture2D" uid="uid://ooa56ce3v06g" path="res://Graphics/Icons/Black/arrowLeft.png" id="10_gr2ou"]
+[ext_resource type="StyleBox" uid="uid://dflhowkij6jn6" path="res://Interface/DungeonInterface/HazardBackgroundInactive.tres" id="11_myuja"]
+[ext_resource type="Texture2D" uid="uid://du5vw50v52jim" path="res://Graphics/Icons/White/person_double.png" id="12_wte5t"]
+[ext_resource type="StyleBox" uid="uid://cte1qruhpij26" path="res://Interface/DungeonInterface/HazardBorderInactive.tres" id="13_t7c34"]
+[ext_resource type="StyleBox" uid="uid://b2f2srxuy5nq2" path="res://Interface/DungeonInterface/HazardBackgroundPartialActive.tres" id="14_84k4e"]
+[ext_resource type="StyleBox" uid="uid://dvqkekbqajiml" path="res://Interface/DungeonInterface/HazardBorderPartialActive.tres" id="15_srcpg"]
+[ext_resource type="Theme" uid="uid://dsehsh1y3fg78" path="res://Interface/DungeonInterface/HazardIconTheme.tres" id="16_swfkv"]
+[ext_resource type="StyleBox" uid="uid://c8bye0l3cpu23" path="res://Interface/DungeonInterface/HazardBackgroundActive.tres" id="17_uaxg8"]
+[ext_resource type="Texture2D" uid="uid://dju0nml2e70p6" path="res://Graphics/Icons/White/tripwire.png" id="18_ju5eg"]
+[ext_resource type="Texture2D" uid="uid://i2lcgovyiwix" path="res://Graphics/Icons/White/medal.png" id="19_gr2ou"]
 
 [node name="DungeonInterface" type="MarginContainer"]
 anchors_preset = 15
@@ -46,7 +57,6 @@ layout_mode = 2
 text = "Scary Dungeon"
 horizontal_alignment = 1
 script = ExtResource("5_6wovn")
-__test_value = "Scary Dungeon"
 __linked_class = &"Dungeon"
 __linked_property = &"dungeon_name"
 
@@ -67,7 +77,6 @@ layout_mode = 2
 theme_type_variation = &"FieldBig"
 text = "1-3"
 script = ExtResource("5_6wovn")
-__test_value = "1-3"
 __linked_class = &"Dungeon"
 __linked_property = &"level_range"
 
@@ -106,7 +115,6 @@ layout_mode = 2
 theme_type_variation = &"FieldBig"
 text = "3"
 script = ExtResource("5_6wovn")
-__test_value = "3"
 __linked_class = &"Dungeon"
 __linked_property = &"quest_time"
 
@@ -176,7 +184,6 @@ expand_mode = 1
 layout_mode = 2
 text = "3"
 script = ExtResource("5_6wovn")
-__test_value = "3"
 __linked_class = &"Dungeon"
 __linked_property = &"quest_time"
 
@@ -194,3 +201,341 @@ layout_mode = 2
 [node name="DungeonStatusWindow" parent="HBoxContainer/VBoxContainer" instance=ExtResource("8_n3pxv")]
 visible = false
 layout_mode = 2
+
+[node name="Tutorial" type="Control" parent="."]
+layout_mode = 2
+
+[node name="IdleUnits" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 85.0
+offset_top = 206.0
+offset_right = 481.0
+offset_bottom = 351.0
+theme = ExtResource("9_auf5m")
+
+[node name="ArrowLeft" type="Sprite2D" parent="Tutorial/IdleUnits"]
+position = Vector2(344, 98)
+rotation = -1.57079
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("10_gr2ou")
+
+[node name="Label" type="Label" parent="Tutorial/IdleUnits"]
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Click on units to add to 
+dungeon quest party"
+
+[node name="HazardTooltips" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 995.0
+offset_top = 261.0
+offset_right = 1330.0
+offset_bottom = 618.0
+theme = ExtResource("9_auf5m")
+
+[node name="ArrowLeft" type="Sprite2D" parent="Tutorial/HazardTooltips"]
+position = Vector2(41, 56)
+rotation = 1.57079
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("10_gr2ou")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/HazardTooltips"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Tutorial/HazardTooltips/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Hover over hazard to see
+how to counter its effects"
+horizontal_alignment = 2
+
+[node name="GridContainer" type="GridContainer" parent="Tutorial/HazardTooltips/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="MitigateParty" type="HFlowContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="IconBackground" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/MitigateParty"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("11_myuja")
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/MitigateParty/IconBackground"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("12_wte5t")
+expand_mode = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/MitigateParty/IconBackground/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("13_t7c34")
+
+[node name="Label" type="Label" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Effect Ignored for Party"
+
+[node name="MitigateSingle" type="HFlowContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="IconBackground" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/MitigateSingle"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("11_myuja")
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/MitigateSingle/IconBackground"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("5_7w4en")
+expand_mode = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/MitigateSingle/IconBackground"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("13_t7c34")
+
+[node name="Label2" type="Label" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+theme_override_constants/line_spacing = 0
+text = "Effect Ignored for
+single Adventurer"
+
+[node name="PartialMitigateParty" type="HFlowContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="IconBackground" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/PartialMitigateParty"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("14_84k4e")
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/PartialMitigateParty/IconBackground"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("12_wte5t")
+expand_mode = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/PartialMitigateParty/IconBackground"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("15_srcpg")
+
+[node name="Label3" type="Label" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Effect Reduced for Party"
+
+[node name="PartialMitigateSingle" type="HFlowContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="IconBackground" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/PartialMitigateSingle"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("14_84k4e")
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/PartialMitigateSingle/IconBackground"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("5_7w4en")
+expand_mode = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer/PartialMitigateSingle/IconBackground"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("15_srcpg")
+
+[node name="Label4" type="Label" parent="Tutorial/HazardTooltips/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+theme_override_constants/line_spacing = 0
+text = "Effect Reduced for
+single Adventurer"
+
+[node name="Hazards" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 562.0
+offset_top = 106.0
+offset_right = 939.0
+offset_bottom = 537.0
+theme = ExtResource("9_auf5m")
+
+[node name="ArrowLeft" type="Sprite2D" parent="Tutorial/Hazards"]
+position = Vector2(339, 71)
+rotation = -3.14159
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("10_gr2ou")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/Hazards"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Tutorial/Hazards/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Hazards have negative effects
+on your quest. Counter them
+by adding units with the right
+traits, classes, or stats."
+
+[node name="HBoxContainer" type="GridContainer" parent="Tutorial/Hazards/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="IconBackground" type="PanelContainer" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("16_swfkv")
+theme_type_variation = &"Background"
+theme_override_styles/panel = ExtResource("17_uaxg8")
+
+[node name="IconTexture" type="TextureRect" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer/IconBackground"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("18_ju5eg")
+expand_mode = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer/IconBackground"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("16_swfkv")
+theme_type_variation = &"Border"
+
+[node name="Label" type="Label" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Hazard Active (full effect)"
+
+[node name="IconBackground2" type="PanelContainer" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("16_swfkv")
+theme_type_variation = &"Background"
+theme_override_styles/panel = ExtResource("14_84k4e")
+
+[node name="IconTexture" type="TextureRect" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer/IconBackground2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("18_ju5eg")
+expand_mode = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer/IconBackground2"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("16_swfkv")
+theme_type_variation = &"Border"
+theme_override_styles/panel = ExtResource("15_srcpg")
+
+[node name="Label2" type="Label" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Partially Countered (effect
+reduced for some or all, or
+effect ignored by some)"
+
+[node name="IconBackground3" type="PanelContainer" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("16_swfkv")
+theme_type_variation = &"Background"
+theme_override_styles/panel = ExtResource("11_myuja")
+
+[node name="IconTexture" type="TextureRect" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer/IconBackground3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("18_ju5eg")
+expand_mode = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer/IconBackground3"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("16_swfkv")
+theme_type_variation = &"Border"
+theme_override_styles/panel = ExtResource("13_t7c34")
+
+[node name="Label3" type="Label" parent="Tutorial/Hazards/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Fully Countered (no effect)"
+
+[node name="StartQuest" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 1380.0
+offset_top = 429.0
+offset_right = 1888.0
+offset_bottom = 529.0
+theme = ExtResource("9_auf5m")
+
+[node name="ArrowLeft" type="Sprite2D" parent="Tutorial/StartQuest"]
+position = Vector2(454, 41)
+rotation = -4.71238
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("10_gr2ou")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/StartQuest"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Tutorial/StartQuest/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Start quest with selected party. "
+
+[node name="MoraleTut" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 1308.0
+offset_top = 670.0
+offset_right = 1900.0
+offset_bottom = 977.0
+theme = ExtResource("9_auf5m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/MoraleTut"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Tutorial/MoraleTut/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Party Morale:"
+
+[node name="Label2" type="Label" parent="Tutorial/MoraleTut/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Your party's Morale is equal to members'
+combined Bravery        stats. Morale is lost
+each day, when a party member dies,
+and from certain hazards. At zero morale,
+party flees and you get no rewards."
+
+[node name="Medal" type="Sprite2D" parent="Tutorial/MoraleTut/VBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(256, 111)
+scale = Vector2(0.335937, 0.335937)
+texture = ExtResource("19_gr2ou")
+
+[node name="TutToggle" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 743.0
+offset_top = 810.0
+offset_right = 1139.0
+offset_bottom = 977.0
+theme = ExtResource("9_auf5m")
+
+[node name="Label" type="Label" parent="Tutorial/TutToggle"]
+layout_mode = 2
+text = "Toggle this tutorial
+on/off with (T)"

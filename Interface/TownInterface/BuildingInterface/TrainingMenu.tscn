@@ -8,18 +8,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
 script = ExtResource("1_7lq45")
-__linked_class = &""
+menu_title = "Add Trait"
+__linked_class = &"Array"
+__linked_property = &""
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="TitleBar" type="PanelContainer" parent="VBoxContainer"]
-visible = false
+[node name="TitleContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"TitleBar"
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer/TitleBar"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer/TitleContainer"]
 layout_mode = 2
+text = "Add Trait"
+horizontal_alignment = 1
 
-[node name="MenuItems" type="VBoxContainer" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MenuItems" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

@@ -43,6 +43,7 @@ func _on_input_state_changed(state: int):
 	else:
 		add_theme_stylebox_override(normal, get_theme_stylebox(normal, theme_type_variation))
 
+# TODO: Stop menu items changing input_state when their interface isn't the top in InterfaceManager
 func _on_mouse_entered():
 	input_state |= HOVERED
 		
@@ -55,14 +56,14 @@ func _on_focus_entered():
 func _on_focus_exited():
 	input_state &= ~FOCUSED
 	
-func link_object(obj: Variant, node: Node = self, recursive = false):
-	super(obj, node, recursive)
-	if not is_inside_tree(): await ready
-	for button in buttons:
-		action_buttons.add_child(button)
+#func link_object(obj: Variant, node: Node = self, recursive = false):
+	#super(obj, node, recursive)
+	#if not is_inside_tree(): await ready
+	#for button in buttons:
+		#action_buttons.add_child(button)
 		#add_action_button(button.text, button.action.bind(obj))
 
-func create_action_button(text: String, action: Callable, active_if: Callable = func(): return true):
+func create_action_button(text: String, action: Callable, active_if: Callable = func(x): return true):
 	#registered_buttons.append({
 		#"text": text,
 		#"action": action.bind(linked_object),
@@ -70,6 +71,7 @@ func create_action_button(text: String, action: Callable, active_if: Callable = 
 	#})
 	if not is_inside_tree(): await ready
 	var button = Button.new()
+	button.size_flags_horizontal = Control.SIZE_SHRINK_END
 	button.text = text
 	button.pressed.connect(action.bind(linked_object))
 	action_buttons.add_child(button)

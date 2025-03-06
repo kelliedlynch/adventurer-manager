@@ -23,7 +23,7 @@ func _ready() -> void:
 		for child in action_buttons.get_children():
 			child.queue_free()
 		for i in 3:
-			create_action_button("Button " + str(i + 1), func(): pass)
+			create_action_button("Button " + str(i + 1), func(x): pass)
 	stat_hp_container.tooltip_text = Stats.stat_hp.abbreviation + ": " + Stats.stat_hp.description
 	super()
 	
