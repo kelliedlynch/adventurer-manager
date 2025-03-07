@@ -69,6 +69,14 @@ func update_from_linked_object():
 	party_unit_count.text = "%d/%d" % [linked_object.staged.size(), linked_object.max_party_size]
 	status_window.visible = linked_object.questing
 	staged_units_list.visible = !linked_object.questing
+	# TODO: Make this event-based instead of redrawing hazard icons every frame
+	#for child in hazard_icons.get_children():
+		#child.queue_free()
+	#for hazard in linked_object.hazards:
+		#var icon = DungeonHazardIcon.instantiate(hazard, linked_object)
+		#hazard_icons.add_child(icon)
+		#icon.mouse_entered.connect(_on_hazard_icon_hovered.bind(hazard))
+		#icon.mouse_exited.connect(_on_hazard_icon_exited.bind(hazard))
 
 func _find_fields_for_property(prop_name: String, node: Node):
 	var fields: Array[Control] = []
@@ -157,14 +165,14 @@ func link_object(obj: Variant, node: Node = self, _recursive = false):
 		staged_units_list.link_object(obj.staged)
 		#idle_units_list.link_object(idle_units)
 		_refresh_idle_unit_list()
-		
+		var reward_range = linked_object.estimate_reward()
+		reward_amount.text = "%d - %d" % [reward_range[0], reward_range[-1]]
 		for hazard in obj.hazards:
 			var icon = DungeonHazardIcon.instantiate(hazard, obj)
 			hazard_icons.add_child(icon)
 			icon.mouse_entered.connect(_on_hazard_icon_hovered.bind(hazard))
 			icon.mouse_exited.connect(_on_hazard_icon_exited.bind(hazard))
 		status_window.link_object(obj)
-	
 
 static func instantiate(dun: Dungeon) -> DungeonInterface:
 	var interface = load("res://Interface/DungeonInterface/DungeonInterface.tscn").instantiate()

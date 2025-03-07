@@ -11,10 +11,14 @@ var inventory: ObservableArray = ObservableArray.new([], Equipment)
 	#Game.game_begin.connect(_on_game_begin, CONNECT_ONE_SHOT)
 
 func initialize_player() -> void:
-	for i in 10:
+	add_adventurer_to_roster(Warrior.new())
+	add_adventurer_to_roster(Rogue.new())
+	add_adventurer_to_roster(Mage.new())
+	add_adventurer_to_roster(Healer.new())
+	for i in 4:
 		var adv = AdventurerFactory.generate_random_newbie()
 		add_adventurer_to_roster(adv)
-	for i in 5:
+	for i in 8:
 		var item: Equipment = Equipment.generate_random_equipment()
 		inventory.append(item)
 

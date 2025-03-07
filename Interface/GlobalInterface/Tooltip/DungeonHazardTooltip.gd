@@ -6,6 +6,8 @@ class_name DungeonHazardTooltip
 @onready var mitigate_single: HFlowContainer = find_child("MitigateSingle")
 @onready var partial_mitigate_party: HFlowContainer = find_child("PartialMitigateParty")
 @onready var partial_mitigate_single: HFlowContainer = find_child("PartialMitigateSingle")
+@onready var hazard_name: Label = find_child("HazardName")
+@onready var hazard_description: Label = find_child("HazardDescription")
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
@@ -48,9 +50,14 @@ func _build_mitigation_list():
 	_adjust_for_child_quantity(partial_mitigate_single)
 
 func link_object(obj: Variant, node: Node = self, recursive = false):
-	if node == self and obj is Hazard:
+	#super(obj, node, recursive)
+	if obj is Hazard:
+		linked_object = obj
 		_build_mitigation_list()
-	super(obj, node, true if obj is Hazard else recursive)
+		if not is_inside_tree(): await ready
+		hazard_name.text = obj.hazard_name
+		hazard_description.text = obj.hazard_description
+	
 
 func _adjust_for_child_quantity(container: Container):
 	var children = container.get_child_count()

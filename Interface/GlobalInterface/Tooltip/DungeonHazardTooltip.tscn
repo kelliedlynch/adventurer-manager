@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://u8d06c0u6rh8"]
+[gd_scene load_steps=9 format=3 uid="uid://u8d06c0u6rh8"]
 
 [ext_resource type="PackedScene" uid="uid://cqx5kbs5aacqp" path="res://Interface/GlobalInterface/Tooltip/Tooltip.tscn" id="1_we5v6"]
-[ext_resource type="Script" uid="uid://bn22qne7p8gp8" path="res://Interface/GlobalInterface/Field/ReactiveTextField.gd" id="2_7r4q7"]
 [ext_resource type="Script" uid="uid://ca4wjqiedg455" path="res://Interface/GlobalInterface/Tooltip/DungeonHazardTooltip.gd" id="2_eep71"]
 [ext_resource type="Texture2D" uid="uid://du5vw50v52jim" path="res://Graphics/Icons/White/person_double.png" id="4_7b6rs"]
 [ext_resource type="StyleBox" uid="uid://cte1qruhpij26" path="res://Interface/DungeonInterface/HazardBorderInactive.tres" id="4_fr2uo"]
@@ -29,9 +28,6 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_type_variation = &"TitleBig"
 text = "Hazard"
-script = ExtResource("2_7r4q7")
-__linked_class = &"Hazard"
-__linked_property = &"hazard_name"
 
 [node name="MarginContainer" type="MarginContainer" parent="Tooltip#VBoxContainer" index="1"]
 layout_mode = 2
@@ -47,9 +43,6 @@ layout_mode = 2
 theme_type_variation = &"FieldBig"
 text = "Makes stuff more dangerous. Here's some more text for tooltip size testing purposes."
 autowrap_mode = 3
-script = ExtResource("2_7r4q7")
-__linked_class = &"Hazard"
-__linked_property = &"hazard_description"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Tooltip#VBoxContainer" index="2"]
 layout_mode = 2
@@ -57,7 +50,6 @@ size_flags_vertical = 4
 theme_override_constants/separation = 12
 
 [node name="MitigateParty" type="HFlowContainer" parent="Tooltip#VBoxContainer/VBoxContainer" index="0"]
-visible = false
 layout_mode = 2
 
 [node name="IconBackground" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateParty" index="0"]
@@ -80,7 +72,6 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("4_fr2uo")
 
 [node name="MitigateSingle" type="HFlowContainer" parent="Tooltip#VBoxContainer/VBoxContainer" index="1"]
-visible = false
 layout_mode = 2
 
 [node name="IconBackground" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/MitigateSingle" index="0"]
@@ -98,7 +89,6 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("4_fr2uo")
 
 [node name="PartialMitigateParty" type="HFlowContainer" parent="Tooltip#VBoxContainer/VBoxContainer" index="2"]
-visible = false
 layout_mode = 2
 
 [node name="IconBackground" type="PanelContainer" parent="Tooltip#VBoxContainer/VBoxContainer/PartialMitigateParty" index="0"]

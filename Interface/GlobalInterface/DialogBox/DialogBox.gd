@@ -24,7 +24,7 @@ func add_cancel_button(text: String = "Cancel"):
 	add_action_button(text, close_dialog)
 
 func close_dialog():
-	queue_free()
+	InterfaceManager.close_interface(self)
 
 func _gui_input(event: InputEvent) -> void:
 	if InterfaceManager.interface_stack[-1] == self:

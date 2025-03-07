@@ -11,6 +11,10 @@ extends Control
 @onready var activity_log: ActivityLogInterface = find_child("ActivityLog")
 @onready var debug_advance_tick: Button = find_child("DebugAdvanceTick")
 
+var show_main_tut = true
+var show_dungeon_tut = true
+var show_roster_tut = true
+
 func _ready() -> void:
 	InterfaceManager.main_control_node = $VBoxContainer/Main
 	roster_button.pressed.connect(_on_roster_button_pressed)
@@ -35,6 +39,12 @@ func _on_roster_button_pressed():
 		var roster = RosterInterface.instantiate()
 		roster.tree_exited.connect(roster_button.set_pressed_no_signal.bind(false))
 		InterfaceManager.display_interface(roster, true)
+		var tut = roster.find_child("Tutorial")
+		tut.visible = show_roster_tut
+		tut.tut_toggled.connect(_on_tut_toggled.bind(tut, "show_roster_tut"))
+		
+func _on_tut_toggled(tut: Control, prop: StringName):
+	set(prop, tut.visible)
 		
 func _on_inventory_button_pressed():
 	var nodes = main_control.get_children()
@@ -48,23 +58,29 @@ func _on_inventory_button_pressed():
 
 func _on_b_dungeon_button_pressed():
 	var nodes = main_control.get_children()
-	var index = nodes.find_custom(func (x): return x is DungeonInterface)
+	var index = nodes.find_custom(func (x): return x is DungeonInterface and x.linked_object == Game.beginner_dungeon)
 	if index != -1:
 		InterfaceManager.close_interface(nodes[index])
 	else:
 		var dungeon = DungeonInterface.instantiate(Game.beginner_dungeon)
 		dungeon.tree_exited.connect(beginner_dungeon_button.set_pressed_no_signal.bind(false))
 		InterfaceManager.display_interface(dungeon, true)
+		var tut = dungeon.find_child("Tutorial")
+		tut.visible = show_dungeon_tut
+		tut.tut_toggled.connect(_on_tut_toggled.bind(tut, "show_dungeon_tut"))
 		
 func _on_m_dungeon_button_pressed():
 	var nodes = main_control.get_children()
-	var index = nodes.find_custom(func (x): return x is DungeonInterface)
+	var index = nodes.find_custom(func (x): return x is DungeonInterface and x.linked_object == Game.medium_dungeon)
 	if index != -1:
 		InterfaceManager.close_interface(nodes[index])
 	else:
 		var dungeon = DungeonInterface.instantiate(Game.medium_dungeon)
 		dungeon.tree_exited.connect(medium_dungeon_button.set_pressed_no_signal.bind(false))
 		InterfaceManager.display_interface(dungeon, true)
+		var tut = dungeon.find_child("Tutorial")
+		tut.visible = show_dungeon_tut
+		tut.tut_toggled.connect(_on_tut_toggled.bind(tut, "show_dungeon_tut"))
 
 func _on_town_button_pressed():
 	var nodes = main_control.get_children()

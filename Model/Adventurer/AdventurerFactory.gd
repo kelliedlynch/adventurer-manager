@@ -6,11 +6,10 @@ class_name AdventurerFactory
 static func generate_random_newbie() -> Adventurer:
 	var primary_classes = [Warrior, Mage, Rogue, Healer]
 	var noob = primary_classes.pick_random().new()
-	noob.traits.append(Trait.TraitList.pick_random())
-	noob.portrait = get_random_portrait()
-	if randi() % 2 == 0:
-		var equipment = Equipment.generate_random_equipment()
-		noob.equip(equipment)
+	#noob.portrait = get_random_portrait()
+	#if randi() % 2 == 0:
+		#var equipment = Equipment.generate_random_equipment()
+		#noob.equip(equipment)
 	return noob
 
 static func get_random_portrait():

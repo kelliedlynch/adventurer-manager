@@ -32,7 +32,6 @@ layout_mode = 2
 text = "Tavern"
 horizontal_alignment = 1
 script = ExtResource("3_llgr7")
-__test_value = "Tavern"
 __linked_class = &"Tavern"
 __linked_property = &"building_name"
 
@@ -48,5 +47,4 @@ size_flags_horizontal = 3
 [node name="ForHireMenu" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_llgr7")]
 layout_mode = 2
 size_flags_stretch_ratio = 1.5
-__menu_item_type = 1
 menu_title = "Adventurers For Hire"

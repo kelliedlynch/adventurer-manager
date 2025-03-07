@@ -14,6 +14,7 @@ var max_enemies_per_encounter: int = 4
 #TODO: this is a placeholder for reward estimation. Remove when reward estimation is dynamic based on
 #		dungeon contents
 var per_enemy: int = 3
+var base_reward: int = 12
 
 var hazards: Array[Hazard] = []
 
@@ -24,14 +25,15 @@ var _quest_time: int = 3
 var quest_time: int:
 	get:
 		var add = 0
-		# TODO: This is a special case for one Hazard. If I need more of these, I should have a better solution.
-		if hazards.has(Hazard.RoughTerrain):
-			var mit = Hazard.RoughTerrain.get_mitigated_state(self)
-			match mit:
-				Hazard.MitigatedState.ACTIVE:
-					add = Hazard.RoughTerrain.time_penalty
-				Hazard.MitigatedState.PARTIAL:
-					add = Hazard.RoughTerrain.mitigated_penalty
+		# TODO: This is a special case for two Hazards. If I need more of these, I should have a better solution.
+		for haz in hazards:
+			if haz is HazardRoughTerrain or haz is HazardPuzzles:
+				var mit = haz.get_mitigated_state(self)
+				match mit:
+					Hazard.MitigatedState.ACTIVE:
+						add = haz.time_penalty
+					Hazard.MitigatedState.PARTIAL:
+						add = haz.mitigated_penalty
 		return _quest_time + add
 	set(value):
 		_quest_time = value
@@ -56,7 +58,8 @@ func _init() -> void:
 
 func generate_dungeon():
 	#var boosts = range(dungeon_tier + 1, dungeon_tier + 3).pick_random()
-	var boosts = dungeon_tier + 2
+	var boosts = dungeon_tier + 1
+	hazards.clear()
 	var available_hazards = Hazard.all_hazards.filter(func(x): return not hazards.has(x))
 	for i in boosts:
 		available_hazards.shuffle()
@@ -90,7 +93,7 @@ func begin_quest():
 			adv.died.connect(_on_party_member_died.bind(adv))
 		questing = true
 		remaining_quest_time = quest_time
-		party_morale = party.reduce(func(accum, val): return accum + val.stat_brv, 0)
+		party_morale = floor(party.reduce(func(accum, val): return accum + val.stat_brv + (val.stat_cha / 2), 0))
 		_generate_encounters()
 		_call_hooks(hooks.begin_quest)
 		
@@ -98,8 +101,8 @@ func _on_party_member_died(unit: Adventurer):
 	party_morale -= unit.stat_cha
 		
 func estimate_reward() -> Array:
-	var min_reward = _min_level * per_enemy * quest_time
-	var max_reward = _max_level * per_enemy * quest_time
+	var min_reward = base_reward + _min_level * per_enemy * quest_time
+	var max_reward = base_reward + _max_level * per_enemy * quest_time
 	return range(min_reward, max_reward + 1)
 
 func _on_advance_tick():
@@ -147,13 +150,9 @@ func _call_hooks(hook: String):
 	for unit in party:
 		if unit.has_method(hook):
 			unit.call(hook, self)
-		if alive_party.is_empty():
-			return
 	for haz in hazards:
 		if haz.has_method(hook):
 			haz.call(hook, self)
-		if alive_party.is_empty():
-			return
 
 func complete_quest(success: bool):
 	var log_msg = ActivityLogMessage.new()
@@ -165,7 +164,9 @@ func complete_quest(success: bool):
 		#log_msg.text = "All adventurers fell in %s. No rewards received." % dungeon_name
 		Game.activity_log.push_message(log_msg, true)
 	if success:
-		var loot = Equipment.generate_random_equipment()
+		# TODO: Actually make a system for generating dungeon-appropriate loot
+		var rarity = Equipment.Rarity.UNCOMMON if dungeon_tier <= 2 else Equipment.Rarity.RARE
+		var loot = Equipment.generate_random_equipment(rarity)
 		loot.item_name = "Awesome Dungeon Loot"
 		Game.player.inventory.append(loot)
 		Game.activity_log.push_message(ActivityLogMessage.new("Received loot: %s" % loot.item_name))
@@ -175,8 +176,11 @@ func complete_quest(success: bool):
 			if floor(adv.base_stats.stat_brv) > before:
 				var msg = "%s grew braver after a successful quest in %s." % [adv.unit_name, dungeon_name]
 				Game.activity_log.push_message(ActivityLogMessage.new(msg), true)
+		call_deferred("generate_dungeon")
 	_call_hooks(hooks.end_quest)
 	for adv in party:
+		if not adv.status & Adventurer.STATUS_DEAD:
+			adv.heal_damage()
 		adv.status &= ~Adventurer.STATUS_IN_DUNGEON
 		adv.died.disconnect(_on_party_member_died)
 	party.clear()

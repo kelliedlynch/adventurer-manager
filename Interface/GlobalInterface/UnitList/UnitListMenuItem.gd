@@ -32,7 +32,7 @@ func link_object(obj: Variant, node: Node = self, _recursive = false):
 	if obj and obj is Adventurer and linked_object == obj:
 		if not is_inside_tree():
 			await ready
-		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED
+		weapon_slot.filter = func(x): return x is Weapon and x.status & Equipment.ITEM_NOT_EQUIPPED and x.damage_type == obj.damage_type
 		armor_slot.filter = func(x): return x is Armor and x.status & Equipment.ITEM_NOT_EQUIPPED
 
 		if not Engine.is_editor_hint() and not Game.player.roster.has(obj):
@@ -89,8 +89,6 @@ func _on_equipment_selected(menu_item: EquipmentMenuItem, _val, slot: EquipmentS
 	elif menu_item.linked_object is Armor:
 		linked_object.equip(menu_item.linked_object)
 		armor_slot.link_object(menu_item.linked_object)
-	
-
 	
 enum LayoutVariation {
 	WIDE,

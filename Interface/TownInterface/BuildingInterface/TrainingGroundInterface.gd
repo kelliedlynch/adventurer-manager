@@ -49,7 +49,7 @@ func link_object(obj: Variant, node: Node = self, recursive = false):
 
 func _on_train_button_pressed(training: Trait):
 	var dialog = DialogBox.instantiate()
-	dialog.message = "Give %s the trait %s for %d money?" % [selected_unit.unit_name, training, selected_unit.hire_cost]
+	dialog.message = "Give %s the trait %s for %d money?" % [selected_unit.unit_name, training, linked_object.training_cost]
 	dialog.add_action_button("Yes", _confirm_train.bind(selected_unit, training))
 	dialog.add_cancel_button("No")
 	InterfaceManager.display_interface(dialog)

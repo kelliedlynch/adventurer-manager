@@ -21,9 +21,9 @@ layout_mode = 2
 
 [node name="BuildingName" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+text = "Building Name"
 horizontal_alignment = 1
 script = ExtResource("3_7v8kj")
-__test_value = ""
 __linked_class = &"Building"
 __linked_property = &"building_name"
 
@@ -34,9 +34,10 @@ theme_type_variation = &"BuildingDescription"
 [node name="BuildingDescription" type="Label" parent="VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(320, 80)
 layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Description of what you can do at this building"
 autowrap_mode = 3
 script = ExtResource("3_7v8kj")
-__test_value = ""
 __linked_class = &"Building"
 __linked_property = &"building_description"
 

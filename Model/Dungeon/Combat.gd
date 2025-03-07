@@ -19,9 +19,6 @@ var participants: Array[CombatUnit]:
 var reward_xp: int = 0
 var reward_money: int = 0
 
-
-
-
 signal combat_ended
 
 func add_unit(unit: CombatUnit):
@@ -29,8 +26,8 @@ func add_unit(unit: CombatUnit):
 		party.append(unit)
 	elif unit is Enemy:
 		enemies.append(unit)
-		reward_xp += unit.reward_xp
-		reward_money += unit.reward_money
+		reward_xp += unit.reward_xp * unit.level
+		reward_money += unit.reward_money * unit.level
 
 func remove_unit(unit: CombatUnit):
 	#combat_ended.connect(unit.set.bind("combat", null), CONNECT_ONE_SHOT)

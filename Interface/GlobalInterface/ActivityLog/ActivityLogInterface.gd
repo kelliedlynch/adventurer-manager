@@ -56,5 +56,5 @@ func toggle_window():
 		call_deferred("_scroll_to_bottom")
 		
 func _process(_delta: float) -> void:
-	if not Engine.is_editor_hint() and Input.is_action_just_pressed("ui_open_log"):
+	if not Engine.is_editor_hint() and Input.is_action_just_pressed("ui_toggle_log"):
 		toggle_window()

@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbwqnm3tjoajf"]
+[gd_scene load_steps=12 format=3 uid="uid://dbwqnm3tjoajf"]
 
 [ext_resource type="Script" uid="uid://bmole24vnb60i" path="res://Interface/PlayerMenuInterface/RosterInterface.gd" id="1_k460v"]
 [ext_resource type="PackedScene" uid="uid://dhnu4lwb5olyj" path="res://Interface/GlobalInterface/UnitList/UnitListMenu.tscn" id="2_k460v"]
+[ext_resource type="Script" uid="uid://c54pecoqrjcsn" path="res://Interface/DungeonInterface/ToggleTutorial.gd" id="3_amgqs"]
+[ext_resource type="Theme" uid="uid://b7r8lfk0nrmjk" path="res://Interface/GlobalInterface/DialogBox/DialogBoxTheme.tres" id="4_dbmnf"]
+[ext_resource type="Texture2D" uid="uid://ooa56ce3v06g" path="res://Graphics/Icons/Black/arrowLeft.png" id="5_tdtg0"]
+[ext_resource type="Texture2D" uid="uid://dgt1ts2du3wnm" path="res://Graphics/Icons/White/heart.png" id="6_4x74l"]
+[ext_resource type="Texture2D" uid="uid://cw7pp4uidrpwy" path="res://Graphics/Icons/White/magic_staff.png" id="8_s1do4"]
+[ext_resource type="Texture2D" uid="uid://cc4ylrhrab4ap" path="res://Graphics/Icons/White/basic_shield.png" id="9_amgqs"]
+[ext_resource type="Texture2D" uid="uid://f53k2ah6ln5c" path="res://Graphics/Icons/White/crown.png" id="10_dbmnf"]
+[ext_resource type="Texture2D" uid="uid://cm1n1bcjoiigk" path="res://Graphics/Icons/SVG/medal.svg" id="11_tdtg0"]
+[ext_resource type="Texture2D" uid="uid://bic2ej0a2kpqq" path="res://Graphics/Icons/White/basic_sword.png" id="12_qhbru"]
 
 [node name="Roster" type="MarginContainer"]
 anchors_preset = 15
@@ -15,3 +24,277 @@ __linked_property = &""
 
 [node name="UnitListMenu" parent="." instance=ExtResource("2_k460v")]
 layout_mode = 2
+
+[node name="Tutorial" type="Control" parent="."]
+layout_mode = 2
+script = ExtResource("3_amgqs")
+
+[node name="Traits" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 1108.0
+offset_top = 100.0
+offset_right = 1443.0
+offset_bottom = 299.0
+theme = ExtResource("4_dbmnf")
+
+[node name="ArrowLeft" type="Sprite2D" parent="Tutorial/Traits"]
+position = Vector2(293, 57)
+rotation = 3.14159
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("5_tdtg0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/Traits"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tutorial/Traits/VBoxContainer"]
+layout_mode = 2
+text = "Traits"
+
+[node name="Label2" type="Label" parent="Tutorial/Traits/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Reduce effects of
+dungeon hazards"
+
+[node name="Stats" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 445.0
+offset_top = 45.0
+offset_right = 848.0
+offset_bottom = 490.0
+theme = ExtResource("4_dbmnf")
+
+[node name="ArrowLeft" type="Sprite2D" parent="Tutorial/Stats"]
+position = Vector2(48, 57)
+rotation = -6.28318
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("5_tdtg0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/Stats"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Tutorial/Stats/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "Adventurer Stats"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="Tutorial/Stats/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_4x74l")
+expand_mode = 5
+
+[node name="Label4" type="Label" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Hit Points"
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_qhbru")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Physical Attack Power"
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8_s1do4")
+expand_mode = 5
+
+[node name="Label2" type="Label" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Magic Attack Power
+(ignores defense)"
+
+[node name="TextureRect4" type="TextureRect" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_amgqs")
+expand_mode = 5
+
+[node name="Label3" type="Label" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Defense 
+(blocks Physical Attack)"
+
+[node name="TextureRect5" type="TextureRect" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_dbmnf")
+expand_mode = 5
+
+[node name="Label5" type="Label" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Charisma (not yet implemented)
+(reduces morale loss in dungeon)"
+
+[node name="TextureRect6" type="TextureRect" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("11_tdtg0")
+expand_mode = 5
+
+[node name="Label6" type="Label" parent="Tutorial/Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Bravery 
+(affects morale in dungeon)"
+
+[node name="Equipment" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 1230.0
+offset_top = 366.0
+offset_right = 1621.0
+offset_bottom = 480.0
+theme = ExtResource("4_dbmnf")
+
+[node name="ArrowLeft2" type="Sprite2D" parent="Tutorial/Equipment"]
+position = Vector2(349, 61)
+rotation = -9.42476
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("5_tdtg0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/Equipment"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Tutorial/Equipment/VBoxContainer"]
+layout_mode = 2
+text = "Equipped Items"
+
+[node name="Class" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 1019.0
+offset_top = 509.0
+offset_right = 1611.0
+offset_bottom = 981.0
+theme = ExtResource("4_dbmnf")
+
+[node name="ArrowLeft2" type="Sprite2D" parent="Tutorial/Class"]
+position = Vector2(542, 342.333)
+rotation = -3.14159
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("5_tdtg0")
+
+[node name="ArrowLeft" type="Sprite2D" parent="Tutorial/Class"]
+position = Vector2(542, 74.3335)
+rotation = -3.14159
+scale = Vector2(0.746666, 0.746666)
+texture = ExtResource("5_tdtg0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/Class"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label3" type="Label" parent="Tutorial/Class/VBoxContainer"]
+layout_mode = 2
+text = "Adventurer Class"
+
+[node name="Label" type="Label" parent="Tutorial/Class/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Affects stats and grants unique ability."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/Class/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label4" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Warrior"
+
+[node name="Label2" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Chance to deal double damage in combat"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Tutorial/Class/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label4" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Rogue"
+
+[node name="Label2" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Chance to dodge physical attacks"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Tutorial/Class/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label4" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Mage"
+
+[node name="Label2" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Takes reduced magic damage"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Tutorial/Class/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label4" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_type_variation = &"FieldBig"
+text = "Healer"
+
+[node name="Label2" type="Label" parent="Tutorial/Class/VBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_type_variation = &"FieldMed"
+text = "Prevents first death each day in dungeon"
+
+[node name="TutToggle" type="PanelContainer" parent="Tutorial"]
+layout_mode = 2
+offset_left = 462.0
+offset_top = 714.0
+offset_right = 858.0
+offset_bottom = 881.0
+theme = ExtResource("4_dbmnf")
+
+[node name="Label" type="Label" parent="Tutorial/TutToggle"]
+layout_mode = 2
+text = "Toggle this tutorial
+on/off with (T)"

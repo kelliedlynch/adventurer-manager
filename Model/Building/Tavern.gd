@@ -7,7 +7,7 @@ signal adventurers_for_hire_changed
 
 func _init() -> void:
 	building_name = "Tavern"
-	building_description = "Hire adventurers, and nothing else yet."
+	building_description = "Hire new adventurers, and nothing else yet. Drink, maybe?"
 	interface = TavernInterface
 	if not Engine.is_editor_hint():
 		Game.game_tick_advanced.connect(_on_game_tick_advanced)

@@ -7,7 +7,7 @@ var buildings: ObservableArray = ObservableArray.new([], Building)
 
 func _init() -> void:
 	var tav = Tavern.new()
-	tav.building_name = "The Rusty Dragon"
+	tav.building_name = "Mysteriously Full Tavern"
 	buildings.append(tav)
 	var hosp = Hospital.new()
 	hosp.building_name = "Sawbones Express"

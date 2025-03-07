@@ -8,7 +8,7 @@ var portrait: Texture2D
 var hire_cost: int = 10
 
 var traits: Array[Trait] = []
-var max_traits: int = 5
+var max_traits: int = 3
 
 var _experience: int = 0
 var experience: int:
@@ -31,7 +31,11 @@ var armor: Armor
 
 func _init() -> void:
 	unit_name = NameGenerator.new_name()
+	traits.append(Trait.TraitList.pick_random())
+	portrait = AdventurerFactory.get_random_portrait()
 	status |= STATUS_IDLE
+	if randi() & 1:
+		base_stats.stat_cha += 1
 	super()
 
 func equip(item: Equipment):

@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 	
 func _get_property_list() -> Array:
 	var props = []
-	if not Engine.is_editor_hint(): return props
+	#if not Engine.is_editor_hint(): return props
 	props.append({
 		name = "__linked_class",
 		type = TYPE_STRING_NAME,
@@ -137,7 +137,3 @@ func _property_can_revert(property: StringName) -> bool:
 			#print(property)
 		return get(property.right(-2)) != _property_get_revert(property)
 	return false
-
-func _exit_tree() -> void:
-	if Engine.is_editor_hint():
-		clear_test_value()

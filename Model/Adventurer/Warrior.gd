@@ -1,6 +1,8 @@
 extends Adventurer
 class_name Warrior
 
+var double_damage_chance: float = .25
+
 func _init():
 	adventurer_class = "Warrior"
 	damage_type = CombatUnit.DamageType.PHYSICAL
@@ -19,3 +21,15 @@ func _init():
 		stat_brv = 0,
 	}
 	super()
+
+func combat_action(combat: Combat):
+	var enemies = combat.alive_enemies
+	if enemies.is_empty(): return
+	var party = combat.alive_party
+	if party.is_empty(): return
+	var target = enemies.pick_random()
+	var dmg = stat_atk
+	if randf() < double_damage_chance:
+		dmg *= 2
+	push_attack_msg(target, dmg)
+	target.take_damage(dmg, damage_type)

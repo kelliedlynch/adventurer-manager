@@ -6,8 +6,11 @@ class_name RosterInterface
 
 func _ready() -> void:
 	if get_tree().current_scene == self or get_tree().edited_scene_root == self:
+		var adventurers = ObservableArray.new()
+		adventurers.array_type = Adventurer
 		for i in 10:
-			unit_list.build_menu_item(AdventurerFactory.generate_random_newbie())
+			adventurers.append(AdventurerFactory.generate_random_newbie())
+		unit_list.link_object(adventurers)
 
 func link_object(obj: Variant, _node: Node = self, _recursive: bool = true):
 	if obj and obj is PlayerData:

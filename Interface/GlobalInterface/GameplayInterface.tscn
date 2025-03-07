@@ -26,6 +26,7 @@ texture = ExtResource("2_mpu5g")
 
 [node name="Tutorial" parent="." instance=ExtResource("8_jylv7")]
 layout_mode = 1
+script = null
 
 [node name="DebugControls" type="HBoxContainer" parent="."]
 top_level = true

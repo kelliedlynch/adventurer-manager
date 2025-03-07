@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://wysb1s3cfr2p"]
+[gd_scene load_steps=3 format=3 uid="uid://wysb1s3cfr2p"]
 
 [ext_resource type="Texture2D" uid="uid://1a71xsrthn4k" path="res://Graphics/Icons/White/arrowDown.png" id="1_spksg"]
+[ext_resource type="Script" uid="uid://c54pecoqrjcsn" path="res://Interface/DungeonInterface/ToggleTutorial.gd" id="1_thtte"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_thtte")
 
 [node name="TownTut" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -134,3 +136,16 @@ events"
 modulate = Color(0.145098, 0.145098, 0.176471, 1)
 position = Vector2(698, 199)
 texture = ExtResource("1_spksg")
+
+[node name="TutToggle" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 54.0
+offset_top = 60.0
+offset_right = 450.0
+offset_bottom = 227.0
+
+[node name="Label" type="Label" parent="TutToggle"]
+layout_mode = 2
+text = "Toggle this tutorial
+on/off with (T)"

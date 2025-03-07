@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cg6erugp8u2cn"]
+[gd_scene load_steps=21 format=3 uid="uid://cg6erugp8u2cn"]
 
 [ext_resource type="Script" uid="uid://bfxp2f1vguwg6" path="res://Interface/DungeonInterface/DungeonInterface.gd" id="1_nv7fk"]
 [ext_resource type="Texture2D" uid="uid://dkdgccxy2yk4v" path="res://Graphics/Backgrounds/dungeon_3.png" id="2_yjc0f"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ckh0tcgt27o8n" path="res://Graphics/Icons/White/hourglass.png" id="6_7w4en"]
 [ext_resource type="PackedScene" uid="uid://dmw33111ctcop" path="res://Interface/DungeonInterface/DungeonStatusWindow.tscn" id="8_n3pxv"]
 [ext_resource type="Theme" uid="uid://b7r8lfk0nrmjk" path="res://Interface/GlobalInterface/DialogBox/DialogBoxTheme.tres" id="9_auf5m"]
+[ext_resource type="Script" uid="uid://c54pecoqrjcsn" path="res://Interface/DungeonInterface/ToggleTutorial.gd" id="9_myuja"]
 [ext_resource type="Texture2D" uid="uid://ooa56ce3v06g" path="res://Graphics/Icons/Black/arrowLeft.png" id="10_gr2ou"]
 [ext_resource type="StyleBox" uid="uid://dflhowkij6jn6" path="res://Interface/DungeonInterface/HazardBackgroundInactive.tres" id="11_myuja"]
 [ext_resource type="Texture2D" uid="uid://du5vw50v52jim" path="res://Graphics/Icons/White/person_double.png" id="12_wte5t"]
@@ -204,13 +205,14 @@ layout_mode = 2
 
 [node name="Tutorial" type="Control" parent="."]
 layout_mode = 2
+script = ExtResource("9_myuja")
 
 [node name="IdleUnits" type="PanelContainer" parent="Tutorial"]
 layout_mode = 2
 offset_left = 85.0
-offset_top = 206.0
+offset_top = 278.0
 offset_right = 481.0
-offset_bottom = 351.0
+offset_bottom = 423.0
 theme = ExtResource("9_auf5m")
 
 [node name="ArrowLeft" type="Sprite2D" parent="Tutorial/IdleUnits"]

@@ -17,10 +17,10 @@ func _ready():
 		link_object(Hazard.new())
 		
 func link_object(obj: Variant, node: Node = self, _recursive = false):
-	super(obj, node, not obj is Dungeon)
 	if obj is Dungeon:
 		dungeon = obj
-	
+	else:
+		super(obj, node, obj is Hazard)
 	
 func _make_custom_tooltip(_a) -> Object:
 	var tt = load("res://Interface/GlobalInterface/Tooltip/DungeonHazardTooltip.tscn").instantiate()

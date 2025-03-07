@@ -98,7 +98,7 @@ func update_from_linked_object():
 	for child in values_container.get_children():
 		var vis = false
 		var label_name = child.name + "Value"
-		var children = child.get_children()
+		#var children = child.get_children()
 		var val_label = child.get_node(label_name)
 		if val_label:
 			#if not linked_object: 

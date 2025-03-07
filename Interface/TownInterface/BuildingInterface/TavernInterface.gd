@@ -21,7 +21,7 @@ func _on_hire_button_pressed(unit: Adventurer):
 	dialog.message = "Hire this adventurer for %d money?" % unit.hire_cost
 	dialog.add_action_button("Yes", _confirm_hire.bind(unit))
 	dialog.add_cancel_button("No")
-	add_child(dialog)
+	InterfaceManager.display_interface(dialog)
 	
 func _confirm_hire(unit: Adventurer):
 	linked_object.hire_adventurer(unit)

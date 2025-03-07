@@ -95,7 +95,7 @@ func _on_layout_changed(value: int) -> void:
 		new_container.name = "ValuesContainer"
 		add_child(new_container)
 		#await new_container.ready
-		if Engine.is_editor_hint() and get_tree().edited_scene_root == self:
+		if get_tree().edited_scene_root == self:
 			new_container.owner = self
 		
 	notify_property_list_changed()
